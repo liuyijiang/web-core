@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="subject" namespace="/" extends="struts-default">
+        
+       <action name="createSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkCreateSubjectMaterial">
+           <result name="success" type="redirect">showSubjectDetailView</result>
+       </action>  
+        
+       <action name="showCreateSubjectView" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkShowCreateSubjectView">
+           <result name="success" >/WEB-INF/jsp/subject/create_subject.jsp</result>
+       </action>
+       
+       <action name="subjectMessage" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkSubjectMessageView">
+           <result name="success" >/WEB-INF/jsp/subject/subject_message_index.jsp</result>
+       </action>
+       
+       <action name="subjectCommentsWav" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkSubjectCommentsWavView">
+           <result name="success" >/WEB-INF/jsp/subject/subject_comments_wav.jsp</result>
+       </action>
+       
+       <action name="subjectCommentsText" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkSubjectCommentsTextView">
+           <result name="success" >/WEB-INF/jsp/subject/subject_comments_text.jsp</result>
+       </action>
+       
+       <action name="showSubjectDetailView" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkShowSubjectDetailView">
+           <result name="PUBLIC" >/WEB-INF/jsp/subject/subject_detail.jsp</result>
+           <result name="FOR-ALL" >/WEB-INF/jsp/subject/subject_for_all_detail.jsp</result>
+           <result name="error" type="redirect">userIndex</result>
+       </action>
+       
+       <action name="createSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkCreateSubject">
+           <result name="success" type="redirect">userIndex</result>
+           <result name="error" type="redirect">showCreateSubjectView</result>
+       </action>
+        
+       <action name="cachSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkCachSubject">
+           <result name="success" type="redirect">showSubjectDetailView</result>
+           <result name="error" type="redirect">userIndex</result>
+       </action>
+       
+       
+       <action name="createSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkCreateSubject">
+           <result name="success" type="redirect">userIndex</result>
+           <result name="error" type="redirect">showSubjectDetailView</result>
+       </action>
+        
+        
+    </package>
+
+    <package name="subjectajax"  namespace="/" extends="json-default">
+    
+        <action name="setSubjectFaceImage" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkSetSubjectFaceImageAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="changeSubjectStatus" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkChangeSubjectStatusAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="deleteSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkDeleteSubjectAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="loadMoreSubjectParts" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkLoadMoreSubjectPartsAjax">
+		    <result type="json" name="success">  
+                <param name="root">partShowResponse</param>
+            </result> 
+		</action>
+    
+      <action name="createPdf" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkCreatePdfAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="rsssubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkRssSubjectAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="removeRssSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkRemoveRssSubjectAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="subjectMessageMore" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkSubjectMessageMoreAjax">
+		    <result type="json" name="success">  
+                <param name="root">subjectMessageShowRespone</param>
+            </result> 
+		</action>
+		
+    </package>
+
+   
+</struts>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+     <context:annotation-config />
+    <!-- 配置connectionFactory -->
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+        destroy-method="stop">
+        <property name="connectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL">
+                    <value>${activemq.host}</value>
+                </property>
+<!--                 <property name="userName" value="system" ></property>   -->
+<!--                 <property name="password" value="liuyij" ></property> -->
+<!--                 <property name="useAsyncSend" value="true"/>  -->
+            </bean>
+        </property>
+        <property name="maxConnections" value="100"></property>
+    </bean>
+   
+    <!-- Spring JMS Template -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory">
+            <ref local="jmsFactory" />
+        </property>
+    </bean>
+    
+    <!-- -->
+    <bean id="voicetransform" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg index="0" value="subject" />
+    </bean>
+    
+    <bean id="excelform" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg index="0" value="excel" />
+    </bean>
+    
+    <!-- 发送消息的目的地queue-->
+    <bean id="queuedestination" class="org.apache.activemq.command.ActiveMQQueue">
+       <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
+    </bean>
+    
+    <bean id="excelCreateConsumer" class="com.mxk.org.common.message.listener.MxkExcelCreateListener" />
+    
+    <bean id="vioceTransformConsumer" class="com.mxk.org.common.message.listener.MxkVioceTransformMessageListener" />
+    
+<!--     <bean id="myQueueMessageConsumer" class="com.spring.active.jms.listener.QueueMessageListener" /> -->
+    
+    <!-- topic -->
+    <bean id="jmsContainer"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="voicetransform" />
+        <property name="messageListener" ref="vioceTransformConsumer" />
+        <property name="sessionTransacted" value="true"/>
+    </bean>
+    
+    <bean id="excelContainer"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="excelform" />
+        <property name="messageListener" ref="excelCreateConsumer" />
+        <property name="sessionTransacted" value="true"/>
+    </bean>
+    
+    <!--queue -->
+<!--     <bean id="jmsContainerQueue" -->
+<!--         class="org.springframework.jms.listener.DefaultMessageListenerContainer"> -->
+<!--         <property name="connectionFactory" ref="jmsFactory" /> -->
+<!--         <property name="destination" ref="queuedestination" /> -->
+<!--         <property name="messageListener" ref="myQueueMessageConsumer" /> -->
+<!--         <property name="sessionTransacted" value="true"/> -->
+<!--     </bean> -->
+  
+  
+</beans>

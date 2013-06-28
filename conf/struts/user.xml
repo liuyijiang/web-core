@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="user" namespace="/" extends="struts-default">
+        
+         <action name="userSeeMessageDetail" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserSeeMessageDetail">
+            <result name="part" type="redirect">showPartDetailFromMessage?target=${target}</result>
+            <result name="subject" type="redirect"></result>
+            <result name="error"></result>
+        </action>
+        
+         <action name="updateUserView" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUpdateUserView">
+            <result name="success" >/WEB-INF/jsp/user/user_update_info.jsp</result>
+        </action>
+        
+        <action name="updateUserPassword" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUpdateUserPassword">
+            <result name="success" type="redirect">userIndex</result>
+            <result name="error">/WEB-INF/jsp/user/user_login.jsp</result>
+        </action>
+        
+        <action name="userOnMessage" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowUserOnMessageView">
+            <result name="success" >/WEB-INF/jsp/user/user_message.jsp</result>
+        </action>
+        
+        <action name="loginView" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowUserLoginView">
+            <result name="success" >/WEB-INF/jsp/user/user_login.jsp</result>
+        </action>
+        
+        <action name="loginIn" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserLoginIn">
+            <result name="success" type="redirect">userIndex</result>
+            <result name="error">/WEB-INF/jsp/user/user_login.jsp</result>
+        </action>
+        
+        <action name="userLoginOut" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserLoginOut">
+            <result name="success" type="redirect">index</result>
+        </action>
+        
+         <action name="registerView" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowUserRegisterView">
+            <result name="success" >/WEB-INF/jsp/user/user_register.jsp</result>
+        </action>
+        
+        <action name="userRegister" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserRegister">
+            
+            <param name="savePath">/saveImage</param>
+			<result name="success" type="redirect">userIndex</result>
+			<result name="input">/WEB-INF/jsp/user/user_register.jsp</result>
+			<result name="error">/WEB-INF/jsp/user/user_register.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2025956</param>
+			</interceptor-ref>
+			<!-- 默认拦截器必须放在fileUpload之后，否则无效 -->
+			<interceptor-ref name="defaultStack" />
+        </action>
+        
+         <action name="userUpdateInfo" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserUpdateInfo">
+            
+            <param name="savePath">/saveImage</param>
+			<result name="success" type="redirect">userIndex</result>
+			<result name="input">/WEB-INF/jsp/user/user_update_info.jsp</result>
+			<result name="error">/WEB-INF/jsp/user/user_update_info.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2025956</param>
+			</interceptor-ref>
+			<!-- 默认拦截器必须放在fileUpload之后，否则无效 -->
+			<interceptor-ref name="defaultStack" />
+        </action>
+        
+        
+        <action name="userIndex" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserIndexView">
+            <result name="success" >/WEB-INF/jsp/user/user_subject_index.jsp</result>
+            <result name="error">/WEB-INF/jsp/user/user_login.jsp</result>
+        </action>
+        
+        <action name="userCollectIndex" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkUserCollectIndexView">
+            <result name="success" >/WEB-INF/jsp/user/user_collect_parts_index.jsp</result>
+            <result name="error">/WEB-INF/jsp/user/user_login.jsp</result>
+        </action>
+        
+        <action name="userFoucsView" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowUserFoucsView">
+            <result name="success" >/WEB-INF/jsp/user/user_foucs.jsp</result>
+        </action>
+        
+         <action name="userFollowersView" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowUserFollowersView">
+            <result name="success" >/WEB-INF/jsp/user/user_followors.jsp</result>
+        </action>
+        
+    </package>
+
+    <package name="userajax"  namespace="/" extends="json-default">
+    
+       <action name="createUserCollect" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkCreateUserCollectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+		</action>
+		
+		<action name="removeUserCollect" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkRemoveUserCollectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+		</action>
+		
+		<action name="createUserRelation" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkCreateUserRelationAjax">
+		    <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+		</action>
+		
+		<action name="seachUser" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkSeachUserAjax">
+		    <result type="json" name="success">  
+                 <param name="root">searchUserResponse</param>
+            </result>  
+		</action>
+		
+		<action name="seachUserFriends" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkSeachUserFriends">
+		    <result type="json" name="success">  
+                 <param name="root">searchUserResponse</param>
+            </result>  
+		</action>
+		
+		<action name="loadMoreMessage" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreMessageAjax">
+		    <result type="json" name="success">  
+                 <param name="root">loadUserMessageRespone</param>
+            </result>  
+		</action>
+		
+		<action name="filterUserCollect" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkFilterUserCollectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">partShowResponse</param>
+            </result>  
+		</action>
+    
+       <action name="loadMoreUserCollect" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreUserCollectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">partShowResponse</param>
+            </result>  
+		</action>
+    
+   </package>
+   
+   
+</struts>

@@ -1,0 +1,521 @@
+package com.mxk.org.web.subject.action;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.session.MxkSessionContext;
+import com.mxk.org.common.message.domain.ExcelCreateMessage;
+import com.mxk.org.common.message.serivce.MxkMessageQueueService;
+import com.mxk.org.common.service.MxkPdfService;
+import com.mxk.org.common.service.MxkRedisCacheService;
+import com.mxk.org.common.util.StringUtil;
+import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectMaterialSummaryEntity;
+import com.mxk.org.entity.UserRssSubjectEntity;
+import com.mxk.org.web.comments.domain.LoadCommentsRequest;
+import com.mxk.org.web.comments.domain.LoadCommentsRespone;
+import com.mxk.org.web.part.domain.PartShowResponse;
+import com.mxk.org.web.part.domain.SearchPartRequest;
+import com.mxk.org.web.part.service.MxkPartService;
+import com.mxk.org.web.subject.domain.CreateSubjectMaiterialRequest;
+import com.mxk.org.web.subject.domain.CreateSubjectRequest;
+import com.mxk.org.web.subject.domain.RemoveRssSubjectRequest;
+import com.mxk.org.web.subject.domain.RssSubjectRequest;
+import com.mxk.org.web.subject.domain.SetFaceImageRequest;
+import com.mxk.org.web.subject.domain.ShowRssSubjectResponse;
+import com.mxk.org.web.subject.domain.ShowRssSubjectUserRequest;
+import com.mxk.org.web.subject.domain.SubjectMessageShowRespone;
+import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
+import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
+import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
+import com.mxk.org.web.subject.service.MxkSubjectService;
+import com.mxk.org.web.user.domain.UserVO;
+
+/**
+ * 专辑action 页面跳转的method mxkShow开头 以view结尾 ajax调用要以ajax结尾
+ * @author liuyijiang
+ *
+ */
+public class MxkSubjectAction extends MxkSessionAction {
+  
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5214867227320080224L;
+
+	@Value("${moosefs.file.image.subject.default}")
+	private String defaultImageUrl;
+	
+	@Autowired
+	private MxkSubjectService subjectService;
+	
+	@Autowired
+	private MxkPartService partService;
+	
+	@Autowired
+	private MxkPdfService pdfService;
+	
+	@Autowired
+	private MxkRedisCacheService redisCacheService;
+	
+	@Autowired
+	private MxkSubjectMaterialService subjectMaterialService;
+	
+	@Autowired
+	private MxkMessageQueueService messageQueueService;
+	
+	private CreateSubjectRequest createSubjectRequest;
+	
+	private UserVO uservo;
+	private String message;
+	private String subid;
+	private SubjectEntity currentSubjectEntity;
+	private PartShowResponse partShowResponse;
+	private SetFaceImageRequest setFaceImageRequest;
+	private UpdateSubjectStatusRequest updateSubjectStatusRequest;
+	private SearchPartRequest searchPartRequest;
+	private String partids;
+	private RssSubjectRequest rssSubjectRequest;
+	private ShowRssSubjectResponse showRssSubjectResponse;
+	private ShowRssSubjectUserRequest showRssSubjectUserRequest;
+	private String type;
+	private SubjectMessageShowRespone subjectMessageShowRespone;
+	private RemoveRssSubjectRequest removeRssSubjectRequest;
+	private LoadCommentsRequest loadCommentsRequest;
+	private LoadCommentsRespone loadCommentsRespone; 
+	private CreateSubjectMaiterialRequest createSubjectMaiterialRequest;
+	
+	public String mxkSubjectCommentsView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			subjectMessageShowRespone = new SubjectMessageShowRespone();
+			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
+			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
+			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+			loadCommentsRequest = new LoadCommentsRequest();
+			loadCommentsRequest.setPage(1);
+			loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
+			loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_TEXT);
+		}
+		return SUCCESS;
+	}
+	
+	//订阅信息
+	public String mxkSubjectMessageView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			subjectMessageShowRespone = new SubjectMessageShowRespone();
+			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
+			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
+			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+			List<UserRssSubjectEntity> list = subjectService.findSubjectRssByPage(currentSubjectEntity.getId(),1);
+			subjectMessageShowRespone.setList(list);
+		}
+		return SUCCESS;
+	}
+	
+	//subject 评论 text
+	public String mxkSubjectCommentsTextView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			subjectMessageShowRespone = new SubjectMessageShowRespone();
+			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
+			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
+			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+		}
+		return SUCCESS;
+	}
+	
+	//subject 评论 wav
+	public String mxkSubjectCommentsWavView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			subjectMessageShowRespone = new SubjectMessageShowRespone();
+			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
+			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
+			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+		}
+		return SUCCESS;
+	}
+	
+	
+	//分页显示更多订阅消息
+	public String mxkSubjectMessageMoreAjax(){
+		if(showRssSubjectUserRequest != null){
+			List<UserRssSubjectEntity> list = subjectService.findSubjectRssByPage(showRssSubjectUserRequest.getSubjectid(),showRssSubjectUserRequest.getPage());
+			subjectMessageShowRespone = new SubjectMessageShowRespone();
+			subjectMessageShowRespone.setList(list);
+		}
+		return SUCCESS;
+	}
+	
+	//删除订阅
+	public String mxkRemoveRssSubjectAjax(){
+		message = MxkConstant.AJAX_ERROR;	
+		if(removeRssSubjectRequest != null){
+			if(subjectService.removeUserRssSubejct(removeRssSubjectRequest.getUserid(),removeRssSubjectRequest.getSubjectid())){
+				redisCacheService.removeCachUserRssSubject(removeRssSubjectRequest.getUserid(),removeRssSubjectRequest.getSubjectid());
+				message = MxkConstant.AJAX_SUCCESS;
+			}
+		}
+		return SUCCESS;
+	}
+	
+	//订阅专辑
+	public String mxkRssSubjectAjax(){
+		message = MxkConstant.AJAX_ERROR;	
+		uservo = super.getCurrentUserVO();
+		if(uservo != null && rssSubjectRequest != null){
+			rssSubjectRequest.setUserdesc(uservo.getInfo());
+			rssSubjectRequest.setUserid(uservo.getId());
+			rssSubjectRequest.setUserimage(uservo.getImage());
+			rssSubjectRequest.setUsername(uservo.getName());
+			if(subjectService.createUserRssSubject(rssSubjectRequest)){
+				redisCacheService.cachUserRssSubject(uservo.getId(), rssSubjectRequest.getSubjectid());
+				message = MxkConstant.AJAX_SUCCESS;
+			}
+		}else{
+			message = MxkConstant.USER_NO_LOGIN;
+		}
+		return SUCCESS;
+	}
+	
+	
+	
+	//修改状态
+	public String mxkChangeSubjectStatusAjax(){
+		message = MxkConstant.AJAX_ERROR;	
+		if(updateSubjectStatusRequest != null){
+			uservo = super.getCurrentUserVO();
+			SubjectEntity subjectEntity = subjectService.findSubjectEntityById(updateSubjectStatusRequest.getId());
+			if(subjectEntity != null && uservo != null){
+				if(uservo.getId().equals(subjectEntity.getUserid())){//是当前用户的
+					if(!MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
+						if(subjectService.updateSubjectStatus(updateSubjectStatusRequest)){
+							subjectEntity.setType(subjectEntity.getType());
+							super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
+							message = MxkConstant.AJAX_SUCCESS;
+						}
+					}else{
+						long num = partService.findSubjectPartNotInUserId(subjectEntity.getId(),subjectEntity.getUserid());
+					    if(num != 0){
+					    	message = MxkConstant.STATUS_CHANGE_FAIL;
+					    }else{
+					    	if(subjectService.updateSubjectStatus(updateSubjectStatusRequest)){
+								subjectEntity.setType(subjectEntity.getType());
+								super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
+								message = MxkConstant.AJAX_SUCCESS;
+							}
+					    }
+					}
+				}
+			}
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkDeleteSubjectAjax(){
+		return SUCCESS;
+	}
+	
+	public String mxkCreatePdfAjax(){
+		message = MxkConstant.AJAX_ERROR;
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(uservo != null && currentSubjectEntity != null){
+			if(partids != null){
+				List<String> ids = Arrays.asList(partids.split(","));
+				String pdfUrl = pdfService.createSubjectPdfByParts(ids, currentSubjectEntity, uservo.getName());
+				subjectService.updateSubjectExtraUrl(currentSubjectEntity.getId(), "pdfUrl", pdfUrl);
+			    message = pdfUrl;
+			}
+		}
+		return SUCCESS;
+	}
+	
+	
+	//设置专题封面
+	public String mxkSetSubjectFaceImageAjax(){
+		if(setFaceImageRequest != null){
+			subjectService.setSubjectFaceImage(setFaceImageRequest);
+			SubjectEntity subjectEntity = subjectService.findSubjectEntityById(setFaceImageRequest.getSubjectid());
+			super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
+			message = MxkConstant.AJAX_SUCCESS;
+		}else{
+			message = MxkConstant.AJAX_ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//跳转到新建专辑页面
+	public String mxkShowCreateSubjectView(){
+		uservo = super.getCurrentUserVO();
+		return SUCCESS;
+	}
+	
+	//缓存当前专题 然后跳转可以隐藏id
+	public String mxkCachSubject(){
+		SubjectEntity subjectEntity = subjectService.findSubjectEntityById(subid);
+		if(subjectEntity != null){
+			super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	
+	//显示subject 专题主界面
+	public String mxkShowSubjectDetailView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(uservo != null && currentSubjectEntity != null){
+			SearchPartRequest request = new SearchPartRequest();
+			request.setPage(1);
+			request.setSubjectid(currentSubjectEntity.getId());
+			request.setType(null);
+			request.setUserid(uservo.getId());
+			partShowResponse = partService.findUserSubjectParts(request);
+			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
+				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
+			}else{
+				return MxkConstant.SUBJECT_TYPE_PUBLIC;
+			}
+		}else{
+			return ERROR;
+		}
+	}
+	
+	//分页加载更多
+	public String mxkLoadMoreSubjectPartsAjax(){
+		partShowResponse = partService.findUserSubjectParts(searchPartRequest);	
+		return SUCCESS;
+	}
+	
+	//新建专题
+	public String mxkCreateSubject(){
+		uservo = getCurrentUserVO();
+		if(valiate(createSubjectRequest) && uservo != null){
+			createSubjectRequest.setUserid(uservo.getId());
+			createSubjectRequest.setFaceiamge(defaultImageUrl);
+			if(subjectService.saveSubject(createSubjectRequest)){
+				uservo.setSubject(uservo.getSubject() + 1);
+				super.updateCurrentUserVO(uservo);
+				return SUCCESS;
+			}else{
+				return ERROR;
+			}
+		}else{
+			return ERROR;
+		}
+	}
+	
+	public String mxkCreateSubjectMaterial(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(createSubjectMaiterialRequest != null){
+			SubjectMaterialSummaryEntity summary = new SubjectMaterialSummaryEntity();
+			summary.setCreateTime(StringUtil.dateToString(new Date(), null));
+			summary.setSubjectId(currentSubjectEntity.getId());
+			summary.setUserid(currentSubjectEntity.getUserid());
+			if(subjectMaterialService.createSubjectMaterial(summary, createSubjectMaiterialRequest.getList())){
+				ExcelCreateMessage mes = new ExcelCreateMessage();
+				mes.setSummaryId(summary.getId());
+				messageQueueService.startExcelCreateTask(mes);
+			}
+		}
+		return SUCCESS;
+	}
+
+	private boolean valiate(CreateSubjectRequest createSubjectRequest){
+		if (createSubjectRequest == null){
+			return false;
+		}
+		if (StringUtil.stringIsEmpty(createSubjectRequest.getName())) {
+			return false;
+		}
+		if (StringUtil.stringIsEmpty(createSubjectRequest.getInfo())) {
+			return false;
+		}
+		if (StringUtil.stringIsEmpty(createSubjectRequest.getType())) {
+			return false;
+		}
+		return true;
+	}
+	
+	public CreateSubjectRequest getCreateSubjectRequest() {
+		return createSubjectRequest;
+	}
+
+	public void setCreateSubjectRequest(CreateSubjectRequest createSubjectRequest) {
+		this.createSubjectRequest = createSubjectRequest;
+	}
+
+	public UserVO getUservo() {
+		return uservo;
+	}
+
+	public void setUservo(UserVO uservo) {
+		this.uservo = uservo;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getSubid() {
+		return subid;
+	}
+
+	public void setSubid(String subid) {
+		this.subid = subid;
+	}
+
+	public SubjectEntity getCurrentSubjectEntity() {
+		return currentSubjectEntity;
+	}
+
+	public void setCurrentSubjectEntity(SubjectEntity currentSubjectEntity) {
+		this.currentSubjectEntity = currentSubjectEntity;
+	}
+
+	public PartShowResponse getPartShowResponse() {
+		return partShowResponse;
+	}
+
+	public void setPartShowResponse(PartShowResponse partShowResponse) {
+		this.partShowResponse = partShowResponse;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public SetFaceImageRequest getSetFaceImageRequest() {
+		return setFaceImageRequest;
+	}
+
+
+	public void setSetFaceImageRequest(SetFaceImageRequest setFaceImageRequest) {
+		this.setFaceImageRequest = setFaceImageRequest;
+	}
+
+	public UpdateSubjectStatusRequest getUpdateSubjectStatusRequest() {
+		return updateSubjectStatusRequest;
+	}
+
+	public void setUpdateSubjectStatusRequest(
+			UpdateSubjectStatusRequest updateSubjectStatusRequest) {
+		this.updateSubjectStatusRequest = updateSubjectStatusRequest;
+	}
+
+	public SearchPartRequest getSearchPartRequest() {
+		return searchPartRequest;
+	}
+
+	public void setSearchPartRequest(SearchPartRequest searchPartRequest) {
+		this.searchPartRequest = searchPartRequest;
+	}
+
+	public String getPartids() {
+		return partids;
+	}
+
+	public void setPartids(String partids) {
+		this.partids = partids;
+	}
+
+	public RssSubjectRequest getRssSubjectRequest() {
+		return rssSubjectRequest;
+	}
+
+	public void setRssSubjectRequest(RssSubjectRequest rssSubjectRequest) {
+		this.rssSubjectRequest = rssSubjectRequest;
+	}
+
+	public ShowRssSubjectResponse getShowRssSubjectResponse() {
+		return showRssSubjectResponse;
+	}
+
+	public void setShowRssSubjectResponse(
+			ShowRssSubjectResponse showRssSubjectResponse) {
+		this.showRssSubjectResponse = showRssSubjectResponse;
+	}
+
+	public ShowRssSubjectUserRequest getShowRssSubjectUserRequest() {
+		return showRssSubjectUserRequest;
+	}
+
+	public void setShowRssSubjectUserRequest(
+			ShowRssSubjectUserRequest showRssSubjectUserRequest) {
+		this.showRssSubjectUserRequest = showRssSubjectUserRequest;
+	}
+
+	public SubjectMessageShowRespone getSubjectMessageShowRespone() {
+		return subjectMessageShowRespone;
+	}
+
+	public void setSubjectMessageShowRespone(
+			SubjectMessageShowRespone subjectMessageShowRespone) {
+		this.subjectMessageShowRespone = subjectMessageShowRespone;
+	}
+
+	public RemoveRssSubjectRequest getRemoveRssSubjectRequest() {
+		return removeRssSubjectRequest;
+	}
+
+	public void setRemoveRssSubjectRequest(
+			RemoveRssSubjectRequest removeRssSubjectRequest) {
+		this.removeRssSubjectRequest = removeRssSubjectRequest;
+	}
+
+
+	public LoadCommentsRequest getLoadCommentsRequest() {
+		return loadCommentsRequest;
+	}
+
+
+	public void setLoadCommentsRequest(LoadCommentsRequest loadCommentsRequest) {
+		this.loadCommentsRequest = loadCommentsRequest;
+	}
+
+
+	public LoadCommentsRespone getLoadCommentsRespone() {
+		return loadCommentsRespone;
+	}
+
+	public void setLoadCommentsRespone(LoadCommentsRespone loadCommentsRespone) {
+		this.loadCommentsRespone = loadCommentsRespone;
+	}
+
+	public CreateSubjectMaiterialRequest getCreateSubjectMaiterialRequest() {
+		return createSubjectMaiterialRequest;
+	}
+
+	public void setCreateSubjectMaiterialRequest(
+			CreateSubjectMaiterialRequest createSubjectMaiterialRequest) {
+		this.createSubjectMaiterialRequest = createSubjectMaiterialRequest;
+	}
+
+	
+	
+}

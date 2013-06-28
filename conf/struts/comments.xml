@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="comments" namespace="/" extends="struts-default">
+        
+        <action name="addVoiceComments" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="mxkAddVoiceComments">
+            <result name="success" ></result>
+        </action>
+        
+    </package>
+
+    <package name="commentsajax"  namespace="/" extends="json-default">
+    
+		<action name="addTextComments" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="mxkAddTextCommentsAjax">
+            <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+        </action>
+        
+        <action name="loadTrageComments" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="mxkLoadTrageCommentsAjax">
+            <result type="json" name="success">  
+                 <param name="root">loadCommentsRespone</param>
+            </result>  
+        </action>
+		
+   </package>
+   
+   
+</struts>
