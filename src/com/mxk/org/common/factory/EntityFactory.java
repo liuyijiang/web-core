@@ -85,6 +85,7 @@ public class EntityFactory {
 		subjectEntity.setLevel(1);
 		subjectEntity.setParts(0);
 		subjectEntity.setTags(request.getTags());
+		subjectEntity.setCategory(request.getCategory());
 		return subjectEntity;
 	}
 	

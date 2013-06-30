@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mxk.org.entity.SubjectJoinPeopleEntity;
 import com.mxk.org.web.subject.dao.MxkSubjectJoinPeopleDao;
+import com.mxk.org.web.user.domain.SearchUserJoinSubjectRequest;
 
 @Service
 public class MxkSubjectJoinPeopleService {
@@ -18,4 +19,11 @@ public class MxkSubjectJoinPeopleService {
 		return dao.findTop5SubjectJoiner(subjectid);
 	}
 	
+	public long findUserJoinSubject(String userid){
+		return dao.findUserJoinSubject(userid);
+	}
+	
+	public List<String> findUserJoinSubjectIds(SearchUserJoinSubjectRequest searchUserJoinSubjectRequest){
+		return dao.findUserJoinSubjectIds(searchUserJoinSubjectRequest.getUserid(), searchUserJoinSubjectRequest.getPage());
+	}
 }

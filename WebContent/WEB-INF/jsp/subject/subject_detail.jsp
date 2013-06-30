@@ -612,11 +612,18 @@ function bindScroll(){
  </script>
  
   <script type="text/javascript">
+    
+    var hasmaterial = '${message}';
   
      function showCreateMaterial(){
-		 $('#materialSubjectModal').modal({
-	       keyboard: false
-	   });
+    	 if(hasmaterial != 'success'){
+    		 window.location.href= path + "/showSubjectMaterial";
+    	 }else{
+    		 $('#materialSubjectModal').modal({
+    		       keyboard: false
+    		 }); 
+    	 }
+		
 	 }
 
 	 function closeCreateMaterial(){

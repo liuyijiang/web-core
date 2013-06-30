@@ -35,7 +35,11 @@
 					<li class="divider-vertical"></li>
 				</ul>
 				<span class="pull-right">
-                   <a href="<%=rootPath%>/userOnMessage" class="btn" ><i class="icon-envelope-alt"></i>我的消息${uservo.message }</a>
+				    <div class="btn-group" >
+					  <a href="<%=rootPath %>/showUserRssSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>我的订阅${uservo.rsssubject }</a>
+					  <a href="<%=rootPath %>/showUserJoinSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-external-link"></i>我参与的${uservo.joinsubject }</a>
+			          <a href="<%=rootPath%>/userOnMessage" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-envelope-alt"></i>我的消息${uservo.message }</a>
+	                </div>
                 </span>
 			</div>
 		</div>

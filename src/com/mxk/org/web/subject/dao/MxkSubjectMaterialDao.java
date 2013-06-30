@@ -36,6 +36,11 @@ public class MxkSubjectMaterialDao {
 		return success;
 	}
 	
+	public SubjectMaterialSummaryEntity findSubjectMaterialSummaryEntityBySubjectId(String subjectid){
+		Query q = new Query(Criteria.where("subjectId").is(subjectid));
+		return mog.findOne(q, SubjectMaterialSummaryEntity.class);
+	}
+	
 	public SubjectMaterialSummaryEntity findSubjectMaterialSummaryEntityById(String id){
 		Query q = new Query(Criteria.where("id").is(id));
 		return mog.findOne(q, SubjectMaterialSummaryEntity.class);

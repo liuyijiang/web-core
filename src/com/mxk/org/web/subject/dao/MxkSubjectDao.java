@@ -42,6 +42,16 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<SubjectEntity> findSubjectEntityByIdsList(List<String> ids){
+		Query q = new Query(Criteria.where("id").in(ids));
+		return mog.find(q, SubjectEntity.class);
+	}
+	
+	public long findUserRssSubjectNum(String userid){
+		Query qp = new Query(Criteria.where("userid").is(userid));
+		return mog.count(qp, UserRssSubjectEntity.class);
+	}
+	
 	public boolean addSubjectJoinPeople(UserVO vo,String subjectid){
 		boolean success = true;
 		try{
@@ -164,11 +174,17 @@ public class MxkSubjectDao {
 	public boolean createUserRssSubject(UserRssSubjectEntity userRssSubjectEntity){
 		boolean success = true;
 		try {
-			mog.save(userRssSubjectEntity);
-			Query q = new Query(Criteria.where("id").is(userRssSubjectEntity.getSubjectid()));
-			Update u = new Update();
-			u.inc("attention", 1);
-			mog.updateMulti(q, u, SubjectEntity.class);
+			Query qp = new Query(Criteria.where("userid").is(userRssSubjectEntity.getUserid()).and("subjectid").is(userRssSubjectEntity.getSubjectid()));
+			long num = mog.count(qp, UserRssSubjectEntity.class);
+			if(num == 0){
+				mog.save(userRssSubjectEntity);
+				Query q = new Query(Criteria.where("id").is(userRssSubjectEntity.getSubjectid()));
+				Update u = new Update();
+				u.inc("attention", 1);
+				mog.updateMulti(q, u, SubjectEntity.class);
+			}else{
+				success = false;	
+			}
 		} catch (Exception e) {
 			success = false;
 			log.error(e.getMessage(),e);

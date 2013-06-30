@@ -19,6 +19,7 @@ import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.UserCollectEntity;
 import com.mxk.org.entity.UserEntity;
+import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.user.domain.UserCollectSearchRequest;
 import com.mxk.org.web.user.domain.UserRegisterRequest;
 import com.mxk.org.web.visitor.domain.CollectPartsRequest;
@@ -33,6 +34,26 @@ public class MxkUserDao {
 	
 	@Autowired
 	private MongoOperations mog; 
+	
+	public List<String> findUserRssSubjectIdsList(String userid,int page){
+		List<String> ids = null;
+		try{
+			Query q = new Query(Criteria.where("userid").is(userid));
+			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.limit(pageSize);
+			q.skip(pageSize*(page - 1));	
+		    List<UserRssSubjectEntity> list = mog.find(q, UserRssSubjectEntity.class);
+			if(list != null && !list.isEmpty()){
+				ids = new ArrayList<String>();
+				for (UserRssSubjectEntity s : list) {
+					ids.add(s.getSubjectid());
+				}
+			}
+		}catch(Exception e){
+			log.error(e.getMessage(),e);
+		}
+		return ids;
+	}
 	
 	public UserEntity updateUserPassword(String email,String password){
 		UserEntity userEntity = null;

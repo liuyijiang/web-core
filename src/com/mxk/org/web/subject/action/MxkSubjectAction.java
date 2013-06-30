@@ -183,8 +183,8 @@ public class MxkSubjectAction extends MxkSessionAction {
 			rssSubjectRequest.setUsername(uservo.getName());
 			if(subjectService.createUserRssSubject(rssSubjectRequest)){
 				redisCacheService.cachUserRssSubject(uservo.getId(), rssSubjectRequest.getSubjectid());
-				message = MxkConstant.AJAX_SUCCESS;
 			}
+			message = MxkConstant.AJAX_SUCCESS;
 		}else{
 			message = MxkConstant.USER_NO_LOGIN;
 		}
@@ -289,6 +289,12 @@ public class MxkSubjectAction extends MxkSessionAction {
 			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
 			}else{
+				SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
+				if(ss != null){
+					message = MxkConstant.AJAX_SUCCESS; //有材料
+				}else{
+					message = MxkConstant.AJAX_ERROR;
+				}
 				return MxkConstant.SUBJECT_TYPE_PUBLIC;
 			}
 		}else{
@@ -334,6 +340,13 @@ public class MxkSubjectAction extends MxkSessionAction {
 				messageQueueService.startExcelCreateTask(mes);
 			}
 		}
+		return SUCCESS;
+	}
+	
+	//展示
+	public String mxkShowSubjectMaterialView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		return SUCCESS;
 	}
 

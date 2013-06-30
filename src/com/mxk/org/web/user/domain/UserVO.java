@@ -31,6 +31,8 @@ public class UserVO implements Serializable{
 	private int subject;//专题数量
 	
 	private long message;//提醒
+	private long joinsubject;
+	private long rsssubject;
 	
 	public String getId() {
 		return id;
@@ -115,6 +117,18 @@ public class UserVO implements Serializable{
 	}
 	public void setMessage(long message) {
 		this.message = message;
+	}
+	public long getJoinsubject() {
+		return joinsubject;
+	}
+	public void setJoinsubject(long joinsubject) {
+		this.joinsubject = joinsubject;
+	}
+	public long getRsssubject() {
+		return rsssubject;
+	}
+	public void setRsssubject(long rsssubject) {
+		this.rsssubject = rsssubject;
 	}
 	
 	

@@ -14,6 +14,7 @@ import com.mxk.org.web.main.domain.RegisterCheckRequest;
 import com.mxk.org.web.user.dao.MxkUserDao;
 import com.mxk.org.web.user.dao.MxkUserFriendDao;
 import com.mxk.org.web.user.domain.SearchUserResponse;
+import com.mxk.org.web.user.domain.SearchUserRssSubjectRequest;
 import com.mxk.org.web.user.domain.UserCollectSearchRequest;
 import com.mxk.org.web.user.domain.UserLoginRequest;
 import com.mxk.org.web.user.domain.UserRegisterRequest;
@@ -28,6 +29,10 @@ public class MxkUserService {
 	
 	@Autowired
 	private MxkUserFriendDao userFriendDao;
+	
+	public List<String> findUserRssSubjectIdsList(SearchUserRssSubjectRequest searchUserRssSubjectRequest){
+		return userDao.findUserRssSubjectIdsList(searchUserRssSubjectRequest.getUserid(),searchUserRssSubjectRequest.getPage());
+	}
 	
 	public long findfindUserByNameCount(String name){
 		return userDao.findUserByNameCount(name);

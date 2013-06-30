@@ -8,6 +8,7 @@ public class CreateSubjectRequest {
 	private String userid;
 	private String faceiamge;
 	private String tags;//
+	private String category;
 	
 	public String getName() {
 		return name;
@@ -44,6 +45,12 @@ public class CreateSubjectRequest {
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	

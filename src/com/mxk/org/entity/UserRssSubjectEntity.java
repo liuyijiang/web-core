@@ -2,17 +2,22 @@ package com.mxk.org.entity;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * 用户关注的 专题
  * @author liuyijiang
  *
  */
+@Document
 public class UserRssSubjectEntity implements Serializable {
    
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5581530515892177364L;
+	@Id
 	private String id;
 	private String userid;
 	private String username;//冗余

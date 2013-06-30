@@ -35,6 +35,11 @@
 		   
 	   }
 	   
+	   function choosecategory(category){
+		   $("#category_btn").html(category);
+		   $("#subjectcategory").val(category);
+	   }
+	   
 	</script>
 	
 	
@@ -70,7 +75,18 @@
 		            </ul>
          </div>
          &nbsp;/&nbsp;
-         <input id="tagname" type="text" class="input-block-level" style="width:300px"><br />
+         <input id="tagname" type="text" class="input-block-level" style="width:300px">
+          <div class="btn-group">
+             <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
+               <span id="category_btn">原创</span>
+               <span class="caret"></span>
+		     </a>
+		     <ul class="dropdown-menu">
+			       <li><a href="javascript:;" onclick="choosecategory('原创')">原创</a></li>
+				   <li><a href="javascript:;" onclick="choosecategory('分享')">分享</a></li>
+              </ul>
+		   </div>
+         <br />
          <small>伟大的作品名称是短小和令人难忘的。需要灵感吗?<span class="text-success">我的战舰系列.</span></small>
          <br /><br />
          <form id="form" action="createSubject" method="POST">
@@ -99,6 +115,7 @@
          <hr />
          <input id="subjectname" name="createSubjectRequest.name"  style="display:none"/>
          <input id="subjecttag" name="createSubjectRequest.tags" style="display:none"/>
+          <input id="subjectcategory" name="createSubjectRequest.category" value="原创" style="display:none"/>
          <input id="subjecttype" name="createSubjectRequest.type" value="PUBLIC" style="display:none"/>
          </form>
          <button class="btn btn-primary btn-large" onclick="subform()">创建专题</button>

@@ -29,4 +29,8 @@ public class MxkConstant {
 	public static final String COMMENT_TYPE_TEXT = "text";
 	
 	public static final String COMMENT_TYPE_WAV = "wav";
+	
+	public static final String SUBJECT_CATEGORY_CREATIVE = "creative";
+	
+	public static final String SUBJECT_CATEGORY_SHARE = "share";
 }

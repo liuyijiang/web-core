@@ -28,6 +28,14 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public List<SubjectEntity> findSubjectEntityByIdsList(List<String> ids){
+		return dao.findSubjectEntityByIdsList(ids);
+	}
+	
+	public long findUserRssSubjectNum(String userid){
+		return dao.findUserRssSubjectNum(userid);
+	}
+	
 	public boolean addSubjectJoinPeople(UserVO vo,String subjectid){
 	  	return dao.addSubjectJoinPeople(vo, subjectid);
 	}

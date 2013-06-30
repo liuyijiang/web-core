@@ -23,12 +23,15 @@ import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
 import com.mxk.org.web.subject.domain.SubjectsShowResponse;
+import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.CreateRelationShipRequest;
 import com.mxk.org.web.user.domain.LoadUserMessageRequest;
 import com.mxk.org.web.user.domain.LoadUserMessageRespone;
+import com.mxk.org.web.user.domain.SearchUserJoinSubjectRequest;
 import com.mxk.org.web.user.domain.SearchUserRequest;
 import com.mxk.org.web.user.domain.SearchUserResponse;
+import com.mxk.org.web.user.domain.SearchUserRssSubjectRequest;
 import com.mxk.org.web.user.domain.UserChangePasswordRequest;
 import com.mxk.org.web.user.domain.UserCollectSearchRequest;
 import com.mxk.org.web.user.domain.UserLoginRequest;
@@ -90,9 +93,6 @@ public class MxkUserAction extends MxkSessionAction {
 	private MxkPartService partService;
 	
 	@Autowired
-	private MxkUserService MxkUserService;
-	
-	@Autowired
 	private MxkUserFriendService userFriendService;
 	
 	@Autowired
@@ -100,6 +100,9 @@ public class MxkUserAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkMailService mailService;
+	
+	@Autowired
+	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
 	
 	private UserRegisterRequest userRegisterRequest;
 	private UserLoginRequest userLoginRequest;
@@ -116,6 +119,8 @@ public class MxkUserAction extends MxkSessionAction {
 	private LoadUserMessageRequest loadUserMessageRequest;
 	private LoadUserMessageRespone loadUserMessageRespone;
 	private UserChangePasswordRequest userChangePasswordRequest;
+	private SearchUserJoinSubjectRequest searchUserJoinSubjectRequest;
+	private SearchUserRssSubjectRequest searchUserRssSubjectRequest;
 	private String target;//
 	//用户消息
 	public String mxkShowUserOnMessageView(){
@@ -315,10 +320,14 @@ public class MxkUserAction extends MxkSessionAction {
 	public String mxkUserLoginIn(){
 		UserEntity userEntity = userService.checkUserLogin(userLoginRequest);
 		if(userEntity != null && userEntity.getId() != null){
-			long messages = messageService.findMessageCount(userEntity.getId());
+			long messages = messageService.findMessageCount(userEntity.getId());//获得消息数量
+			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//获得参与subject
+			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//订阅的专辑
 			super.setSessionKey(userEntity.getId());  
 			UserVO vo = VOFactory.createUserVOFormEnitiy(userEntity);
 			vo.setMessage(messages);
+			vo.setJoinsubject(joinsubject);
+			vo.setRsssubject(rsssubject);
 			super.updateCurrentUserVO(vo);
 			return SUCCESS;
 		}else{
@@ -414,6 +423,41 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	    return SUCCESS;
 	}
+	
+	//订阅的专辑
+	public String mxkShowUserRssSubjectView(){
+		uservo = super.getCurrentUserVO();
+		if(uservo != null){
+			searchUserRssSubjectRequest = new SearchUserRssSubjectRequest();
+			searchUserRssSubjectRequest.setPage(1);
+			searchUserRssSubjectRequest.setUserid(uservo.getId());
+			List<String> ids = userService.findUserRssSubjectIdsList(searchUserRssSubjectRequest);
+			if(ids != null && !ids.isEmpty()){
+			  List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
+			  subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
+		    }
+		}
+		return SUCCESS;
+	}
+	
+	//参与的subject
+	public String mxkShowUserJoinSubjectView(){
+		uservo = super.getCurrentUserVO();
+		if(uservo != null){
+			searchUserJoinSubjectRequest = new SearchUserJoinSubjectRequest();
+			searchUserJoinSubjectRequest.setUserid(uservo.getId());
+			searchUserJoinSubjectRequest.setPage(1);
+			List<String> ids = subjectJoinPeopleService.findUserJoinSubjectIds(searchUserJoinSubjectRequest);
+			if(ids != null && !ids.isEmpty()){
+			  List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
+			  subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
+			}
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	
 	
 	private boolean valiateUserForUpdate(UserRegisterRequest userRegisterRequest){
 		if (userRegisterRequest == null ){
@@ -578,6 +622,24 @@ public class MxkUserAction extends MxkSessionAction {
 
 	public void setTarget(String target) {
 		this.target = target;
+	}
+
+	public SearchUserJoinSubjectRequest getSearchUserJoinSubjectRequest() {
+		return searchUserJoinSubjectRequest;
+	}
+
+	public void setSearchUserJoinSubjectRequest(
+			SearchUserJoinSubjectRequest searchUserJoinSubjectRequest) {
+		this.searchUserJoinSubjectRequest = searchUserJoinSubjectRequest;
+	}
+
+	public SearchUserRssSubjectRequest getSearchUserRssSubjectRequest() {
+		return searchUserRssSubjectRequest;
+	}
+
+	public void setSearchUserRssSubjectRequest(
+			SearchUserRssSubjectRequest searchUserRssSubjectRequest) {
+		this.searchUserRssSubjectRequest = searchUserRssSubjectRequest;
 	}
 	
 	

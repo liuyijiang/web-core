@@ -134,7 +134,9 @@ public class MxkPartAction extends MxkSessionAction {
 			    		subjectService.updateSubjectForCreatePart(createPartRequest.getSubjectid(), null);
 			    	}
 		    		currentSubjectEntity.setFaceimage(minimageurl);
-			    	subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
+		    		if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
+		    			subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
+		    		}
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,currentSubjectEntity);
 			    }
@@ -164,7 +166,9 @@ public class MxkPartAction extends MxkSessionAction {
 			    if(imageurl != null && minimageurl != null){
 			    	partService.updatePartImage(partid,imageurl,minimageurl);
 			    	subjectService.updateSubjectForCreatePart(createPartRequest.getSubjectid(), null);
-			    	subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
+			    	if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
+			    		subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
+			    	}
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    }
 			}

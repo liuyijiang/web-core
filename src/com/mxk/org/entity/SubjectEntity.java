@@ -32,6 +32,7 @@ public class SubjectEntity implements Serializable {
 	private int level;//评级
 	private int parts;//part数量
 	private int joinpeople;//公开专题参与人数
+	private String category;//原创 分享
 	
 	public String getId() {
 		return id;
@@ -110,6 +111,12 @@ public class SubjectEntity implements Serializable {
 	}
 	public void setJoinpeople(int joinpeople) {
 		this.joinpeople = joinpeople;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
     
 	

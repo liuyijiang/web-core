@@ -15,6 +15,10 @@ public class MxkSubjectMaterialService {
 	@Autowired
 	private MxkSubjectMaterialDao subjectMaterialDao;
 	
+	public SubjectMaterialSummaryEntity findSubjectMaterialSummaryEntityBySubjectId(String subjectid){
+		return subjectMaterialDao.findSubjectMaterialSummaryEntityBySubjectId(subjectid);
+	}
+	
 	public SubjectMaterialSummaryEntity findSubjectMaterialSummaryEntityById(String id){
 		return subjectMaterialDao.findSubjectMaterialSummaryEntityById(id);
 	}
