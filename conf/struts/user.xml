@@ -20,7 +20,7 @@
          <action name="userSeeMessageDetail" class="com.mxk.org.web.user.action.MxkUserAction"
             method="mxkUserSeeMessageDetail">
             <result name="part" type="redirect">showPartDetailFromMessage?target=${target}</result>
-            <result name="subject" type="redirect"></result>
+            <result name="subject" type="redirect">subjectCommentsText</result>
             <result name="error"></result>
         </action>
         

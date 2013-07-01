@@ -40,7 +40,7 @@
     </bean>
     
     <!-- 发送消息的目的地queue-->
-    <bean id="queuedestination" class="org.apache.activemq.command.ActiveMQQueue">
+    <bean id="newrsspushstination" class="org.apache.activemq.command.ActiveMQQueue">
        <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
     </bean>
     
@@ -48,7 +48,7 @@
     
     <bean id="vioceTransformConsumer" class="com.mxk.org.common.message.listener.MxkVioceTransformMessageListener" />
     
-<!--     <bean id="myQueueMessageConsumer" class="com.spring.active.jms.listener.QueueMessageListener" /> -->
+    <bean id="newRssPushConsumer" class="com.mxk.org.common.message.listener.MxkNewMessagePushListener" />
     
     <!-- topic -->
     <bean id="jmsContainer"
@@ -68,13 +68,13 @@
     </bean>
     
     <!--queue -->
-<!--     <bean id="jmsContainerQueue" -->
-<!--         class="org.springframework.jms.listener.DefaultMessageListenerContainer"> -->
-<!--         <property name="connectionFactory" ref="jmsFactory" /> -->
-<!--         <property name="destination" ref="queuedestination" /> -->
-<!--         <property name="messageListener" ref="myQueueMessageConsumer" /> -->
-<!--         <property name="sessionTransacted" value="true"/> -->
-<!--     </bean> -->
+    <bean id="newRssPushQueue"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="newrsspushstination" />
+        <property name="messageListener" ref="newRssPushConsumer" />
+        <property name="sessionTransacted" value="true"/>
+    </bean>
   
   
 </beans>
