@@ -93,6 +93,8 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 			return pdfCollection;
 		}else if(MxkGridFSFileUploadService.FILE_TYPE_XLS.equals(type)){
 			return excelCollection;
+		}else if(MxkGridFSFileUploadService.FILE_TYPE_GIF.equals(type)){
+			return imageCollection;
 		}else{
 			return null;
 		}
@@ -107,6 +109,8 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 			return pdfCollection;
 		}else if(MxkGridFSFileUploadService.FILE_TYPE_XLS.equals(type)){
 			return "xls";
+		}else if(MxkGridFSFileUploadService.FILE_TYPE_GIF.equals(type)){
+			return imageCollection;
 		}else{
 			return null;
 		}

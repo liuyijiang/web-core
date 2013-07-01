@@ -1,5 +1,6 @@
 package com.mxk.org.web.subject.action;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -12,10 +13,13 @@ import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.message.domain.ExcelCreateMessage;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
+import com.mxk.org.common.service.MxkGifService;
+import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.service.MxkPdfService;
 import com.mxk.org.common.service.MxkRedisCacheService;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectExtraEntity;
 import com.mxk.org.entity.SubjectMaterialSummaryEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
@@ -70,7 +74,13 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private MxkSubjectMaterialService subjectMaterialService;
 	
 	@Autowired
+	private MxkGridFSFileUploadService gridFSFileUploadService;
+	
+	@Autowired
 	private MxkMessageQueueService messageQueueService;
+	
+	@Autowired
+	private MxkGifService gifService;
 	
 	private CreateSubjectRequest createSubjectRequest;
 	
@@ -93,6 +103,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private LoadCommentsRespone loadCommentsRespone; 
 	private CreateSubjectMaiterialRequest createSubjectMaiterialRequest;
 	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
+	private SubjectExtraEntity subjectExtraEntity;
 	private String targetId;
 	
 	public String mxkSubjectCommentsView(){
@@ -232,6 +243,26 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	public String mxkCreateGifAjax(){
+		message = MxkConstant.AJAX_ERROR;
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if (currentSubjectEntity != null) {
+			if(partids != null){
+				List<String> ids = Arrays.asList(partids.split(","));
+				File file = gifService.createSubjectGifByParts(ids, currentSubjectEntity.getId());
+			    if (file != null) {
+			    	String fileName = currentSubjectEntity.getId() + MxkGridFSFileUploadService.FILE_TYPE_GIF;
+					gridFSFileUploadService.removeFile(fileName, MxkGridFSFileUploadService.FILE_TYPE_GIF);
+					String url = gridFSFileUploadService.uploadFile(file, currentSubjectEntity.getId(), MxkGridFSFileUploadService.FILE_TYPE_GIF);
+					subjectService.updateSubjectExtraUrl(currentSubjectEntity.getId(), "gifUrl", url);
+				    file.delete();
+				    message = MxkConstant.AJAX_SUCCESS;
+			    }
+			}
+		}
+		return SUCCESS;
+	}
+	
 	public String mxkCreatePdfAjax(){
 		message = MxkConstant.AJAX_ERROR;
 		uservo = super.getCurrentUserVO();
@@ -239,9 +270,15 @@ public class MxkSubjectAction extends MxkSessionAction {
 		if(uservo != null && currentSubjectEntity != null){
 			if(partids != null){
 				List<String> ids = Arrays.asList(partids.split(","));
-				String pdfUrl = pdfService.createSubjectPdfByParts(ids, currentSubjectEntity, uservo.getName());
-				subjectService.updateSubjectExtraUrl(currentSubjectEntity.getId(), "pdfUrl", pdfUrl);
-			    message = pdfUrl;
+				File file = pdfService.createSubjectPdfByParts(ids, currentSubjectEntity, uservo.getName());
+				if(file != null){
+					String fileName = currentSubjectEntity.getId() + MxkGridFSFileUploadService.FILE_TYPE_PDF;
+					gridFSFileUploadService.removeFile(fileName, MxkGridFSFileUploadService.FILE_TYPE_PDF);
+					String url = gridFSFileUploadService.uploadFile(file, currentSubjectEntity.getId(), MxkGridFSFileUploadService.FILE_TYPE_PDF);
+					subjectService.updateSubjectExtraUrl(currentSubjectEntity.getId(), "pdfUrl", url);
+				    file.delete();
+				    message = MxkConstant.AJAX_SUCCESS;
+				}
 			}
 		}
 		return SUCCESS;
@@ -293,6 +330,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
 			}else{
 				SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
+				subjectExtraEntity = subjectService.findSubjectExtraEntity(currentSubjectEntity.getId());
 				if(ss != null){
 					message = MxkConstant.AJAX_SUCCESS; //ÓÐ²ÄÁÏ
 				}else{
@@ -570,6 +608,22 @@ public class MxkSubjectAction extends MxkSessionAction {
 	public void setSubjectMaterailDetailRespone(
 			SubjectMaterailDetailRespone subjectMaterailDetailRespone) {
 		this.subjectMaterailDetailRespone = subjectMaterailDetailRespone;
+	}
+
+	public String getTargetId() {
+		return targetId;
+	}
+
+	public void setTargetId(String targetId) {
+		this.targetId = targetId;
+	}
+
+	public SubjectExtraEntity getSubjectExtraEntity() {
+		return subjectExtraEntity;
+	}
+
+	public void setSubjectExtraEntity(SubjectExtraEntity subjectExtraEntity) {
+		this.subjectExtraEntity = subjectExtraEntity;
 	}
 
 	

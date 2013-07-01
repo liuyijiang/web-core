@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectExtraEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.subject.dao.MxkSubjectDao;
 import com.mxk.org.web.subject.domain.CreateSubjectRequest;
@@ -27,6 +28,10 @@ public class MxkSubjectService {
    
 	@Autowired
 	private MxkSubjectDao dao;
+	
+	public SubjectExtraEntity findSubjectExtraEntity(String subjectid){
+		return dao.findSubjectExtraEntity(subjectid);
+	}
 	
 	public List<SubjectEntity> findSubjectEntityByIdsList(List<String> ids){
 		return dao.findSubjectEntityByIdsList(ids);

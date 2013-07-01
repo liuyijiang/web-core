@@ -241,6 +241,11 @@ public class MxkSubjectDao {
 		return success;
 	}
 	
+	public SubjectExtraEntity findSubjectExtraEntity(String subjectid){
+		Query q = new Query(Criteria.where("subjectid").is(subjectid));
+		return mog.findOne(q, SubjectExtraEntity.class);
+	}
+	
 	public boolean updateSubjectExtraUrl(String extraid,String type,String url){
 		boolean success = true;
 		try {
