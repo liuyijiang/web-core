@@ -7,10 +7,15 @@
 
     <package name="user" namespace="/" extends="struts-default">
         
+         <action name="showNewRssMessage" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="mxkShowNewRssMessageView">
+            <result name="success" >/WEB-INF/jsp/user/user_new_rss_message.jsp</result>
+         </action>
+           
           <action name="showUserRssSubject" class="com.mxk.org.web.user.action.MxkUserAction"
             method="mxkShowUserRssSubjectView">
             <result name="success" >/WEB-INF/jsp/user/user_rss_subject.jsp</result>
-        </action>
+         </action>
         
           <action name="showUserJoinSubject" class="com.mxk.org.web.user.action.MxkUserAction"
             method="mxkShowUserJoinSubjectView">

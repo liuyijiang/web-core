@@ -9,7 +9,12 @@
         
        <action name="createSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
            method="mxkCreateSubjectMaterial">
-           <result name="success" type="redirect">showSubjectDetailView</result>
+           <result name="success" type="redirect">showSubjectMaterial</result>
+       </action> 
+       
+       <action name="updateSujectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkUpdateSujectMaterial">
+           <result name="success" type="redirect">showSubjectMaterial</result>
        </action> 
        
         <action name="showSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
@@ -112,6 +117,13 @@
 		
 		<action name="removeRssSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
 			method="mxkRemoveRssSubjectAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
+		<action name="deleteSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkDeleteSubjectMaterialAjax">
 		    <result type="json" name="success">  
                 <param name="root">message</param>
             </result> 
