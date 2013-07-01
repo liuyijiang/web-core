@@ -44,7 +44,7 @@
 	<div class="row">
 	  <div class="span8 mxkplan mxkshadow">
 	     <div style='padding:5px;margin-bottom:5px;'>
-	      <table id="listtable" class="table table-striped table-bordered table-condensed">
+	      <table id="listtableshow" class="table table-striped table-bordered table-condensed">
 	         <tr>
 	          <td width="35%">材料名称</td>
 	          <td width="15%">类型</td>
@@ -60,7 +60,7 @@
 		            <td width="20%">${options.brand }</td>
 		            <td width="10%">${options.num }</td>
 		            <td width="10%">${options.money }</td>
-		            <td width="10%"><a href="javascript:;">删除</a></td>
+		            <td width="10%"><a href="javascript:;" onclick="deleteMaterialDetail('${options.id }')">删除</a></td>
                 </tr>
                </c:forEach>
 	       </table>
@@ -155,6 +155,25 @@
 	</form>
     
 <script type="text/javascript">
+
+function deleteMaterialDetail(id){
+	 $.ajax({
+    		url : path + "/deleteSubjectMaterial.action",
+    		type : "POST",
+    		cache : false,
+    		async : false,
+    		data: {"targetId":id},
+    		dataType : "json",
+    		success : function(item) {
+    			if(item == 'success'){
+		    	    window.location.href= path + "/showSubjectMaterial";
+		        }else{
+		    	    alert("网络异常请重试");
+		        }
+    		  }
+		  });
+}
+   
    
 function showCreateMaterial(){
 	 $('#materialSubjectModal').modal({
@@ -167,6 +186,134 @@ function closeCreateMaterial(){
 }
 
 </script>
+<script type="text/javascript">
+    var namearray = new Array();
+	var typearray = new Array();
+	var cjarray = new Array();
+	var slarray = new Array();
+	var jearray = new Array();
+
+	function cleanError() {
+		$('#errormessagediv').hide();
+		$('#errormessage').html("");
+	}
+
+	function addList() {
+		var name = $("#mname").val();
+		var type = $("#type").val();
+		var factroy = $("#factroy").val();
+		var num = $("#num").val();
+		var money = $("#money").val();
+
+		if (name.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料名称");
+			return;
+		}
+
+		if (factroy.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入品牌名称");
+			return;
+		}
+
+		if (num.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料数量");
+			return;
+		} else {
+			var regu = /^[-]{0,1}[0-9]{1,}$/;
+			if (!regu.test(num.trim())) {
+				$('#errormessagediv').show();
+				$('#errormessage').html("材料数量格式有误");
+				return;
+			}
+		}
+
+		if (money.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料单价");
+			return;
+		} else {
+			if (isNaN(money)) {
+				$('#errormessagediv').show();
+				$('#errormessage').html("材料单价格式有误");
+				return;
+			}
+		}
+		// var len = $("#tab tr").length;     
+		$("#listtable").append("<tr>"
+								+ "<td>"
+								+ name
+								+ "</td>"
+								+ "<td>"
+								+ type
+								+ "</td>"
+								+ "<td>"
+								+ factroy
+								+ "</td>"
+								+ "<td>"
+								+ num
+								+ "</td>"
+								+ "<td>"
+								+ money
+								+ "</td>"
+								+ "<td><a href='javascript:' onclick='removeLine(this);'>删除</a></td>"
+								+ "</tr>");
+
+	}
+
+	function removeLine(k) {
+		$(k).parent().parent().remove();
+	}
+
+	function add() {
+
+		$("#listtable tr td:nth-child(1)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				namearray.push(s);
+			}
+
+		});
+		$("#listtable tr td:nth-child(2)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				typearray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(3)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				cjarray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(4)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				slarray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(5)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				jearray.push(s);
+			}
+		});
+		for ( var i = 0; i < typearray.length; i++) {
+			$("#upfrom")
+					.append(
+							"<tr><td>"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].name' value="+namearray[i]+"><input name='createSubjectMaiterialRequest.list["+i+"].type' value="+typearray[i]+">"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].brand' value="+cjarray[i]+"><input  name='createSubjectMaiterialRequest.list["+i+"].num' value="+slarray[i]+">"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].money' value="+jearray[i]+">"
+									+ "</td></tr>");
+		}
+		$("#tfrom").submit();
+
+	}
+ 
+ </script>
 <%@ include file="../../../footinclude.jsp"%>
 <%@ include file="../../../chartinclude.jsp"%>
  </body>

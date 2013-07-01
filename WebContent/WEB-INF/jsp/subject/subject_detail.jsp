@@ -130,6 +130,36 @@ function bindScroll(){
        function doaction(){
     	   if(userforpdf){
     		   createpdf();  
+    	   }else{
+    		   createGif();
+    	   }
+       }
+       
+       function createGif(){
+    	   var ids = "";
+    	   $('.thechecks').each(function(i){
+    		   if($(this).attr("checked")){
+    			   ids = ids + $(this).val() + ",";
+   			   }
+    	   });  
+    	   if(ids != ""){
+    		   $("#action").show();
+    		   $.ajax({
+     	       		url : path + "/createGif.action",
+     	       		type : "POST",
+     	       		cache : false,
+     	       		async : false,
+     	       		data: {"partids":ids},
+     	       		dataType : "json",
+     	       		success : function(item) {
+     	       		     $("#action").hide();
+     		       		 if(item == 'success'){
+     	    		    	 alter("操作成功！");
+     	    		     }else{
+     	    		    	 alert("网络异常请重试");
+     	    		     }
+     	       		  }
+               }); 
     	   }
        }
        
@@ -141,6 +171,7 @@ function bindScroll(){
    			   }
     	   }); 
     	   if(ids != ""){
+    		   $("#action").show();
     		   $.ajax({
      	       		url : path + "/createPdf.action",
      	       		type : "POST",
@@ -149,12 +180,12 @@ function bindScroll(){
      	       		data: {"partids":ids},
      	       		dataType : "json",
      	       		success : function(item) {
-     	       			alert(item);
-//      		       		 if(item == 'success'){
-//      	    		    	 window.location.href= path + "/showSubjectDetailView";
-//      	    		     }else{
-//      	    		    	 alert("网络异常请重试");
-//      	    		     }
+     	       		     $("#action").hide();
+     		       		 if(item == 'success'){
+     	    		    	 alter("操作成功！");
+     	    		     }else{
+     	    		    	 alert("网络异常请重试");
+     	    		     }
      	       		  }
                }); 
     	   }
@@ -195,6 +226,14 @@ function bindScroll(){
         <br />
         <span class="muted"><small>${currentSubjectEntity.info }</small></span><br />
         <span><i class="icon-time"></i>Create Time:${currentSubjectEntity.createTime }</span>
+        <span>
+           <c:if test="${subjectExtraEntity.pdfUrl != '-' }">
+              <a class="btn btn-mini" href="<%=pdf %>${subjectExtraEntity.pdfUrl}" target="_blank"><i class='icon-download-alt'></i>下载PDF</a>
+           </c:if>
+           <c:if test="${subjectExtraEntity.gifUrl != '-' }">
+              <button class="btn btn-mini" onclick="showGifSubject()" ><i class="icon-picture"></i>查看GIF</button>
+           </c:if>
+        </span>
              <div class="btn-group pull-right " >
 			  <a href="<%=rootPath %>/subjectMessage" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a>
 			  <a href="<%=rootPath %>/subjectCommentsText"class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }</a>
@@ -227,6 +266,7 @@ function bindScroll(){
          </span>
          <span>
            <button onclick="doaction()" class="btn btn-info" id="usepart" style='display:none'>ok</button>
+            <span id="action" style="display:none" class="muted"><img src="<%=domain %>/image/loadingred.gif" ><small>正在为你生成...</small></span>
          </span>
           <span class="pull-right">
             <a class="btn" href="<%=rootPath %>/showSubjectDetailView">
@@ -412,25 +452,19 @@ function bindScroll(){
 	    </div>
     </div>
     
-<!--     分享 -->
-<!--      <div id="shareSubjectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!-- 	    <div class="modal-header"> -->
-<!-- 	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-<!-- 	       <h3>分享专题</h3> -->
-<!--         </div> -->
-<!--         <div class="modal-body"> -->
-<!--            <span class="pull-right" > -->
-<%--               <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/mxk_web/index&pic=<%=imgurl %>${upvo.gifUrl }&title=${upvo.name }&nbsp;/&nbsp;进度：${upvo.progress  }%&summary=${upvo.desc }|&nbsp;<%=rootPath%>/vistorShowUserPlanList?projectid=${upvo.id }" target="_blank"><img src="<%=assets%>/mxkimage/kongjian.png"/></a> --%>
-<!--               &nbsp;&nbsp; -->
-<%--       	      <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistorShowUserPlanList?projectid=${upvo.id }&pic=<%=imgurl %>${upvo.gifUrl }&title=${upvo.name }&nbsp;/&nbsp;进度：${upvo.progress   }%&nbsp;${upvo.desc }" target="_blank"><img src="<%=assets%>/mxkimage/weixin.png"/></a> --%>
-<!--               &nbsp;&nbsp; -->
-<%--               <a href="http://service.weibo.com/share/share.php?url=<%= rootPath%>/vistorShowUserPlanList?projectid=${upvo.id}&pic=<%=imgurl %>${upvo.gifUrl }&title=${upvo.name }&nbsp;/&nbsp;进度：${upvo.progress   }%&nbsp;${upvo.desc }" target="_blank"><img src="<%=assets%>/mxkimage/webbo.png"/></a> --%>
-<!--            </span> -->
-<!--         </div> -->
-<!-- 	    <div class="modal-footer"> -->
-<!-- 	      <a href="javascript:;" class="btn" >关闭</a> -->
-<!-- 	    </div> -->
-<!--     </div> -->
+   <!-- gif -->
+     <div id="gifSubjectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	       <h3>gif</h3>
+        </div>
+        <div class="modal-body">
+           <img src="<%=imgurl%>/${subjectExtraEntity.gifUrl}">
+        </div>
+	    <div class="modal-footer">
+	      <a href="javascript:;" class="btn" onclick="closeGifSubject()" >关闭</a>
+	    </div>
+    </div>
     
     <!-- 材料 -->
     <div id="materialSubjectModal" class="modalbig hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -641,11 +675,15 @@ function bindScroll(){
 		 $('#createPartModal').modal('hide');
 	 }
 	 
-	 function showShareSubject(){
-		 $('#shareSubjectModal').modal({
+	 function showGifSubject(){
+		 $('#gifSubjectModal').modal({
 	       keyboard: false
 	   });
      }
+	 
+	 function closeGifSubject(){
+		 $('#gifSubjectModal').modal('hide'); 
+	 }
  
  </script>
   <script type="text/javascript"> 
