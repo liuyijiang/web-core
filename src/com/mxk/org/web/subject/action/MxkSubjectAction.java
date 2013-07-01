@@ -92,6 +92,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private LoadCommentsRespone loadCommentsRespone; 
 	private CreateSubjectMaiterialRequest createSubjectMaiterialRequest;
 	
+	
 	public String mxkSubjectCommentsView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);

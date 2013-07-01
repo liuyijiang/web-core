@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.domain.session.MxkSessionContext;
+import com.mxk.org.common.message.domain.NewMessagePushMessage;
+import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkFileUploadService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.entity.PartEntity;
@@ -45,6 +47,9 @@ public class MxkPartAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkGridFSFileUploadService gridFSFileUploadService;
+	
+	@Autowired
+	private MxkMessageQueueService messageQueueService;
 	
 	private CreatePartRequest createPartRequest;
 	private File image;
@@ -139,6 +144,10 @@ public class MxkPartAction extends MxkSessionAction {
 		    		}
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,currentSubjectEntity);
+			    	NewMessagePushMessage mes = new NewMessagePushMessage();
+			    	mes.setTragetId(partid);
+			    	mes.setUserid(uservo.getId());
+			    	messageQueueService.startNewRssPushTask(mes);
 			    }
 			}
 			message = MxkConstant.AJAX_SUCCESS;
@@ -170,6 +179,10 @@ public class MxkPartAction extends MxkSessionAction {
 			    		subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 			    	}
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
+			    	NewMessagePushMessage mes = new NewMessagePushMessage();
+			    	mes.setTragetId(partid);
+			    	mes.setUserid(uservo.getId());
+			    	messageQueueService.startNewRssPushTask(mes);
 			    }
 			}
 			message = MxkConstant.AJAX_SUCCESS;

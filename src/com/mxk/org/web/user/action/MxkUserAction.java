@@ -149,6 +149,8 @@ public class MxkUserAction extends MxkSessionAction {
 				messageService.removeMesage(MessageEntity.getId());
 				return MxkConstant.PART;
 			}else{
+				target = MessageEntity.getTargetId();
+				messageService.removeMesage(MessageEntity.getId());
 				return MxkConstant.SUBJECT;
 			}
 		}
