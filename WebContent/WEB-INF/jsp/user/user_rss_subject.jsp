@@ -9,6 +9,9 @@
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
 <script type="text/javascript">
+   
+   var userid = '${uservo.id}';
+
   function mouseover(id){
     $("#"+id).css("z-index","1");
   }
@@ -16,6 +19,27 @@
   function mouseout(id){
 	$("#"+id).css("z-index","-1");
   }
+  
+  function removeRss(subjectid){
+		 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
+		 $.ajax({
+				url : path + "/removeRssSubject.action",
+				type : "POST",
+				cache : false,
+				async : false,
+				data: datas,
+				dataType : "json",
+				success : function(item) {
+					if(item == 'success'){
+						window.location.href= path + "/showUserRssSubject";
+					}else{
+						alert("网络连接异常！");
+					}
+				}
+	    });
+		
+	}
+  
 </script>
 <div class="container ">
 		<div class="navbar">
@@ -64,7 +88,7 @@
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="rsssubject('${options.id}','${options.userid }')">
+						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="removeRss('${options.id}')">
 						               <i class="icon-remove-circle"></i>取消
 						            </a>
 						            <c:if test="${options.type == 'FOR-ALL'}">
@@ -102,7 +126,7 @@
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						             <a class="btn btn-mini btn-danger" href="javascript:;" onclick="rsssubject('${options.id}','${options.userid }')">
+						             <a class="btn btn-mini btn-danger" href="javascript:;" onclick="removeRss('${options.id}')">
 						               <i class="icon-remove-circle"></i>取消
 						            </a>
 						             <c:if test="${options.type == 'FOR-ALL'}">
@@ -140,7 +164,7 @@
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						           <a class="btn btn-mini btn-danger" href="javascript:;" onclick="rsssubject('${options.id}','${options.userid }')">
+						           <a class="btn btn-mini btn-danger" href="javascript:;" onclick="removeRss('${options.id}')">
 						               <i class="icon-remove-circle"></i>取消
 						            </a>
 						             <c:if test="${options.type == 'FOR-ALL'}">
@@ -178,7 +202,7 @@
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						             <a class="btn btn-mini btn-danger" href="javascript:;" onclick="rsssubject('${options.id}','${options.userid }')">
+						             <a class="btn btn-mini btn-danger" href="javascript:;" onclick="removeRss('${options.id}')">
 						               <i class="icon-remove-circle"></i>取消
 						            </a>
 						             <c:if test="${options.type == 'FOR-ALL'}">

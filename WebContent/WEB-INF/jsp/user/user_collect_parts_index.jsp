@@ -178,7 +178,7 @@
 					</li>
 					<li class="divider-vertical"></li>
 					<li>
-					<a href="#">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
+					<a href="<%=rootPath%>/showNewRssMessage">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
 					</li>
 					<li class="divider-vertical"></li>
 					<li class="active">

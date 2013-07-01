@@ -26,7 +26,7 @@
 					</li>
 					<li class="divider-vertical"></li>
 					<li>
-					<a href="#">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
+					<a href="<%=rootPath%>/showNewRssMessage">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
 					</li>
 					<li class="divider-vertical"></li>
 					<li>
@@ -45,6 +45,13 @@
 		</div>
 	</div>
  <div class="container">
+   <c:if test="${empty subjectsShowResponse }">
+	  <div class="alert alert-block">
+	     <a class="close" data-dismiss="alert">×</a>
+	     <h4 class="alert-heading">你还没有创建专题!</h4>
+	                            现在就去创建自己的专题
+	  </div>
+    </c:if>
    <c:if test="${!empty subjectsShowResponse }">
 	      <div class="row">
 			<div class="span3">

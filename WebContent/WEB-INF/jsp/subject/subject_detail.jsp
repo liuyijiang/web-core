@@ -616,7 +616,7 @@ function bindScroll(){
     var hasmaterial = '${message}';
   
      function showCreateMaterial(){
-    	 if(hasmaterial != 'success'){
+    	 if(hasmaterial == 'success'){
     		 window.location.href= path + "/showSubjectMaterial";
     	 }else{
     		 $('#materialSubjectModal').modal({

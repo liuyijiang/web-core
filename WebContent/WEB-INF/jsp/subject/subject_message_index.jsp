@@ -13,7 +13,7 @@ var subjectid = '${subjectMessageShowRespone.subjectEntity.id}';
 var page = 2;
 
 function removeRss(userid){
-	 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid}
+	 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
 	 $.ajax({
 			url : path + "/removeRssSubject.action",
 			type : "POST",
