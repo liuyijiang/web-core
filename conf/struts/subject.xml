@@ -108,6 +108,13 @@
             </result> 
 		</action>
 		
+		<action name="createGif" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkCreateGifAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
 		<action name="rsssubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
 			method="mxkRssSubjectAjax">
 		    <result type="json" name="success">  
