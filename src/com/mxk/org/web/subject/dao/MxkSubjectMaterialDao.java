@@ -23,6 +23,29 @@ public class MxkSubjectMaterialDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public boolean delateSubjectMaterailDetailById(String id){
+		boolean success = true;
+		try{
+			Query q = new Query(Criteria.where("id").is(id));
+			mog.remove(q,SubjectMaterialDetailEntity.class);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+	
+	}
+	
+	public SubjectMaterialSummaryEntity findSubjecMaterialSummaryEntity(String subjectid) {
+		Query q = new Query(Criteria.where("subjectId").is(subjectid));
+		return mog.findOne(q, SubjectMaterialSummaryEntity.class);
+	}
+	
+	public List<SubjectMaterialDetailEntity> findSubjectMaterialDetailEntity(String subjectid) {
+		Query q = new Query(Criteria.where("subjectid").is(subjectid));
+		return mog.find(q, SubjectMaterialDetailEntity.class);
+	}
+	
 	public boolean updateSubejcyMaterialExcelUrl(String id,String excel){
 		boolean success = true;
 		try {
@@ -59,17 +82,14 @@ public class MxkSubjectMaterialDao {
 			long num = mog.count(q, SubjectMaterialSummaryEntity.class);
 			if(num == 0){
 			    mog.save(summary);
-				for(SubjectMaterialDetailEntity detail : list){
-					detail.setSubjectid(summary.getSubjectId());
-					detail.setSummaryid(summary.getId());
-					detail.setAllMoney(detail.getMoney().multiply(new BigDecimal(detail.getNum())));
-					detail.setUserid(summary.getUserid());
-					mog.save(detail);
-				}
-			}else{
-				success = false;
 			}
-		  
+			for(SubjectMaterialDetailEntity detail : list){
+				detail.setSubjectid(summary.getSubjectId());
+				detail.setSummaryid(summary.getId());
+				detail.setAllMoney(detail.getMoney().multiply(new BigDecimal(detail.getNum())));
+				detail.setUserid(summary.getUserid());
+				mog.save(detail);
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		}

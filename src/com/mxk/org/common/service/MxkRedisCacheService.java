@@ -1,5 +1,7 @@
 package com.mxk.org.common.service;
 
+import java.util.List;
+
 import com.mxk.org.web.user.domain.UserVO;
 
 public interface MxkRedisCacheService {
@@ -17,4 +19,6 @@ public interface MxkRedisCacheService {
 	public boolean cachUserRssSubject(String userid,String subjectid);
 	
 	public boolean removeCachUserRssSubject(String userid,String subjectid);
+	
+	public List<String> findUserRssMessageByPage(String userid,int page);
 }

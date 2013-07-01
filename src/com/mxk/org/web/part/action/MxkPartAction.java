@@ -147,6 +147,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();
 			    	mes.setTragetId(partid);
 			    	mes.setUserid(uservo.getId());
+			    	mes.setSubjectId(currentSubjectEntity.getId());
 			    	messageQueueService.startNewRssPushTask(mes);
 			    }
 			}
@@ -182,6 +183,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();
 			    	mes.setTragetId(partid);
 			    	mes.setUserid(uservo.getId());
+			    	mes.setSubjectId(currentSubjectEntity.getId());
 			    	messageQueueService.startNewRssPushTask(mes);
 			    }
 			}

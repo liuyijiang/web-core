@@ -20,6 +20,7 @@ import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserFriendEntity;
 import com.mxk.org.web.comments.service.MxkMessageService;
 import com.mxk.org.web.part.domain.PartShowResponse;
+import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
 import com.mxk.org.web.subject.domain.SubjectsShowResponse;
@@ -121,7 +122,23 @@ public class MxkUserAction extends MxkSessionAction {
 	private UserChangePasswordRequest userChangePasswordRequest;
 	private SearchUserJoinSubjectRequest searchUserJoinSubjectRequest;
 	private SearchUserRssSubjectRequest searchUserRssSubjectRequest;
+	private SearchPartRequest searchPartRequest;
 	private String target;//
+	
+	//关注的信息
+	public String mxkShowNewRssMessageView(){
+		uservo = super.getCurrentUserVO();
+		if(uservo != null){
+			List<String> ids = redisCacheService.findUserRssMessageByPage(uservo.getId(), 1);
+			if(ids != null && !ids.isEmpty()){
+				partShowResponse = partService.findUserCollectParts(ids);
+			}
+		}
+		return SUCCESS;
+	}
+	
+	//public String 
+	
 	//用户消息
 	public String mxkShowUserOnMessageView(){
 		uservo = super.getCurrentUserVO();
@@ -643,7 +660,14 @@ public class MxkUserAction extends MxkSessionAction {
 			SearchUserRssSubjectRequest searchUserRssSubjectRequest) {
 		this.searchUserRssSubjectRequest = searchUserRssSubjectRequest;
 	}
-	
+
+	public SearchPartRequest getSearchPartRequest() {
+		return searchPartRequest;
+	}
+
+	public void setSearchPartRequest(SearchPartRequest searchPartRequest) {
+		this.searchPartRequest = searchPartRequest;
+	}
 	
 	
 }

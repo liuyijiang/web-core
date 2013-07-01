@@ -3,26 +3,24 @@ package com.mxk.org.web.subject.domain;
 import java.util.List;
 
 import com.mxk.org.entity.SubjectMaterialDetailEntity;
+import com.mxk.org.entity.SubjectMaterialSummaryEntity;
 
-public class CreateSubjectMaiterialRequest {
+public class SubjectMaterailDetailRespone {
    
-	private String summaryid;
+	private SubjectMaterialSummaryEntity summary;
 	private List<SubjectMaterialDetailEntity> list;
-
+	
+	public SubjectMaterialSummaryEntity getSummary() {
+		return summary;
+	}
+	public void setSummary(SubjectMaterialSummaryEntity summary) {
+		this.summary = summary;
+	}
 	public List<SubjectMaterialDetailEntity> getList() {
 		return list;
 	}
-
 	public void setList(List<SubjectMaterialDetailEntity> list) {
 		this.list = list;
-	}
-
-	public String getSummaryid() {
-		return summaryid;
-	}
-
-	public void setSummaryid(String summaryid) {
-		this.summaryid = summaryid;
 	}
 	
 	

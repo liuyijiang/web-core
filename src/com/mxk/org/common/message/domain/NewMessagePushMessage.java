@@ -11,12 +11,14 @@ public class NewMessagePushMessage implements MessageCreator {
    
 	private String tragetId; //part µÄ id
 	private String userid;
+	private String subjectId;
 	
 	@Override
 	public Message createMessage(Session session) throws JMSException {
 		MapMessage message = session.createMapMessage();
         message.setString("tragetId", tragetId);
         message.setString("userid", userid);
+        message.setString("subjectId", subjectId);
 		return message;
 	}
 	
@@ -31,6 +33,14 @@ public class NewMessagePushMessage implements MessageCreator {
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	public String getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
 	}
 	
 	

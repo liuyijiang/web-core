@@ -30,6 +30,7 @@ import com.mxk.org.web.subject.domain.RssSubjectRequest;
 import com.mxk.org.web.subject.domain.SetFaceImageRequest;
 import com.mxk.org.web.subject.domain.ShowRssSubjectResponse;
 import com.mxk.org.web.subject.domain.ShowRssSubjectUserRequest;
+import com.mxk.org.web.subject.domain.SubjectMaterailDetailRespone;
 import com.mxk.org.web.subject.domain.SubjectMessageShowRespone;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
 import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
@@ -91,7 +92,8 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private LoadCommentsRequest loadCommentsRequest;
 	private LoadCommentsRespone loadCommentsRespone; 
 	private CreateSubjectMaiterialRequest createSubjectMaiterialRequest;
-	
+	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
+	private String targetId;
 	
 	public String mxkSubjectCommentsView(){
 		uservo = super.getCurrentUserVO();
@@ -327,6 +329,33 @@ public class MxkSubjectAction extends MxkSessionAction {
 		}
 	}
 	
+	//继续添加
+	public String mxkUpdateSujectMaterial() {
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(createSubjectMaiterialRequest != null){
+			SubjectMaterialSummaryEntity summary = new SubjectMaterialSummaryEntity();
+			summary.setSubjectId(currentSubjectEntity.getId());
+			summary.setUserid(currentSubjectEntity.getUserid());
+			summary.setId(createSubjectMaiterialRequest.getSummaryid());
+			if(subjectMaterialService.createSubjectMaterial(summary, createSubjectMaiterialRequest.getList())){
+				ExcelCreateMessage mes = new ExcelCreateMessage();
+				mes.setSummaryId(summary.getId());
+				messageQueueService.startExcelCreateTask(mes);
+			}
+			message = MxkConstant.AJAX_SUCCESS; //有材料
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkDeleteSubjectMaterialAjax() {
+		message = MxkConstant.AJAX_SUCCESS; //有材料	
+		if(targetId != null){
+			subjectMaterialService.delateSubjectMaterailDetailById(targetId);
+		}
+		return SUCCESS;
+	}
+	
 	public String mxkCreateSubjectMaterial(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -340,6 +369,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 				mes.setSummaryId(summary.getId());
 				messageQueueService.startExcelCreateTask(mes);
 			}
+			message = MxkConstant.AJAX_SUCCESS; //有材料
 		}
 		return SUCCESS;
 	}
@@ -348,6 +378,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 	public String mxkShowSubjectMaterialView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			subjectMaterailDetailRespone = subjectMaterialService.findUserSubjectMaterials(currentSubjectEntity.getId());	
+		}
 		return SUCCESS;
 	}
 
@@ -528,6 +561,15 @@ public class MxkSubjectAction extends MxkSessionAction {
 	public void setCreateSubjectMaiterialRequest(
 			CreateSubjectMaiterialRequest createSubjectMaiterialRequest) {
 		this.createSubjectMaiterialRequest = createSubjectMaiterialRequest;
+	}
+
+	public SubjectMaterailDetailRespone getSubjectMaterailDetailRespone() {
+		return subjectMaterailDetailRespone;
+	}
+
+	public void setSubjectMaterailDetailRespone(
+			SubjectMaterailDetailRespone subjectMaterailDetailRespone) {
+		this.subjectMaterailDetailRespone = subjectMaterailDetailRespone;
 	}
 
 	

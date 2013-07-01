@@ -42,6 +42,9 @@ public class MxkExcelCreateListener implements MessageListener{
 			if(summary != null){
 				File file = excelSupportService.createSubjectMaterialExcel(summary.getSubjectId());
 			    if(file != null){
+			    	if(summary.getDowmloadExl() != null){
+			    		gridFSFileUploadService.removeFile(summary.getDowmloadExl(), MxkGridFSFileUploadService.FILE_TYPE_XLS);
+			    	}
 			    	String url = gridFSFileUploadService.uploadFile(file, summary.getId(), MxkGridFSFileUploadService.FILE_TYPE_XLS);
 			    	subjectMaterialService.updateSubejcyMaterialExcelUrl(summary.getId(),url);
 			    }

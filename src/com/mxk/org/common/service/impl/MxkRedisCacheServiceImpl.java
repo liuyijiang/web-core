@@ -1,5 +1,7 @@
 package com.mxk.org.common.service.impl;
 
+import java.util.List;
+
 import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
@@ -30,6 +32,8 @@ public class MxkRedisCacheServiceImpl implements MxkRedisCacheService {
 	@Value("${mxk.page.small.pagesize}")
 	private int size;
 	
+	@Value("${mxk.page.pagesize}")
+	private int pageSize;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -111,7 +115,7 @@ public class MxkRedisCacheServiceImpl implements MxkRedisCacheService {
 		boolean suucess = true;
 		try{
 			jedis = jedisPool.getJedis();
-			String userkey = userid + MxkRedisCacheContants.KEY_USER_FOUCS;
+			String userkey = userid + MxkRedisCacheContants.KEY_USER_FOUCSER;
 			jedis.sadd(userkey,friendid);//¹Ø×¢
 			String friendkey = friendid + MxkRedisCacheContants.KEY_USER_FOLLOWER;
 			jedis.sadd(friendkey, userid);
@@ -162,6 +166,26 @@ public class MxkRedisCacheServiceImpl implements MxkRedisCacheService {
 		   jedisPool.getJedisPool().returnResource(jedis);
 		}
 		return suucess;
+	}
+
+	@Override
+	public List<String> findUserRssMessageByPage(String userid, int page) {
+		Jedis jedis = null;
+		List<String> list = null;
+		try{
+			jedis = jedisPool.getJedis();
+			String key = userid + MxkRedisCacheContants.KEY_USER_FOUCS;
+			int startpage = pageSize * (page - 1);
+			int endpage = startpage + (pageSize - 1);
+			list = jedis.lrange(key, startpage, endpage);
+		}catch(Exception e){
+			log.error(e.getMessage(), e);
+			e.printStackTrace();
+			jedis.disconnect(); 
+		}finally{
+		   jedisPool.getJedisPool().returnResource(jedis);
+		}
+		return list;
 	}
 	
 }
