@@ -326,6 +326,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 			request.setType(null);
 			request.setUserid(uservo.getId());
 			partShowResponse = partService.findUserSubjectParts(request);
+			partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(currentSubjectEntity.getId()));
 			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
 			}else{

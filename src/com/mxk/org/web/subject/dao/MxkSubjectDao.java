@@ -42,6 +42,16 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public long findUserSubjectAllPage(String userid){
+		Query q = new Query(Criteria.where("userid").is(userid));
+		int count = (int) mog.count(q, SubjectEntity.class);
+		if(count != 0){
+			return (count + pageSize-1) / pageSize;
+		}else{
+			return 0;
+		}
+	}
+	
 	public List<SubjectEntity> findSubjectEntityByIdsList(List<String> ids){
 		Query q = new Query(Criteria.where("id").in(ids));
 		return mog.find(q, SubjectEntity.class);

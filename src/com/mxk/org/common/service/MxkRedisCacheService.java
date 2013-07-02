@@ -21,4 +21,6 @@ public interface MxkRedisCacheService {
 	public boolean removeCachUserRssSubject(String userid,String subjectid);
 	
 	public List<String> findUserRssMessageByPage(String userid,int page);
+	
+	public long findUserRssMessageAllPage(String userid);
 }

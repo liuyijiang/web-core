@@ -11,6 +11,7 @@ import com.mxk.org.entity.SubjectEntity;
  */
 public class SubjectsShowResponse {
    
+	private long allpage;
 	private List<SubjectEntity> list1;
 	private List<SubjectEntity> list2;
 	private List<SubjectEntity> list3;
@@ -40,6 +41,12 @@ public class SubjectsShowResponse {
 	}
 	public void setList4(List<SubjectEntity> list4) {
 		this.list4 = list4;
+	}
+	public long getAllpage() {
+		return allpage;
+	}
+	public void setAllpage(long allpage) {
+		this.allpage = allpage;
 	}
 	
 	

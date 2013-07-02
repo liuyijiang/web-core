@@ -22,8 +22,12 @@ public class MxkPartService {
 	@Autowired
 	private MxkPartDao partDao;
 	
+	public long findUserSubjectPartsAllPage(String subjectid){
+		return partDao.findUserSubjectPartsAllPage(subjectid);
+	}
+	
 	public SubjectNewPartsVO findSubjectNewParts(String subjectid){
-		SubjectNewPartsVO subjectNewPartsVO = null; 
+		SubjectNewPartsVO subjectNewPartsVO = null;  
 		List<PartEntity> list = partDao.findSubjectNewParts(subjectid);
 		if(list != null && list.size() == 5){
 			subjectNewPartsVO = new SubjectNewPartsVO();

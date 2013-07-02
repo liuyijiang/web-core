@@ -34,6 +34,16 @@ public class MxkPartDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public long findUserSubjectPartsAllPage(String subjectid){
+	    Query q = new Query(Criteria.where("subjectid").is(subjectid));	
+	    long count =  mog.count(q, PartEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 0;
+		}
+	}
+	
 	public List<PartEntity> findSubjectNewParts(String id){
 		List<PartEntity> list = null;
 		try{

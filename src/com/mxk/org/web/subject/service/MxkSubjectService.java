@@ -29,6 +29,10 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public long findUserSubjectAllPage(String userid){
+		return dao.findUserSubjectAllPage(userid);
+	}
+	
 	public SubjectExtraEntity findSubjectExtraEntity(String subjectid){
 		return dao.findSubjectExtraEntity(subjectid);
 	}

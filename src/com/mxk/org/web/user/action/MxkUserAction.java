@@ -123,6 +123,7 @@ public class MxkUserAction extends MxkSessionAction {
 	private SearchUserJoinSubjectRequest searchUserJoinSubjectRequest;
 	private SearchUserRssSubjectRequest searchUserRssSubjectRequest;
 	private SearchPartRequest searchPartRequest;
+	private SearchSubjectRequest searchSubjectRequest;
 	private String target;//
 	
 	//关注的信息
@@ -132,12 +133,21 @@ public class MxkUserAction extends MxkSessionAction {
 			List<String> ids = redisCacheService.findUserRssMessageByPage(uservo.getId(), 1);
 			if(ids != null && !ids.isEmpty()){
 				partShowResponse = partService.findUserCollectParts(ids);
+				partShowResponse.setAllPage(redisCacheService.findUserRssMessageAllPage(uservo.getId()));
 			}
 		}
 		return SUCCESS;
 	}
 	
-	//public String 
+	public String mxkLoadMoreNewRssMessageAjax(){
+		if(searchPartRequest != null){
+			List<String> ids = redisCacheService.findUserRssMessageByPage(searchPartRequest.getUserid(), searchPartRequest.getPage());
+			if(ids != null && !ids.isEmpty()){
+				partShowResponse = partService.findUserCollectParts(ids);
+			}
+		}
+		return SUCCESS;
+	}
 	
 	//用户消息
 	public String mxkShowUserOnMessageView(){
@@ -391,11 +401,22 @@ public class MxkUserAction extends MxkSessionAction {
 		if(uservo != null){
 		  SearchSubjectRequest request = new SearchSubjectRequest(uservo.getId(),null,1);
 		  subjectsShowResponse = subjectService.findSubjectEntityBySearchRequest(request);
+		  long page = subjectService.findUserSubjectAllPage(uservo.getId());
+		  subjectsShowResponse.setAllpage(page);
 		  return SUCCESS;
 		}else{
 			return ERROR;
 		}
 	}
+	
+	//异步加载更多
+	public String mxkLoadMoreUserSubjectAjax(){
+		if (searchSubjectRequest != null) {
+		  subjectsShowResponse = subjectService.findSubjectEntityBySearchRequest(searchSubjectRequest);
+		}
+		return SUCCESS;
+	}
+	
 	
 	//收藏页面
 	public String mxkUserCollectIndexView() {
@@ -667,6 +688,14 @@ public class MxkUserAction extends MxkSessionAction {
 
 	public void setSearchPartRequest(SearchPartRequest searchPartRequest) {
 		this.searchPartRequest = searchPartRequest;
+	}
+
+	public SearchSubjectRequest getSearchSubjectRequest() {
+		return searchSubjectRequest;
+	}
+
+	public void setSearchSubjectRequest(SearchSubjectRequest searchSubjectRequest) {
+		this.searchSubjectRequest = searchSubjectRequest;
 	}
 	
 	

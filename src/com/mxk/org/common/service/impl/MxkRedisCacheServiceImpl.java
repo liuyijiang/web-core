@@ -187,5 +187,24 @@ public class MxkRedisCacheServiceImpl implements MxkRedisCacheService {
 		}
 		return list;
 	}
+
+	@Override
+	public long findUserRssMessageAllPage(String userid) {
+		Jedis jedis = null;
+		long allpage = 0;
+		try{
+			jedis = jedisPool.getJedis();
+			String key = userid + MxkRedisCacheContants.KEY_USER_FOUCS;
+			long all = jedis.llen(key);
+			allpage = (all + pageSize - 1) / pageSize;
+		} catch(Exception e) {
+			log.error(e.getMessage(), e);
+			e.printStackTrace();
+			jedis.disconnect(); 
+		} finally {
+			 jedisPool.getJedisPool().returnResource(jedis);
+		}
+		return allpage;
+	}
 	
 }
