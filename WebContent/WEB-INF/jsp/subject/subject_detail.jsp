@@ -201,6 +201,28 @@ function bindScroll(){
        }
        
 </script>
+<script type="text/javascript">
+function changeSubjectStutas(subid,status){
+	  var datas = {"updateSubjectStatusRequest.id":subid,"updateSubjectStatusRequest.stauts":status};
+	  $.ajax({
+		url : path + "/changeSubjectStatus.action",
+		type : "POST",
+		cache : false,
+		async : false,
+		data: datas,
+		dataType : "json",
+		success : function(item) {
+		     if(item == 'success'){
+		    	 window.location.href= path + "/showSubjectDetailView";
+		     }else{
+		    	 alert("网络异常请重试");
+		     }
+		  }
+	 }); 
+}
+
+
+</script>
 <body class="mxkbody  mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <div class="container">
@@ -213,17 +235,24 @@ function bindScroll(){
         <span>
           <span style="font-size: 20px;"><strong>${currentSubjectEntity.name }</strong></span>
              &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })
-             <c:choose>
+             <div class="btn-group">
+               <c:choose>
                 <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
-                  <a class="btn btn-success btn-mini" href="#">公开</a>
+                         <a id="substatus" class="btn dropdown-toggle btn-success btn-mini" data-toggle="dropdown" href="#">
+                            <i class="icon-hdd"></i>公开
+				   </a>
                 </c:when>
                 <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
-                  <a class="btn btn-danger btn-mini" href="#">私有</a>
-                </c:when>
-                <c:when test="${currentSubjectEntity.type == 'FOR-ALL'}">
-                  <a class="btn btn-warning btn-mini" href="#">共享</a>
+                  <a  id="substatus" class="btn dropdown-toggle btn-danger btn-mini" data-toggle="dropdown" href="#">
+                          <i class="icon-lock"></i>私有
+				   </a>
                 </c:when>
              </c:choose>
+              <ul class="dropdown-menu">
+		       <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PUBLIC')"><i class="icon-hdd"></i>公开</a></li>
+			   <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PRIVATE')"><i class="icon-lock"></i>私有</a></li>
+		       </ul>
+             </div>
            </span>
         </span>
         <span class="pull-right">
@@ -468,7 +497,7 @@ function bindScroll(){
 	       <h3>gif</h3>
         </div>
         <div class="modal-body">
-           <img src="<%=imgurl%>/${subjectExtraEntity.gifUrl}">
+           <img class="img-polaroid border-radius" src="<%=imgurl%>/${subjectExtraEntity.gifUrl}">
         </div>
 	    <div class="modal-footer">
 	      <a href="javascript:;" class="btn" onclick="closeGifSubject()" >关闭</a>

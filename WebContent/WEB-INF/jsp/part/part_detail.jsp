@@ -25,40 +25,6 @@
 	 $('#editPartModal').modal('hide');
   }
   
-  function changeSubjectStutas(subid,status){
-	  var datas = {"updateSubjectStatusRequest.id":subid,"updateSubjectStatusRequest.stauts":status};
-	  if(status == "FOR-ALL"){
-		  if(!confirm("设为共享后如果有其他用户在专题中添加pPart就不能切换到其他状态")){
-			  return;
-		  }
-	  }
-	  $.ajax({
- 		url : path + "/changeSubjectStatus.action",
- 		type : "POST",
- 		cache : false,
- 		async : false,
- 		data: datas,
- 		dataType : "json",
- 		success : function(item) {
- 		     if(item == 'success'){
- 		    	 if(status == "PUBLIC"){
- 		    		$('#substatus').html("<i class='icon-hdd'></i>公开");
- 		    		$('#substatus').addClass('btn-success');
- 		    	 }else if(status == "PRIVATE"){
- 		    		$('#substatus').html("<i class='icon-lock'></i>私有");
- 		    		$('#substatus').addClass('btn-danger');
- 		    	 }else if(status == "FOR-ALL"){
- 		    		$('#substatus').html("<i class='icon-globe'></i>共享");
- 		    		$('#substatus').addClass('btn-warning');
- 		    	 }
- 		     }else{
- 		    	 alert("网络异常请重试");
- 		     }
- 		  }
-	 }); 
-  }
-  
-  
   function useForSubjectFace(partid,subid){
 	     var datas = {"setFaceImageRequest.partid":partid,"setFaceImageRequest.subjectid":subid};
 	     $.ajax({
@@ -177,30 +143,6 @@
                     &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })</span><br />
                      <br />
                     <span class="pull-right">
-                     <div class="btn-group">
-                       <c:choose>
-		                <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
-                           <a id="substatus" class="btn dropdown-toggle btn-success btn-mini" data-toggle="dropdown" href="#">
-                              <i class="icon-hdd"></i>公开
-						   </a>
-		                </c:when>
-		                <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
-		                  <a  id="substatus" class="btn dropdown-toggle btn-danger btn-mini" data-toggle="dropdown" href="#">
-                            <i class="icon-lock"></i>私有
-						   </a>
-		                </c:when>
-		                <c:when test="${currentSubjectEntity.type == 'FOR-ALL'}">
-		                  <a  id="substatus" class="btn dropdown-toggle btn-warning btn-mini" data-toggle="dropdown" href="#">
-                             <i class="icon-globe"></i>共享
-						   </a>
-		                </c:when>
-		             </c:choose>
-		             <ul class="dropdown-menu">
-					       <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PUBLIC')"><i class="icon-hdd"></i>公开</a></li>
-						   <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PRIVATE')"><i class="icon-lock"></i>私有</a></li>
-						   <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','FOR-ALL')"><i class="icon-globe"></i>共享</a></li>
-				         </ul>
-		                </div>
                        <a href="javascript:;" class="btn btn-info btn-mini" onclick="showCreatePart()"><i class="icon-pushpin"></i>添加Part</a>
                     </span>
                     <br />

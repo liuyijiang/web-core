@@ -6,7 +6,7 @@
  <%@ include file="../../../headerinclude.jsp"%>
 </head>
 
-<body onload="showChart()">
+<body class="mxkbody mxkbackgroud" onload="showChart()">
 <%@ include file="../public/user_page_header.jsp"%>
 <script type="text/javascript">
     function showChart(){
@@ -88,11 +88,12 @@
 	           <div id="chart" ></div>
 	           <div style='padding:1px;margin-bottom:5px;'>
 		           <span class="pull-right">
-		              <a class="btn">下载Excel</a>
+		              <a class="btn" target="_blank" href="<%=excel%>${subjectMaterailDetailRespone.summary.dowmloadExl}"> <i class="icon-cloud-download"></i>下载Excel</a>
 		              <a class="btn btn-inverse" href="javascript:;" onclick="showCreateMaterial()">
                          <i class="icon-calendar "></i>继续添加
                       </a>
 		           </span>
+		           <br /><br />
 	           </div>
 	  </div>
 	</div>
