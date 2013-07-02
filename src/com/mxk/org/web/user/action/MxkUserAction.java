@@ -401,8 +401,10 @@ public class MxkUserAction extends MxkSessionAction {
 		if(uservo != null){
 		  SearchSubjectRequest request = new SearchSubjectRequest(uservo.getId(),null,1);
 		  subjectsShowResponse = subjectService.findSubjectEntityBySearchRequest(request);
-		  long page = subjectService.findUserSubjectAllPage(uservo.getId());
-		  subjectsShowResponse.setAllpage(page);
+		  if(subjectsShowResponse != null){
+			  long page = subjectService.findUserSubjectAllPage(uservo.getId());
+			  subjectsShowResponse.setAllpage(page);
+		  } 
 		  return SUCCESS;
 		}else{
 			return ERROR;
@@ -475,6 +477,21 @@ public class MxkUserAction extends MxkSessionAction {
 			if(ids != null && !ids.isEmpty()){
 			  List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
 			  subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
+			  if(subjectsShowResponse != null){
+				  long page = userService.findUserRssSubjectALlPage(uservo.getId());
+				  subjectsShowResponse.setAllpage(page);
+			  }
+		    }
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkLoadMoreRssSubjectAjax(){
+		if(searchUserRssSubjectRequest != null){
+			List<String> ids = userService.findUserRssSubjectIdsList(searchUserRssSubjectRequest);
+			if(ids != null && !ids.isEmpty()){
+			  List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
+			  subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
 		    }
 		}
 		return SUCCESS;
@@ -491,6 +508,7 @@ public class MxkUserAction extends MxkSessionAction {
 			if(ids != null && !ids.isEmpty()){
 			  List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
 			  subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
+			  subjectsShowResponse.setAllpage(subjectJoinPeopleService.findUserJoinSubjectAllPage(uservo.getId()));
 			}
 			return SUCCESS;
 		}else{
@@ -498,6 +516,16 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
+	public String mxkLoadMoreUserJoinSubjectAjax(){
+		if (searchUserJoinSubjectRequest != null) {
+			List<String> ids = subjectJoinPeopleService.findUserJoinSubjectIds(searchUserJoinSubjectRequest);
+			if(ids != null && !ids.isEmpty()){
+			   List<SubjectEntity> list = subjectService.findSubjectEntityByIdsList(ids);
+			   subjectsShowResponse = subjectService.createSubjectsShowResponseByList(list);
+		   }
+		}
+		return SUCCESS;
+	}
 	
 	private boolean valiateUserForUpdate(UserRegisterRequest userRegisterRequest){
 		if (userRegisterRequest == null ){

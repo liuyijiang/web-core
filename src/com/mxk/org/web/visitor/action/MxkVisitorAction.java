@@ -69,10 +69,10 @@ public class MxkVisitorAction extends MxkSessionAction {
 			if(!StringUtil.stringIsEmpty(visitorSeeSubjectDashBoardRequest.getParm())){ //Ä£ºý²éÔƒ
 				list = subjectService.findSubjectEntityByName(visitorSeeSubjectDashBoardRequest.getParm(), visitorSeeSubjectDashBoardRequest.getPage());
 			}else{
-				if(StringUtil.stringIsEmpty(type)){
+				if(StringUtil.stringIsEmpty(visitorSeeSubjectDashBoardRequest.getType())){
 					list = subjectService.findSubjectEntityForALl(visitorSeeSubjectDashBoardRequest.getTags(),null,visitorSeeSubjectDashBoardRequest.getPage());
 				}else{
-					list = subjectService.findSubjectEntityForALl(visitorSeeSubjectDashBoardRequest.getTags(),type,visitorSeeSubjectDashBoardRequest.getPage());
+					list = subjectService.findSubjectEntityForALl(visitorSeeSubjectDashBoardRequest.getTags(),visitorSeeSubjectDashBoardRequest.getType(),visitorSeeSubjectDashBoardRequest.getPage());
 				}
 			}
 		}
@@ -160,7 +160,9 @@ public class MxkVisitorAction extends MxkSessionAction {
 			request.setType(null);
 			partShowResponse = partService.findUserSubjectParts(request);
 			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
-				partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(subjectEntity.getId()));
+				if(partShowResponse != null){
+					partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(subjectEntity.getId()));	
+				}
 				return "FOR-ALL";
 			}else{
 				return "PUBLIC";

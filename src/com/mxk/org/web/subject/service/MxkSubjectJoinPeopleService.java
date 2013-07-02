@@ -23,6 +23,11 @@ public class MxkSubjectJoinPeopleService {
 		return dao.findUserJoinSubject(userid);
 	}
 	
+	public long findUserJoinSubjectAllPage(String userid){
+		return dao.findUserJoinSubjectAllPage(userid);
+	}
+	
+	
 	public List<String> findUserJoinSubjectIds(SearchUserJoinSubjectRequest searchUserJoinSubjectRequest){
 		return dao.findUserJoinSubjectIds(searchUserJoinSubjectRequest.getUserid(), searchUserJoinSubjectRequest.getPage());
 	}

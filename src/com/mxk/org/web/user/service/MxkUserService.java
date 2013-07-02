@@ -30,6 +30,10 @@ public class MxkUserService {
 	@Autowired
 	private MxkUserFriendDao userFriendDao;
 	
+	public long findUserRssSubjectALlPage(String userid){
+		return userDao.findUserRssSubjectALlPage(userid);
+	}
+	
 	public List<String> findUserRssSubjectIdsList(SearchUserRssSubjectRequest searchUserRssSubjectRequest){
 		return userDao.findUserRssSubjectIdsList(searchUserRssSubjectRequest.getUserid(),searchUserRssSubjectRequest.getPage());
 	}

@@ -60,4 +60,13 @@ public class MxkSubjectJoinPeopleDao {
 		return mog.count(q, SubjectJoinPeopleEntity.class);
 	}
 	
+	public long findUserJoinSubjectAllPage(String userid){
+		Query q = new Query(Criteria.where("userid").is(userid));
+		long count = mog.count(q, SubjectJoinPeopleEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 0;
+		}
+	}
 }
