@@ -217,7 +217,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 				if(uservo.getId().equals(subjectEntity.getUserid())){//是当前用户的
 					if(!MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
 						if(subjectService.updateSubjectStatus(updateSubjectStatusRequest)){
-							subjectEntity.setType(subjectEntity.getType());
+							subjectEntity.setType(updateSubjectStatusRequest.getStauts());
 							super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
 							message = MxkConstant.AJAX_SUCCESS;
 						}
@@ -227,7 +227,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 					    	message = MxkConstant.STATUS_CHANGE_FAIL;
 					    }else{
 					    	if(subjectService.updateSubjectStatus(updateSubjectStatusRequest)){
-								subjectEntity.setType(subjectEntity.getType());
+					    		subjectEntity.setType(updateSubjectStatusRequest.getStauts());
 								super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,subjectEntity);
 								message = MxkConstant.AJAX_SUCCESS;
 							}
