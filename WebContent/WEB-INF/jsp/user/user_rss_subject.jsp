@@ -5,7 +5,7 @@
 <head>
  <%@ include file="../../../headerinclude.jsp"%>
 </head>
-<body class="mxkbody mxkbackgroud">
+<body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
 <script type="text/javascript">
@@ -240,7 +240,93 @@
           </div>
      </div>
  </c:if>    
+<script type="text/javascript">
+ var page =2 ;
+ var isrun = false;
+ var userid = '${uservo.id}';
+ var allpage = '${subjectsShowResponse.allpage}';
 
+ function loadMore(){
+	    if(page <= allpage){
+	  	  var datas = {"searchUserRssSubjectRequest.page":page,"searchUserRssSubjectRequest.userid":userid};
+		   $('#loaddiv').show();
+		   $.ajax({
+		   		url : path + "/loadMoreRssSubject.action",
+		   		type : "POST",
+		   		cache : false,
+		   		async : false,
+		   		data: datas,
+		   		dataType : "json",
+		   		success : function(item) {
+		   			$('#loaddiv').hide();
+		 			page = page + 1;
+		 			var list1 = item.list1;
+					var list2 = item.list2;
+					var list3 = item.list3;
+					var list4 = item.list4;
+					if(list1 != null){
+						createSubjectPlane(list1,"partshow1");
+					}
+					if(list2 != null){
+						createSubjectPlane(list2,"partshow2");
+					}
+					if(list3 != null){
+						createSubjectPlane(list3,"partshow3");
+					}
+					if(list4 != null){
+						createSubjectPlane(list4,"partshow4");
+					}
+					isrun = false;
+		   		 }
+		  }); 
+		   
+	       }
+	  }
+
+	  function createSubjectPlane(list,subjectplanelist){
+	  	var show = '';
+	  	for (var i in list) {
+	  		show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
+	  		"<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-primary' href='javascript:;' onclick='rsssubject(\""+ list[i].id +"\",\""+ list[i].userid  +"\")'>" +
+	  		"<i class='icon-rss'></i>订阅</a>";  
+	  		if(list[i].type == 'FOR-ALL'){
+	  			show = show + "<br /> <span class='label label-important'><small><i class='icon-group'></i>"+ list[i].joinpeople +"人参与</small></span>";
+	  		}
+	  		show = show + "</span><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].faceimage +"' /></a></div>" + 
+	  		"<span class='muted'><small><strong>"+ list[i].name +"</strong></small></span><br />" +
+	  		"<span class='muted'><small>"+ list[i].info +"</small></span><br />" +
+	  		"<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments +"<i class='icon-pushpin'></i>Parts"+ list[i].parts; 
+	  	   if(list[i].type == 'FOR-ALL'){
+	  		  show = show + "<span class='label label-warning'>共享</span>";
+	  	   }else{
+	  		  show = show + "<span class='label label-success'>公开</span>";
+	  	   }
+	  	     show = show + "</small></span><br /></div></li>";
+	  	}
+	  	$("#"+subjectplanelist).append(show);
+	  }
+	  
+	  
+	  function showload(){ 
+		   var scrollh = document.documentElement.scrollHeight;
+		   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+		   if ( scrollt/scrollh > 0.1 ) {
+			     if(!isrun){
+			    	 isrun = true; 
+			    	 loadMore();  
+			     }
+		   }
+		} 
+
+		//绑定事件
+		function bindScroll(){
+		    $(window).bind("scroll", function(){ 
+		       showload();
+		    }); 
+		}
+
+ 
+</script>
 <%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

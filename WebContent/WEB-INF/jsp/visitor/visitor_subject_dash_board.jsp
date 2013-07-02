@@ -20,6 +20,7 @@
     var allpage = '${visitorSearchSubjectRespone.allPage}';
     var page = 2;
     var isrun = false;
+    var type = '${type}';
     
     function filterParts(){
     	  $("#partshow1").html('');
@@ -63,12 +64,11 @@
       if(page <= allpage){
     	  var datas;
     	  if(filtertype != ''){
-    		 datas = {"visitorSeeSubjectDashBoardRequest.page":page,"visitorSeeSubjectDashBoardRequest.tags":filtertype};
+    		 datas = {"visitorSeeSubjectDashBoardRequest.type":type,"visitorSeeSubjectDashBoardRequest.page":page,"visitorSeeSubjectDashBoardRequest.tags":filtertype};
     	  }else{
-    		 datas = {"visitorSeeSubjectDashBoardRequest.page":page};
+    		 datas = {"visitorSeeSubjectDashBoardRequest.type":type,"visitorSeeSubjectDashBoardRequest.page":page};
     	  }
     	  if(searchparm != ''){
-    		  alert(searchparm);
     		  datas = {"visitorSeeSubjectDashBoardRequest.page":page,"visitorSeeSubjectDashBoardRequest.parm":searchparm};
     	  }
 	      $('#loaddiv').show();

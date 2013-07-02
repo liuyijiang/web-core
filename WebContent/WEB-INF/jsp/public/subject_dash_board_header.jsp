@@ -26,7 +26,7 @@
 							     <li><a onclick="fliter_part('其他模型')" href="#">其他模型</a></li>
 							     <li class="divider"></li>
 							     <li><a href="<%=rootPath %>/visitiorShowSubjectDashBorad">所有专题</a></li>
-							     <li><a href="<%=rootPath %>/visitiorShowSubjectDashBorad?type=FOR-ALL">公开专题</a></li>
+							     <li><a href="<%=rootPath %>/visitiorShowSubjectDashBorad?type=FOR-ALL">共享专题</a></li>
 						    </ul>
                          </div>
 					  </ul>
@@ -44,9 +44,10 @@
 						                           </button>
 											    <ul class="dropdown-menu">
 											         <li><a href="<%=rootPath %>/userIndex">我的专题</a></li>
-												     <li><a href="#">我的关注</a></li>
+												     <li><a href="<%=rootPath %>/showNewRssMessage">我的关注</a></li>
 												     <li><a href="<%=rootPath %>/userCollectIndex">我的收藏</a></li>
 												     <li class="divider"></li>
+												     <li><a href="#"><i class="icon-book"></i>帮助</a></li>
 												     <li><a href="<%=rootPath %>/userLoginOut"><i class="icon-signout"></i>退出</a></li>
 											    </ul>
 						                        </div>
