@@ -9,7 +9,8 @@
 var page = 2;
 var userid = '${currentSubjectEntity.userid}';
 var subjectid = '${currentSubjectEntity.id}';
-
+var allpage = '${partShowResponse.allPage}';
+var isrun = false;
 function createPartPlane(list,subjectid,partthumnailid){
 	var show = '';
 	for(var i in list)//照片墙第一个位置
@@ -27,12 +28,9 @@ function createPartPlane(list,subjectid,partthumnailid){
 	$('#'+partthumnailid).append(show);
 }
 
-
-function showload(){ 
-   var scrollh = document.documentElement.scrollHeight;
-   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-   if ( scrollt/scrollh > 0.2 ) {
-	   $('#loaddiv').show();
+function loadMore(){
+	if(page <= allpage){
+	$('#loaddiv').show();
 	   var datas = {"searchPartRequest.page":page,"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid};
 	   $.ajax({
 	 		url : path + "/loadMoreSubjectParts.action",
@@ -65,6 +63,17 @@ function showload(){
 				}
 	 	   }
 		});
+	}
+}
+
+function showload(){ 
+   var scrollh = document.documentElement.scrollHeight;
+   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+   if ( scrollt/scrollh > 0.2 ) {
+	   if(!isrun){
+		   isrun = true;
+		   loadMore();
+	   }
     }
 } 
 
