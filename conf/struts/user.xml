@@ -191,6 +191,20 @@
             </result>  
 		</action>
     
+       <action name="loadMoreUserJoinSubject" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreUserJoinSubjectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">subjectsShowResponse</param>
+            </result>  
+	   </action>
+    
+       <action name="loadMoreRssSubject" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreRssSubjectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">subjectsShowResponse</param>
+            </result>  
+	   </action>
+    
    </package>
    
    
