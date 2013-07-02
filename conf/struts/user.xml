@@ -149,6 +149,20 @@
             </result>  
 		</action>
 		
+		<action name="loadMoreUserSubject" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreUserSubjectAjax">
+		    <result type="json" name="success">  
+                 <param name="root">subjectsShowResponse</param>
+            </result>  
+		</action>
+		
+		<action name="loadMoreNewRssMessage" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="mxkLoadMoreNewRssMessageAjax">
+		    <result type="json" name="success">  
+                 <param name="root">partShowResponse</param>
+            </result>  
+		</action>
+		
 		<action name="seachUserFriends" class="com.mxk.org.web.user.action.MxkUserAction"
 			method="mxkSeachUserFriends">
 		    <result type="json" name="success">  
