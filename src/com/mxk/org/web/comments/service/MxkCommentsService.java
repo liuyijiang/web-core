@@ -39,7 +39,8 @@ public class MxkCommentsService {
 	
 	public LoadCommentsRespone findCommentEntity(LoadCommentsRequest request){
 		LoadCommentsRespone respone = null;
-		List<CommentEntity> list = commentsDao.findCommentEntity(request);
+		//List<CommentEntity> list = commentsDao.findCommentEntity(request);
+		List<CommentEntity> list = commentsDao.testfindCommentEntity(request);
 		if(list != null && !list.isEmpty()){
 			respone = new LoadCommentsRespone();
 			int index = 0;

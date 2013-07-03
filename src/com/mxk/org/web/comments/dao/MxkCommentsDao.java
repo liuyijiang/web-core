@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 
@@ -79,5 +80,22 @@ public class MxkCommentsDao {
 		return list;
 	}
 	
-	
+	public List<CommentEntity> testfindCommentEntity(LoadCommentsRequest request){
+		List<CommentEntity> list = null;
+		try {
+			Query q = null;
+			if(StringUtil.stringIsEmpty(request.getType())){
+				q = new Query();
+			}else{
+				q = new Query(Criteria.where("type").is(request.getType()));
+			}
+			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.limit(pageSize);
+			q.skip(pageSize*(request.getPage() - 1));
+			list = mog.find(q, CommentEntity.class);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return list;
+	}
 }

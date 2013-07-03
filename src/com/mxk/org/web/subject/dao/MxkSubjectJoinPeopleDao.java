@@ -26,6 +26,29 @@ public class MxkSubjectJoinPeopleDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public long findSubjectJoinerAllPage(String subjectid){
+		Query q = new Query(Criteria.where("subjectid").is(subjectid));
+		long count = mog.count(q, SubjectJoinPeopleEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 0;
+		}
+	}
+	
+	public List<SubjectJoinPeopleEntity> findSubjectJoinerByPage(String subjectid,int page){
+		List<SubjectJoinPeopleEntity> list = null;
+		try {
+			Query q = new Query(Criteria.where("subjectid").is(subjectid));
+			q.limit(pageSize);
+			q.skip(pageSize * (page - 1));
+			list = mog.find(q, SubjectJoinPeopleEntity.class);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return list; 
+	}
+	
 	public List<String> findUserJoinSubjectIds(String userid,int page){
 		List<String> ids = null;
 		Query q = new Query(Criteria.where("userid").is(userid));

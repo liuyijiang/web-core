@@ -9,6 +9,8 @@
 var page = 2;
 var userid = '${subjectEntity.userid}';
 var subjectid = '${subjectEntity.id}';
+var allpage = '${partShowResponse.allPage}';
+var isrun = false;
 
 function createPartPlane(list,subjectid,partthumnailid){
 	var show = '';
@@ -31,42 +33,50 @@ function createPartPlane(list,subjectid,partthumnailid){
 function showload(){ 
    var scrollh = document.documentElement.scrollHeight;
    var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-   if ( scrollt/scrollh > 0.2 ) {
-	   $('#loaddiv').show();
-	   var datas = {"searchPartRequest.page":page,"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid};
-	   $.ajax({
-	 		url : path + "/loadMoreSubjectParts.action",
-	 		type : "POST",
-	 		cache : false,
-	 		async : false,
-	 		data: datas,
-	 		dataType : "json",
-	 		success : function(item) {
-	 			$('#loaddiv').hide();
-	 			page = page + 1;
-	 			var list1 = item.list1;
-				var list2 = item.list2;
-				var list3 = item.list3;
-				var list4 = item.list4;
-				if(list1 != null){
-					createPartPlane(list1,subjectid,"partshow1");
-				}
-				if(list2 != null){
-					createPartPlane(list2,subjectid,"partshow2");
-				}
-				if(list3 != null){
-					createPartPlane(list3,subjectid,"partshow3");
-				}
-				if(list4 != null){
-					createPartPlane(list4,subjectid,"partshow4");
-				}
-				if(useforgif || userforpdf ){
-					showchecks();
-				}
-	 	   }
-		});
+   if ( scrollt/scrollh > 0.1 ) {
+	    if(!isrun){
+	    	isrun = true;
+	    	loadMore();
+	    }
     }
 } 
+
+function loadMore(){
+	if(page <= allpage){
+		 $('#loaddiv').show();
+		   var datas = {"searchPartRequest.page":page,"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid};
+		   $.ajax({
+		 		url : path + "/loadMoreSubjectParts.action",
+		 		type : "POST",
+		 		cache : false,
+		 		async : false,
+		 		data: datas,
+		 		dataType : "json",
+		 		success : function(item) {
+		 			$('#loaddiv').hide();
+		 			page = page + 1;
+		 			var list1 = item.list1;
+					var list2 = item.list2;
+					var list3 = item.list3;
+					var list4 = item.list4;
+					if(list1 != null){
+						createPartPlane(list1,subjectid,"partshow1");
+					}
+					if(list2 != null){
+						createPartPlane(list2,subjectid,"partshow2");
+					}
+					if(list3 != null){
+						createPartPlane(list3,subjectid,"partshow3");
+					}
+					if(list4 != null){
+						createPartPlane(list4,subjectid,"partshow4");
+					}
+					isrun = false;
+		 	   }
+			});
+	}
+}
+
 
 //绑定事件
 function bindScroll(){
@@ -144,12 +154,6 @@ function bindScroll(){
                 <c:when test="${subjectEntity.type == 'PUBLIC'}">
                   <span class="label label-success">公开</span>
                 </c:when>
-                <c:when test="${subjectEntity.type == 'PRIVATE'}">
-                  <span class="label label-important">私有</span>
-                </c:when>
-                <c:when test="${subjectEntity.type == 'FOR-ALL'}">
-                  <span class="label label-warning">共享</span>
-                </c:when>
              </c:choose>
            </span>
         </span>
@@ -160,7 +164,7 @@ function bindScroll(){
         <span class="muted"><small>${subjectEntity.info }</small></span><br />
         <span><i class="icon-time"></i>Create Time:${subjectEntity.createTime }</span>
                <div class="btn-group pull-right " >
-				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>关注${subjectEntity.attention }</button>
+				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${subjectEntity.attention }</button>
 				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${subjectEntity.comments }</button>
 				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${subjectEntity.parts }</button>
 		        </div>
@@ -183,21 +187,12 @@ function bindScroll(){
 						   <li><a href="#">分享到QQ空间</a></li>
 		               </ul>
 				    </div>
-              <a class="btn" href="javascript:;" onclick="showShareSubject()">
+            <a class="btn" href="<%=rootPath %>/visitorShowSubjectMaterial?target=${subjectEntity.id}" > 
               <i class="icon-calendar "></i>材料列表
             </a>
          </span>
-          <span class="pull-right">
-             <div class="btn-group">
-                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text">
-                        <i class="icon-comments-alt"></i>评论
-                      <span class="caret"></span>
-				    </a>
-				     <ul class="dropdown-menu">
-					       <li><a href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text"><i class="icon-comment-alt"></i>文字评论</a></li>
-						   <li><a href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=wav"><i class="icon-volume-off"></i>音评评论</a></li>
-		               </ul>
-				    </div>
+               <span class="pull-right">
+                <a class="btn" href=""><i class="icon-comments-alt"></i>评论${subjectEntity.comments }</a>
                </span>
 			</div>
 		</div>

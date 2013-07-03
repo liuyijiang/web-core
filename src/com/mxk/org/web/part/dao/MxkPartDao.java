@@ -49,6 +49,7 @@ public class MxkPartDao {
 		try{
 			Query q = new Query(Criteria.where("subjectid").is(id));
 			q.limit(5);
+			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
 			list = mog.find(q, PartEntity.class);
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
@@ -15,11 +16,16 @@ import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
+import com.mxk.org.web.subject.domain.SubjectMaterailDetailRespone;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
+import com.mxk.org.web.subject.domain.SubjectTop5NewPartsRespone;
 import com.mxk.org.web.subject.domain.SubjectsShowResponse;
 import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
+import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.visitor.domain.SearchJoinSubjectPeopleRequest;
+import com.mxk.org.web.visitor.domain.SubjectJoinPeopleRespone;
 import com.mxk.org.web.visitor.domain.VisitorSearchSubjectRespone;
 import com.mxk.org.web.visitor.domain.VisitorSeeSubjectDashBoardRequest;
 import com.mxk.org.web.visitor.domain.VistitorSeeSubjectCommentsRespone;
@@ -47,6 +53,9 @@ public class MxkVisitorAction extends MxkSessionAction {
 	@Autowired
 	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
 	
+	@Autowired
+	private MxkSubjectMaterialService subjectMaterialService;
+	
 	private UserVO uservo;
 	private UserVO targetUserVO; // part or subject 的所有者
 	private String message;
@@ -58,6 +67,10 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private VistitorSeeSubjectCommentsRespone vistitorSeeSubjectCommentsRespone;
 	private VisitorSeeSubjectDashBoardRequest visitorSeeSubjectDashBoardRequest;
 	private VisitorSearchSubjectRespone visitorSearchSubjectRespone;
+	private SubjectJoinPeopleRespone subjectJoinPeopleRespone;
+	private SearchJoinSubjectPeopleRequest searchJoinSubjectPeopleRequest;
+	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
+	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
 	private String target;//partid；subject
 	private String type;
 	
@@ -159,6 +172,9 @@ public class MxkVisitorAction extends MxkSessionAction {
 			request.setSubjectid(subjectEntity.getId());
 			request.setType(null);
 			partShowResponse = partService.findUserSubjectParts(request);
+			if(partShowResponse != null){
+				partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(subjectEntity.getId()));
+			}
 			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
 				if(partShowResponse != null){
 					partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(subjectEntity.getId()));	
@@ -226,12 +242,49 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//查看加入subject的人
+	public String mxkVisitorShowJoinSubjectUsersView(){
+		uservo = super.getCurrentUserVO();
+		subjectEntity =  subjectService.findSubjectEntityById(target);
+		if(subjectEntity != null){
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			subjectTop5NewPartsRespone = partService.findNewTop5Parts(subjectEntity.getId());
+			long page = subjectJoinPeopleService.findSubjectJoinerAllPage(subjectEntity.getId());
+			subjectJoinPeopleRespone = subjectJoinPeopleService.findSubjectJoinerByPage(subjectEntity.getId(),1);
+			if(subjectJoinPeopleRespone != null){
+				subjectJoinPeopleRespone.setAllpage(page);
+			}
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkVisitorLoadMoreJoinSubjectUsersAjax(){
+		if(searchJoinSubjectPeopleRequest != null){
+			subjectJoinPeopleRespone = subjectJoinPeopleService.findSubjectJoinerByPage(searchJoinSubjectPeopleRequest.getSubjectid(),searchJoinSubjectPeopleRequest.getPage());
+		}
+		return SUCCESS;
+	}
 	
 	public String mxkVisitorShowForAllSubjectDashBoardView(){
 		uservo = super.getCurrentUserVO();
 		return SUCCESS;
 	}
-
+	
+	public String mxkVisitorShowSubjectMaterialView(){
+		uservo = super.getCurrentUserVO();
+		subjectEntity =  subjectService.findSubjectEntityById(target);
+		if(subjectEntity != null){
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			subjectMaterailDetailRespone = subjectMaterialService.findUserSubjectMaterials(subjectEntity.getId());	
+		    if(subjectMaterailDetailRespone.getList() != null && !subjectMaterailDetailRespone.getList().isEmpty()){
+		    	String chartData = subjectMaterialService.createMaterialChartData(subjectMaterailDetailRespone.getList());
+		    	subjectMaterailDetailRespone.setChartData(chartData);
+		    }
+		}
+		return SUCCESS;
+	}
+	
+	
 	public UserVO getUservo() {
 		return uservo;
 	}
@@ -344,5 +397,45 @@ public class MxkVisitorAction extends MxkSessionAction {
 			VisitorSearchSubjectRespone visitorSearchSubjectRespone) {
 		this.visitorSearchSubjectRespone = visitorSearchSubjectRespone;
 	}
+
+	public SubjectJoinPeopleRespone getSubjectJoinPeopleRespone() {
+		return subjectJoinPeopleRespone;
+	}
+
+	public void setSubjectJoinPeopleRespone(
+			SubjectJoinPeopleRespone subjectJoinPeopleRespone) {
+		this.subjectJoinPeopleRespone = subjectJoinPeopleRespone;
+	}
+
+	public SearchJoinSubjectPeopleRequest getSearchJoinSubjectPeopleRequest() {
+		return searchJoinSubjectPeopleRequest;
+	}
+
+	public void setSearchJoinSubjectPeopleRequest(
+			SearchJoinSubjectPeopleRequest searchJoinSubjectPeopleRequest) {
+		this.searchJoinSubjectPeopleRequest = searchJoinSubjectPeopleRequest;
+	}
+
+	public SubjectTop5NewPartsRespone getSubjectTop5NewPartsRespone() {
+		return subjectTop5NewPartsRespone;
+	}
+
+	public void setSubjectTop5NewPartsRespone(
+			SubjectTop5NewPartsRespone subjectTop5NewPartsRespone) {
+		this.subjectTop5NewPartsRespone = subjectTop5NewPartsRespone;
+	}
+
+	public SubjectMaterailDetailRespone getSubjectMaterailDetailRespone() {
+		return subjectMaterailDetailRespone;
+	}
+
+	public void setSubjectMaterailDetailRespone(
+			SubjectMaterailDetailRespone subjectMaterailDetailRespone) {
+		this.subjectMaterailDetailRespone = subjectMaterailDetailRespone;
+	}
+	
+	
+	
+	
 	
 }

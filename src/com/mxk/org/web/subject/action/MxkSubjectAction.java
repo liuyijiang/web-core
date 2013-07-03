@@ -421,6 +421,10 @@ public class MxkSubjectAction extends MxkSessionAction {
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(currentSubjectEntity != null){
 			subjectMaterailDetailRespone = subjectMaterialService.findUserSubjectMaterials(currentSubjectEntity.getId());	
+			 if(subjectMaterailDetailRespone.getList() != null && !subjectMaterailDetailRespone.getList().isEmpty()){
+			    	String chartData = subjectMaterialService.createMaterialChartData(subjectMaterailDetailRespone.getList());
+			    	subjectMaterailDetailRespone.setChartData(chartData);
+			 }
 		}
 		return SUCCESS;
 	}

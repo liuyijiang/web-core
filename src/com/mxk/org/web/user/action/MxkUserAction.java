@@ -305,6 +305,9 @@ public class MxkUserAction extends MxkSessionAction {
 				uservo.setImage(imageurl);
 				uservo.setMinimage(minimageurl);
 			}
+			if(StringUtil.stringIsEmpty(userRegisterRequest.getInfo())){
+				userRegisterRequest.setInfo(" ");
+			}
 			if(userService.updateUserEntity(userRegisterRequest)){
 				uservo.setInfo(userRegisterRequest.getInfo());
 				uservo.setInterest(userRegisterRequest.getInterest());
@@ -322,11 +325,14 @@ public class MxkUserAction extends MxkSessionAction {
 		if(valiateUserForRegister(userRegisterRequest)){
 			userRegisterRequest.setImageurl(defaultImageUrl);
 			userRegisterRequest.setMinimageurl(defaultMinImageUrl);
+			if(StringUtil.stringIsEmpty(userRegisterRequest.getInfo())){
+				userRegisterRequest.setInfo(" ");
+			}
 			UserVO vo = userService.saveUserEntity(userRegisterRequest);
 			if(vo != null && vo.getId() != null) {
 				if(userRegisterRequest.getImage() != null){
 					String imageurl = gridFSFileUploadService.uploadImageWithSize(userRegisterRequest.getImage(), vo.getId(), MxkFileUploadService.IMAGE_TYPE_PNG, MxkFileUploadService.IMAGE_SIZE_FULL, saveImageWidth,saveImageHeight);
-					String minimageurl = gridFSFileUploadService.uploadImageWithSize(userRegisterRequest.getImage(), vo.getId(), MxkFileUploadService.IMAGE_TYPE_PNG, MxkFileUploadService.IMAGE_SIZE_FULL, saveImageMinWidth,saveImageMinHeight);
+					String minimageurl = gridFSFileUploadService.uploadImageWithSize(userRegisterRequest.getImage(), vo.getId(), MxkFileUploadService.IMAGE_TYPE_PNG, MxkFileUploadService.IMAGE_SIZE_MINI, saveImageMinWidth,saveImageMinHeight);
 					if(userService.updateUserImage(vo.getId(), imageurl, minimageurl)){
 						vo.setImage(imageurl);
 						vo.setMinimage(minimageurl);

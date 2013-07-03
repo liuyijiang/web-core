@@ -74,6 +74,7 @@ public class MxkSubjectDao {
 				sub.setUserimage(vo.getMinimage());
 				sub.setSubjectid(subjectid);
 				sub.setParts(1);
+				sub.setUserdesc(vo.getInfo());
 				sub.setUsername(vo.getName());
 				mog.save(sub);
 				Query q = new Query(Criteria.where("id").is(subjectid));

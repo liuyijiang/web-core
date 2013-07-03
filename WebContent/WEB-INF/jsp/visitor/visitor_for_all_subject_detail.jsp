@@ -165,7 +165,9 @@ function bindScroll(){
            <c:forEach var="options" items="${partShowResponse.joiner }">
               <a href="<%=rootPath%>/vistiorShowUserIndex?target=${options.userid}"><img style="width:24px" src="<%=imgurl %>${options.userimage }"/></a>
            </c:forEach>
-           <a href="#"><small>等${subjectEntity.joinpeople }人参与</small></a>
+           <c:if test="${!empty partShowResponse.joiner }">
+              <a href="<%=rootPath%>/visitorShowJoinSubjectUsers?target=${subjectEntity.id }"><small>等${subjectEntity.joinpeople }人参与</small></a>
+           </c:if>
          </span>
         <br />
      </div>

@@ -15,6 +15,7 @@ import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.domain.UpdatePartInfoRequest;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
+import com.mxk.org.web.subject.domain.SubjectTop5NewPartsRespone;
 
 @Service
 public class MxkPartService {
@@ -24,6 +25,12 @@ public class MxkPartService {
 	
 	public long findUserSubjectPartsAllPage(String subjectid){
 		return partDao.findUserSubjectPartsAllPage(subjectid);
+	}
+	
+	public SubjectTop5NewPartsRespone findNewTop5Parts(String subjectid){
+		SubjectTop5NewPartsRespone sub = new SubjectTop5NewPartsRespone();
+		sub.setList(partDao.findSubjectNewParts(subjectid));
+		return sub;
 	}
 	
 	public SubjectNewPartsVO findSubjectNewParts(String subjectid){

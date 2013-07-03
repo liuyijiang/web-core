@@ -25,6 +25,7 @@ public class SubjectJoinPeopleEntity implements Serializable {
 	private String username;
 	private String userimage;
 	private String createTime;
+	private String userdesc;
     private int parts;//在共享专题中上传了多少次
 	
 	public String getId() {
@@ -81,6 +82,14 @@ public class SubjectJoinPeopleEntity implements Serializable {
 
 	public void setParts(int parts) {
 		this.parts = parts;
+	}
+
+	public String getUserdesc() {
+		return userdesc;
+	}
+
+	public void setUserdesc(String userdesc) {
+		this.userdesc = userdesc;
 	}
 
 }
