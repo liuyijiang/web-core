@@ -71,7 +71,7 @@ public class MxkSubjectDao {
 				SubjectJoinPeopleEntity sub = new SubjectJoinPeopleEntity();
 				sub.setCreateTime(StringUtil.dateToString(new Date(), null));
 				sub.setUserid(vo.getId());
-				sub.setUserimage(vo.getMinimage());
+				sub.setUserimage(vo.getImage());
 				sub.setSubjectid(subjectid);
 				sub.setParts(1);
 				sub.setUserdesc(vo.getInfo());

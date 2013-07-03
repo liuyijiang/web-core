@@ -118,13 +118,15 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 	
 	//强制压缩 图片形状改变
 	private void strongZipImage(File file, int width, int height) throws Exception{
-		 Image srcFile = ImageIO.read(file);
-		 BufferedImage tag = new BufferedImage(width, height,
-               BufferedImage.TYPE_INT_RGB);
-		 Graphics g = tag.getGraphics();
-		 g.drawImage(srcFile, 0, 0, width, height, null);   
-		 g.dispose();  
-		 ImageIO.write(tag, "png", file);
+		 BufferedImage image = ImageIO.read(file);
+		 BufferedImage bfImage = new BufferedImage(width, height,
+                 BufferedImage.TYPE_INT_RGB);
+         bfImage.getGraphics().drawImage(image.getScaledInstance(width, height,
+                         Image.SCALE_SMOOTH), 0, 0, null);
+         FileOutputStream os = new FileOutputStream(file);
+         JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+         encoder.encode(bfImage);
+         os.close();
 	}
 	
 	//弱压缩 图片形状不改变
