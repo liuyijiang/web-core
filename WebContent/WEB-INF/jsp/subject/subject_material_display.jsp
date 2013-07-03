@@ -1,18 +1,25 @@
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@page import="com.opensymphony.xwork2.util.ValueStack"%>
+<%@page import="com.mxk.org.web.subject.domain.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
  <%@ include file="../../../headerinclude.jsp"%>
+ <%
+   
+  ValueStack v = ServletActionContext.getValueStack(request);
+  SubjectMaterailDetailRespone sub  =  (SubjectMaterailDetailRespone) v.findValue("subjectMaterailDetailRespone");
+  String data = sub.getChartData();
+  %>
 </head>
 
 <body class="mxkbody mxkbackgroud" onload="showChart()">
 <%@ include file="../public/user_page_header.jsp"%>
 <script type="text/javascript">
     function showChart(){
-    	var s1 = [['板件', 9],['PE辅助', 80], ['喷漆', 7],['工具', 6],['其他', 5]];
-        
-        var plot8 = $.jqplot('chart', [s1], {
+        $.jqplot('chart', [<%=data%>], {
     	    animate: true,
             animateReplot: true,
             grid: {
@@ -42,7 +49,7 @@
 </script>
 <div class="container">
 	<div class="row">
-	  <div class="span8 mxkplan mxkshadow">
+	  <div class="span7 mxkplan mxkshadow">
 	     <div style='padding:5px;margin-bottom:5px;'>
 	      <table id="listtableshow" class="table table-striped table-bordered table-condensed">
 	         <tr>
@@ -66,7 +73,7 @@
 	       </table>
 	     </div>
 	  </div>
-	  <div class="span4 mxkplan mxkshadow" >
+	  <div class="span5 mxkplan mxkshadow" >
 	     <table style="width:100%" >
 				  <tr>
 				    <td width="16%">
