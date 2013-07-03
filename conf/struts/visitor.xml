@@ -39,6 +39,16 @@
             <result name="FOR-ALL" >/WEB-INF/jsp/visitor/visitor_for_all_subject_detail.jsp</result>
         </action>
         
+        <action name="visitorShowJoinSubjectUsers" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowJoinSubjectUsersView">
+            <result name="success" >/WEB-INF/jsp/visitor/visitor_join_subject_user.jsp</result>
+        </action>
+        
+        <action name="visitorShowSubjectMaterial" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowSubjectMaterialView">
+            <result name="success" >/WEB-INF/jsp/visitor/visitor_subject_material.jsp</result>
+        </action>
+        
     </package>
 
     <package name="visitorajax"  namespace="/" extends="json-default">
@@ -68,6 +78,13 @@
 			method="mxkVisitorFilterSubjectByTypeAjax">
 		    <result type="json" name="success">  
                 <param name="root">visitorSearchSubjectRespone</param>
+            </result> 
+		</action>
+		
+		<action name="visitorLoadMoreJoinSubjectUsers" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+			method="mxkVisitorLoadMoreJoinSubjectUsersAjax">
+		    <result type="json" name="success">  
+                <param name="root">subjectJoinPeopleRespone</param>
             </result> 
 		</action>
 		
