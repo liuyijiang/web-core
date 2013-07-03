@@ -14,13 +14,13 @@ var isrun = false;
 function createPartPlane(list,subjectid,partthumnailid){
 	var show = '';
 	for(var i in list)//照片墙第一个位置
-	{
+	{ 
 		 show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'>"+
 		 "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+list[i].id +"\")' >" +
 		 "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>"+
 		 "<a class='btn btn-small' href='javascript:;' onclick='useForSubjectFace(\""+ list[i].id +",\"" + subjectid + "\")'>"+
-		 "<i class='icon-picture'></i>封面</a><a class='btn btn-small' href='"+ path +"/partDetail?target="+ list[i].id + "'>"+
-		 "<i class='icon-cog'></i>操作 </a></span><a href='"+ path +"/partDetail?target="+list[i].id +"'><img src='"+ imgurl + list[i].minimage +"'/></a></div>"+	            
+		 "<i class='icon-picture'></i>封面</a><a class='btn btn-small' href='"+ path +"/showPartsComments?target="+ list[i].id + "'>"+
+		 "<i class='icon-comment-alt'></i>评论 </a></span><a href='"+ path +"/partDetail?target="+list[i].id +"'><img src='"+ imgurl + list[i].minimage +"'/></a></div>"+	            
 		 "<span class='muted'>"+ list[i].desc +"</span><br /><span class='form-inline'><label class='checkbox' id='checks' style='display:none'>"+               
 		 "<input type='checkbox'><span class='text-info'>使用</span></label><span class='pull-right muted'>"+	            
          "<i class='icon-comment'></i>评论"+ list[i].comments +"<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</span></span><br /></div></li>";           
@@ -329,8 +329,8 @@ function changeSubjectStutas(subid,status){
 						            <a class="btn btn-small" href="javascript:;" onclick="useForSubjectFace('${options.id }','${currentSubjectEntity.id }')">
 						               <i class="icon-picture"></i>封面
 						            </a>
-                                    <a class="btn  btn-small " href="<%=rootPath %>/partDetail?target=${options.id}">
-                                       <i class="icon-cog"></i>操作
+                                    <a class="btn btn-small" href="<%=rootPath %>/showPartsComments?target=${options.id}">
+                                       <i class="icon-comment-alt"></i>评论
                                     </a>
 						       </span>
 						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
@@ -363,8 +363,8 @@ function changeSubjectStutas(subid,status){
 						            <a class="btn btn-small" href="javascript:;" onclick="useForSubjectFace('${options.id }','${currentSubjectEntity.id }')">
 						               <i class="icon-picture"></i>封面
 						            </a>
-                                    <a class="btn  btn-small " href="<%=rootPath %>/partDetail?target=${options.id}">
-                                       <i class="icon-cog"></i>操作
+                                   <a class="btn btn-small" href="<%=rootPath %>/showPartsComments?target=${options.id}">
+                                       <i class="icon-comment-alt"></i>评论
                                     </a>
 						       </span>
 						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
@@ -397,8 +397,8 @@ function changeSubjectStutas(subid,status){
 						            <a class="btn btn-small" href="javascript:;" onclick="useForSubjectFace('${options.id }','${currentSubjectEntity.id }')">
 						               <i class="icon-picture"></i>封面
 						            </a>
-                                    <a class="btn  btn-small " href="<%=rootPath %>/partDetail?target=${options.id}">
-                                       <i class="icon-cog"></i>操作
+                                   <a class="btn btn-small" href="<%=rootPath %>/showPartsComments?target=${options.id}">
+                                       <i class="icon-comment-alt"></i>评论
                                     </a>
 						       </span>
 						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
@@ -431,8 +431,8 @@ function changeSubjectStutas(subid,status){
 						             <a class="btn btn-small" href="javascript:;" onclick="useForSubjectFace('${options.id }','${currentSubjectEntity.id }')">
 						               <i class="icon-picture"></i>封面
 						            </a>
-                                    <a class="btn btn-small" href="<%=rootPath %>/partDetail?target=${options.id}">
-                                       <i class="icon-cog"></i>操作
+                                    <a class="btn btn-small" href="<%=rootPath %>/showPartsComments?target=${options.id}">
+                                       <i class="icon-comment-alt"></i>评论
                                     </a>
 						       </span>
 						       	<a href="<%=rootPath %>/partDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
