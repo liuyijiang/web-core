@@ -14,6 +14,9 @@ import com.mxk.org.common.service.MxkFileUploadService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.web.comments.domain.LoadCommentsRequest;
+import com.mxk.org.web.comments.domain.LoadCommentsRespone;
+import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.part.domain.CreatePartRequest;
 import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
@@ -51,6 +54,9 @@ public class MxkPartAction extends MxkSessionAction {
 	@Autowired
 	private MxkMessageQueueService messageQueueService;
 	
+	@Autowired
+	private MxkCommentsService commentsService;
+	
 	private CreatePartRequest createPartRequest;
 	private File image;
 	private String message;
@@ -61,6 +67,22 @@ public class MxkPartAction extends MxkSessionAction {
 	private SearchPartRequest request;
 	private String target;//partid£»
 	private PartEntity partEntity;
+	private LoadCommentsRespone loadCommentsRespone;
+	
+	//parts comments
+	public String mxkShowPartsCommentsView(){
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null){
+			LoadCommentsRequest request = new LoadCommentsRequest();
+			request.setPage(1);
+			request.setTargeid(partEntity.getId());
+			request.setType(null);
+			loadCommentsRespone = commentsService.findCommentEntity(request);
+		}
+		return SUCCESS;
+	}
+	
 	
 	public String mxkUpdatePartInfoAjax(){
 		if(updatePartInfoRequest != null){
@@ -287,6 +309,16 @@ public class MxkPartAction extends MxkSessionAction {
 
 	public void setUpdatePartInfoRequest(UpdatePartInfoRequest updatePartInfoRequest) {
 		this.updatePartInfoRequest = updatePartInfoRequest;
+	}
+
+
+	public LoadCommentsRespone getLoadCommentsRespone() {
+		return loadCommentsRespone;
+	}
+
+
+	public void setLoadCommentsRespone(LoadCommentsRespone loadCommentsRespone) {
+		this.loadCommentsRespone = loadCommentsRespone;
 	}
 
 	

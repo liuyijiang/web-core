@@ -21,7 +21,7 @@ public class MxkCommentsDao {
 
 	private static final Log log = LogFactory.getLog(MxkCommentsDao.class);
 	
-	@Value("${mxk.page.min.pagesize}")
+	@Value("${mxk.page.pagesize}")
 	private int pageSize;
 	
 	@Autowired

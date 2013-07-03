@@ -2,6 +2,7 @@ package com.mxk.org.web.comments.service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -37,9 +38,38 @@ public class MxkCommentsService {
 	private MxkCommentsDao commentsDao;
 	
 	public LoadCommentsRespone findCommentEntity(LoadCommentsRequest request){
-		LoadCommentsRespone respone = new LoadCommentsRespone();
+		LoadCommentsRespone respone = null;
 		List<CommentEntity> list = commentsDao.findCommentEntity(request);
-		respone.setList(list);
+		if(list != null && !list.isEmpty()){
+			respone = new LoadCommentsRespone();
+			int index = 0;
+			List<CommentEntity> list1 = new ArrayList<CommentEntity>();
+			List<CommentEntity> list2 = new ArrayList<CommentEntity>();
+			List<CommentEntity> list3 = new ArrayList<CommentEntity>();
+			List<CommentEntity> list4 = new ArrayList<CommentEntity>();
+			respone.setList1(list1);
+			respone.setList2(list2);
+			respone.setList3(list3);
+			respone.setList4(list4);
+			for (CommentEntity entity : list) {
+				if(index == 0){
+					list1.add(entity);
+					index ++ ;
+				}
+				else if(index == 1){
+					list2.add(entity);
+					index ++ ;
+				}
+				else if(index == 2){
+					list3.add(entity);
+					index ++ ;
+				}
+				else if(index == 3){
+					list4.add(entity);
+					index = 0;
+				}
+			}
+		}
 		return respone;
 	}
 	

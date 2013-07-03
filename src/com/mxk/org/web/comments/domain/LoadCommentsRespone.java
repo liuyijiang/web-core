@@ -5,15 +5,35 @@ import java.util.List;
 import com.mxk.org.entity.CommentEntity;
 
 public class LoadCommentsRespone {
-  
-	private List<CommentEntity> list;
-
-	public List<CommentEntity> getList() {
-		return list;
+	
+	private List<CommentEntity> list1;
+	private List<CommentEntity> list2;
+	private List<CommentEntity> list3;
+	private List<CommentEntity> list4;
+	
+	public List<CommentEntity> getList1() {
+		return list1;
 	}
-
-	public void setList(List<CommentEntity> list) {
-		this.list = list;
+	public void setList1(List<CommentEntity> list1) {
+		this.list1 = list1;
+	}
+	public List<CommentEntity> getList2() {
+		return list2;
+	}
+	public void setList2(List<CommentEntity> list2) {
+		this.list2 = list2;
+	}
+	public List<CommentEntity> getList3() {
+		return list3;
+	}
+	public void setList3(List<CommentEntity> list3) {
+		this.list3 = list3;
+	}
+	public List<CommentEntity> getList4() {
+		return list4;
+	}
+	public void setList4(List<CommentEntity> list4) {
+		this.list4 = list4;
 	}
 	
 	

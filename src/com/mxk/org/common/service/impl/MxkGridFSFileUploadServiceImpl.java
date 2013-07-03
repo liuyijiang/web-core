@@ -121,7 +121,7 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		 Image srcFile = ImageIO.read(file);
 		 BufferedImage tag = new BufferedImage(width, height,
                BufferedImage.TYPE_INT_RGB);
-		 Graphics g = tag.getGraphics(); 
+		 Graphics g = tag.getGraphics();
 		 g.drawImage(srcFile, 0, 0, width, height, null);   
 		 g.dispose();  
 		 ImageIO.write(tag, "png", file);
