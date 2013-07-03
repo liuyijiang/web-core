@@ -47,6 +47,7 @@
         });
     }
 </script>
+
 <div class="container">
 	<div class="row">
 	  <div class="span7 mxkplan mxkshadow">

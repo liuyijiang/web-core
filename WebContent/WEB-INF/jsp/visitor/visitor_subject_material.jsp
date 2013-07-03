@@ -47,6 +47,16 @@
         });
     }
 </script>
+
+<c:if test="${empty subjectMaterailDetailRespone.list  }">
+<div class="container">
+	  <div class="alert alert-block">
+	     <a class="close" data-dismiss="alert">×</a>
+	     <h4 class="alert-heading">没有创建材料单</h4>
+	   </div>
+  </div>
+</c:if>
+<c:if test="${!empty subjectMaterailDetailRespone.list  }">
 <div class="container">
 	<div class="row">
 	  <div class="span7 mxkplan mxkshadow">
@@ -100,6 +110,8 @@
 	  </div>
 	</div>
 </div>
+</c:if>
+
 <%@ include file="../../../footinclude.jsp"%>
 <%@ include file="../../../chartinclude.jsp"%>
  </body>

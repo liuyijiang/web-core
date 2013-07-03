@@ -9,6 +9,9 @@
 var page = 2;
 var userid = '${subjectEntity.userid}';
 var subjectid = '${subjectEntity.id}';
+var allpage = '${partShowResponse.allPage}';
+var isrun = false;
+
 
 function createPartPlane(list,subjectid,partthumnailid){
 	var show = '';
@@ -32,7 +35,16 @@ function showload(){
    var scrollh = document.documentElement.scrollHeight;
    var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
    if ( scrollt/scrollh > 0.2 ) {
-	   $('#loaddiv').show();
+	   if(!isrun){
+	    	isrun = true;
+	    	loadMore();
+	    }
+    }
+} 
+
+function loadMore(){
+	if(page <= allpage){
+	 $('#loaddiv').show();
 	   var datas = {"searchPartRequest.page":page,"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid};
 	   $.ajax({
 	 		url : path + "/loadMoreSubjectParts.action",
@@ -60,13 +72,12 @@ function showload(){
 				if(list4 != null){
 					createPartPlane(list4,subjectid,"partshow4");
 				}
-				if(useforgif || userforpdf ){
-					showchecks();
-				}
+				isrun = false;
 	 	   }
 		});
-    }
-} 
+	}
+}
+
 
 //绑定事件
 function bindScroll(){
@@ -141,12 +152,6 @@ function bindScroll(){
           <span style="font-size: 20px;"><strong><a href="<%=rootPath%>/vistiorShowUserIndex?target=${targetUserVO.id}">${targetUserVO.name }</a>&nbsp;/&nbsp;${subjectEntity.name }</strong></span>
              &nbsp;<span class="muted"><small>(<i class="icon-tags"></i>${subjectEntity.tags })</small>
                 <c:choose>
-	                <c:when test="${subjectEntity.type == 'PUBLIC'}">
-	                  <span class="label label-success">公开</span>
-	                </c:when>
-	                <c:when test="${subjectEntity.type == 'PRIVATE'}">
-	                  <span class="label label-important">私有</span>
-	                </c:when>
 	                <c:when test="${subjectEntity.type == 'FOR-ALL'}">
 	                  <span class="label label-warning">共享</span>
 	                </c:when>
@@ -190,16 +195,7 @@ function bindScroll(){
 				    </div>
          </span>
           <span class="pull-right">
-             <div class="btn-group">
-                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text">
-                        <i class="icon-comments-alt"></i>评论
-                      <span class="caret"></span>
-				    </a>
-				     <ul class="dropdown-menu">
-					       <li><a href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text"><i class="icon-comment-alt"></i>文字评论</a></li>
-						   <li><a href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=wav"><i class="icon-volume-off"></i>音评评论</a></li>
-		               </ul>
-				    </div>
+             <a class="btn" href=""><i class="icon-comments-alt"></i>评论${subjectEntity.comments }</a>
                </span>
 			</div>
 		</div>
