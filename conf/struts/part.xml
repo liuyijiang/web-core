@@ -17,6 +17,11 @@
            <result name="success" >/WEB-INF/jsp/part/part_detail.jsp</result>
        </action>
        
+       <action name="showPartsComments" class="com.mxk.org.web.part.action.MxkPartAction"
+           method="mxkShowPartsCommentsView">
+           <result name="success" >/WEB-INF/jsp/part/part_comments.jsp</result>
+       </action>
+       
         
     </package>
 
