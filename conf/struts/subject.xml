@@ -7,6 +7,11 @@
 
     <package name="subject" namespace="/" extends="struts-default">
         
+       <action name="subjectComments" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkSubjectCommentsView">
+           <result name="success" >WEB-INF/jsp/subject/subject_comments.jsp</result>
+       </action> 
+        
        <action name="createSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
            method="mxkCreateSubjectMaterial">
            <result name="success" type="redirect">showSubjectMaterial</result>
@@ -140,6 +145,20 @@
 			method="mxkSubjectMessageMoreAjax">
 		    <result type="json" name="success">  
                 <param name="root">subjectMessageShowRespone</param>
+            </result> 
+		</action>
+		
+		<action name="filerSubjectComments" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkfilerSubjectCommentsAjax">
+		    <result type="json" name="success">  
+                <param name="root">loadCommentsRespone</param>
+            </result> 
+		</action>
+		
+		<action name="loadMoreSubjectComments" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkLoadMoreSubjectCommentsAjax">
+		    <result type="json" name="success">  
+                <param name="root">loadCommentsRespone</param>
             </result> 
 		</action>
 		
