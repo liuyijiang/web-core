@@ -20,6 +20,7 @@ import com.mxk.org.web.comments.dao.MxkCommentsDao;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
+import com.mxk.org.web.part.domain.PartNewCommentsResponse;
 
 @Service
 public class MxkCommentsService {
@@ -36,6 +37,24 @@ public class MxkCommentsService {
 	
 	@Autowired
 	private MxkCommentsDao commentsDao;
+	
+	public PartNewCommentsResponse findNewComments(String commentid){
+		PartNewCommentsResponse p = new PartNewCommentsResponse();
+		p.setList(commentsDao.findNewComments(commentid));
+		return p;
+	}
+	
+	public boolean removeComments(String id){
+		return commentsDao.removeComments(id);
+	}
+	
+	public CommentEntity findSingleCommentEntity(String id){
+		return commentsDao.findSingleCommentEntity(id);
+	}
+	
+	public long findCommentsPage(LoadCommentsRequest request){
+		return commentsDao.findCommentsPage(request);
+	}
 	
 	public LoadCommentsRespone findCommentEntity(LoadCommentsRequest request){
 		LoadCommentsRespone respone = null;

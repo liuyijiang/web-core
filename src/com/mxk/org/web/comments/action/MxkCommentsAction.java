@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.HttpUtil;
+import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
@@ -40,12 +42,15 @@ public class MxkCommentsAction extends MxkSessionAction {
 	@Autowired
 	private MxkMessageService messageService;
 	
+	@Autowired
+	private MxkGridFSFileUploadService gridFSFileUploadService;
+	
 	private CommentsAddRequest commentsAddRequest;
 	private LoadCommentsRequest loadCommentsRequest;
 	private LoadCommentsRespone loadCommentsRespone;
 	private UserVO uservo;
 	private String message;
-	
+	private String traget;
 	//加载目标评论 subjetc or part
 	public String mxkLoadTrageCommentsAjax(){
 		loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
@@ -101,7 +106,24 @@ public class MxkCommentsAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-
+    public String mxkDeleteCommentsAjax(){
+    	if(traget != null){
+    		CommentEntity en = commentsService.findSingleCommentEntity(traget);
+    		if(MxkConstant.COMMENT_TYPE_WAV.equals(en.getType())){
+    			gridFSFileUploadService.removeFile(en.getInfo(), MxkGridFSFileUploadService.FILE_TYPE_VOICE);
+    		}
+    		commentsService.removeComments(en.getId());
+			if (MxkConstant.PART.equals(en.getTarget())) {
+				partService.updatePartCommentsQuantity(en.getCommentedId(),en.getTarget(),false);
+    		}else {
+    			subjectService.updateSubjectCommentsQuantity(en.getCommentedId(), false);
+    		}
+    	}
+    	message = MxkConstant.AJAX_SUCCESS;
+    	return SUCCESS;
+    }
+	
+	
 	public CommentsAddRequest getCommentsAddRequest() {
 		return commentsAddRequest;
 	}
@@ -144,8 +166,14 @@ public class MxkCommentsAction extends MxkSessionAction {
 
 	public void setLoadCommentsRespone(LoadCommentsRespone loadCommentsRespone) {
 		this.loadCommentsRespone = loadCommentsRespone;
+	}
+
+	public String getTraget() {
+		return traget;
+	}
+
+	public void setTraget(String traget) {
+		this.traget = traget;
 	} 
-	
-	
 	
 }

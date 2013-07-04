@@ -6,6 +6,7 @@ import com.mxk.org.entity.CommentEntity;
 
 public class LoadCommentsRespone {
 	
+	private long allpage;
 	private List<CommentEntity> list1;
 	private List<CommentEntity> list2;
 	private List<CommentEntity> list3;
@@ -34,6 +35,12 @@ public class LoadCommentsRespone {
 	}
 	public void setList4(List<CommentEntity> list4) {
 		this.list4 = list4;
+	}
+	public long getAllpage() {
+		return allpage;
+	}
+	public void setAllpage(long allpage) {
+		this.allpage = allpage;
 	}
 	
 	

@@ -24,6 +24,7 @@ import com.mxk.org.entity.SubjectMaterialSummaryEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
+import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
@@ -37,6 +38,7 @@ import com.mxk.org.web.subject.domain.ShowRssSubjectUserRequest;
 import com.mxk.org.web.subject.domain.SubjectMaterailDetailRespone;
 import com.mxk.org.web.subject.domain.SubjectMessageShowRespone;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
+import com.mxk.org.web.subject.domain.SubjectTop5NewPartsRespone;
 import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
 import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
@@ -82,6 +84,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 	@Autowired
 	private MxkGifService gifService;
 	
+	@Autowired
+	private MxkCommentsService commentsService;
+	
 	private CreateSubjectRequest createSubjectRequest;
 	
 	private UserVO uservo;
@@ -104,23 +109,62 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private CreateSubjectMaiterialRequest createSubjectMaiterialRequest;
 	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
 	private SubjectExtraEntity subjectExtraEntity;
+	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
 	private String targetId;
+	
+//	public String mxkSubjectCommentsView(){
+//		uservo = super.getCurrentUserVO();
+//		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+//		if(currentSubjectEntity != null){
+//			subjectMessageShowRespone = new SubjectMessageShowRespone();
+//			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
+//			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
+//			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+//			loadCommentsRequest = new LoadCommentsRequest();
+//			loadCommentsRequest.setPage(1);
+//			loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
+//			loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_TEXT);
+//		}
+//		return SUCCESS;
+//	}
 	
 	public String mxkSubjectCommentsView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(currentSubjectEntity != null){
-			subjectMessageShowRespone = new SubjectMessageShowRespone();
-			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
-			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
-			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
+			//获得5个最新的
+			subjectTop5NewPartsRespone = partService.findNewTop5Parts(currentSubjectEntity.getId());
 			loadCommentsRequest = new LoadCommentsRequest();
 			loadCommentsRequest.setPage(1);
 			loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
-			loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_TEXT);
+			loadCommentsRequest.setType(null);
+			loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+			if(loadCommentsRespone != null){
+				long allpage = commentsService.findCommentsPage(loadCommentsRequest);
+				loadCommentsRespone.setAllpage(allpage);
+			}
 		}
 		return SUCCESS;
 	}
+	
+	public String mxkLoadMoreSubjectCommentsAjax(){
+		if(loadCommentsRequest != null){
+			loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkfilerSubjectCommentsAjax(){
+		if(loadCommentsRequest != null){
+			loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+			if(loadCommentsRespone != null){
+				long allpage = commentsService.findCommentsPage(loadCommentsRequest);
+				loadCommentsRespone.setAllpage(allpage);
+			}
+		}
+		return SUCCESS;
+	}
+	
 	
 	//订阅信息
 	public String mxkSubjectMessageView(){
@@ -633,6 +677,14 @@ public class MxkSubjectAction extends MxkSessionAction {
 		this.subjectExtraEntity = subjectExtraEntity;
 	}
 
-	
+	public SubjectTop5NewPartsRespone getSubjectTop5NewPartsRespone() {
+		return subjectTop5NewPartsRespone;
+	}
+
+	public void setSubjectTop5NewPartsRespone(
+			SubjectTop5NewPartsRespone subjectTop5NewPartsRespone) {
+		this.subjectTop5NewPartsRespone = subjectTop5NewPartsRespone;
+	}
+
 	
 }

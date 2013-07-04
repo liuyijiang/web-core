@@ -28,7 +28,7 @@ public class CommentEntity implements Serializable {
 	private String target;//评论源 part or subject
 	private String type;//text or wav
 	private String createTime;//时间
-	private  String reply;//如果是回复的话 就是字符串 '回复 xxxx'
+	private String reply;//如果是回复的话 就是字符串 '回复 xxxx'
 	
 	public String getId() {
 		return id;

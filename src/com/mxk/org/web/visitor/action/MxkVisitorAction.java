@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
-import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.service.MxkCommentsService;
+import com.mxk.org.web.part.domain.PartNewCommentsResponse;
 import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
@@ -71,6 +71,7 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private SearchJoinSubjectPeopleRequest searchJoinSubjectPeopleRequest;
 	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
 	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
+	private PartNewCommentsResponse partNewCommentsResponse;
 	private String target;//partid£»subject
 	private String type;
 	
@@ -238,6 +239,7 @@ public class MxkVisitorAction extends MxkSessionAction {
 		if(partEntity != null){
 			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
 			subjectEntity = subjectService.findSubjectEntityById(partEntity.getSubjectid());
+		    partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
 		}
 		return SUCCESS;
 	}
@@ -432,6 +434,15 @@ public class MxkVisitorAction extends MxkSessionAction {
 	public void setSubjectMaterailDetailRespone(
 			SubjectMaterailDetailRespone subjectMaterailDetailRespone) {
 		this.subjectMaterailDetailRespone = subjectMaterailDetailRespone;
+	}
+
+	public PartNewCommentsResponse getPartNewCommentsResponse() {
+		return partNewCommentsResponse;
+	}
+
+	public void setPartNewCommentsResponse(
+			PartNewCommentsResponse partNewCommentsResponse) {
+		this.partNewCommentsResponse = partNewCommentsResponse;
 	}
 	
 	

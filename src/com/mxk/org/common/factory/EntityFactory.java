@@ -47,6 +47,7 @@ public class EntityFactory {
 		commentEntity.setType(commentsAddRequest.getType());
 		commentEntity.setUserimage(commentsAddRequest.getUserimage());
 		commentEntity.setUsername(commentsAddRequest.getUsername());
+		commentEntity.setReply(commentsAddRequest.getType());
 		return commentEntity;
 	}
 	

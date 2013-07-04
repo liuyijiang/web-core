@@ -18,6 +18,7 @@ import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
 import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.part.domain.CreatePartRequest;
+import com.mxk.org.web.part.domain.PartNewCommentsResponse;
 import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.domain.UpdatePartInfoRequest;
@@ -68,7 +69,7 @@ public class MxkPartAction extends MxkSessionAction {
 	private String target;//partid£»
 	private PartEntity partEntity;
 	private LoadCommentsRespone loadCommentsRespone;
-	
+	private PartNewCommentsResponse partNewCommentsResponse;
 	//parts comments
 	public String mxkShowPartsCommentsView(){
 		uservo = super.getCurrentUserVO();
@@ -116,6 +117,9 @@ public class MxkPartAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null){
+			partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
+		}
 		return SUCCESS;
 	}
 
@@ -319,6 +323,16 @@ public class MxkPartAction extends MxkSessionAction {
 
 	public void setLoadCommentsRespone(LoadCommentsRespone loadCommentsRespone) {
 		this.loadCommentsRespone = loadCommentsRespone;
+	}
+
+
+	public PartNewCommentsResponse getPartNewCommentsResponse() {
+		return partNewCommentsResponse;
+	}
+
+	public void setPartNewCommentsResponse(
+			PartNewCommentsResponse partNewCommentsResponse) {
+		this.partNewCommentsResponse = partNewCommentsResponse;
 	}
 
 	

@@ -22,11 +22,27 @@ public class MxkCommentsDao {
 
 	private static final Log log = LogFactory.getLog(MxkCommentsDao.class);
 	
-	@Value("${mxk.page.pagesize}")
+	@Value("${mxk.commnets.full.pagesize}")
 	private int pageSize;
+	
+	@Value("${mxk.commnets.min.pagesize}")
+	private int miniPageSize;
 	
 	@Autowired
 	private MongoOperations mog; 
+	
+	public List<CommentEntity> findNewComments(String commentid){
+		Query q = new Query(Criteria.where("commentedId").is(commentid));
+		q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+		q.limit(pageSize);
+		return mog.find(q, CommentEntity.class);
+	}
+	
+	
+	public CommentEntity findSingleCommentEntity(String id){
+		Query q = new Query(Criteria.where("id").is(id));
+		return mog.findOne(q, CommentEntity.class);
+	}
 	
 	public boolean saveCommentEntity(CommentEntity commentEntity){
 		boolean success = true;
@@ -78,6 +94,21 @@ public class MxkCommentsDao {
 			log.error(e.getMessage(),e);
 		}
 		return list;
+	}
+	
+	public long findCommentsPage(LoadCommentsRequest request){
+//		Criteria criteria = Criteria.where("commentedId").is(request.getTargeid());
+//		if(!StringUtil.stringIsEmpty(request.getType())){
+//			criteria.and("type").is(request.getType());
+//		}
+//		Query q = new Query(criteria);
+		Query q = new Query();
+		long count = mog.count(q, CommentEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 0;
+		}
 	}
 	
 	public List<CommentEntity> testfindCommentEntity(LoadCommentsRequest request){
