@@ -310,6 +310,9 @@ function changeSubjectStutas(subid,status){
             <a class="btn" href="<%=rootPath %>/showSubjectDetailView">
               <i class="icon-refresh"></i>刷新
             </a>
+             <a class="btn" href="<%=rootPath %>/subjectComments">
+               <i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }
+            </a>
          </span>
 			</div>
 		</div>

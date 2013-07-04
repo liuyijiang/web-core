@@ -124,8 +124,34 @@
 		</div>
 		<center>
 		   <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
+		   <span id="partmessage" >${partEntity.desc }</span>
 		</center>
-		<span  style="padding: 19px;" id="partmessage" >${partEntity.desc }</span><br />
+		<hr />
+		<c:forEach var="options" items="${partNewCommentsResponse.list }">
+		  
+		   <div class='row' style='padding:5px;margin-bottom:5px;'>
+	          <div class='span1'>
+	           <img class='img-polaroid border-radius' src='<%=imgurl%>${options.userimage}'/>
+	          </div>
+	           <div class='span7'>
+	             <span><a href='<%=imgurl %>/vistiorShowUserIndex?target=${options.userid}'>${options.username }</a>&nbsp;${options.reply }</span><br />
+	             <c:if test="${options.type == 'text' }">
+	               <span class='muted'>${options.info}</span><br />
+	             </c:if>
+	             <c:if test="${options.type == 'wav' }">
+	               <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20">
+					    <param name="movie" value="singlemp3player.swf?showDownload=false" />
+					    <param name="wmode" value="transparent" />
+					    <embed wmode="transparent" width="150" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false"
+		                type="application/x-shockwave-flash" />
+                   </object>
+	             </c:if>
+	             <span><i class='icon-time'></i>${options.createTime }</span>
+	           </div>
+            </div>
+            <div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>
+		</c:forEach>
+		<span class="pull-right"><a href="<%=rootPath %>/showPartsComments?target=${partEntity.id}">更多评论</a></span>
      </div>
      <div class="span3">
      	<ul class="thumbnails">
@@ -153,15 +179,6 @@
   </div>
 </div>
 <br />
-<div class="container">
-<div class="row">
-  <div class="span9 mxkplan mxkshadow">
-    dadsa
-    <hr />
-  </div>
-</div>
-</div>
-
 <!-- 编辑 -->
      <div id="editPartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">

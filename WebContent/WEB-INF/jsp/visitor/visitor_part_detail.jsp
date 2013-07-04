@@ -411,8 +411,8 @@
         callback_activityTime:     function(time){callback_activityTime(time); },
         callback_finished_sending:     function(time){ callback_finished_sending() },
         swf_path : 'jRecorder.swf',
-        'rec_width': '500',
-		'rec_height': '400',
+        'rec_width': '600',
+		'rec_height': '500',
      }
    
    );
