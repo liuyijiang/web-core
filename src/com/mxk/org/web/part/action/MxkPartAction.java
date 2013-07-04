@@ -74,6 +74,7 @@ public class MxkPartAction extends MxkSessionAction {
 	public String mxkShowPartsCommentsView(){
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(partEntity != null){
 			LoadCommentsRequest request = new LoadCommentsRequest();
 			request.setPage(1);
