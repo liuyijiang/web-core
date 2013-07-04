@@ -27,7 +27,12 @@ function mouseover(id){
         src="<%=imgurl %>${partEntity.minimage }" >
      </div>
      <div class="span11">
-        <span>From:<span>${partEntity.subname }</span>/<span>${uservo.name }</span></span>
+        <span style="font-size:20px;">
+           <strong>From:<span>
+             <a href="<%=rootPath%>/userIndex">${uservo.name }</a>
+           </span>/<span>
+           ${partEntity.subname }</span></strong><span class="muted"><small>(<i class="icon-tags"></i>${currentSubjectEntity.tags }-${currentSubjectEntity.category})</small></span>
+           </span>
         <span class="pull-right">
             <a href="javascript:;" class="btn" onclick="showCreatePart()">
                <i class="icon-list"></i>Parts详情

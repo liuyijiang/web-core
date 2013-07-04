@@ -114,7 +114,7 @@
     			show = show + "<br /> <span class='label label-important'><small><i class='icon-group'></i>"+ list[i].joinpeople +"人参与</small></span>";
     		}
     		show = show + "</span><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].faceimage +"' /></a></div>" + 
-    		"<span class='muted'><small><strong>"+ list[i].name +"</strong></small></span><br />" +
+    		"<span class='muted'><small><strong>"+ list[i].name +"</strong><span class='muted'>("+ list[i].category +")</span></small></span><br />" +
     		"<span class='muted'><small>"+ list[i].info +"</small></span><br />" +
     		"<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments +"<i class='icon-pushpin'></i>Parts"+ list[i].parts; 
     	   if(list[i].type == 'FOR-ALL'){
@@ -197,7 +197,7 @@
 						       </span>
 						       	<a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.id}"><img src="<%=imgurl %>${options.faceimage}" /></a>
 						   </div>
-							<span class="muted"><small><strong>${options.name }</strong></small></span><br />
+							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
 							    <span class="pull-right muted">
 							        <small>
@@ -235,7 +235,7 @@
 						       </span>
 						       		<a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.id}"><img src="<%=imgurl %>${options.faceimage}" /></a>
 						   </div>
-							<span class="muted"><small><strong>${options.name }</strong></small></span><br />
+							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
 							    <span class="pull-right muted">
 							        <small>
@@ -273,7 +273,7 @@
 						       </span>
 						       		<a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.id}"><img src="<%=imgurl %>${options.faceimage}" /></a>
 						   </div>
-							<span class="muted"><small><strong>${options.name }</strong></small></span><br />
+							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
 							    <span class="pull-right muted">
 							        <small>
@@ -311,7 +311,7 @@
 						       </span>
 						       		<a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.id}"><img src="<%=imgurl %>${options.faceimage}" /></a>
 						   </div>
-							<span class="muted"><small><strong>${options.name }</strong></small></span><br />
+							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
 							    <span class="pull-right muted">
 							        <small>
