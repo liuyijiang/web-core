@@ -18,6 +18,11 @@
             <result name="success">/WEB-INF/jsp/main/change_password.jsp</result>
          </action> 
          
+         <action name="showHelp" class="com.mxk.org.web.main.action.MxkMainAction" 
+             method="mxkShowHelpView">
+            <result name="success">/WEB-INF/jsp/main/help.jsp</result>
+         </action> 
+         
     </package>
 
     <package name="mainajax"  namespace="/" extends="json-default">

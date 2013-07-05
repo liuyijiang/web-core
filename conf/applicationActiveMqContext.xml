@@ -44,11 +44,17 @@
        <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
     </bean>
     
+     <bean id="deletesubejctstination" class="org.apache.activemq.command.ActiveMQQueue">
+       <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
+    </bean>
+    
     <bean id="excelCreateConsumer" class="com.mxk.org.common.message.listener.MxkExcelCreateListener" />
     
     <bean id="vioceTransformConsumer" class="com.mxk.org.common.message.listener.MxkVioceTransformMessageListener" />
     
     <bean id="newRssPushConsumer" class="com.mxk.org.common.message.listener.MxkNewMessagePushListener" />
+    
+    <bean id="deleteSubjectConsumer" class="com.mxk.org.common.message.listener.MxkDeleteSubjectListener" />
     
     <!-- topic -->
     <bean id="jmsContainer"
@@ -76,5 +82,13 @@
         <property name="sessionTransacted" value="true"/>
     </bean>
   
+    <bean id="deleteSubjectPushQueue"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="deletesubejctstination" />
+        <property name="messageListener" ref="deleteSubjectConsumer" />
+        <property name="sessionTransacted" value="true"/>
+    </bean>
+   
   
 </beans>
