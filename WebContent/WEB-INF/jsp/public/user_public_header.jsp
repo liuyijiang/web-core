@@ -19,7 +19,7 @@
               <a href="showCreateSubjectView" class="btn btn-info"><i class="icon-plus-sign"></i>创建专辑</a>
            </span>
         <br />
-        <span class="muted"><i class="star"></i>${uservo.info }</span><br />
+        <span class="muted">${uservo.info }</span><br />
         <span><i class="icon-time"></i>Join Time:${uservo.createTime }</span>
         
          <div class="btn-group pull-right " >
