@@ -23,6 +23,11 @@
             <result name="success">/WEB-INF/jsp/main/help.jsp</result>
          </action> 
          
+         <action name="testMail" class="com.mxk.org.web.main.action.MxkMainAction" 
+             method="mxkTestMail">
+            <result name="success">/WEB-INF/jsp/main/help.jsp</result>
+         </action>
+         
     </package>
 
     <package name="mainajax"  namespace="/" extends="json-default">

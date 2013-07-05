@@ -39,6 +39,10 @@
         <constructor-arg index="0" value="excel" />
     </bean>
     
+    <bean id="mailform" class="org.apache.activemq.command.ActiveMQTopic">
+       <constructor-arg index="0" value="mailpush"></constructor-arg>  
+    </bean>
+    
     <!-- 发送消息的目的地queue-->
     <bean id="newrsspushstination" class="org.apache.activemq.command.ActiveMQQueue">
        <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
@@ -48,6 +52,7 @@
        <constructor-arg index="0" value="activeMQQueue"></constructor-arg>  
     </bean>
     
+    
     <bean id="excelCreateConsumer" class="com.mxk.org.common.message.listener.MxkExcelCreateListener" />
     
     <bean id="vioceTransformConsumer" class="com.mxk.org.common.message.listener.MxkVioceTransformMessageListener" />
@@ -55,6 +60,9 @@
     <bean id="newRssPushConsumer" class="com.mxk.org.common.message.listener.MxkNewMessagePushListener" />
     
     <bean id="deleteSubjectConsumer" class="com.mxk.org.common.message.listener.MxkDeleteSubjectListener" />
+    
+    <bean id="mxkMailConsumer" class="com.mxk.org.common.message.listener.MxkMailPushListener" />
+    
     
     <!-- topic -->
     <bean id="jmsContainer"
@@ -70,6 +78,14 @@
         <property name="connectionFactory" ref="jmsFactory" />
         <property name="destination" ref="excelform" />
         <property name="messageListener" ref="excelCreateConsumer" />
+        <property name="sessionTransacted" value="true"/>
+    </bean>
+    
+     <bean id="mailContainer"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="destination" ref="mailform" />
+        <property name="messageListener" ref="mxkMailConsumer" />
         <property name="sessionTransacted" value="true"/>
     </bean>
     
@@ -89,6 +105,7 @@
         <property name="messageListener" ref="deleteSubjectConsumer" />
         <property name="sessionTransacted" value="true"/>
     </bean>
+    
    
   
 </beans>
