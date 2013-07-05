@@ -222,6 +222,29 @@ function changeSubjectStutas(subid,status){
 }
 
 
+function deleteSubject(id){
+	if(!confirm("确定要删除吗？删除专题会同时删除Parts和所有评论")){
+  		return;  //deleteProject
+    }else{
+		var datas = {"targetId":id};
+		$.ajax({
+			url : path + "/deleteSubject.action",
+			type : "POST",
+			cache : false,
+			async : false,
+			data: datas,
+			dataType : "json",
+			success : function(item) {
+			     if(item == 'success'){
+			    	 window.location.href= path + "/userIndex";
+			     }else{
+			    	 alert("网络异常请重试");
+			     }
+			  }
+		 }); 
+    }
+}
+
 </script>
 <body class="mxkbody  mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
@@ -298,7 +321,7 @@ function changeSubjectStutas(subid,status){
 			    <ul class="dropdown-menu">
 			       <li><a href="javascript:;" onclick="useforgifshow('生成GIF')">生成GIF动态图片</a></li>
 				   <li><a href="javascript:;" onclick="useforpdfshow('生成PDF')">生成PDF电子文档</a></li>
-				   <li><a href="javascript:;">删除专题</a></li>
+				   <li><a href="javascript:;" onclick="deleteSubject('${currentSubjectEntity.id}')">删除专题</a></li>
                </ul>
            </div>
          </span>
