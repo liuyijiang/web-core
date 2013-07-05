@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.factory.VOFactory;
+import com.mxk.org.common.message.domain.MailPushMessage;
+import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkFileUploadService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.service.MxkMailService;
@@ -43,7 +45,7 @@ import com.mxk.org.web.user.service.MxkUserService;
 import com.mxk.org.web.visitor.domain.CollectPartsRequest;
 
 /**
- * ÓÃ»§ÒµÎñÂß¼­action  Ò³ÃæÌø×ªµÄmethod ÒÔview½áÎ²
+ * ç”¨æˆ·æ³¨å†Œ
  * @author liuyijiang
  *
  */
@@ -103,6 +105,9 @@ public class MxkUserAction extends MxkSessionAction {
 	private MxkMailService mailService;
 	
 	@Autowired
+	private MxkMessageQueueService messageQueueService;
+	
+	@Autowired
 	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
 	
 	private UserRegisterRequest userRegisterRequest;
@@ -126,7 +131,7 @@ public class MxkUserAction extends MxkSessionAction {
 	private SearchSubjectRequest searchSubjectRequest;
 	private String target;//
 	
-	//¹Ø×¢µÄĞÅÏ¢
+	//æœ€æ–°æ¶ˆæ¯
 	public String mxkShowNewRssMessageView(){
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -149,7 +154,6 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§ÏûÏ¢
 	public String mxkShowUserOnMessageView(){
 		uservo = super.getCurrentUserVO();
 		loadUserMessageRequest = new LoadUserMessageRequest();
@@ -167,7 +171,6 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//²é¿´ÆÀÂÛµÄÎ»ÖÃ
 	public String mxkUserSeeMessageDetail(){
 		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
 		if(MessageEntity != null){
@@ -190,13 +193,11 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§µÄ¹Ø×¢½çÃæ
 	public String mxkShowUserFoucsView(){
 		uservo = super.getCurrentUserVO();
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§·ÛË¿½çÃæ
 	public String mxkShowUserFollowersView(){
 		uservo = super.getCurrentUserVO();
 		return SUCCESS;
@@ -209,7 +210,6 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//Ä£ºı²éÑ¯user
 	public String mxkSeachUserAjax(){
 		if(searchUserRequest != null){
 			searchUserResponse = userService.findUserByName(searchUserRequest.getParm(), 
@@ -222,25 +222,19 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	
-	//Ä£ºı²éÑ¯ÓÃ»§
 	public String mxkFindUsersAjax(){
 		return SUCCESS;
 	}
 	
-	//´´½¨ÓÃ»§¹ØÏµ
 	public String mxkCreateUserRelationAjax(){
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
 		if(uservo != null && createRelationShipRequest != null){
-			if(!uservo.getId().equals(createRelationShipRequest.getUserid())){//²»ÄÜÊ¹×Ô¼º
-				//ÅĞ¶ÏÊÇ·ñÒÑ¾­Ìí¼Ó
+			if(!uservo.getId().equals(createRelationShipRequest.getUserid())){//ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ô¼ï¿½
 				if(!userFriendService.checkUserRelationShip(uservo.getId(), createRelationShipRequest.getUserid())){
-					//¹Ø×¢Ò»¸öÈË ÄÇÃ´ ÄÇÃ´±»¹Ø×¢µÄÄÇ¸öÈË¾ÍÊÇuser ¹Ø×¢Õß¾ÍÊÇÄÇ¸öÈËµÄfried
 					UserFriendEntity user = new UserFriendEntity();
 					user.setUserid(createRelationShipRequest.getUserid());
 					user.setFriendid(uservo.getId());
-					//ÔÚredisÖĞ¼ÓÈëcach
 					if(userFriendService.createUserRelation(user)){
 						redisCacheService.cachUserRelation(uservo.getId(), createRelationShipRequest.getUserid());
 						message = MxkConstant.AJAX_SUCCESS;
@@ -253,7 +247,6 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§ÊÕ²Øpart
 	public String mxkCreateUserCollectAjax(){
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
@@ -268,7 +261,6 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§É¾³ıpart
 	public String mxkRemoveUserCollectAjax(){
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
@@ -284,12 +276,10 @@ public class MxkUserAction extends MxkSessionAction {
 	}
 	
 	
-	//Õ¹Ê¾ÓÃ»§×¢²áÒ³Ãæ
 	public String mxkShowUserRegisterView(){
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§¸üĞÂĞÅÏ¢
 	public String mxkUserUpdateInfo(){
 		uservo = super.getCurrentUserVO();
 		if(valiateUserForUpdate(userRegisterRequest) && uservo != null){
@@ -320,7 +310,6 @@ public class MxkUserAction extends MxkSessionAction {
 	}
 	
 	
-	//ÓÃ»§×¢²á
 	public String mxkUserRegister(){
 		if(valiateUserForRegister(userRegisterRequest)){
 			userRegisterRequest.setImageurl(defaultImageUrl);
@@ -338,26 +327,29 @@ public class MxkUserAction extends MxkSessionAction {
 						vo.setMinimage(minimageurl);
 					}
 				}
-				//cach
 				redisCacheService.setUserVO(vo.getId(), vo);
 			    super.setSessionKey(vo.getId()); // 
+			    MailPushMessage mes = new MailPushMessage();
+			    mes.setType(MxkConstant.MAIL_TYPE_REGISTER);
+			    mes.setTarget(vo.getId());
+			    messageQueueService.startMailTask(mes);//å‘é€é‚®ä»¶
 			}
 		}
 		return SUCCESS;
 	}
 	
-	//Õ¹Ê¾ÓÃ»§µÇÂ½
+	//ç™»é™†
 	public String mxkShowUserLoginView(){
 		return SUCCESS;
 	}
 	
-	//ÓÃ»§µÇÂ½
+	//ç™»é™†in
 	public String mxkUserLoginIn(){
 		UserEntity userEntity = userService.checkUserLogin(userLoginRequest);
 		if(userEntity != null && userEntity.getId() != null){
-			long messages = messageService.findMessageCount(userEntity.getId());//»ñµÃÏûÏ¢ÊıÁ¿
-			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//»ñµÃ²ÎÓësubject
-			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//¶©ÔÄµÄ×¨¼­
+			long messages = messageService.findMessageCount(userEntity.getId());//ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//ï¿½ï¿½Ã²ï¿½ï¿½ï¿½subject
+			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//ï¿½ï¿½ï¿½Äµï¿½×¨ï¿½ï¿½
 			super.setSessionKey(userEntity.getId());  
 			UserVO vo = VOFactory.createUserVOFormEnitiy(userEntity);
 			vo.setMessage(messages);
@@ -371,13 +363,13 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//ÍË³ö
+	//é€€å‡º
 	public String mxkUserLoginOut() {
 		super.removeSession();
 		return SUCCESS;
 	}
 	
-	//ĞŞ¸ÄÃÜÂë
+	//ï¿½Ş¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String mxkUpdateUserPassword(){
 		if(userChangePasswordRequest != null && userChangePasswordRequest.getTwopassword() != null && userChangePasswordRequest.getOnepassword() != null){
 			if(userChangePasswordRequest.getOnepassword().equals(userChangePasswordRequest.getTwopassword()) && mailService.checkUuid(userChangePasswordRequest.getUsermail(),userChangePasswordRequest.getUuid(),true)){
@@ -401,7 +393,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//ÓÃ»§µÇÂ¼ºó½çÃæ
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String mxkUserIndexView(){
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -417,7 +409,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//Òì²½¼ÓÔØ¸ü¶à
+	//ï¿½ì²½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½
 	public String mxkLoadMoreUserSubjectAjax(){
 		if (searchSubjectRequest != null) {
 		  subjectsShowResponse = subjectService.findSubjectEntityBySearchRequest(searchSubjectRequest);
@@ -426,7 +418,7 @@ public class MxkUserAction extends MxkSessionAction {
 	}
 	
 	
-	//ÊÕ²ØÒ³Ãæ
+	//ï¿½Õ²ï¿½Ò³ï¿½ï¿½
 	public String mxkUserCollectIndexView() {
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -445,7 +437,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//¹ıÂËÓÃ»§ÊÕ²Ø by type
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Õ²ï¿½ by type
 	public String mxkFilterUserCollectAjax(){
 		if(userCollectSearchRequest != null){
 			List<String> ids = userService.findUserCollectPartsIds(userCollectSearchRequest);
@@ -458,7 +450,7 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//¼ÓÔØ¸ü¶àÓÃ»§ÊÕ²ØĞÅÏ¢
+	//ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Õ²ï¿½ï¿½ï¿½Ï¢
 	public String mxkLoadMoreUserCollectAjax(){
 		if(userCollectSearchRequest != null){
 			if(StringUtil.stringIsEmpty(userCollectSearchRequest.getType())){
@@ -472,7 +464,7 @@ public class MxkUserAction extends MxkSessionAction {
 	    return SUCCESS;
 	}
 	
-	//¶©ÔÄµÄ×¨¼­
+	//ï¿½ï¿½ï¿½Äµï¿½×¨ï¿½ï¿½
 	public String mxkShowUserRssSubjectView(){
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -503,7 +495,7 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//²ÎÓëµÄsubject
+	//ï¿½ï¿½ï¿½ï¿½ï¿½subject
 	public String mxkShowUserJoinSubjectView(){
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){

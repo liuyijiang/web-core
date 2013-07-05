@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.mxk.org.common.message.domain.DeleteSubjectMessage;
 import com.mxk.org.common.message.domain.ExcelCreateMessage;
+import com.mxk.org.common.message.domain.MailPushMessage;
 import com.mxk.org.common.message.domain.NewMessagePushMessage;
 import com.mxk.org.common.message.domain.VoiceTransformMessage;
 
 /**
- * 系统各种一步消息处理service
+ * 娑堟伅闃熷垪service 
  * @author liuyijiang
  *
  */
@@ -26,31 +27,35 @@ public class MxkMessageQueueService {
 	
 	@Autowired
 	@Qualifier("newrsspushstination")
-	private ActiveMQQueue newrsspushstination;//目的地
+	private ActiveMQQueue newrsspushstination;
 	
+	@Autowired
+	@Qualifier("mailform")
+	private Destination mailform;
 	
 	@Autowired
 	@Qualifier("deletesubejctstination")
-	private ActiveMQQueue deletesubejctstination;//目的地
+	private ActiveMQQueue deletesubejctstination;
 	
 	@Autowired
 	@Qualifier("voicetransform")
-	private Destination voicetransform;//音频转换目的地
+	private Destination voicetransform;
 	
 	@Autowired
 	@Qualifier("excelform")
-	private Destination excelform;//excel生成
+	private Destination excelform;
 	
-	//音频转换任务
+	//wav杞崲涓簃p3
 	public void startVioceTransformTask(VoiceTransformMessage message){
 		jmsTemplate.send(voicetransform,message);
 	}
 	
-	//excels生成任务
+	//excels
 	public void startExcelCreateTask(ExcelCreateMessage message){
 		jmsTemplate.send(excelform,message);
 	}
 	
+	//
 	public void startNewRssPushTask(NewMessagePushMessage message){
 		jmsTemplate.send(newrsspushstination,message);
 	}
@@ -59,4 +64,7 @@ public class MxkMessageQueueService {
 		jmsTemplate.send(deletesubejctstination,message);
 	}
 	
+	public void startMailTask(MailPushMessage message){
+		jmsTemplate.send(mailform,message);
+	}
 }

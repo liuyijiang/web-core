@@ -2,9 +2,9 @@ package com.mxk.org.common.domain.constant;
 
 public class MxkConstant {
 
-	public static final String LOGIN_FAIL = "ÕËºÅÓëÃÜÂë²»·ûºÏÇëÖØÊÔ£¡";
+    public static final String LOGIN_FAIL = "è´¦å·ä¸å¯†ç ä¸ç¬¦åˆè¯·é‡è¯•ï¼";
 	
-	public static final String STATUS_CHANGE_FAIL = "ÓĞÆäËûÓÃ»§ÔÚÕâ¸ö¹²Ïí×¨ÌâÖĞ·¢²¼part£¡";
+	public static final String STATUS_CHANGE_FAIL = "æœ‰å…¶ä»–ç”¨æˆ·åœ¨è¿™ä¸ªå…±äº«ä¸“é¢˜ä¸­å‘å¸ƒpartï¼";
 	
 	public static final String AJAX_SUCCESS = "success";
 	
@@ -16,7 +16,7 @@ public class MxkConstant {
 	
 	public static final String SUBJECT_TYPE_PRIVATE = "PRIVATE";
 	
-	public static final String USER_NO_LOGIN = "ÇëÏÈµÇÂ¼Ã×ÍÃ";
+    public static final String USER_NO_LOGIN = "è¯·å…ˆç™»å½•ç±³å…”";
 	
 	public static final String VALIATE_NAME = "name";
 	
@@ -34,13 +34,17 @@ public class MxkConstant {
 	
 	public static final String SUBJECT_CATEGORY_SHARE = "share";
 	
-	public static final String SUBJECT_MATERIAL_TYPE_BJ = "Ä£ĞÍ°å¼ş";
+	public static final String SUBJECT_MATERIAL_TYPE_BJ = "æ¨¡å‹æ¿ä»¶";
 	
-	public static final String SUBJECT_MATERIAL_TYPE_GZ = "¸ÄÔì²ÄÁÏ";
+	public static final String SUBJECT_MATERIAL_TYPE_GZ = "æ”¹é€ ææ–™";
 	
-	public static final String SUBJECT_MATERIAL_TYPE_YQ = "ÓÍÆá¸¨ÁÏ";
+	public static final String SUBJECT_MATERIAL_TYPE_YQ = "æ²¹æ¼†è¾…æ–™";
 	
-	public static final String SUBJECT_MATERIAL_TYPE_GJ = "¹¤¾ß¸¨ÁÏ";
+	public static final String SUBJECT_MATERIAL_TYPE_GJ = "å·¥å…·è¾…æ–™";
 	
-	public static final String SUBJECT_MATERIAL_TYPE_QT = "ÆäËû²ÄÁÏ";
+	public static final String SUBJECT_MATERIAL_TYPE_QT = "å…¶ä»–ææ–™";
+	
+	public static final String MAIL_TYPE_REGISTER = "register";
+	
+	public static final String MAIL_TYPE_WEEKPUSH = "weekpush";
 }

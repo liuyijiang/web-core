@@ -16,7 +16,7 @@ import com.mxk.org.common.connect.redis.MxkJedisPool;
 import com.mxk.org.common.domain.constant.MxkRedisCacheContants;
 import com.mxk.org.common.util.StringUtil;
 /**
- * Éú³É part push
+ * æ–°å»ºpart push
  * @author Administrator
  *
  */
@@ -35,9 +35,9 @@ public class MxkNewMessagePushListener implements MessageListener{
 			String userid = m.getString("userid");
 			String subjectId = m.getString("subjectId");
 			if(!StringUtil.stringIsEmpty(tragetId) && !StringUtil.stringIsEmpty(userid)){
-				//1 »ñµÃÓÃ»§µÄ·ÛË¿set ±äÁ¿Ã¿Ò»¸ö ·ÅÈëlist  ÕâÀï½«À´Ê±ÎÊÌâ Êı¾İÁ¿´óµÄÊ±ºò
+				//1æ‰€æœ‰å¥½å‹
 				pushForRssUser(userid,tragetId);
-				//2 »ñµÃ¶©ÔÄµÄpart
+				//2è®¢é˜…ä¸“è¾‘è€…
 				pushForRssSubejct(subjectId,tragetId);
 			}
 		} catch (Exception e) {
@@ -45,7 +45,7 @@ public class MxkNewMessagePushListener implements MessageListener{
 		}
 	}
 
-	//ÍÆËÍ¸ø·ÛË¿
+	//ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Ë¿
 	private void pushForRssUser(String userid,String tragetId){
 		Jedis jedis = null;
 		try{
@@ -55,7 +55,7 @@ public class MxkNewMessagePushListener implements MessageListener{
 			for (String id : followers) {
 				 String userkey = id + MxkRedisCacheContants.KEY_USER_FOUCS;
 				 if(jedis.llen(userkey) > 120 ){
-				    jedis.ltrim(userkey, 0, 50); //È¥³ı
+				    jedis.ltrim(userkey, 0, 50); //È¥ï¿½ï¿½
 				 }
 				 jedis.lpush(userkey, tragetId);
 			}
@@ -68,7 +68,7 @@ public class MxkNewMessagePushListener implements MessageListener{
 		}
 	}
 	
-	//ÍÆËÍ¸ø¶©ÔÄÕß
+	//ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½
     private void pushForRssSubejct(String subjectId,String tragetId){
     	Jedis jedis = null;
 		try{
@@ -78,7 +78,7 @@ public class MxkNewMessagePushListener implements MessageListener{
 			for (String id : followers) {
 				 String userkey = id + MxkRedisCacheContants.KEY_USER_FOUCS;
 				 if(jedis.llen(userkey) > 120 ){
-				    jedis.ltrim(userkey, 0, 50); //È¥³ı
+				    jedis.ltrim(userkey, 0, 50); //È¥ï¿½ï¿½
 				 }
 				 jedis.lpush(userkey, tragetId);
 			}

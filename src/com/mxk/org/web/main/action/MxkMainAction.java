@@ -1,5 +1,7 @@
 package com.mxk.org.web.main.action;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
@@ -30,7 +32,11 @@ public class MxkMainAction extends MxkSessionAction {
 	private String usermail;
 	private String uuid;
 	
-	//唯一验证
+	public String mxkTestMail(){
+		mailService.sendTempleteEmail("","liuyijiang3430@qq.com",new HashMap());
+		return SUCCESS;
+	}
+	
 	public String mxkRegisterCheckAjax(){
 		if(userService.checkParmUnique(registerCheckRequest)){
 			message = MxkConstant.AJAX_SUCCESS;
@@ -49,7 +55,6 @@ public class MxkMainAction extends MxkSessionAction {
 		}
 	}
 	
-	//修改密码
 	public String mxkSendChangePasswordMailAjax(){
 		if(changePasswordRequest != null){
 			mailService.sendMail(changePasswordRequest.getUsermail());
@@ -60,7 +65,6 @@ public class MxkMainAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 
-	//转入修改密码界面
 	public String mxkShowChangePasswordView(){
 		if(mailService.checkUuid(usermail,uuid,false)){
 			message = MxkConstant.AJAX_SUCCESS;

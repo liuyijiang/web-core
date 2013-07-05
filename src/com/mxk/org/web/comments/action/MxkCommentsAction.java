@@ -19,7 +19,7 @@ import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 /**
- * 评论处理
+ * 锟斤拷锟桔达拷锟斤拷
  * @author liuyijiang
  *
  */
@@ -51,13 +51,14 @@ public class MxkCommentsAction extends MxkSessionAction {
 	private UserVO uservo;
 	private String message;
 	private String traget;
-	//加载目标评论 subjetc or part
+	
+	//
 	public String mxkLoadTrageCommentsAjax(){
 		loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
 		return SUCCESS;
 	}
 	
-	//文字评论
+
 	public String mxkAddTextCommentsAjax(){
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
@@ -68,12 +69,12 @@ public class MxkCommentsAction extends MxkSessionAction {
 			if(commentsService.saveTextComment(commentsAddRequest)){
 				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
 					partService.updatePartCommentsQuantity(
-							commentsAddRequest.getCommentedId(), "comments", true);//更新part评论数量comments audios
-					messageService.createMessage(commentsAddRequest);//创建消息提示
+							commentsAddRequest.getCommentedId(), "comments", true);//锟斤拷锟斤拷part锟斤拷锟斤拷锟斤拷锟斤拷comments audios
+					messageService.createMessage(commentsAddRequest);//锟斤拷锟斤拷锟斤拷息锟斤拷示
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
 					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);
-					messageService.createMessage(commentsAddRequest);//创建消息提示
+					messageService.createMessage(commentsAddRequest);//锟斤拷锟斤拷锟斤拷息锟斤拷示
 					message = MxkConstant.AJAX_SUCCESS;
 				}
 			}
@@ -83,7 +84,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//语音评论 
+	//锟斤拷锟斤拷锟斤拷锟斤拷 
 	public String mxkAddVoiceComments() throws IOException{
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;

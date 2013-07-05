@@ -16,7 +16,7 @@ import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.web.user.domain.UserVO;
 
 /**
- * ·Ö²¼Ê½session »º´æaction
+ * åˆ†å¸ƒå¼session ç¼“å­˜action
  * @author liuyijiang
  *
  */
@@ -39,7 +39,7 @@ public class MxkSessionAction extends MxkBaseAction{
 	public void removeSession(){
 		Cookie cook = new Cookie(MxkSessionContext.MXK_JSEESION,"");
 		cook.setPath("/");
-		ServletActionContext.getResponse().addCookie(cook);//·ÃÎÊÕ¾µãÉú³Ékey
+		ServletActionContext.getResponse().addCookie(cook);//ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½key
 	}
 	
 	public String getSessionKey(){
@@ -55,7 +55,7 @@ public class MxkSessionAction extends MxkBaseAction{
 		String mxkjsesson = UUID.randomUUID().toString();
 		Cookie cook = new Cookie(MxkSessionContext.MXK_JSEESION,mxkjsesson);
 		cook.setPath("/");
-		ServletActionContext.getResponse().addCookie(cook);//·ÃÎÊÕ¾µãÉú³Ékey
+		ServletActionContext.getResponse().addCookie(cook);//ï¿½ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½key
 		sessionContext.getKey().put(MxkSessionContext.MXK_SESSION, mxkjsesson);
 		msload.setSessionData(sessionContext.getKey().get(MxkSessionContext.MXK_SESSION), str);
 	}

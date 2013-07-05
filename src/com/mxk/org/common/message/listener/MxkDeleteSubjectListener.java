@@ -41,7 +41,7 @@ public class MxkDeleteSubjectListener implements MessageListener{
 		try{
 		   String subjectid = m.getString("subjectid");
 		   if(subjectid != null){
-			   // É¾³ýsubjectËùÓÐÆÀÂÛ
+			   //å…ˆåˆ é™¤æ‰€æœ‰subject è¯„è®º
 			   List<CommentEntity> subComList = commentsService.findTargetAllComment(subjectid);
 			   if(subComList != null && !subComList.isEmpty()){
 				   for(CommentEntity cm:subComList){

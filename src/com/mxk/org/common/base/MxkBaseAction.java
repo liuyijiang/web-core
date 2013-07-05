@@ -8,7 +8,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 /**
- * ��action
+ * 基础action 封装request  response
  * @author liuyijiang
  *
  */
