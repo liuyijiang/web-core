@@ -42,6 +42,19 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public boolean deleteSubject(String id){
+		boolean success = true;
+		try{
+			Query q = new Query(Criteria.where("id").is(id));
+			mog.remove(q, SubjectEntity.class);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+		
+	}
+	
 	public long findUserSubjectAllPage(String userid){
 		Query q = new Query(Criteria.where("userid").is(userid));
 		int count = (int) mog.count(q, SubjectEntity.class);

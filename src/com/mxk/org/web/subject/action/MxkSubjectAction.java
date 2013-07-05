@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.domain.session.MxkSessionContext;
+import com.mxk.org.common.message.domain.DeleteSubjectMessage;
 import com.mxk.org.common.message.domain.ExcelCreateMessage;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkGifService;
@@ -127,6 +128,27 @@ public class MxkSubjectAction extends MxkSessionAction {
 //		}
 //		return SUCCESS;
 //	}
+	
+	public String mxkDeleteSubjectAjax(){
+		message = MxkConstant.USER_NO_LOGIN;
+		uservo = super.getCurrentUserVO();
+		if(targetId != null && uservo != null){
+			currentSubjectEntity = subjectService.findSubjectEntityById(targetId);
+			if(currentSubjectEntity != null){
+				if(currentSubjectEntity.getUserid().equals(uservo.getId())){
+					if(subjectService.deleteSubject(currentSubjectEntity.getId())){
+						DeleteSubjectMessage mess = new DeleteSubjectMessage();
+						mess.setSubjectid(currentSubjectEntity.getId());
+						messageQueueService.startDeleteSubjectTask(mess);
+						message = MxkConstant.AJAX_SUCCESS;
+					}else{
+						message = MxkConstant.AJAX_ERROR;
+					}
+				}
+			}
+		}
+		return SUCCESS;
+	}
 	
 	public String mxkSubjectCommentsView(){
 		uservo = super.getCurrentUserVO();
@@ -280,10 +302,6 @@ public class MxkSubjectAction extends MxkSessionAction {
 				}
 			}
 		}
-		return SUCCESS;
-	}
-	
-	public String mxkDeleteSubjectAjax(){
 		return SUCCESS;
 	}
 	

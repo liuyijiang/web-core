@@ -23,6 +23,10 @@ public class MxkPartService {
 	@Autowired
 	private MxkPartDao partDao;
 	
+	public List<PartEntity> findPartEntityAll(String subjectid){
+		return partDao.findPartEntityAll(subjectid);
+	}
+	
 	public long findUserSubjectPartsAllPage(String subjectid){
 		return partDao.findUserSubjectPartsAllPage(subjectid);
 	}

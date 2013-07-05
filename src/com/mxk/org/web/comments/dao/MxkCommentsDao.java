@@ -31,10 +31,15 @@ public class MxkCommentsDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<CommentEntity> findTargetAllComment(String target){
+		Query q = new Query(Criteria.where("commentedId").is(target));
+		return mog.find(q, CommentEntity.class);
+	}
+	
 	public List<CommentEntity> findNewComments(String commentid){
 		Query q = new Query(Criteria.where("commentedId").is(commentid));
 		q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
-		q.limit(pageSize);
+		q.limit(miniPageSize);
 		return mog.find(q, CommentEntity.class);
 	}
 	

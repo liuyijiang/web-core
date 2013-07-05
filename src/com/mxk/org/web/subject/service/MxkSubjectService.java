@@ -29,6 +29,10 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public boolean deleteSubject(String id){
+		return dao.deleteSubject(id);
+	}
+	
 	public long findUserSubjectAllPage(String userid){
 		return dao.findUserSubjectAllPage(userid);
 	}

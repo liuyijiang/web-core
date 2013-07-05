@@ -38,6 +38,10 @@ public class MxkCommentsService {
 	@Autowired
 	private MxkCommentsDao commentsDao;
 	
+	public List<CommentEntity> findTargetAllComment(String target){
+		return commentsDao.findTargetAllComment(target);
+	}
+	
 	public PartNewCommentsResponse findNewComments(String commentid){
 		PartNewCommentsResponse p = new PartNewCommentsResponse();
 		p.setList(commentsDao.findNewComments(commentid));

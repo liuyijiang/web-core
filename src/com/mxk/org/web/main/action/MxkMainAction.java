@@ -70,6 +70,10 @@ public class MxkMainAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 
+	public String mxkShowHelpView(){
+		uservo = super.getCurrentUserVO();
+		return SUCCESS;
+	}
 	
 	public UserVO getUservo() {
 		return uservo;

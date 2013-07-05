@@ -70,6 +70,18 @@ public class MxkPartDao {
 	}
 	
 	
+	public List<PartEntity> findPartEntityAll(String subjectid){
+		List<PartEntity> list = null;
+		try{
+			Query q = new Query(Criteria.where("subjectid").is(subjectid));
+			list = mog.find(q , PartEntity.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage(),e);
+		}
+		return list;
+	}
+	
 	//查询subject 下面 那些不是subject创建者上传的part数量 userid 是创建subject者的id
 	public long findSubjectPartNotInUserId(String userid,String subjectid){
 		long num = 0;
