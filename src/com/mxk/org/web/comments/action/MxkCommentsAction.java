@@ -9,6 +9,7 @@ import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.HttpUtil;
+import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
@@ -59,13 +60,24 @@ public class MxkCommentsAction extends MxkSessionAction {
 	}
 	
 
-	public String mxkAddTextCommentsAjax(){
+	public String mxkAddTextCommentsAjax(){ 
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
 		if(uservo != null && commentsAddRequest != null){
 			commentsAddRequest.setUserid(uservo.getId());
 			commentsAddRequest.setUserimage(uservo.getImage());
 			commentsAddRequest.setUsername(uservo.getName());
+			commentsAddRequest.setReply(MxkConstant.COMMENT_COM);
+			String replyUserId = commentsAddRequest.getReplyUserId();
+			if(!StringUtil.stringIsEmpty(replyUserId)){
+				UserVO vo = super.getCachedUserVO(replyUserId);
+				if(vo != null){
+					commentsAddRequest.setReplyUserId(vo.getId());
+					commentsAddRequest.setReplyUserImage(vo.getImage());
+					commentsAddRequest.setReplyUserName(vo.getName());
+					commentsAddRequest.setReply(MxkConstant.COMMENT_REPLY);
+				}
+			}
 			if(commentsService.saveTextComment(commentsAddRequest)){
 				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
 					partService.updatePartCommentsQuantity(
@@ -84,7 +96,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//�������� 
+	//语音评论
 	public String mxkAddVoiceComments() throws IOException{
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.AJAX_ERROR;
@@ -98,6 +110,17 @@ public class MxkCommentsAction extends MxkSessionAction {
 			commentsAddRequest.setUserid(uservo.getId());
 			commentsAddRequest.setUserimage(uservo.getImage());
 			commentsAddRequest.setUsername(uservo.getName());
+			commentsAddRequest.setReply(MxkConstant.COMMENT_COM);
+			String replyUserId = parm.get("replyUserId");
+			if(!StringUtil.stringIsEmpty(replyUserId)){
+				UserVO vo = super.getCachedUserVO(replyUserId);
+				if(vo != null){
+					commentsAddRequest.setReplyUserId(vo.getId());
+					commentsAddRequest.setReplyUserImage(vo.getImage());
+					commentsAddRequest.setReplyUserName(vo.getName());
+					commentsAddRequest.setReply(MxkConstant.COMMENT_REPLY);
+				}
+			}
 			if(commentsService.saveVoiceComment(commentsAddRequest,request.getInputStream())){
 				message = MxkConstant.AJAX_SUCCESS;
 			}

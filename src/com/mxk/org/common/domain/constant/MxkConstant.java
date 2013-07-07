@@ -30,6 +30,10 @@ public class MxkConstant {
 	
 	public static final String COMMENT_TYPE_WAV = "wav";
 	
+	public static final String COMMENT_REPLY = "回复";
+	
+	public static final String COMMENT_COM = "评论";
+	
 	public static final String SUBJECT_CATEGORY_CREATIVE = "creative";
 	
 	public static final String SUBJECT_CATEGORY_SHARE = "share";
@@ -47,4 +51,6 @@ public class MxkConstant {
 	public static final String MAIL_TYPE_REGISTER = "register";
 	
 	public static final String MAIL_TYPE_WEEKPUSH = "weekpush";
+	
+	
 }

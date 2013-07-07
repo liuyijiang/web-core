@@ -4,7 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 /**
- * reids 朽ӳ�
+ * reids 朽ӳ�
  * @author liuyijiang
  *
  */
@@ -14,7 +14,7 @@ public class MxkJedisPool {
 	
 	public MxkJedisPool(String host,int prot){
 	    JedisPoolConfig config = new JedisPoolConfig();
-	    config.setMaxActive(50000);
+	    config.setMaxActive(5000);
 	    config.setMaxIdle(101);
 	    config.setMaxWait(1000l);
 	    config.setTestOnBorrow(true);

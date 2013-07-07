@@ -16,7 +16,7 @@ import com.mxk.org.web.subject.domain.RssSubjectRequest;
 import com.mxk.org.web.user.domain.UserRegisterRequest;
 
 /**
- * Entity ×é×°¹¤³§
+ * Entity ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -47,7 +47,10 @@ public class EntityFactory {
 		commentEntity.setType(commentsAddRequest.getType());
 		commentEntity.setUserimage(commentsAddRequest.getUserimage());
 		commentEntity.setUsername(commentsAddRequest.getUsername());
-		commentEntity.setReply(commentsAddRequest.getType());
+		commentEntity.setReply(commentsAddRequest.getReply());
+		commentEntity.setReplyUserId(commentsAddRequest.getReplyUserId());
+		commentEntity.setReplyUserImage(commentsAddRequest.getReplyUserImage());
+		commentEntity.setReplyUserName(commentsAddRequest.getReplyUserName());
 		return commentEntity;
 	}
 	

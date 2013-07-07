@@ -12,6 +12,9 @@ public class CommentsAddRequest {
 	private String userimage;
 	private String username;
 	private String reply;
+	private String replyUserId;
+	private String replyUserName;
+	private String replyUserImage;
 	
 	public String getCommentedUserId() {
 		return commentedUserId;
@@ -66,6 +69,24 @@ public class CommentsAddRequest {
 	}
 	public void setReply(String reply) {
 		this.reply = reply;
+	}
+	public String getReplyUserId() {
+		return replyUserId;
+	}
+	public void setReplyUserId(String replyUserId) {
+		this.replyUserId = replyUserId;
+	}
+	public String getReplyUserName() {
+		return replyUserName;
+	}
+	public void setReplyUserName(String replyUserName) {
+		this.replyUserName = replyUserName;
+	}
+	public String getReplyUserImage() {
+		return replyUserImage;
+	}
+	public void setReplyUserImage(String replyUserImage) {
+		this.replyUserImage = replyUserImage;
 	}
 	
 	

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 /**
- * ÆÀÂÛÊµÌå
+ * ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -19,16 +19,19 @@ public class CommentEntity implements Serializable {
 	
 	@Id
 	private String id;
-	private String userid;//·¢³öÆÀÂÛµÄÈËµÄid;
-	private String userimage;//·¢³öÆÀÂÛµÄÈËµÄÍ·Ïñ£»
-	private String username;//·¢³öÆÀÂÛÈËµÄÃû³Æ
-	private String commentedUserId;//±»ÆÀÂÛµÄÈËµÄid
-	private String commentedId;//if part ¾ÍÊÇ part id  ruguo subject ¾ÍÊÇsubject id
-	private String info;//ÆÀÂÛÄÚÈİ if text ¾ÍËÀÎÄ±¾ else if wav ¾ÍÊÇurl
-	private String target;//ÆÀÂÛÔ´ part or subject
+	private String userid;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½Ëµï¿½id;
+	private String userimage;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½Ëµï¿½Í·ï¿½ï¿½
+	private String username;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½
+	private String commentedUserId;//ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½Ëµï¿½id
+	private String commentedId;//if part ï¿½ï¿½ï¿½ï¿½ part id  ruguo subject ï¿½ï¿½ï¿½ï¿½subject id
+	private String info;//å¦‚æœif text else if wav ï¿½ï¿½ï¿½ï¿½url
+	private String target;//è¯„è®ºçš„ç›®æ ‡part or subject
 	private String type;//text or wav
-	private String createTime;//Ê±¼ä
-	private String reply;//Èç¹ûÊÇ»Ø¸´µÄ»° ¾ÍÊÇ×Ö·û´® '»Ø¸´ xxxx'
+	private String createTime;//æ—¶é—´
+	private String reply;//è¯„è®ºè¿˜æ˜¯ å›å¤
+	private String replyUserId;
+	private String replyUserName;
+	private String replyUserImage;
 	
 	public String getId() {
 		return id;
@@ -98,6 +101,24 @@ public class CommentEntity implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getReplyUserId() {
+		return replyUserId;
+	}
+	public void setReplyUserId(String replyUserId) {
+		this.replyUserId = replyUserId;
+	}
+	public String getReplyUserName() {
+		return replyUserName;
+	}
+	public void setReplyUserName(String replyUserName) {
+		this.replyUserName = replyUserName;
+	}
+	public String getReplyUserImage() {
+		return replyUserImage;
+	}
+	public void setReplyUserImage(String replyUserImage) {
+		this.replyUserImage = replyUserImage;
 	}
 	
 	
