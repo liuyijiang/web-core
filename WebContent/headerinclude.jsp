@@ -7,10 +7,10 @@
 	String webcontext = "http://localhost:8080/webmxk/";
 // 	String imgurl = "http://192.168.1.101/image/";
 // 	String voice = "http://192.168.1.101/voice/";
-	String imgurl = "http://192.168.2.127/mxk/image/";
-	String voice = "http://192.168.2.127/mxk/voice/";
-	String pdf = "http://192.168.2.127/mxk/pdf/";
-	String excel = "http://192.168.2.127/mxk/excel/";
+	String imgurl = "http://192.168.1.127/mxk/image/";
+	String voice = "http://192.168.1.127/mxk/voice/";
+	String pdf = "http://192.168.1.127/mxk/pdf/";
+	String excel = "http://192.168.1.127/mxk/excel/";
 	//String pdf = "http://www.waileecn.com/mxk/pdf/";
 	String assets = "http://www.waileecn.com/mxk/assets/"; 
 	//String imgurl = "http://192.168.1.102/image/";   

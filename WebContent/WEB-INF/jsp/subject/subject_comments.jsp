@@ -16,7 +16,6 @@
 	$("#"+id).css("z-index","-1");
   }
 
-  var replyusername = '';
   var replyuserid = '';
 </script>
 <script type="text/javascript">
@@ -38,7 +37,7 @@
 	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
            "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
            "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
-           "</div></td><td><span class='pull-right'><a href='javascript:;' onclick=''>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
+           "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
            "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
            if (list[i].type == 'wav') {
         	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
@@ -143,10 +142,10 @@ var subjectid = '${currentSubjectEntity.id}';
                 </c:when>
                 </c:choose>
            </span>
-        </span>
+        </span> 
         <span class="pull-right">
            <a class="btn" href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }"><i class="icon-hdd"></i>返回专题</a>
-           <a href="javascript:;" class="btn btn-info" onclick="popdiv()">
+           <a href="javascript:;" class="btn btn-info" onclick="popdivfrombtn()">
               <i class="icon-comment-alt"></i>评论专题
            </a>
         </span>
@@ -226,7 +225,7 @@ var subjectid = '${currentSubjectEntity.id}';
 							   </td>
 				               <td>
 					               <span class='pull-right'>
-								      <a href='javascript:;' onclick=''>
+								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" >
 								               回复</a>
 								   </span>
 							   </td>
@@ -287,7 +286,7 @@ var subjectid = '${currentSubjectEntity.id}';
 							   </td>
 				               <td>
 					               <span class='pull-right'>
-								      <a href='javascript:;' onclick=''>
+								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" >
 								               回复</a>
 								   </span>
 							   </td>
@@ -348,7 +347,7 @@ var subjectid = '${currentSubjectEntity.id}';
 							   </td>
 				               <td>
 					               <span class='pull-right'>
-								      <a href='javascript:;' onclick=''>
+								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" >
 								               回复</a>
 								   </span>
 							   </td>
@@ -409,7 +408,7 @@ var subjectid = '${currentSubjectEntity.id}';
 							   </td>
 				               <td>
 					               <span class='pull-right'>
-								      <a  href='javascript:;' onclick=''>
+								     <a href='javascript:;' onclick="relaycomments('${options.userid }')" >
 								               回复</a>
 								   </span>
 							   </td>
@@ -472,7 +471,7 @@ var subjectid = '${currentSubjectEntity.id}';
           </div>
         </div>
 	    <div class="modal-footer">
-	      <a href="javascript:;" class="btn btn-primary" onclick="">发布</a>
+	      <a href="javascript:;" class="btn btn-primary" onclick="addTextComents('${currentSubjectEntity.id}','${currentSubjectEntity.userid }','subject')">发布</a>
 	      <a href="javascript:;" class="btn" onclick="closeTextCommentsPop()">关闭</a>
 	    </div>
     </div>
@@ -514,12 +513,51 @@ var subjectid = '${currentSubjectEntity.id}';
 	      <a href="javascript:;" class="btn" onclick="closeVoiceCommentsPop()">关闭</a>
 	    </div>
     </div>
+<script type="text/javascript">
 
+function relaycomments(userid){
+	replyuserid = userid;
+	popdiv();
+}
+
+  
+function addTextComents(commentedId,commentedUserId,traget){
+	  var info = $("#commentstextarea").val();
+	  var datas = {"commentsAddRequest.replyUserId":replyuserid,"commentsAddRequest.commentedUserId":commentedUserId,"commentsAddRequest.commentedId":commentedId,"commentsAddRequest.info":info,"commentsAddRequest.target":traget,"commentsAddRequest.type":"text"};
+	  $.ajax({
+	   		url : path + "/addTextComments.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: datas,
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("评论成功！");
+			    }else if( item == 'error'){
+			   	   alert("网络异常请重试");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 }); 
+}
+
+</script>
 <script type="text/javascript">
 
 var istext = false;
 
 function popdiv(){
+	if(istext){
+		createTextCommentsPop();
+	}else{
+		createVoiceCommentsPop();
+	}
+}
+
+function popdivfrombtn(){
+	replyuserid = '';
 	if(istext){
 		createTextCommentsPop();
 	}else{
@@ -566,7 +604,7 @@ function clear(){
    $.jRecorder(
      
      { 
-        host : "<%=webcontext %>" + "addVoiceComments?savefile=hello.wav&target=part&type=wav&commentedId=" + partsId + "&commentedUserId=" + partsOwner,  //replace with your server path please
+        host : "<%=webcontext %>" + "addVoiceComments?savefile=hello.wav&target=part&type=wav&commentedId=" + partsId + "&commentedUserId=" + partsOwner + "&replyUserId=" + replyuserid,  
         callback_started_recording:     function(){callback_started(); },
         callback_stopped_recording:     function(){callback_stopped(); },
         callback_activityLevel:          function(level){callback_activityLevel(level); },
