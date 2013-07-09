@@ -15,7 +15,7 @@ import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.VoiceTransformUtil;
 import com.mxk.org.web.comments.dao.MxkCommentsDao;
 /**
- * Ê¹ÓÃ²Ù×÷ÏµÍ³µÄlame ÊµÏÖwav -> mp3 ¼õÉÙÎÄ¼þ´óÐ¡³ß´ç
+ * Ê¹ï¿½Ã²ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½lame Êµï¿½ï¿½wav -> mp3 ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡ï¿½ß´ï¿½
  * @author liuyijiang
  *
  */
@@ -43,8 +43,8 @@ public class MxkVioceTransformMessageListener implements MessageListener{
 			if(util.voiceTransform(VoiceTransformUtil.TYPE_LAME, wavUrl, mp3Url) == 0){
 				File wavfile = new File(wavUrl);
 				File mp3file = new File(mp3Url);
-				gridFSFileUploadService.uploadFile(mp3file, trageId, MxkGridFSFileUploadService.FILE_TYPE_VOICE);
-				commentsDao.updateCommentInfo(trageId,mp3Url);
+				String url = gridFSFileUploadService.uploadFile(mp3file, trageId, MxkGridFSFileUploadService.FILE_TYPE_VOICE);
+				commentsDao.updateCommentInfo(trageId,url);
 				wavfile.delete();
 				mp3file.delete();
 			}else{

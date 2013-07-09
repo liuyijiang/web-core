@@ -8,5 +8,5 @@ public interface MxkMailService {
 	
 	public boolean checkUuid(String toMail,String uuid,boolean delete);
 	
-	public boolean sendTempleteEmail(String title,String toMail,Map<String,String> model);
+	public boolean sendTempleteEmail(String title,String toMail,Map<String,String> model,String template);
 }

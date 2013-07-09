@@ -26,7 +26,7 @@ import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 /**
- * partaction Ò³ÃæÌø×ªµÄmethod mxkShow¿ªÍ· ÒÔview½áÎ² ajaxµ÷ÓÃÒªÒÔajax½áÎ²
+ * partaction Ò³ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½method mxkShowï¿½ï¿½Í· ï¿½ï¿½viewï¿½ï¿½Î² ajaxï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ajaxï¿½ï¿½Î²
  * @author liuyijiang
  *
  */
@@ -66,7 +66,7 @@ public class MxkPartAction extends MxkSessionAction {
 	private PartShowResponse partShowResponse;
 	private UpdatePartInfoRequest updatePartInfoRequest;
 	private SearchPartRequest request;
-	private String target;//partid£»
+	private String target;//partidï¿½ï¿½
 	private PartEntity partEntity;
 	private LoadCommentsRespone loadCommentsRespone;
 	private PartNewCommentsResponse partNewCommentsResponse;
@@ -96,7 +96,7 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//É¾³ýpart É¾³ý¼ÇÂ¼ ¼ÇÂ¼Í¼Æ¬ ÆÀÂÛ ÆÀÂÛÒôÆµ
+	//åˆ é™¤
 	public String mxkDeletePartAjax(){
 		if(target != null){
 			partEntity = partService.findPartEntityById(target);
@@ -104,7 +104,6 @@ public class MxkPartAction extends MxkSessionAction {
 				partService.removePartById(partEntity.getId());
 				gridFSFileUploadService.removeFile(partEntity.getImage(),MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
 				gridFSFileUploadService.removeFile(partEntity.getMinimage(), MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
-				//É¾³ý ÆÀÂÛ mqÊµÏÖ
 			}
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{
@@ -142,9 +141,9 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//Òì²½´´½¨
+	//åˆ›å»ºpart
 	public String mxkCreatePartAjax(){
-		//ÒÔºó¸ÄÎªÒì²½µÄ±£´æ activemq
+		//ï¿½Ôºï¿½ï¿½Îªï¿½ì²½ï¿½Ä±ï¿½ï¿½ï¿½ activemq
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(uservo != null && currentSubjectEntity != null && valate()){
@@ -185,9 +184,9 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//ÓÎ¿Í´´½¨part
+	//ï¿½Î¿Í´ï¿½ï¿½ï¿½part
 	public String mxkCreatePartBySubjectIdAjax(){
-		//ÒÔºó¸ÄÎªÒì²½µÄ±£´æ activemq
+		//ï¿½Ôºï¿½ï¿½Îªï¿½ì²½ï¿½Ä±ï¿½ï¿½ï¿½ activemq
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  subjectService.findSubjectEntityById(createPartRequest.getSubjectid());
 		if(uservo != null && currentSubjectEntity != null && valate()){

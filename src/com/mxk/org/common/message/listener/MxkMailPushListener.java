@@ -51,8 +51,7 @@ public class MxkMailPushListener implements MessageListener {
 		map.put("image",vo.getImage());
 		map.put("username", vo.getName());
 		map.put("userinfo", vo.getInfo());
-		
-		mailService.sendTempleteEmail("米兔新用户注册",vo.getEmail(),map);
+		mailService.sendTempleteEmail("米兔新用户注册",vo.getEmail(),map,"mailtemplate/regist_success_template.vm");
 	}
 	
 

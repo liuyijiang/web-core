@@ -46,7 +46,7 @@ import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 
 /**
- * ×¨¼­action Ò³ÃæÌø×ªµÄmethod mxkShow¿ªÍ· ÒÔview½áÎ² ajaxµ÷ÓÃÒªÒÔajax½áÎ²
+ * 
  * @author liuyijiang
  *
  */
@@ -154,7 +154,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(currentSubjectEntity != null){
-			//»ñµÃ5¸ö×îÐÂµÄ
+			//ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½
 			subjectTop5NewPartsRespone = partService.findNewTop5Parts(currentSubjectEntity.getId());
 			loadCommentsRequest = new LoadCommentsRequest();
 			loadCommentsRequest.setPage(1);
@@ -188,7 +188,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 	}
 	
 	
-	//¶©ÔÄÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public String mxkSubjectMessageView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -203,7 +203,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//subject ÆÀÂÛ text
+	//subject ï¿½ï¿½ï¿½ï¿½ text
 	public String mxkSubjectCommentsTextView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -216,7 +216,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//subject ÆÀÂÛ wav
+	//subject ï¿½ï¿½ï¿½ï¿½ wav
 	public String mxkSubjectCommentsWavView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -230,7 +230,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 	}
 	
 	
-	//·ÖÒ³ÏÔÊ¾¸ü¶à¶©ÔÄÏûÏ¢
+	//ï¿½ï¿½Ò³ï¿½ï¿½Ê¾ï¿½ï¿½à¶©ï¿½ï¿½ï¿½ï¿½Ï¢
 	public String mxkSubjectMessageMoreAjax(){
 		if(showRssSubjectUserRequest != null){
 			List<UserRssSubjectEntity> list = subjectService.findSubjectRssByPage(showRssSubjectUserRequest.getSubjectid(),showRssSubjectUserRequest.getPage());
@@ -240,7 +240,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//É¾³ý¶©ÔÄ
+	//É¾ï¿½ï¿½ï¿½ï¿½
 	public String mxkRemoveRssSubjectAjax(){
 		message = MxkConstant.AJAX_ERROR;	
 		if(removeRssSubjectRequest != null){
@@ -252,7 +252,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//¶©ÔÄ×¨¼­
+	//ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½
 	public String mxkRssSubjectAjax(){
 		message = MxkConstant.AJAX_ERROR;	
 		uservo = super.getCurrentUserVO();
@@ -273,14 +273,14 @@ public class MxkSubjectAction extends MxkSessionAction {
 	
 	
 	
-	//ÐÞ¸Ä×´Ì¬
+	//ï¿½Þ¸ï¿½×´Ì¬
 	public String mxkChangeSubjectStatusAjax(){
 		message = MxkConstant.AJAX_ERROR;	
 		if(updateSubjectStatusRequest != null){
 			uservo = super.getCurrentUserVO();
 			SubjectEntity subjectEntity = subjectService.findSubjectEntityById(updateSubjectStatusRequest.getId());
 			if(subjectEntity != null && uservo != null){
-				if(uservo.getId().equals(subjectEntity.getUserid())){//ÊÇµ±Ç°ÓÃ»§µÄ
+				if(uservo.getId().equals(subjectEntity.getUserid())){//ï¿½Çµï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½
 					if(!MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
 						if(subjectService.updateSubjectStatus(updateSubjectStatusRequest)){
 							subjectEntity.setType(updateSubjectStatusRequest.getStauts());
@@ -347,7 +347,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 	}
 	
 	
-	//ÉèÖÃ×¨Ìâ·âÃæ
+	//ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String mxkSetSubjectFaceImageAjax(){
 		if(setFaceImageRequest != null){
 			subjectService.setSubjectFaceImage(setFaceImageRequest);
@@ -360,13 +360,13 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//Ìø×ªµ½ÐÂ½¨×¨¼­Ò³Ãæ
+	//ï¿½ï¿½×ªï¿½ï¿½ï¿½Â½ï¿½×¨ï¿½ï¿½Ò³ï¿½ï¿½
 	public String mxkShowCreateSubjectView(){
 		uservo = super.getCurrentUserVO();
 		return SUCCESS;
 	}
 	
-	//»º´æµ±Ç°×¨Ìâ È»ºóÌø×ª¿ÉÒÔÒþ²Øid
+	//ï¿½ï¿½ï¿½æµ±Ç°×¨ï¿½ï¿½ È»ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
 	public String mxkCachSubject(){
 		SubjectEntity subjectEntity = subjectService.findSubjectEntityById(subid);
 		if(subjectEntity != null){
@@ -377,7 +377,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		}
 	}
 	
-	//ÏÔÊ¾subject ×¨ÌâÖ÷½çÃæ
+	//ï¿½ï¿½Ê¾subject ×¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String mxkShowSubjectDetailView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -397,7 +397,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 				SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
 				subjectExtraEntity = subjectService.findSubjectExtraEntity(currentSubjectEntity.getId());
 				if(ss != null){
-					message = MxkConstant.AJAX_SUCCESS; //ÓÐ²ÄÁÏ
+					message = MxkConstant.AJAX_SUCCESS; //ï¿½Ð²ï¿½ï¿½ï¿½
 				}else{
 					message = MxkConstant.AJAX_ERROR;
 				}
@@ -408,13 +408,13 @@ public class MxkSubjectAction extends MxkSessionAction {
 		}
 	}
 	
-	//·ÖÒ³¼ÓÔØ¸ü¶à
+	//ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½
 	public String mxkLoadMoreSubjectPartsAjax(){
 		partShowResponse = partService.findUserSubjectParts(searchPartRequest);	
 		return SUCCESS;
 	}
 	
-	//ÐÂ½¨×¨Ìâ
+	//ï¿½Â½ï¿½×¨ï¿½ï¿½
 	public String mxkCreateSubject(){
 		uservo = getCurrentUserVO();
 		if(valiate(createSubjectRequest) && uservo != null){
@@ -432,7 +432,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		}
 	}
 	
-	//¼ÌÐøÌí¼Ó
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String mxkUpdateSujectMaterial() {
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -446,13 +446,13 @@ public class MxkSubjectAction extends MxkSessionAction {
 				mes.setSummaryId(summary.getId());
 				messageQueueService.startExcelCreateTask(mes);
 			}
-			message = MxkConstant.AJAX_SUCCESS; //ÓÐ²ÄÁÏ
+			message = MxkConstant.AJAX_SUCCESS; //ï¿½Ð²ï¿½ï¿½ï¿½
 		}
 		return SUCCESS;
 	}
 	
 	public String mxkDeleteSubjectMaterialAjax() {
-		message = MxkConstant.AJAX_SUCCESS; //ÓÐ²ÄÁÏ	
+		message = MxkConstant.AJAX_SUCCESS; //ï¿½Ð²ï¿½ï¿½ï¿½	
 		if(targetId != null){
 			subjectMaterialService.delateSubjectMaterailDetailById(targetId);
 		}
@@ -472,7 +472,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 				mes.setSummaryId(summary.getId());
 				messageQueueService.startExcelCreateTask(mes);
 			}
-			message = MxkConstant.AJAX_SUCCESS; //ÓÐ²ÄÁÏ
+			message = MxkConstant.AJAX_SUCCESS; //ï¿½Ð²ï¿½ï¿½ï¿½
 		}
 		return SUCCESS;
 	}

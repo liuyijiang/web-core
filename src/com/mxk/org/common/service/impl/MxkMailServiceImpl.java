@@ -79,7 +79,7 @@ public class MxkMailServiceImpl implements MxkMailService {
 	}
 
 	@Override
-	public boolean sendTempleteEmail(String title,String toMail,Map<String,String> model) {
+	public boolean sendTempleteEmail(String title,String toMail,Map<String,String> model,String template) {
 	   try{
 		   MxkMailSenderInfo mailInfo = new MxkMailSenderInfo();    
 		   mailInfo.setMailServerHost(host);    
@@ -88,10 +88,10 @@ public class MxkMailServiceImpl implements MxkMailService {
 	       mailInfo.setUserName(hostmail);    
 	       mailInfo.setPassword(hostpassword);
 	       mailInfo.setFromAddress(hostmail);    
-	       //mailInfo.setToAddress(toMail); 
-	       mailInfo.setToAddress("liuyijiang3430@qq.com");
+	       mailInfo.setToAddress(toMail); 
+	       //mailInfo.setToAddress("liuyijiang3430@qq.com");
 	       mailInfo.setSubject(title); 
-		   String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "mailtemplate/weekpush_template.vm", "UTF-8",model);  
+		   String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, template, "UTF-8",model);  
 		   mailInfo.setContent(result);
 		   MxkSimpleMailSender m = new MxkSimpleMailSender();
 		   m.sendHtmlMail(mailInfo);

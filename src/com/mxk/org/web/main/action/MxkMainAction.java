@@ -33,7 +33,7 @@ public class MxkMainAction extends MxkSessionAction {
 	private String uuid;
 	
 	public String mxkTestMail(){
-		mailService.sendTempleteEmail("","liuyijiang3430@qq.com",new HashMap());
+		//mailService.sendTempleteEmail("","liuyijiang3430@qq.com",new HashMap());
 		return SUCCESS;
 	}
 	

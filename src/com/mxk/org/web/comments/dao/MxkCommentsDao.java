@@ -38,7 +38,7 @@ public class MxkCommentsDao {
 	
 	public List<CommentEntity> findNewComments(String commentid){
 		Query q = new Query(Criteria.where("commentedId").is(commentid));
-		q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+		q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 		q.limit(miniPageSize);
 		return mog.find(q, CommentEntity.class);
 	}
@@ -90,8 +90,13 @@ public class MxkCommentsDao {
 	public List<CommentEntity> findCommentEntity(LoadCommentsRequest request){
 		List<CommentEntity> list = null;
 		try {
-			Query q = new Query(Criteria.where("commentedId").is(request.getTargeid()).and("type").is(request.getType()));
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			Query q = null;
+			Criteria criteria = Criteria.where("commentedId").is(request.getTargeid());
+			if(!StringUtil.stringIsEmpty(request.getType())){
+				criteria.and("type").is(request.getType());
+			}
+		    q = new Query(criteria);
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(request.getPage() - 1));
 			list = mog.find(q, CommentEntity.class);
@@ -102,12 +107,11 @@ public class MxkCommentsDao {
 	}
 	
 	public long findCommentsPage(LoadCommentsRequest request){
-//		Criteria criteria = Criteria.where("commentedId").is(request.getTargeid());
-//		if(!StringUtil.stringIsEmpty(request.getType())){
-//			criteria.and("type").is(request.getType());
-//		}
-//		Query q = new Query(criteria);
-		Query q = new Query();
+		Criteria criteria = Criteria.where("commentedId").is(request.getTargeid());
+		if(!StringUtil.stringIsEmpty(request.getType())){
+			criteria.and("type").is(request.getType());
+		}
+		Query q = new Query(criteria);
 		long count = mog.count(q, CommentEntity.class);
 		if(count != 0){
 			return (count + pageSize - 1) / pageSize;
@@ -125,7 +129,7 @@ public class MxkCommentsDao {
 			}else{
 				q = new Query(Criteria.where("type").is(request.getType()));
 			}
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(request.getPage() - 1));
 			list = mog.find(q, CommentEntity.class);

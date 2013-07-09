@@ -62,8 +62,8 @@ public class MxkCommentsService {
 	
 	public LoadCommentsRespone findCommentEntity(LoadCommentsRequest request){
 		LoadCommentsRespone respone = null;
-		//List<CommentEntity> list = commentsDao.findCommentEntity(request);
-		List<CommentEntity> list = commentsDao.testfindCommentEntity(request);
+		List<CommentEntity> list = commentsDao.findCommentEntity(request);
+		//List<CommentEntity> list = commentsDao.testfindCommentEntity(request);
 		if(list != null && !list.isEmpty()){
 			respone = new LoadCommentsRespone();
 			int index = 0;
@@ -116,7 +116,7 @@ public class MxkCommentsService {
 			   message.setWavUrl(filePath);
 			   messageQueueService.startVioceTransformTask(message);
 			   //commentsDao.updateCommentInfo(commentEntity.getId(), path);
-			   //×ª»»wav -> mp3
+			   //×ªï¿½ï¿½wav -> mp3
 			}catch(Exception e){
 				log.error(e.getMessage(),e);
 			}

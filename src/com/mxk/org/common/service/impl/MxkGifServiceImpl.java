@@ -19,8 +19,6 @@ public class MxkGifServiceImpl implements MxkGifService {
 
     private static final Log log = LogFactory.getLog(MxkGifServiceImpl.class);
 	
-	private static final String SAVE_PATH = MxkExcelSupportServiceImpl.class.getResource("/").getPath();
-	
 	@Value("${gridfs.pdf.iamge.url}")
 	private String imageurl;
 	
