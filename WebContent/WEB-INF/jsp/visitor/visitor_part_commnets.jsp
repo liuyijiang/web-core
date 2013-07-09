@@ -122,52 +122,41 @@ var subjectid = '${currentSubjectEntity.id}';
 <div class="container">
   <div class="row">
      <div class="span1">
-        <img class="img-polaroid border-radius"  style="height:60px;width:60px"
-         src="<%=imgurl %>${currentSubjectEntity.faceimage }" >
+        <img class="img-polaroid border-radius" style="height:60px;width:60px" 
+        src="<%=imgurl %>${partEntity.minimage }" >
      </div>
      <div class="span11">
-        <span>
-          <span style="font-size: 20px;"><strong><a href="<%=rootPath%>/vistiorShowUserIndex?target=${uservo.id}">${uservo.name }</a>&nbsp;/&nbsp;${currentSubjectEntity.name }</strong></span>
-             &nbsp;<span class="muted"><small>(<i class="icon-tags"></i>${currentSubjectEntity.tags }-${currentSubjectEntity.category})</small>
-                <c:choose>
-	             <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
-                  <span class="label label-success">
-                       <i class="icon-hdd"></i>公开
-		          </span>
-                </c:when>
-                <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
-                  <span class="label label-important">
-                       <i class="icon-lock"></i>私有
-				   </span>
-                </c:when>
-                </c:choose>
+        <span style="font-size:20px;">
+           <strong>From:<span>
+             <a href="<%=rootPath%>/userIndex">${uservo.name }</a>
+           </span>/<span>
+           ${partEntity.subname }</span></strong><span class="muted"><small>(<i class="icon-tags"></i>${subjectEntity.tags }-${subjectEntity.category})</small></span>
            </span>
-        </span> 
         <span class="pull-right">
-           <a class="btn" href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }"><i class="icon-hdd"></i>返回专题</a>
-           <a href="javascript:;" class="btn btn-info" onclick="popdivfrombtn()">
-              <i class="icon-comment-alt"></i>评论专题
-           </a>
-        </span>
-        <br />
-        <span class="muted"><small>${currentSubjectEntity.info }</small></span>
-        <br />
-        <span>
-          <c:forEach var="options" items="${subjectTop5NewPartsRespone.list }">
-              <a href="<%=rootPath%>/visitorShowPartDetail?target=${options.id}">
-                 <img style="height:24px;width:24px" src="<%=imgurl %>${options.minimage }"/>
-              </a>
-           </c:forEach>
-           <c:if test="${!empty subjectTop5NewPartsRespone }">
-              <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id }">...</a>
-           </c:if>
-        </span>
-        <span class="pull-right">
-          <i class="icon-time"></i>Create Time:${currentSubjectEntity.createTime }
-        </span>
+            <a href="visitorShowPartDetail?target=${partEntity.id }" class="btn">
+               <i class="icon-list"></i>Parts详情
+            </a>
+            <a class="btn btn btn-info" href="javascript:;" onclick="popdivfrombtn()">
+              <i class="icon-comment-alt"></i>发布评论
+            </a>
+         </span><br />
+        <span>${partEntity.desc }</span><br />
+        <span><i class="icon-time"></i>Create Time:${partEntity.createTime }</span>
+<!--         <span class="pull-right"> -->
+<!--            <div class="btn-group"> -->
+<%--               <a class="btn dropdown-toggle btn-mini " data-toggle="dropdown" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text"> --%>
+<!--                  <i class="icon-comments-alt"></i>过滤评论 -->
+<!--                  <span class="caret"></span> -->
+<!-- 		      </a> -->
+<!-- 		     <ul class="dropdown-menu"> -->
+<!-- 			       <li><a href="#"><i class="icon-comment-alt"></i>文字评论</a></li> -->
+<!-- 				   <li><a href="#"><i class="icon-microphone"></i>音评评论</a></li> -->
+<!--              </ul> -->
+<!-- 		   </div> -->
+<!--         </span> -->
      </div>
-  </div>
-</div>
+   </div>
+</div>    
 <br />
 <div class="container ">
 		<div class="navbar">
@@ -178,7 +167,7 @@ var subjectid = '${currentSubjectEntity.id}';
 	            </a>
               </span>
              <span class="pull-right">
-	            <a class="btn" href="<%=rootPath %>/showSubjectDetailView">
+	            <a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id }">
 	              <i class="icon-refresh"></i>刷新
 	            </a>
 <!-- 	            <div class="btn-group"> -->
@@ -471,7 +460,7 @@ var subjectid = '${currentSubjectEntity.id}';
           </div>
         </div>
 	    <div class="modal-footer">
-	      <a href="javascript:;" class="btn btn-primary" onclick="addTextComents('${currentSubjectEntity.id}','${currentSubjectEntity.userid }','subject')">发布</a>
+	      <a href="javascript:;" class="btn btn-primary" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">发布</a>
 	      <a href="javascript:;" class="btn" onclick="closeTextCommentsPop()">关闭</a>
 	    </div>
     </div>
@@ -599,8 +588,8 @@ function clear(){
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
 <script>
-   var partsId = '${subjectEntity.id}';
-   var partsOwner = '${subjectEntity.userid}';
+   var partsId = '${partEntity.id}';
+   var partsOwner = '${partEntity.userid}';
    $.jRecorder(
      
      { 

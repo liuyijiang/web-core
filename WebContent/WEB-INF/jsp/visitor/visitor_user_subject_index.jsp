@@ -7,7 +7,7 @@
 </head>
 <body class="mxkbody mxkbackgroud">
 <%@ include file="../public/user_page_header.jsp"%>
-<%@ include file="../public/visitor_user_public_header.jsp"%>
+<%@ include file="../public/visitor_user_public_header.jsp"%> 
 <script type="text/javascript">
 
   function mouseover(id){
@@ -18,6 +18,26 @@
 	$("#"+id).css("z-index","-1");
   }
 
+  function createUserRelation(id){	  
+	  $.ajax({
+	   		url : path + "/createUserRelation.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: {"createRelationShipRequest.userid":id},
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("关注成功");
+			    }else if( item == 'error'){
+			   	   alert("已经关注");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 	 });  
+  }
+  
 </script>
 <div class="container ">
 		<div class="navbar">
@@ -27,10 +47,10 @@
 					<a href="#">&nbsp;<i class="icon-hdd"></i>他的专辑&nbsp;</a>
 					</li>
 					<li class="divider-vertical"></li>
-					<li>
-					<a href="<%=rootPath%>/userCollectIndex">&nbsp;<i class="icon-pushpin"></i>他的收藏&nbsp;</a>
-					</li>
-					<li class="divider-vertical"></li>
+<!-- 					<li> -->
+<%-- 					<a href="<%=rootPath%>/userCollectIndex">&nbsp;<i class="icon-pushpin"></i>他的收藏&nbsp;</a> --%>
+<!-- 					</li> -->
+<!-- 					<li class="divider-vertical"></li> -->
 				</ul>
 			</div>
 		</div>

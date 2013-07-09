@@ -192,7 +192,7 @@ function bindScroll(){
             </a>
          </span>
                <span class="pull-right">
-                <a class="btn" href=""><i class="icon-comments-alt"></i>评论${subjectEntity.comments }</a>
+                <a class="btn" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}"><i class="icon-comments-alt"></i>评论${subjectEntity.comments }</a>
                </span>
 			</div>
 		</div>
