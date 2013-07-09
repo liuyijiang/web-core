@@ -9,8 +9,9 @@
         
         <action name="visitiorShowSubjectComements" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitiorShowSubjectComementsView">
-            <result name="TEXT" >/WEB-INF/jsp/visitor/visitor_subject_comments_text.jsp</result>
-            <result name="WAV" >/WEB-INF/jsp/visitor/visitor_subject_comments_wav.jsp</result>
+            <result name="success" >/WEB-INF/jsp/visitor/visitor_subject_comments.jsp</result>
+<!--             <result name="TEXT" >/WEB-INF/jsp/visitor/visitor_subject_comments_text.jsp</result> -->
+<!--             <result name="WAV" >/WEB-INF/jsp/visitor/visitor_subject_comments_wav.jsp</result> -->
         </action>
         
         <action name="visitiorShowSubjectDashBorad" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
@@ -47,6 +48,11 @@
         <action name="visitorShowSubjectMaterial" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitorShowSubjectMaterialView">
             <result name="success" >/WEB-INF/jsp/visitor/visitor_subject_material.jsp</result>
+        </action>
+        
+        <action name="visitorShowPartsCommnets" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowPartsCommnetsView">
+            <result name="success" >/WEB-INF/jsp/visitor/visitor_part_commnets.jsp</result>
         </action>
         
     </package>
