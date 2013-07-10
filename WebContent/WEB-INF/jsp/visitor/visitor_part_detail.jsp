@@ -204,9 +204,21 @@
                       <span class="caret"></span>
 				    </a>
 				     <ul class="dropdown-menu">
-					       <li><a href="#">分享到新浪微博</a></li>
-						   <li><a href="#">分享到QQ微信</a></li>
-						   <li><a href="#">分享到QQ空间</a></li>
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
 		               </ul>
 				    </div>
 				    <a class="btn btn-danger" href="javascript:;" onclick="collectPart('${partEntity.id}')">
@@ -247,7 +259,7 @@
             </div>
             <div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>
 		</c:forEach>
-		 <span class="pull-right"><a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}">更多评论</a></span><br/><br/>
+		 <span class="pull-right"><a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}">更多评论</a>&nbsp;&nbsp;</span><br/><br/>
      </div>
      <div class="span3">
      	<ul class="thumbnails">
@@ -276,7 +288,7 @@
 				    </td>
 				  </tr>
 				</table>
-				    <a href="<%=rootPath %>/showSubjectDetailView"><img src="<%=imgurl %>${subjectEntity.faceimage }" /></a>
+				    <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}"><img src="<%=imgurl %>${subjectEntity.faceimage }" /></a>
 					<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
 					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${subjectEntity.name }</a></strong></span>
                     &nbsp;/&nbsp;<small class="muted">(<i class="icon-tags"></i>${subjectEntity.tags })</small><br />
@@ -285,25 +297,23 @@
                      <small>${subjectEntity.info }</small>
                     </div>
                      <br />
-                    <span class="pull-right">
-                    <a href="javascript:;" class="btn btn-mini" onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅</a>
-                       <c:choose>
+                    <span>
+                      	<span class="label">${subjectEntity.category }</span>
+                      	 <c:choose>
 		                <c:when test="${subjectEntity.type == 'PUBLIC'}">
-                           <a id="substatus" class="btn btn-success btn-mini"  href="javascript:;">
+                           <span class="label label-success">
                               <i class="icon-hdd"></i>公开
-						   </a>
-		                </c:when>
-		                <c:when test="${subjectEntity.type == 'PRIVATE'}">
-		                  <a  id="substatus" class="btn btn-danger btn-mini" href="javascript:;">
-                            <i class="icon-lock"></i>私有
-						   </a>
+						   </span>
 		                </c:when>
 		                <c:when test="${subjectEntity.type == 'FOR-ALL'}">
-		                  <a  id="substatus" class="btn btn-warning btn-mini" href="javascript:;">
+		                  <span class="label label-warning">
                              <i class="icon-globe"></i>共享
-						   </a>
+						   </span>
 		                </c:when>
 		             </c:choose>
+                    </span>
+                    <span class="pull-right">
+		              <a href="javascript:;" class="btn btn-mini" onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅专题</a>
                     </span>
                     <br />
 				</div>

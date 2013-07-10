@@ -77,7 +77,7 @@
   function loadMore(){
 	  if(page <= allpage){
 		  var datas;
-		  if(filtertype = ''){
+		  if(filtertype == ''){
 			  datas = {"searchPartRequest.page":page};
 		  }else{
 			  datas = {"searchPartRequest.page":page,"searchPartRequest.type":filtertype};
