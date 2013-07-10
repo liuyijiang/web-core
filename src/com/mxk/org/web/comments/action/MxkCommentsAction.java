@@ -81,7 +81,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 			if(commentsService.saveTextComment(commentsAddRequest)){
 				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
 					partService.updatePartCommentsQuantity(
-							commentsAddRequest.getCommentedId(), "comments", true);//����part��������comments audios
+							commentsAddRequest.getCommentedId(), "text", true);//����part��������comments audios
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
@@ -122,7 +122,16 @@ public class MxkCommentsAction extends MxkSessionAction {
 				}
 			}
 			if(commentsService.saveVoiceComment(commentsAddRequest,request.getInputStream())){
-				message = MxkConstant.AJAX_SUCCESS;
+				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
+					partService.updatePartCommentsQuantity(
+							commentsAddRequest.getCommentedId(), "wav", true);//����part��������comments audios
+					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
+					message = MxkConstant.AJAX_SUCCESS;
+				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
+					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);
+					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
+					message = MxkConstant.AJAX_SUCCESS;
+				}
 			}
 		}else{
 			message = MxkConstant.USER_NO_LOGIN;

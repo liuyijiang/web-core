@@ -12,6 +12,8 @@ public class LoadCommentsRespone {
 	private List<CommentEntity> list3;
 	private List<CommentEntity> list4;
 	
+	private List<CommentEntity> listAll;
+	
 	public List<CommentEntity> getList1() {
 		return list1;
 	}
@@ -41,6 +43,12 @@ public class LoadCommentsRespone {
 	}
 	public void setAllpage(long allpage) {
 		this.allpage = allpage;
+	}
+	public List<CommentEntity> getListAll() {
+		return listAll;
+	}
+	public void setListAll(List<CommentEntity> listAll) {
+		this.listAll = listAll;
 	}
 	
 	

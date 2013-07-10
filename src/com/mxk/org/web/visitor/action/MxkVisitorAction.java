@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
-import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
@@ -32,7 +31,7 @@ import com.mxk.org.web.visitor.domain.VisitorSearchSubjectRespone;
 import com.mxk.org.web.visitor.domain.VisitorSeeSubjectDashBoardRequest;
 import com.mxk.org.web.visitor.domain.VistitorSeeSubjectCommentsRespone;
 /**
- * �ο�action
+ * 游客action
  * @author liuyijiang
  *
  */
@@ -76,6 +75,7 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private PartNewCommentsResponse partNewCommentsResponse;
 	private LoadCommentsRespone loadCommentsRespone;
 	private LoadCommentsRequest loadCommentsRequest;
+	private SubjectNewPartsVO subjectNewPartsVO;
 	private String target;//partid��subject
 	private String type;
 	
@@ -149,7 +149,8 @@ public class MxkVisitorAction extends MxkSessionAction {
 			loadCommentsRequest.setPage(1);
 			loadCommentsRequest.setTargeid(subjectEntity.getId());
 			loadCommentsRequest.setType(null);
-			loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+			//loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+			loadCommentsRespone = commentsService.findCommentEntityByPage(loadCommentsRequest);
 			if(loadCommentsRespone != null){
 				long allpage = commentsService.findCommentsPage(loadCommentsRequest);
 				loadCommentsRespone.setAllpage(allpage);
@@ -268,12 +269,14 @@ public class MxkVisitorAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
 		if(partEntity != null){
+			subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
 			subjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
 			LoadCommentsRequest request = new LoadCommentsRequest();
 			request.setPage(1);
 			request.setTargeid(partEntity.getId());
 			request.setType(null);
-			loadCommentsRespone = commentsService.findCommentEntity(request);
+			loadCommentsRespone = commentsService.findCommentEntityByPage(request);
+			//loadCommentsRespone = commentsService.findCommentEntity(request);
 		}
 		return SUCCESS;
 	}
@@ -409,7 +412,6 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return vistitorSeeSubjectCommentsRespone;
 	}
 
-
 	public void setVistitorSeeSubjectCommentsRespone(
 			VistitorSeeSubjectCommentsRespone vistitorSeeSubjectCommentsRespone) {
 		this.vistitorSeeSubjectCommentsRespone = vistitorSeeSubjectCommentsRespone;
@@ -494,6 +496,14 @@ public class MxkVisitorAction extends MxkSessionAction {
 
 	public void setLoadCommentsRequest(LoadCommentsRequest loadCommentsRequest) {
 		this.loadCommentsRequest = loadCommentsRequest;
+	}
+
+	public SubjectNewPartsVO getSubjectNewPartsVO() {
+		return subjectNewPartsVO;
+	}
+
+	public void setSubjectNewPartsVO(SubjectNewPartsVO subjectNewPartsVO) {
+		this.subjectNewPartsVO = subjectNewPartsVO;
 	}
 	
 	

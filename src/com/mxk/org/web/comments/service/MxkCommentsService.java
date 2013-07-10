@@ -60,6 +60,13 @@ public class MxkCommentsService {
 		return commentsDao.findCommentsPage(request);
 	}
 	
+	public LoadCommentsRespone findCommentEntityByPage(LoadCommentsRequest request){
+		LoadCommentsRespone respone = new LoadCommentsRespone();
+		List<CommentEntity> list = commentsDao.findCommentEntity(request);
+		respone.setListAll(list);
+		return respone;
+	}		
+	
 	public LoadCommentsRespone findCommentEntity(LoadCommentsRequest request){
 		LoadCommentsRespone respone = null;
 		List<CommentEntity> list = commentsDao.findCommentEntity(request);
