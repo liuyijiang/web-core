@@ -1,0 +1,17 @@
+jboss7 上JBoss的7和java.lang.NoClassDefFoundError：com/sun/image/codec/jpeg/JPEGCodec
+修改
+Changing your runtime environment (to Java 7, for example) is a good way to cause this.
+ The basic explanation is that com.sun.image.codec.jpeg.JPEGCodec 
+ and related libraries have long been marked as depreciated,
+  and you should use the ImageIO library instead. 
+  Cold comfort if you are using libraries that you have no control over and 
+  can’t do the conversion and re-build them. 
+  The quick way to resolve this runtime error in JBoss is to put an 
+  entry in the <JBoss-install-diectory>/modules/sun/jdk/main/module.xml file:
+  
+  
+  <JBoss-install-diectory>/modules/sun/jdk/main/module.xml file:
+  
+  add 
+  Note the line path name=”com/sun/image/codec/jpeg” added to the <paths> subtree.
+Your stacktrace regarding the com/sun/image/codec/jpeg/JPEGCodec error will be resolved and you will go on your merry way in your deployment.
