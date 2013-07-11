@@ -22,6 +22,10 @@
            <result name="success" >/WEB-INF/jsp/part/part_comments.jsp</result>
        </action>
        
+       <action name="showPartSilderView" class="com.mxk.org.web.part.action.MxkPartAction"
+           method="mxkShowPartSilderView">
+           <result name="success" >/WEB-INF/jsp/part/part_silder.jsp</result>
+       </action>
         
     </package>
 

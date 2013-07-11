@@ -7,6 +7,11 @@
 
     <package name="visitor" namespace="/" extends="struts-default">
         
+        <action name="visitorShowPartSilderView" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowPartSilderView">
+             <result name="success" >/WEB-INF/jsp/visitor/visitor_part_silder.jsp</result>
+        </action>
+        
         <action name="visitiorShowSubjectComements" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitiorShowSubjectComementsView">
             <result name="success" >/WEB-INF/jsp/visitor/visitor_subject_comments.jsp</result>
