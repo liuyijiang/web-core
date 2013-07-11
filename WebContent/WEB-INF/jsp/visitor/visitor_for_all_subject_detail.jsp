@@ -195,6 +195,9 @@ function bindScroll(){
 				    </div>
          </span>
           <span class="pull-right">
+             <a class="btn" href="<%=rootPath %>/visitorShowPartSilderView?target=${subjectEntity.id}">
+              <i class="icon-expand "></i>幻灯播放
+             </a>
              <a class="btn" href=""><i class="icon-comments-alt"></i>评论${subjectEntity.comments }</a>
                </span>
 			</div>

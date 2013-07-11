@@ -164,9 +164,12 @@ function bindScroll(){
         <span class="muted"><small>${subjectEntity.info }</small></span><br />
         <span><i class="icon-time"></i>Create Time:${subjectEntity.createTime }</span>
                <div class="btn-group pull-right " >
-				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${subjectEntity.attention }</button>
-				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${subjectEntity.comments }</button>
-				  <button class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${subjectEntity.parts }</button>
+                  <a class="btn" href="<%=rootPath %>/visitorShowPartSilderView?target=${subjectEntity.id}">
+                    <i class="icon-expand "></i>幻灯播放
+                  </a>
+				  <button class="btn " style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${subjectEntity.attention }</button>
+				  <button class="btn " style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${subjectEntity.comments }</button>
+				  <button class="btn " style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${subjectEntity.parts }</button>
 		        </div>
         <br />
      </div>

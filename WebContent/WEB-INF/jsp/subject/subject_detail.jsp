@@ -15,6 +15,7 @@ function createPartPlane(list,subjectid,partthumnailid){
 	var show = '';
 	for(var i in list)//照片墙第一个位置
 	{ 
+		 var num = list[i].comments + list[i].audios;
 		 show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'>"+
 		 "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+list[i].id +"\")' >" +
 		 "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>"+
@@ -23,7 +24,7 @@ function createPartPlane(list,subjectid,partthumnailid){
 		 "<i class='icon-comment-alt'></i>评论 </a></span><a href='"+ path +"/partDetail?target="+list[i].id +"'><img src='"+ imgurl + list[i].minimage +"'/></a></div>"+	            
 		 "<span class='muted'>"+ list[i].desc +"</span><br /><span class='form-inline'><label class='checkbox' id='checks' style='display:none'>"+               
 		 "<input type='checkbox'><span class='text-info'>使用</span></label><span class='pull-right muted'>"+	            
-         "<i class='icon-comment'></i>评论"+ list[i].comments +"<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</span></span><br /></div></li>";           
+         "<i class='icon-comment'></i>评论"+ num +"<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</span></span><br /></div></li>";           
 	}
 	$('#'+partthumnailid).append(show);
 }
@@ -330,6 +331,9 @@ function deleteSubject(id){
             <span id="action" style="display:none" class="muted"><img src="<%=domain %>/image/loadingred.gif" ><small>正在为你生成...</small></span>
          </span>
           <span class="pull-right">
+            <a class="btn" href="<%=rootPath %>/showPartSilderView">
+              <i class="icon-expand "></i>幻灯播放
+            </a>
             <a class="btn" href="<%=rootPath %>/showSubjectDetailView">
               <i class="icon-refresh"></i>刷新
             </a>
@@ -368,7 +372,7 @@ function deleteSubject(id){
 	                                </label>
 							    <span class="pull-right muted">
 							         <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								     </small>
 							    </span>
@@ -402,7 +406,7 @@ function deleteSubject(id){
 	                                </label>
 							     <span class="pull-right muted">
 							         <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								     </small>
 							    </span>
@@ -436,7 +440,7 @@ function deleteSubject(id){
 	                                </label>
 							     <span class="pull-right muted">
 							         <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								     </small>
 							    </span>
@@ -470,7 +474,7 @@ function deleteSubject(id){
 	                                </label>
 							     <span class="pull-right muted">
 							         <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								     </small>
 							    </span>

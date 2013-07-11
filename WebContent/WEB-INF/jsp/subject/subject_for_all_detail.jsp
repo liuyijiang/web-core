@@ -222,10 +222,14 @@ function bindScroll(){
            <button onclick="doaction()" class="btn btn-info" id="usepart" style='display:none'>ok</button>
          </span>
           <span class="pull-right">
+              
              <div class="btn-group pull-right " >
-				  <a href="<%=rootPath %>/subjectMessage" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a>
-				  <a class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }</a>
-				  <a class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${currentSubjectEntity.parts }</a>
+		          <a class="btn" href="<%=rootPath %>/showPartSilderView">
+		            <i class="icon-expand "></i>幻灯播放
+		          </a>
+				  <a href="<%=rootPath %>/subjectMessage" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a>
+				  <a class="btn" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }</a>
+				  <a class="btn" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${currentSubjectEntity.parts }</a>
 		        </div>
          </span>
 			</div>

@@ -15,6 +15,14 @@
 	$("#subjectfun").css("z-index","-1");
   }
 
+  function mouseoverp(){
+	    $("#partfun").css("z-index","1");
+  }
+	  
+  function mouseoutp(){
+	$("#partfun").css("z-index","-1");
+  }
+  
   function showEditPartModal(){
 		 $('#editPartModal').modal({
 	       keyboard: false
@@ -91,41 +99,56 @@
      <div class="span9 mxkplan mxkshadow">
        	<div class="navbar">
 			<div class="navbar-inner form-inline ">
-				<div class="btn-group" >
-				  <button class="btn" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>收藏${partEntity.collect }</button>
-				  <button class="btn" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${partEntity.comments }</button>
-				  <button class="btn" style="font-family:Microsoft YaHei;"><i class="icon-volume-off"></i>音评${partEntity.audios }</button>
-		        </div>
-			     <span class="pull-right">
+			     <span >
 	                  <div class="btn-group">
                       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="icon-globe"></i>分享
                       <span class="caret"></span>
 				    </a>
 				     <ul class="dropdown-menu">
-					       <li><a href="#">分享到新浪微博</a></li>
-						   <li><a href="#">分享到QQ微信</a></li>
-						   <li><a href="#">分享到QQ空间</a></li>
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
 		               </ul>
 				    </div>
-			         <div class="btn-group">
-		               <button class="btn" style="font-family:Microsoft YaHei;"><i class="icon-cog"></i>操作</button>
-					    <button class="btn dropdown-toggle" data-toggle="dropdown">
-					    <span class="caret"></span>
-			            </button>
-					    <ul class="dropdown-menu" >
-					       <li><a href="javascript:;" onclick="showEditPartModal()"><i class="icon-edit"></i>编辑 </a></li>
-					       <li><a href="javascript:;" onclick="useForSubjectFace('${partEntity.id }','${currentSubjectEntity.id }')"><i class="icon-picture"></i>封面</a></li>
-						   <li><a href="javascript:;" onclick="deletePart('${partEntity.id}')"><i class="icon-trash"></i>删除 </a></li>
-		               </ul>
-                    </div>
+			     </span>
+			     <span class="pull-right">
+				       <div class="btn-group">
+			               <button class="btn" style="font-family:Microsoft YaHei;"><i class="icon-cog"></i>操作</button>
+						    <button class="btn dropdown-toggle" data-toggle="dropdown">
+						    <span class="caret"></span>
+				            </button>
+						    <ul class="dropdown-menu" >
+						       <li><a href="javascript:;" onclick="showEditPartModal()"><i class="icon-edit"></i>编辑 </a></li>
+						       <li><a href="javascript:;" onclick="useForSubjectFace('${partEntity.id }','${currentSubjectEntity.id }')"><i class="icon-picture"></i>封面</a></li>
+							   <li><a href="javascript:;" onclick="deletePart('${partEntity.id}')"><i class="icon-trash"></i>删除 </a></li>
+			               </ul>
+	                    </div>
+	                    <a class="btn btn-primary" href="<%=rootPath %>/showPartsComments?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
 			     </span>
 			</div>
 		</div>
-		<center>
-		   <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
-		   <span id="partmessage" >${partEntity.desc }</span>
-		</center>
+		<div style="position:relative;" onmouseover="mouseoverp()" onmouseout="mouseoutp()" >
+	        <center>
+		        <span style="position:absolute; z-index:-1; opacity:0.8;" id="partfun">
+		           <span class="label label-success"><i class="icon-microphone"></i>语音${partEntity.audios}</span>
+		           <span class="label"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</span>
+		        </span>
+		        <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
+		    </center>
+		</div>
 		<hr />
 		<c:forEach var="options" items="${partNewCommentsResponse.list }">
 		  
@@ -151,7 +174,10 @@
             </div>
             <div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>
 		</c:forEach>
-		<span class="pull-right"><a href="<%=rootPath %>/showPartsComments?target=${partEntity.id}">更多评论</a></span>
+		<c:if test="${! empty partNewCommentsResponse.list}">
+		   <span class="pull-right"><a class="btn" href="<%=rootPath %>/showPartsComments?target=${partEntity.id}">更多评论</a>&nbsp;&nbsp;</span>
+		</c:if>
+		<br/><br/>
      </div>
      <div class="span3">
      	<ul class="thumbnails">
@@ -159,15 +185,37 @@
 				<div class="thumbnail">
 				 <div style="position:relative;" onmouseover="mouseover()" onmouseout="mouseout()" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="subjectfun">
-<!-- 						             <i class="icon-rss"></i>12&nbsp; -->
-<!--                                     <i class="icon-comment-alt"></i>8&nbsp; -->
-<!--                                     <i class="icon-pushpin"></i>3&nbsp; -->
 						       </span>
 				            <a href="<%=rootPath %>/showSubjectDetailView"><img src="<%=imgurl %>${currentSubjectEntity.faceimage }" /></a>
 					</div>
-					<span style="font-size: 18px;"><strong>${currentSubjectEntity.name }</strong></span>
-                    &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })</span><br />
+					<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
+					  <span><strong><a href="<%=rootPath %>/showSubjectDetailView">${currentSubjectEntity.name }</a></strong></span>
+                       &nbsp;/&nbsp;<small class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })</small><br />
+                    </div>
+                    <div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
+                     <small>${currentSubjectEntity.info }</small>
+                    </div>
                      <br />
+                     <span>
+                      	<span class="label">${currentSubjectEntity.category }</span>
+                      	 <c:choose>
+		                <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
+                           <span class="label label-success">
+                              <i class="icon-hdd"></i>公开
+						   </span>
+		                </c:when>
+		                <c:when test="${currentSubjectEntity.type == 'FOR-ALL'}">
+		                  <span class="label label-warning">
+                             <i class="icon-globe"></i>共享
+						   </span>
+		                </c:when>
+		                <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
+		                  <span class="label label-important">
+                             <i class="icon-globe"></i>私有
+						   </span>
+		                </c:when>
+		             </c:choose>
+                    </span>
                     <span class="pull-right">
                        <a href="javascript:;" class="btn btn-info btn-mini" onclick="showCreatePart()"><i class="icon-pushpin"></i>添加Part</a>
                     </span>
