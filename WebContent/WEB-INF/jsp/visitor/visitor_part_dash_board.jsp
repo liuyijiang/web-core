@@ -119,6 +119,7 @@
   function createPartPlane(list,partthumnailid){
 	  show = '';
 	  for(var i in list){
+		  var num = list[i].comments + list[i].audios;
 		  show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'>"+
 		  "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id  +"\")' onmouseout='mouseout(\""+ list[i].id  +"\")' >" +
 		  "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>" +
@@ -129,7 +130,7 @@
 	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />" +  
 	      "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />" +
-	      "<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
+	      "<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ num + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
 	      "</span><br /></div></li>";
 	  }
 	  $("#"+partthumnailid).append(show);
@@ -181,7 +182,7 @@
 							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							    <span class="pull-right muted">
 							        <small>
-								    <i class="icon-comment"></i>评论${options.comments }
+								    <i class="icon-comment"></i>评论${options.comments + options.audios  }
 								    <i class="icon-pushpin"></i>收藏${options.collect }
 								    </small>
 							    </span>
@@ -212,7 +213,7 @@
 							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							    <span class="pull-right muted">
 							       <small>
-								    <i class="icon-comment"></i>评论${options.comments }
+								    <i class="icon-comment"></i>评论${options.comments + options.audios  }
 								    <i class="icon-pushpin"></i>收藏${options.collect }
 								    </small>
 							    </span>
@@ -243,7 +244,7 @@
 							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							    <span class="pull-right muted">
 							        <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios  }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								    </small>
 							    </span>
@@ -274,7 +275,7 @@
 							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							    <span class="pull-right muted">
 							        <small>
-									    <i class="icon-comment"></i>评论${options.comments }
+									    <i class="icon-comment"></i>评论${options.comments + options.audios  }
 									    <i class="icon-pushpin"></i>收藏${options.collect }
 								    </small>
 							    </span>

@@ -57,6 +57,14 @@
   function mouseout(){
 	$("#subjectfun").css("z-index","-1");
   }
+  
+  function mouseoverp(){
+	    $("#partfun").css("z-index","1");
+  }
+	  
+  function mouseoutp(){
+	$("#partfun").css("z-index","-1");
+  }
 
 //   function showTextCommecnt(){
 // 	  $("#textcommentsdiv").show();
@@ -226,13 +234,19 @@
 		            </a>
 			     </span>
 			     <span class="pull-right">
-			          <a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论</a>
+			          <a class="btn btn-primary" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
 			     </span>
 			</div>
 		</div>
-		<center>
-		   <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
-		</center>
+		<div style="position:relative;" onmouseover="mouseoverp()" onmouseout="mouseoutp()" >
+	        <center>
+		        <span style="position:absolute; z-index:-1; opacity:0.8;" id="partfun">
+		           <span class="label label-success"><i class="icon-microphone"></i>语音${partEntity.audios}</span>
+		           <span class="label"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</span>
+		        </span>
+		        <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
+		    </center>
+		</div>
 		<span style="padding: 19px;" id="partmessage" >${partEntity.desc }</span><br />
 		  <hr />
 		<c:forEach var="options" items="${partNewCommentsResponse.list }">
@@ -259,7 +273,10 @@
             </div>
             <div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>
 		</c:forEach>
-		 <span class="pull-right"><a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}">更多评论</a>&nbsp;&nbsp;</span><br/><br/>
+		<c:if test="${! empty partNewCommentsResponse.list}">
+		   <span class="pull-right"><a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}">更多评论</a>&nbsp;&nbsp;</span>
+		</c:if>
+		<br/><br/>
      </div>
      <div class="span3">
      	<ul class="thumbnails">

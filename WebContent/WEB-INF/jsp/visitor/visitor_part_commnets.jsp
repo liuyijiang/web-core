@@ -165,18 +165,10 @@
          </span><br />
         <span>${partEntity.desc }</span><br />
         <span><i class="icon-time"></i>Create Time:${partEntity.createTime }</span>
-<!--         <span class="pull-right"> -->
-<!--            <div class="btn-group"> -->
-<%--               <a class="btn dropdown-toggle btn-mini " data-toggle="dropdown" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}&type=text"> --%>
-<!--                  <i class="icon-comments-alt"></i>过滤评论 -->
-<!--                  <span class="caret"></span> -->
-<!-- 		      </a> -->
-<!-- 		     <ul class="dropdown-menu"> -->
-<!-- 			       <li><a href="#"><i class="icon-comment-alt"></i>文字评论</a></li> -->
-<!-- 				   <li><a href="#"><i class="icon-microphone"></i>音评评论</a></li> -->
-<!--              </ul> -->
-<!-- 		   </div> -->
-<!--         </span> -->
+        <span class="pull-right">
+          <span class="label label-success"><i class="icon-microphone"></i>语音${partEntity.audios}</span>
+		  <span class="label"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</span>
+        </span>
      </div>
    </div>
 </div>    
@@ -214,23 +206,33 @@
           <ul class="thumbnails">
 			  <li class="span4 mxkplan mxkshadow">
 	            <c:if test="${empty subjectNewPartsVO }">
-				   <img src="<%=imgurl %>/${subjectEntity.faceimage }" />  <!-- style="width: 100%;" -->
+				   <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}"><img src="<%=imgurl %>/${subjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
 			     </c:if>
 				<c:if test="${!empty subjectNewPartsVO }">
 					<table style="width:100%">
 	                <tr>
 	                  <td rowspan="2" colspan="2">
-	                  <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:210px;height:195px;">  <!-- style="width: 100%;" -->
+	                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">
+	                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:210px;height:195px;">  <!-- style="width: 100%;" -->
+	                  </a>
 	                  </td>
-	                  <td><img src="<%=imgurl %>/${subjectNewPartsVO.partImage1}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;"></td>
+	                  <td>
+	                  <a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId1}">
+	                  <img src="<%=imgurl %>/${subjectNewPartsVO.partImage1}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;">
+	                  </a>
+	                  </td>
 	                </tr>
 	                <tr>
-	                  <td><img src="<%=imgurl %>/${subjectNewPartsVO.partImage2}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;"></td>
+	                  <td>
+	                  <a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId2}">
+	                  <img src="<%=imgurl %>/${subjectNewPartsVO.partImage2}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;">
+	                  </a>
+	                  </td>
 	                </tr>
 	                <tr>
-	                  <td><img src="<%=imgurl %>/${subjectNewPartsVO.partImage3}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></td>
-	                  <td><img src="<%=imgurl %>/${subjectNewPartsVO.partImage4}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></td>
-	                  <td><img src="<%=imgurl %>/${subjectNewPartsVO.partImage5}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:90px;"></td>
+	                  <td><a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId3}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage3}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></a></td>
+	                  <td><a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId4}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage4}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></a></td>
+	                  <td><a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId5}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage5}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:90px;"></a></td>
 	                </tr>
 			      </table>
 				</c:if>
@@ -238,6 +240,7 @@
 					<span>&nbsp;<strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${subjectEntity.name }</a></strong></span>
                     &nbsp;&nbsp;<small class="muted"><span class="label">${subjectEntity.category }</span></small><br />
                  </div>
+                 <span><small>${partEntity.desc }</small></span>
 				<span class="pull-right">
 					<a class="btn" href="vistiorShowSubjectDatail?target=${subjectEntity.id}"><i class="icon-hdd"></i>专题详情</a>
 					<a href="javascript:;" class="btn btn-primary" onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅专题</a>
