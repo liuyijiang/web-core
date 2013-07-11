@@ -1,6 +1,7 @@
 package com.mxk.org.web.part.action;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,9 +21,11 @@ import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.part.domain.CreatePartRequest;
 import com.mxk.org.web.part.domain.PartNewCommentsResponse;
 import com.mxk.org.web.part.domain.PartShowResponse;
+import com.mxk.org.web.part.domain.PartsAllResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.domain.UpdatePartInfoRequest;
 import com.mxk.org.web.part.service.MxkPartService;
+import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 /**
@@ -66,23 +69,41 @@ public class MxkPartAction extends MxkSessionAction {
 	private PartShowResponse partShowResponse;
 	private UpdatePartInfoRequest updatePartInfoRequest;
 	private SearchPartRequest request;
-	private String target;//partid��
+	private String target;//partid or subjectid
 	private PartEntity partEntity;
 	private LoadCommentsRespone loadCommentsRespone;
 	private PartNewCommentsResponse partNewCommentsResponse;
+	private SubjectNewPartsVO subjectNewPartsVO;
+	private PartsAllResponse partsAllResponse;
+	
+	//查看
+	public String mxkShowPartSilderView(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(currentSubjectEntity != null){
+			partsAllResponse = new PartsAllResponse();
+			List<PartEntity> list = partService.findPartEntityAll(currentSubjectEntity.getId());
+			partsAllResponse.setList(list);
+		}
+		return SUCCESS;
+	}
+	
 	//parts comments
 	public String mxkShowPartsCommentsView(){
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(partEntity != null){
+			subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
 			LoadCommentsRequest request = new LoadCommentsRequest();
 			request.setPage(1);
 			request.setTargeid(partEntity.getId());
 			request.setType(null);
-			loadCommentsRespone = commentsService.findCommentEntity(request);
+			loadCommentsRespone = commentsService.findCommentEntityByPage(request);
+			//loadCommentsRespone = commentsService.findCommentEntity(request);
 		}
 		return SUCCESS;
+		
 	}
 	
 	
@@ -143,7 +164,6 @@ public class MxkPartAction extends MxkSessionAction {
 	
 	//创建part
 	public String mxkCreatePartAjax(){
-		//�Ժ��Ϊ�첽�ı��� activemq
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(uservo != null && currentSubjectEntity != null && valate()){
@@ -333,6 +353,24 @@ public class MxkPartAction extends MxkSessionAction {
 	public void setPartNewCommentsResponse(
 			PartNewCommentsResponse partNewCommentsResponse) {
 		this.partNewCommentsResponse = partNewCommentsResponse;
+	}
+
+
+	public SubjectNewPartsVO getSubjectNewPartsVO() {
+		return subjectNewPartsVO;
+	}
+
+
+	public void setSubjectNewPartsVO(SubjectNewPartsVO subjectNewPartsVO) {
+		this.subjectNewPartsVO = subjectNewPartsVO;
+	}
+
+	public PartsAllResponse getPartsAllResponse() {
+		return partsAllResponse;
+	}
+
+	public void setPartsAllResponse(PartsAllResponse partsAllResponse) {
+		this.partsAllResponse = partsAllResponse;
 	}
 
 	

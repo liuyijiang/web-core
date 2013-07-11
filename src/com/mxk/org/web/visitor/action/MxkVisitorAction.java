@@ -14,6 +14,7 @@ import com.mxk.org.web.comments.domain.LoadCommentsRespone;
 import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.part.domain.PartNewCommentsResponse;
 import com.mxk.org.web.part.domain.PartShowResponse;
+import com.mxk.org.web.part.domain.PartsAllResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
@@ -76,8 +77,22 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private LoadCommentsRespone loadCommentsRespone;
 	private LoadCommentsRequest loadCommentsRequest;
 	private SubjectNewPartsVO subjectNewPartsVO;
-	private String target;//partid��subject
+	private PartsAllResponse partsAllResponse;
+	private String target;//partid或者subject id
 	private String type;
+	
+	//查看
+	public String mxkVisitorShowPartSilderView(){
+		uservo = super.getCurrentUserVO();
+		subjectEntity =  subjectService.findSubjectEntityById(target);
+		if(subjectEntity != null){
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			partsAllResponse = new PartsAllResponse();
+			List<PartEntity> list = partService.findPartEntityAll(subjectEntity.getId());
+			partsAllResponse.setList(list);
+		}
+		return SUCCESS;
+	}
 	
 	//加载更多subject
 	public String mxkVisitorLoadMoreSubjectAjax(){
@@ -503,6 +518,14 @@ public class MxkVisitorAction extends MxkSessionAction {
 
 	public void setSubjectNewPartsVO(SubjectNewPartsVO subjectNewPartsVO) {
 		this.subjectNewPartsVO = subjectNewPartsVO;
+	}
+
+	public PartsAllResponse getPartsAllResponse() {
+		return partsAllResponse;
+	}
+
+	public void setPartsAllResponse(PartsAllResponse partsAllResponse) {
+		this.partsAllResponse = partsAllResponse;
 	}
 	
 	
