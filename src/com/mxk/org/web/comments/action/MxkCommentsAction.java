@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.HttpUtil;
 import com.mxk.org.common.util.StringUtil;
@@ -20,7 +21,7 @@ import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 /**
- * ���۴���
+ * 评论
  * @author liuyijiang
  *
  */
@@ -45,6 +46,9 @@ public class MxkCommentsAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkGridFSFileUploadService gridFSFileUploadService;
+	
+	@Autowired
+	private MxkMessageQueueService messageQueueService;
 	
 	private CommentsAddRequest commentsAddRequest;
 	private LoadCommentsRequest loadCommentsRequest;

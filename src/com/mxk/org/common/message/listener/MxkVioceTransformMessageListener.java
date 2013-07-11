@@ -15,7 +15,7 @@ import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.VoiceTransformUtil;
 import com.mxk.org.web.comments.dao.MxkCommentsDao;
 /**
- * ʹ�ò���ϵͳ��lame ʵ��wav -> mp3 �����ļ���С�ߴ�
+ * 语音转换lame from wav -> mp3 压缩
  * @author liuyijiang
  *
  */

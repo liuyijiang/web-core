@@ -123,7 +123,6 @@ public class MxkCommentsService {
 			   message.setWavUrl(filePath);
 			   messageQueueService.startVioceTransformTask(message);
 			   //commentsDao.updateCommentInfo(commentEntity.getId(), path);
-			   //ת��wav -> mp3
 			}catch(Exception e){
 				log.error(e.getMessage(),e);
 			}

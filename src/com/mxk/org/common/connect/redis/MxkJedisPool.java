@@ -14,7 +14,7 @@ public class MxkJedisPool {
 	
 	public MxkJedisPool(String host,int prot){
 	    JedisPoolConfig config = new JedisPoolConfig();
-	    config.setMaxActive(5000);
+	    config.setMaxActive(50000);
 	    config.setMaxIdle(101);
 	    config.setMaxWait(1000l);
 	    config.setTestOnBorrow(true);

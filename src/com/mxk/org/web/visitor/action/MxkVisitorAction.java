@@ -281,7 +281,6 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	
 	//加入专题用户
 	public String mxkVisitorShowJoinSubjectUsersView(){
 		uservo = super.getCurrentUserVO();

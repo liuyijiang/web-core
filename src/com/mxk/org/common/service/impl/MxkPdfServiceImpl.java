@@ -50,9 +50,8 @@ public class MxkPdfServiceImpl implements MxkPdfService {
 			 String realPath = SAVE_PATH + subjectEntity.getId() +".pdf";
 			  try{
 				 pdf = new File(realPath);
-					 //ÖÐÎÄ×ÖÌå
 				 BaseFont bfCN = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);   
-				 Font chFontBig = new Font(bfCN, 20, Font.NORMAL,Color.green);//ÎÄ×Ö´óÐ¡ÉèÖÃ
+				 Font chFontBig = new Font(bfCN, 20, Font.NORMAL,Color.green);//ï¿½ï¿½ï¿½Ö´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
 				 Font chFontSmall = new Font(bfCN, 14, Font.NORMAL,Color.blue);
 				 Font chFontSmallWithColor = new Font(bfCN, 12, Font.NORMAL);
 				 Font chFontMini = new Font(bfCN, 8, Font.NORMAL);
@@ -62,13 +61,13 @@ public class MxkPdfServiceImpl implements MxkPdfService {
 				 pdfwriter.setViewerPreferences(PdfWriter.HideToolbar);
 				 document.open();
 				  
-				 Anchor anchor = new Anchor("Ã×ÍÃ",chFontSmall);
+				 Anchor anchor = new Anchor("ç±³å…”",chFontSmall);
 				 anchor.setReference(domain);
 				 document.add(anchor);
 				 
 				 document.add(new Paragraph(subjectEntity.getName(),chFontBig));
-				 document.add(new Paragraph("×¨ÌâOwner£º"+ username,chFontSmallWithColor));
-				 document.add(new Paragraph("ÀàÐÍ£º"+ subjectEntity.getTags() +"  ´´½¨Ê±¼ä£º"+ subjectEntity.getCreateTime(),chFontSmallWithColor));
+				 document.add(new Paragraph("ä¸“é¢˜Ownerï¼š"+ username,chFontSmallWithColor));
+				 document.add(new Paragraph("ç±»åž‹ï¼š"+ subjectEntity.getTags() +"  åˆ›å»ºæ—¶é—´ï¼š"+ subjectEntity.getCreateTime(),chFontSmallWithColor));
 			     document.add(new Paragraph(" ",chFontMini));
 				 for(PartEntity partEntity : list){
 					 String url = imageurl + partEntity.getImage();
@@ -88,4 +87,5 @@ public class MxkPdfServiceImpl implements MxkPdfService {
 		return pdf;
 	}
 
+	
 }
