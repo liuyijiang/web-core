@@ -41,6 +41,7 @@ import com.mxk.org.web.subject.domain.SubjectMessageShowRespone;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
 import com.mxk.org.web.subject.domain.SubjectTop5NewPartsRespone;
 import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
+import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
 import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
@@ -87,6 +88,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkCommentsService commentsService;
+	
+	@Autowired
+	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
 	
 	private CreateSubjectRequest createSubjectRequest;
 	
@@ -160,7 +164,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 			loadCommentsRequest.setPage(1);
 			loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
 			loadCommentsRequest.setType(null);
-			loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
+			loadCommentsRespone = commentsService.findCommentEntityByPage(loadCommentsRequest);
 			if(loadCommentsRespone != null){
 				long allpage = commentsService.findCommentsPage(loadCommentsRequest);
 				loadCommentsRespone.setAllpage(allpage);
@@ -392,6 +396,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 				partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(currentSubjectEntity.getId()));
 			}
 			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
+				if(partShowResponse != null){
+					partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(currentSubjectEntity.getId()));	
+				}
 				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
 			}else{
 				SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
