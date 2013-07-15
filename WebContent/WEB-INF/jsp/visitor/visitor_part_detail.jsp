@@ -229,8 +229,8 @@
 						  </li>
 		               </ul>
 				    </div>
-				    <a class="btn btn-danger" href="javascript:;" onclick="collectPart('${partEntity.id}')">
-		               <i class="icon-pushpin"></i>收藏
+				    <a class="btn" href="<%=rootPath%>/visitorShowPartsCollecter?target=${partEntity.id}">
+		               <i class="icon-pushpin"></i>收藏次数${partEntity.collect }
 		            </a>
 			     </span>
 			     <span class="pull-right">
@@ -240,11 +240,16 @@
 		</div>
 		<div style="position:relative;" onmouseover="mouseoverp()" onmouseout="mouseoutp()" >
 	        <center>
+	            <div style="width:660px">
 		        <span style="position:absolute; z-index:-1; opacity:0.8;" id="partfun">
 		           <span class="label label-success"><i class="icon-microphone"></i>语音${partEntity.audios}</span>
 		           <span class="label"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</span>
+		           <a class="btn btn-danger btn-mini" href="javascript:;" onclick="collectPart('${partEntity.id}')">
+		               <i class="icon-pushpin"></i>收藏
+		           </a>
 		        </span>
 		        <img class="img-polaroid" src="<%=imgurl %>${partEntity.image }" /><br/>
+		        </div>
 		    </center>
 		</div>
 		<span style="padding: 19px;" id="partmessage" >${partEntity.desc }</span><br />

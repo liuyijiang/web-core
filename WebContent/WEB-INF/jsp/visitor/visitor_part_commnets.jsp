@@ -41,107 +41,6 @@
   
   
 </script>
-<script type="text/javascript">
-   
-
-   function filterComments(){
-	   
-   }
-   
-   
-//    function createCommnetsPlane(list,comdiv){
-// 	   var show = '';
-// 	   for (var i in list){
-		   
-// 		   "<li class='span3 mxkplan mxkshadow'><div style='padding:5px;margin-bottom:1px;'><table style='width:100%'><tr>" +
-// 		   "<td width='26%' rowspan='2'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
-// 		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-danger' href='javascript:;' onclick='createUserRelation('${options.userid}')'>" +
-// 	       "<i class='icon-remove-circle'></i>删除</a></span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>" +
-// 	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
-//            "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
-//            "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
-//            "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
-//            "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
-//            if (list[i].type == 'wav') {
-//         	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
-//         	 "<param name='movie' value='singlemp3player.swf?showDownload=false' />" +
-//         	 "<param name='wmode' value='transparent' />" +
-//         	 "<embed width='80' height='20' src='singlemp3player.swf?file="+ voice +list[i].info + "&showDownload=false' type='application/x-shockwave-flash' />" +
-//              "</object></div>";
-//            }else{
-//         	  show = show + "<span class='muted'><small>"+ list[i].info +"</small></span><br />";
-//            }
-//            show = show + "<span class='pull-right muted'><small><i class='icon-time'></i>"+ list[i].createTime +"</small></span><br /></div></li>";
-//        }
-//        $("#"+comdiv).append(show);
-//    }
-   
-   
-</script>
-<script type="text/javascript">
-// var allpage = '${loadCommentsRespone.allpage}';
-// var isrun = false;
-// var page = 2;
-// var subjectid = '${currentSubjectEntity.id}';
-
-//   function showload(){ 
-	 
-// 	   var scrollh = document.documentElement.scrollHeight;
-// 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-// 	   if ( scrollt/scrollh > 0.01 ) {
-		 
-// 		     if (!isrun) {
-// 		    	 isrun = true; 
-// 		    	 loadComments();  
-// 		     }
-// 	   }
-// 	} 
-
-// 	//绑定事件
-// 	function bindScroll(){
-// 	    $(window).bind("scroll", function(){
-// 	         showload();
-// 	    }); 
-// 	}
-
-	
-// 	function loadComments(){
-// 		 if(page <= allpage){
-// 			  var datas = {"loadCommentsRequest.targeid":subjectid,"loadCommentsRequest.page":page};
-// 			  $('#loaddiv').show();
-// 			  $.ajax({
-// 			   		url : path + "/loadMoreSubjectComments.action",
-// 			   		type : "POST",
-// 			   		cache : false,
-// 			   		async : false,
-// 			   		data: datas,
-// 			   		dataType : "json",
-// 			   		success : function(item) {
-// 			   			$('#loaddiv').hide();
-// 			 			page = page + 1;
-// 			 			var list1 = item.list1;
-// 						var list2 = item.list2;
-// 						var list3 = item.list3;
-// 						var list4 = item.list4;
-// 						if(list1 != null){
-// 							createCommnetsPlane(list1,"comments1");
-// 						}
-// 						if(list2 != null){
-// 							createCommnetsPlane(list2,"comments2");
-// 						}
-// 						if(list3 != null){
-// 							createCommnetsPlane(list3,"comments3");
-// 						}
-// 						if(list4 != null){
-// 							createCommnetsPlane(list4,"comments4");
-// 						}
-// 						isrun = false;
-// 			   		  }
-// 			 	 }); 
-// 		     } 
-// 	}
-	
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -185,16 +84,6 @@
 	            <a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id }">
 	              <i class="icon-refresh"></i>刷新
 	            </a>
-<!-- 	            <div class="btn-group"> -->
-<!-- 			        <button class="btn">评论过滤</button> -->
-<!-- 				    <button class="btn dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 				    <span class="caret"></span> -->
-<!-- 		            </button> -->
-<!-- 				    <ul class="dropdown-menu"> -->
-<!-- 				       <li><a href="javascript:;" onclick=""><i class="icon-comment-alt"></i>文本评论</a></li> -->
-<!-- 					   <li><a href="javascript:;" onclick=""><i class="icon-microphone"></i>语音评论</a></li> -->
-<!-- 	               </ul> -->
-<!--                </div> -->
              </span>
 		</div>
 	</div>
@@ -205,6 +94,7 @@
        <div class="span4">
           <ul class="thumbnails">
 			  <li class="span4 mxkplan mxkshadow">
+			  <div class='thumbnail'>
 	            <c:if test="${empty subjectNewPartsVO }">
 				   <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}"><img src="<%=imgurl %>/${subjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
 			     </c:if>
@@ -213,7 +103,7 @@
 	                <tr>
 	                  <td rowspan="2" colspan="2">
 	                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">
-	                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:210px;height:195px;">  <!-- style="width: 100%;" -->
+	                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
 	                  </a>
 	                  </td>
 	                  <td>
@@ -237,15 +127,16 @@
 			      </table>
 				</c:if>
 				<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
-					<span>&nbsp;<strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${subjectEntity.name }</a></strong></span>
+					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${subjectEntity.name }</a></strong></span>
                     &nbsp;&nbsp;<small class="muted"><span class="label">${subjectEntity.category }</span></small><br />
                  </div>
-                 <span><small>${partEntity.desc }</small></span>
+                 <span><small>${partEntity.desc }</small></span><br />
 				<span class="pull-right">
 					<a class="btn" href="vistiorShowSubjectDatail?target=${subjectEntity.id}"><i class="icon-hdd"></i>专题详情</a>
 					<a href="javascript:;" class="btn btn-primary" onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅专题</a>
 				</span>
 				<br/><br/>
+				</div>
 			  </li>
 		   </ul>
        </div>
@@ -288,262 +179,6 @@
        
    </div>
 </div>
-
-
-<!-- <div class="container"> -->
-<!--     <div class="row"> -->
-       
-<!--        <div class="span3"> -->
-<!--             <ul class="thumbnails" id="comments1"> -->
-<%-- 			   <c:forEach var="options" items="${loadCommentsRespone.list1 }"> --%>
-<!-- 				    <li class="span3 mxkplan mxkshadow"> -->
-<!-- 				       <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 				         <table style='width:100%'> -->
-<!-- 				             <tr> -->
-<!-- 							   <td width='26%' rowspan='2'> -->
-<%-- 							      <div style="position:relative;" onmouseover="mouseover('${options.id}')" onmouseout="mouseout('${options.id}')" > --%>
-<%-- 							         <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id}"> --%>
-<%-- 							            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="createUserRelation('${options.userid}')"> --%>
-<!-- 							               <i class='icon-remove-circle'></i>删除 -->
-<!-- 							            </a> -->
-<!-- 							         </span> -->
-<%-- 							         <a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}"> --%>
-<%-- 							          <img style="width:40px;height:40px"  class='img-polaroid border-radius' src="<%=imgurl %>${options.userimage }" /> --%>
-<!-- 							         </a> -->
-<!-- 							      </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td width='35%'> -->
-<!-- 								   <div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<%-- 								    <strong><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a></strong> --%>
-<!-- 								   </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td> -->
-<!-- 					               <span class='pull-right'> -->
-<%-- 								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" > --%>
-<!-- 								               回复</a> -->
-<!-- 								   </span> -->
-<!-- 							   </td> -->
-<!-- 						    </tr> -->
-<!-- 							<tr> -->
-<!-- 							  <td colspan='2'> -->
-<!-- 							      <div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<!-- 					                  <span class='muted'> -->
-<%-- 					                     <small>${options.reply }</small> --%>
-<!-- 					                  </span> -->
-<!-- 				                  </div> -->
-<!-- 				              </td> -->
-<!-- 				           </tr> -->
-<!-- 				         </table> -->
-<%-- 				         <c:if test="${options.type == 'wav' }"> --%>
-<!-- 				          <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 					         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20"> -->
-<!-- 							    <param name="movie" value="singlemp3player.swf?showDownload=false" /> -->
-<!-- 							    <param name="wmode" value="transparent" /> -->
-<%-- 							    <embed width="80" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" --%>
-<!-- 							    type="application/x-shockwave-flash" /> -->
-<!-- 							</object> -->
-<!-- 				         </div> -->
-<%-- 				         </c:if> --%>
-<%-- 				         <c:if test="${options.type == 'text' }"> --%>
-<%-- 				           <span class="muted"><small>${options.info }</small></span><br />  --%>
-<%-- 				         </c:if> --%>
-<!-- 				        <span class=" pull-right muted"><small><i class='icon-time'></i>2012-12-12 23:12:34</small></span><br />  -->
-<!-- 				        </div> -->
-<!-- 				   </li> -->
-<%-- 			    </c:forEach> --%>
-<!-- 			</ul> -->
-<!--         </div> -->
-       
-<!--         <div class="span3"> -->
-<!--             <ul class="thumbnails" id="comments2"> -->
-<%-- 			   <c:forEach var="options" items="${loadCommentsRespone.list2 }"> --%>
-<!-- 				    <li class="span3 mxkplan mxkshadow"> -->
-<!-- 				       <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 				         <table style='width:100%'> -->
-<!-- 				             <tr> -->
-<!-- 							   <td width='26%' rowspan='2'> -->
-<%-- 							      <div style="position:relative;" onmouseover="mouseover('${options.id}')" onmouseout="mouseout('${options.id}')" > --%>
-<%-- 							         <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id}"> --%>
-<%-- 							            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="createUserRelation('${options.userid}')"> --%>
-<!-- 							               <i class='icon-remove-circle'></i>删除 -->
-<!-- 							            </a> -->
-<!-- 							         </span> -->
-<%-- 							         <a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}"> --%>
-<%-- 							          <img style="width:40px;height:40px"  class='img-polaroid border-radius' src="<%=imgurl %>${options.userimage }" /> --%>
-<!-- 							         </a> -->
-<!-- 							      </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td width='35%'> -->
-<!-- 								   <div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<%-- 								    <strong><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a></strong> --%>
-<!-- 								   </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td> -->
-<!-- 					               <span class='pull-right'> -->
-<%-- 								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" > --%>
-<!-- 								               回复</a> -->
-<!-- 								   </span> -->
-<!-- 							   </td> -->
-<!-- 						    </tr> -->
-<!-- 							<tr> -->
-<!-- 							  <td colspan='2'> -->
-<!-- 				                  <div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<!-- 					                  <span class='muted'> -->
-<%-- 					                     <small>${options.reply }</small> --%>
-<!-- 					                  </span> -->
-<!-- 				                  </div> -->
-<!-- 				              </td> -->
-<!-- 				           </tr> -->
-<!-- 				         </table> -->
-<%-- 				         <c:if test="${options.type == 'wav' }"> --%>
-<!-- 				          <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 					         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20"> -->
-<!-- 							    <param name="movie" value="singlemp3player.swf?showDownload=false" /> -->
-<!-- 							    <param name="wmode" value="transparent" /> -->
-<%-- 							    <embed width="80" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" --%>
-<!-- 							    type="application/x-shockwave-flash" /> -->
-<!-- 							</object> -->
-<!-- 				         </div> -->
-<%-- 				         </c:if> --%>
-<%-- 				         <c:if test="${options.type == 'text' }"> --%>
-<%-- 				           <span class="muted"><small>${options.info }</small></span><br />  --%>
-<%-- 				         </c:if> --%>
-<!-- 				        <span class=" pull-right muted"><small><i class='icon-time'></i>2012-12-12 23:12:34</small></span><br />  -->
-<!-- 				        </div> -->
-<!-- 				   </li> -->
-<%-- 			    </c:forEach> --%>
-<!-- 			</ul> -->
-<!--         </div> -->
-       
-<!--         <div class="span3"> -->
-<!--             <ul class="thumbnails" id="comments3"> -->
-<%-- 			   <c:forEach var="options" items="${loadCommentsRespone.list3 }"> --%>
-<!-- 				    <li class="span3 mxkplan mxkshadow"> -->
-<!-- 				       <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 				         <table style='width:100%'> -->
-<!-- 				             <tr> -->
-<!-- 							   <td width='26%' rowspan='2'> -->
-<%-- 							      <div style="position:relative;" onmouseover="mouseover('${options.id}')" onmouseout="mouseout('${options.id}')" > --%>
-<%-- 							         <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id}"> --%>
-<%-- 							            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="createUserRelation('${options.userid}')"> --%>
-<!-- 							               <i class='icon-remove-circle'></i>删除 -->
-<!-- 							            </a> -->
-<!-- 							         </span> -->
-<%-- 							         <a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}"> --%>
-<%-- 							          <img style="width:40px;height:40px"  class='img-polaroid border-radius' src="<%=imgurl %>${options.userimage }" /> --%>
-<!-- 							         </a> -->
-<!-- 							      </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td width='35%'> -->
-<!-- 								   <div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<%-- 								    <strong><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a></strong> --%>
-<!-- 								   </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td> -->
-<!-- 					               <span class='pull-right'> -->
-<%-- 								      <a href='javascript:;' onclick="relaycomments('${options.userid }')" > --%>
-<!-- 								               回复</a> -->
-<!-- 								   </span> -->
-<!-- 							   </td> -->
-<!-- 						    </tr> -->
-<!-- 							<tr> -->
-<!-- 							  <td colspan='2'> -->
-<!-- 				                  <div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<!-- 					                  <span class='muted'> -->
-<%-- 					                     <small>${options.reply }</small> --%>
-<!-- 					                  </span> -->
-<!-- 				                  </div> -->
-<!-- 				              </td> -->
-<!-- 				           </tr> -->
-<!-- 				         </table> -->
-<%-- 				         <c:if test="${options.type == 'wav' }"> --%>
-<!-- 				          <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 					         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20"> -->
-<!-- 							    <param name="movie" value="singlemp3player.swf?showDownload=false" /> -->
-<!-- 							    <param name="wmode" value="transparent" /> -->
-<%-- 							    <embed width="80" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" --%>
-<!-- 							    type="application/x-shockwave-flash" /> -->
-<!-- 							</object> -->
-<!-- 				         </div> -->
-<%-- 				         </c:if> --%>
-<%-- 				         <c:if test="${options.type == 'text' }"> --%>
-<%-- 				           <span class="muted"><small>${options.info }</small></span><br />  --%>
-<%-- 				         </c:if> --%>
-<!-- 				        <span class=" pull-right muted"><small><i class='icon-time'></i>2012-12-12 23:12:34</small></span><br />  -->
-<!-- 				        </div> -->
-<!-- 				   </li> -->
-<%-- 			    </c:forEach> --%>
-<!-- 			</ul> -->
-<!--         </div> -->
-       
-<!--         <div class="span3"> -->
-<!--             <ul class="thumbnails" id="comments4"> -->
-<%-- 			   <c:forEach var="options" items="${loadCommentsRespone.list4 }"> --%>
-<!-- 				    <li class="span3 mxkplan mxkshadow"> -->
-<!-- 				       <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 				         <table style='width:100%'> -->
-<!-- 				             <tr> -->
-<!-- 							   <td width='26%' rowspan='2'> -->
-<%-- 							      <div style="position:relative;" onmouseover="mouseover('${options.id}')" onmouseout="mouseout('${options.id}')" > --%>
-<%-- 							         <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id}"> --%>
-<%-- 							            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="createUserRelation('${options.userid}')"> --%>
-<!-- 							               <i class='icon-remove-circle'></i>删除 -->
-<!-- 							            </a> -->
-<!-- 							         </span> -->
-<%-- 							         <a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}"> --%>
-<%-- 							          <img style="width:40px;height:40px"  class='img-polaroid border-radius' src="<%=imgurl %>${options.userimage }" /> --%>
-<!-- 							         </a> -->
-<!-- 							      </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td width='35%'> -->
-<!-- 								   <div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<%-- 								    <strong><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a></strong> --%>
-<!-- 								   </div> -->
-<!-- 							   </td> -->
-<!-- 				               <td> -->
-<!-- 					               <span class='pull-right'> -->
-<%-- 								     <a href='javascript:;' onclick="relaycomments('${options.userid }')" > --%>
-<!-- 								               回复</a> -->
-<!-- 								   </span> -->
-<!-- 							   </td> -->
-<!-- 						    </tr> -->
-<!-- 							<tr> -->
-<!-- 							  <td colspan='2'> -->
-<!-- 				                  <div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'> -->
-<!-- 					                  <span class='muted'> -->
-<%-- 					                     <small>${options.reply }</small> --%>
-<!-- 					                  </span> -->
-<!-- 				                  </div> -->
-<!-- 				              </td> -->
-<!-- 				           </tr> -->
-<!-- 				         </table> -->
-<%-- 				         <c:if test="${options.type == 'wav' }"> --%>
-<!-- 				          <div style='padding:5px;margin-bottom:1px;'> -->
-<!-- 					         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20"> -->
-<!-- 							    <param name="movie" value="singlemp3player.swf?showDownload=false" /> -->
-<!-- 							    <param name="wmode" value="transparent" /> -->
-<%-- 							    <embed width="80" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" --%>
-<!-- 							    type="application/x-shockwave-flash" /> -->
-<!-- 							</object> -->
-<!-- 				         </div> -->
-<%-- 				         </c:if> --%>
-<%-- 				         <c:if test="${options.type == 'text' }"> --%>
-<%-- 				           <span class="muted"><small>${options.info }</small></span><br />  --%>
-<%-- 				         </c:if> --%>
-<!-- 				        <span class=" pull-right muted"><small><i class='icon-time'></i>2012-12-12 23:12:34</small></span><br />  -->
-<!-- 				        </div> -->
-<!-- 				   </li> -->
-<%-- 			    </c:forEach> --%>
-<!-- 			</ul> -->
-<!--         </div> -->
-       
-<!--        <div id="loaddiv" class="mxkdivmid" style="display:none" > -->
-<%--              <img src="<%=domain %>/image/loadingred.gif" > --%>
-<!--              <span class="muted"><small>正在努力加载...</small></span> -->
-<!--           </div> -->
-       
-<!--     </div> -->
-<!-- </div> -->
 
 <!-- comments -->
    <div id="createTextCommentsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
