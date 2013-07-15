@@ -188,9 +188,21 @@ function bindScroll(){
                       <span class="caret"></span>
 				    </a>
 				     <ul class="dropdown-menu">
-					       <li><a href="#">分享到新浪微博</a></li>
-						   <li><a href="#">分享到QQ微信</a></li>
-						   <li><a href="#">分享到QQ空间</a></li>
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatail?target=${subjectEntity.id }&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${subjectEntity.info }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatail?target=${subjectEntity.id }&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${subjectEntity.info }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&summary=${subjectEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatail?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
 		               </ul>
 				    </div>
          </span>
@@ -343,7 +355,7 @@ function bindScroll(){
 			
          </div>
           <div id="loaddiv" class="mxkdivmid" style="display:none" >
-             <img src="<%=domain %>/image/loadingred.gif" >
+             <img src="<%=domain %>loadingred.gif" >
              <span class="muted"><small>正在努力加载...</small></span>
           </div>
      </div>
@@ -361,7 +373,7 @@ function bindScroll(){
 				method="post">
 			 <span>
 				 <small>选择图片</small>
-				 <img id="loading" src="<%=domain %>/image/loadingred.gif" style="display:none">
+				 <img id="loading" src="<%=domain %>loadingred.gif" style="display:none">
 			 </span>
 			 <br />
 			 <input id="fileToUpload" type="file" size="45" name="image"  /><br />

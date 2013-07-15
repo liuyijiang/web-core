@@ -259,7 +259,7 @@
 				method="post">
 			 <span>
 				 <small>选择图片</small>
-				 <img id="loading" src="<%=domain %>/image/loadingred.gif" style="display:none">
+				 <img id="loading" src="<%=domain %>loadingred.gif" style="display:none">
 			 </span>
 			 <br />
 			 <input id="fileToUpload" type="file" size="45" name="image"  /><br />

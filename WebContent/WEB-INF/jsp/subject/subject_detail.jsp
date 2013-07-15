@@ -309,9 +309,29 @@ function deleteSubject(id){
 		<div class="navbar">
 			<div class="navbar-inner">
 				 <span>
-            <a class="btn" href="javascript:;" onclick="showShareSubject()">
-              <i class="icon-globe"></i>分享
-            </a>
+           <div class="btn-group">
+                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
+                        <i class="icon-globe"></i>分享
+                      <span class="caret"></span>
+				    </a>
+				     <ul class="dropdown-menu">
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&summary=${subjectEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
+		               </ul>
+				    </div>
          </span>
           <span>
           <div class="btn-group">
@@ -328,7 +348,7 @@ function deleteSubject(id){
          </span>
          <span>
            <button onclick="doaction()" class="btn btn-info" id="usepart" style='display:none'>ok</button>
-            <span id="action" style="display:none" class="muted"><img src="<%=domain %>/image/loadingred.gif" ><small>正在为你生成...</small></span>
+            <span id="action" style="display:none" class="muted"><img src="<%=domain %>loadingred.gif" ><small>正在为你生成...</small></span>
          </span>
           <span class="pull-right">
             <a class="btn" href="<%=rootPath %>/showPartSilderView">
@@ -487,7 +507,7 @@ function deleteSubject(id){
 			
          </div>
           <div id="loaddiv" class="mxkdivmid" style="display:none" >
-             <img src="<%=domain %>/image/loadingred.gif" >
+             <img src="<%=domain %>loadingred.gif" >
              <span class="muted"><small>正在努力加载...</small></span>
           </div>
      </div>
@@ -503,7 +523,7 @@ function deleteSubject(id){
 				method="post">
 			 <span>
 				 <small>选择图片</small>
-				 <img id="loading" src="<%=domain %>/image/loadingred.gif" style="display:none">
+				 <img id="loading" src="<%=domain %>loadingred.gif" style="display:none">
 			 </span>
 			 <br />
 			 <input id="fileToUpload" type="file" size="45" name="image"  /><br />

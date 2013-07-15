@@ -18,105 +18,23 @@
 
   var replyuserid = '';
 </script>
-<script type="text/javascript">
-   
 
-   function filterComments(){
-	   
-   }
-   
-   
-   function createCommnetsPlane(list,comdiv){
-	   var show = '';
-	   for (var i in list){
-		   
-		   "<li class='span3 mxkplan mxkshadow'><div style='padding:5px;margin-bottom:1px;'><table style='width:100%'><tr>" +
-		   "<td width='26%' rowspan='2'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
-		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-danger' href='javascript:;' onclick='createUserRelation('${options.userid}')'>" +
-	       "<i class='icon-remove-circle'></i>删除</a></span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>" +
-	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
-           "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
-           "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
-           "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
-           "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
-           if (list[i].type == 'wav') {
-        	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
-        	 "<param name='movie' value='singlemp3player.swf?showDownload=false' />" +
-        	 "<param name='wmode' value='transparent' />" +
-        	 "<embed width='80' height='20' src='singlemp3player.swf?file="+ voice +list[i].info + "&showDownload=false' type='application/x-shockwave-flash' />" +
-             "</object></div>";
-           }else{
-        	  show = show + "<span class='muted'><small>"+ list[i].info +"</small></span><br />";
-           }
-           show = show + "<span class='pull-right muted'><small><i class='icon-time'></i>"+ list[i].createTime +"</small></span><br /></div></li>";
-       }
-       $("#"+comdiv).append(show);
-   }
-   
-   
-</script>
 <script type="text/javascript">
+function showCreatePart(){
+	 $('#createPartModal').modal({
+      keyboard: false
+  });
+}
+
+function closeCreatePart(){
+	 $('#createPartModal').modal('hide');
+}
+
+
 // var allpage = '${loadCommentsRespone.allpage}';
 // var isrun = false;
 // var page = 2;
-var subjectid = '${subjectEntity.id}';
-
-//   function showload(){ 
-	 
-// 	   var scrollh = document.documentElement.scrollHeight;
-// 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-// 	   if ( scrollt/scrollh > 0.01 ) {
-		 
-// 		     if (!isrun) {
-// 		    	 isrun = true; 
-// 		    	 loadComments();  
-// 		     }
-// 	   }
-// 	} 
-
-	//绑定事件
-// 	function bindScroll(){
-// 	    $(window).bind("scroll", function(){
-// 	         showload();
-// 	    }); 
-// 	}
-
-	
-// 	function loadComments(){
-// 		 if(page <= allpage){
-// 			  var datas = {"loadCommentsRequest.targeid":subjectid,"loadCommentsRequest.page":page};
-// 			  $('#loaddiv').show();
-// 			  $.ajax({
-// 			   		url : path + "/loadMoreSubjectComments.action",
-// 			   		type : "POST",
-// 			   		cache : false,
-// 			   		async : false,
-// 			   		data: datas,
-// 			   		dataType : "json",
-// 			   		success : function(item) {
-// 			   			$('#loaddiv').hide();
-// 			 			page = page + 1;
-// 			 			var list1 = item.list1;
-// 						var list2 = item.list2;
-// 						var list3 = item.list3;
-// 						var list4 = item.list4;
-// 						if(list1 != null){
-// 							createCommnetsPlane(list1,"comments1");
-// 						}
-// 						if(list2 != null){
-// 							createCommnetsPlane(list2,"comments2");
-// 						}
-// 						if(list3 != null){
-// 							createCommnetsPlane(list3,"comments3");
-// 						}
-// 						if(list4 != null){
-// 							createCommnetsPlane(list4,"comments4");
-// 						}
-// 						isrun = false;
-// 			   		  }
-// 			 	 }); 
-// 		     } 
-// 	}
+var subjectid = '${currentSubjectEntity.id}';
 	
 </script>
 <div class="container">
@@ -127,7 +45,7 @@ var subjectid = '${subjectEntity.id}';
      </div>
      <div class="span11">
         <span>
-          <span style="font-size: 20px;"><strong><a href="<%=rootPath%>/vistiorShowUserIndex?target=${uservO.id}">${uservo.name }</a>&nbsp;/&nbsp;${currentSubjectEntity.name }</strong></span>
+          <span style="font-size: 20px;"><strong><a href="<%=rootPath%>/userIndex">${uservo.name }</a>&nbsp;/&nbsp;${currentSubjectEntity.name }</strong></span>
              &nbsp;<span class="muted"><small>(<i class="icon-tags"></i>${currentSubjectEntity.tags }-${currentSubjectEntity.category})</small>
                 <c:choose>
 	             <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
@@ -144,13 +62,13 @@ var subjectid = '${subjectEntity.id}';
            </span>
         </span> 
         <span class="pull-right">
-           <a class="btn" href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }"><i class="icon-hdd"></i>返回专题</a>
+           <a class="btn" href="<%=rootPath %>/showSubjectDetailView"><i class="icon-hdd"></i>返回专题</a>
            <a href="javascript:;" class="btn btn-info" onclick="popdivfrombtn()">
               <i class="icon-comment-alt"></i>评论专题
            </a>
         </span>
         <br />
-        <span class="muted"><small>${subjectEntity.info }</small></span>
+        <span class="muted"><small>${currentSubjectEntity.info }</small></span>
         <br />
         <span>
           <c:forEach var="options" items="${subjectTop5NewPartsRespone.list }">
@@ -159,11 +77,11 @@ var subjectid = '${subjectEntity.id}';
               </a>
            </c:forEach>
            <c:if test="${!empty subjectTop5NewPartsRespone }">
-              <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id }">...</a>
+              <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }">...</a>
            </c:if>
         </span>
         <span class="pull-right">
-          <i class="icon-time"></i>Create Time:${subjectEntity.createTime }
+          <i class="icon-time"></i>Create Time:${currentSubjectEntity.createTime }
         </span>
      </div>
   </div>
@@ -180,17 +98,17 @@ var subjectid = '${subjectEntity.id}';
 				    </a>
 				     <ul class="dropdown-menu">
 					       <li>
-						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatail?target=${subjectEntity.id }&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.info }" target="_blank">
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.info }" target="_blank">
 						                     分享到新浪微博
 						       </a>
 					       </li>
 						   <li>
-							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatail?target=${subjectEntity.id }&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.info }" target="_blank">
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.info }" target="_blank">
 							         分享到QQ微信
 							   </a>
 						   </li>
 						   <li>
-							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${subjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatail?target=${subjectEntity.id }" target="_blank">
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&summary=${partEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }" target="_blank">
 							         分享到QQ空间
 							   </a>
 						  </li>
@@ -198,7 +116,7 @@ var subjectid = '${subjectEntity.id}';
 				    </div>
               </span>
              <span class="pull-right">
-	            <a class="btn" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}">
+	            <a class="btn" href="<%=rootPath %>/subjectComments">
 	              <i class="icon-refresh"></i>刷新
 	            </a>
              </span>
@@ -214,14 +132,14 @@ var subjectid = '${subjectEntity.id}';
 			  <li class="span4 mxkplan mxkshadow">
 			  <div class='thumbnail'>
 	            <c:if test="${empty subjectNewPartsVO }">
-				   <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}"><img src="<%=imgurl %>/${subjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
+				   <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id}"><img src="<%=imgurl %>/${currentSubjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
 			     </c:if>
 				<c:if test="${!empty subjectNewPartsVO }">
 					<table style="width:100%">
 	                <tr>
 	                  <td rowspan="2" colspan="2">
-	                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">
-	                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
+	                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id}">
+	                    <img src="<%=imgurl %>/${currentSubjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
 	                  </a>
 	                  </td>
 	                  <td>
@@ -245,13 +163,12 @@ var subjectid = '${subjectEntity.id}';
 			      </table>
 				</c:if>
 				<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
-					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${subjectEntity.name }</a></strong></span>
-                    &nbsp;&nbsp;<small class="muted"><span class="label">${subjectEntity.category }</span></small><br />
+					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id}">${currentSubjectEntity.name }</a></strong></span>
+                    &nbsp;&nbsp;<small class="muted"><span class="label">${currentSubjectEntity.category }</span></small><br />
                  </div>
-                 <span><small>${subjectEntity.info }</small></span><br />
+                 <span><small>${currentSubjectEntity.info }</small></span><br />
 				<span class="pull-right">
-					<a class="btn" href="vistiorShowSubjectDatail?target=${subjectEntity.id}"><i class="icon-hdd"></i>专题详情</a>
-					<a href="javascript:;" class="btn btn-primary" onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅专题</a>
+					<a class="btn" href="<%=rootPath %>/showSubjectDetailView"><i class="icon-hdd"></i>专题详情</a>
 				</span>
 				<br/><br/>
 				</div>
@@ -324,7 +241,7 @@ var subjectid = '${subjectEntity.id}';
           </div>
         </div>
 	    <div class="modal-footer">
-	      <a href="javascript:;" class="btn btn-primary" onclick="addTextComents('${subjectEntity.id}','${subjectEntity.userid }','subject')">发布</a>
+	      <a href="javascript:;" class="btn btn-primary" onclick="addTextComents('${currentSubjectEntity.id}','${currentSubjectEntity.userid }','subject')">发布</a>
 	      <a href="javascript:;" class="btn" onclick="closeTextCommentsPop()">关闭</a>
 	    </div>
     </div>
@@ -366,6 +283,10 @@ var subjectid = '${subjectEntity.id}';
 	      <a href="javascript:;" class="btn" onclick="closeVoiceCommentsPop()">关闭</a>
 	    </div>
     </div>
+    
+
+    
+    
 <script type="text/javascript">
 
 function relaycomments(userid){
@@ -452,8 +373,8 @@ function clear(){
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
 <script>
-   var partsId = '${subjectEntity.id}';
-   var partsOwner = '${subjectEntity.userid}';
+   var partsId = '${currentSubjectEntity.id}';
+   var partsOwner = '${currentSubjectEntity.userid}'; 
    $.jRecorder(
      
      { 
@@ -548,6 +469,7 @@ function clear(){
      $('#time').html(time+"秒");
    }
 
-   </script> 
+   </script>
+ 
 </body>
-</html>s
+</html>

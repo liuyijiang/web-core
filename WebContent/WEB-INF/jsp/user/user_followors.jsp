@@ -144,7 +144,7 @@
   </ul>
 </div>
 <div class="container" id="loadings" style="display:none">
-  <img src="<%=domain %>/image/loadingred.gif" >
+  <img src="<%=domain %>loadingred.gif" >
   <span class="muted"><small>正在努力加载...</small></span>
 </div>
 

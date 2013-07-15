@@ -69,7 +69,7 @@ function removeRss(userid){
 	         
 	         <c:if test="${!empty subjectMessageShowRespone.list }">
 		         <div style="padding:5px;margin-bottom:1px;">
-		          <span id="loading" style="display:none"><img src="<%=domain %>/image/loadingred.gif" >正在加载...</span>
+		          <span id="loading" style="display:none"><img src="<%=domain %>loadingred.gif" >正在加载...</span>
 		          <span class="pull-right" id="rssmore"><a href="javascript:;" class="btn btn-small btn-primary" onclick="loadmorelist()" ><i class="icon-refresh"></i>加载更多</a></span><br />
 		         </div>
 		         <script type="text/javascript">
