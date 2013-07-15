@@ -7,6 +7,11 @@
 
     <package name="main" namespace="/" extends="struts-default">
         
+        <action name="testStyle" class="com.mxk.org.web.main.action.MxkMainAction" 
+             method="mxkTestStyle">
+            <result name="success">/WEB-INF/jsp/main/test.jsp</result>
+         </action> 
+        
         <action name="index" class="com.mxk.org.web.main.action.MxkMainAction"
             method="mxkIndex">
             <result name="userindex" type="redirect">userIndex</result>
