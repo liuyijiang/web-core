@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.factory.EntityFactory;
+import com.mxk.org.entity.CollectInformationEntity;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.web.part.dao.MxkPartDao;
 import com.mxk.org.web.part.domain.CreatePartRequest;
@@ -22,6 +23,18 @@ public class MxkPartService {
 
 	@Autowired
 	private MxkPartDao partDao;
+	
+	public List<CollectInformationEntity> findCollectInformationEntity(String tergetId){
+		return partDao.findCollectInformationEntity(tergetId);
+	}
+	
+	public void saveCollectInformationEntity(CollectInformationEntity en){
+		partDao.saveCollectInformationEntity(en);
+	}
+	
+	public void removeCollectInformationEntity(String userid,String targetId){
+		partDao.removeCollectInformationEntity(userid, targetId);
+	}
 	
 	public List<PartEntity> findPartEntityAll(String subjectid){
 		return partDao.findPartEntityAll(subjectid);

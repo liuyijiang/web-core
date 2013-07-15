@@ -1,5 +1,6 @@
 package com.mxk.org.web.user.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import com.mxk.org.common.service.MxkFileUploadService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.service.MxkMailService;
 import com.mxk.org.common.service.MxkRedisCacheService;
+import com.mxk.org.common.util.PointUtil;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.common.util.ValidateUtil;
+import com.mxk.org.entity.CollectInformationEntity;
 import com.mxk.org.entity.MessageEntity;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.UserEntity;
@@ -253,8 +256,16 @@ public class MxkUserAction extends MxkSessionAction {
 		if(uservo != null && collectPartsRequest != null){
 			collectPartsRequest.setUserid(uservo.getId());
 			if(userService.createUserCollect(collectPartsRequest)){
-				message = MxkConstant.AJAX_SUCCESS;
+				CollectInformationEntity en = new CollectInformationEntity();
+				en.setCreateTime(StringUtil.dateToString(new Date(), null));
+				en.setCollecterId(uservo.getId());
+				en.setCollecterImg(uservo.getImage());
+				en.setCollecterName(uservo.getName());
+				en.setPin(PointUtil.randomPIN());
+				en.setTragetId(collectPartsRequest.getTargetId());
+				partService.saveCollectInformationEntity(en);
 			}
+			message = MxkConstant.AJAX_SUCCESS;
 		}else{
 			message = MxkConstant.USER_NO_LOGIN;
 		}
@@ -267,6 +278,7 @@ public class MxkUserAction extends MxkSessionAction {
 		if(uservo != null && collectPartsRequest != null){
 			collectPartsRequest.setUserid(uservo.getId());
 			if(userService.removeUserCollect(collectPartsRequest)){
+				partService.removeCollectInformationEntity(uservo.getId(), collectPartsRequest.getTargetId());
 				message = MxkConstant.AJAX_SUCCESS;
 			}
 		}else{

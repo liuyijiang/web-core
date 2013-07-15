@@ -14,12 +14,13 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.entity.CollectInformationEntity;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.domain.UpdatePartInfoRequest;
 
 /**
- * ×¨¼­partdao
+ * ×¨ï¿½ï¿½partdao
  * @author liuyijiang
  *
  */
@@ -33,6 +34,20 @@ public class MxkPartDao {
 
 	@Autowired
 	private MongoOperations mog; 
+	
+	public List<CollectInformationEntity> findCollectInformationEntity(String targetId){
+		Query q = new Query(Criteria.where("tragetId").is(targetId));
+		return mog.find(q, CollectInformationEntity.class);
+	}
+	
+	public void saveCollectInformationEntity(CollectInformationEntity en){
+		mog.save(en);
+	}
+	
+	public void removeCollectInformationEntity(String userid,String targetId){
+		Query q = new Query(Criteria.where("tragetId").is(targetId).and("collecterId").is(userid));	
+		mog.remove(q, CollectInformationEntity.class);
+	}
 	
 	public long findUserSubjectPartsAllPage(String subjectid){
 	    Query q = new Query(Criteria.where("subjectid").is(subjectid));	
@@ -49,7 +64,7 @@ public class MxkPartDao {
 		try{
 			Query q = new Query(Criteria.where("subjectid").is(id));
 			q.limit(5);
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			list = mog.find(q, PartEntity.class);
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -82,7 +97,7 @@ public class MxkPartDao {
 		return list;
 	}
 	
-	//²éÑ¯subject ÏÂÃæ ÄÇÐ©²»ÊÇsubject´´½¨ÕßÉÏ´«µÄpartÊýÁ¿ userid ÊÇ´´½¨subjectÕßµÄid
+	//ï¿½ï¿½Ñ¯subject ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½subjectï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½partï¿½ï¿½ï¿½ï¿½ userid ï¿½Ç´ï¿½ï¿½ï¿½subjectï¿½ßµï¿½id
 	public long findSubjectPartNotInUserId(String userid,String subjectid){
 		long num = 0;
 		try{
@@ -95,7 +110,7 @@ public class MxkPartDao {
 		return num;
 	}
 	
-	//É¾³ý¼ÇÂ¼
+	//É¾ï¿½ï¿½ï¿½Â¼
 	public boolean removePartById(String partid){
 		boolean success = true;
 		try {
@@ -157,7 +172,7 @@ public class MxkPartDao {
 		return entity;
 	}
 	
-	//¸ü¾ßÀàÐÍ²éÑ¯×ÜÒ³Êý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Ñ¯ï¿½ï¿½Ò³ï¿½ï¿½
 	public long findPartEnitiyPageByType(String type){
 		long count = 0;
 		Query q = null;
@@ -192,7 +207,7 @@ public class MxkPartDao {
 				}
 				q = new Query(criteria);
 			}
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(request.getPage() - 1));
 			rlist = mog.find(q, PartEntity.class);
@@ -202,7 +217,7 @@ public class MxkPartDao {
 		return rlist;
 	}
 	
-	//¸üÐÂ ÆÀÂÛµÄÊýÁ¿ comments audios  desc Õý¼Û ¼õÉÙ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ comments audios  desc ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public boolean updatePartCommentsQuantity(String id,String type,boolean desc) {
 		boolean success = true;
 		try{

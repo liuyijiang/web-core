@@ -1,7 +1,5 @@
 package com.mxk.org.web.main.action;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
@@ -31,6 +29,10 @@ public class MxkMainAction extends MxkSessionAction {
 	private ChangePasswordRequest changePasswordRequest;
 	private String usermail;
 	private String uuid;
+	
+	public String mxkTestStyle(){
+		return SUCCESS;
+	}
 	
 	public String mxkTestMail(){
 		//mailService.sendTempleteEmail("","liuyijiang3430@qq.com",new HashMap());

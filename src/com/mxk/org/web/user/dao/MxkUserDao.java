@@ -49,7 +49,7 @@ public class MxkUserDao {
 		List<String> ids = null;
 		try{
 			Query q = new Query(Criteria.where("userid").is(userid));
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(page - 1));	
 		    List<UserRssSubjectEntity> list = mog.find(q, UserRssSubjectEntity.class);
@@ -90,7 +90,7 @@ public class MxkUserDao {
 		return list;
     }
 	
-	//¸ü¾ßÀàÐÍ²éÑ¯×ÜÒ³Êý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Ñ¯ï¿½ï¿½Ò³ï¿½ï¿½
 	public long findUserCollectPartsPages(UserCollectSearchRequest userCollectSearchRequest){
 		long count = 0;
 		Criteria criteria = Criteria.where("userid").is(userCollectSearchRequest.getUserid());
@@ -114,7 +114,7 @@ public class MxkUserDao {
 				criteria.and("targetType").is(userCollectSearchRequest.getType());
 			}
 			Query q = new Query(criteria);
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(userCollectSearchRequest.getPage() - 1));
 			List<UserCollectEntity> list = mog.find(q, UserCollectEntity.class);
@@ -182,6 +182,8 @@ public class MxkUserDao {
 			  Update u = new Update();
 			  u.inc("collect", 1);
 			  mog.updateMulti(qpart, u, PartEntity.class);
+			}else{
+				success = false;
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);

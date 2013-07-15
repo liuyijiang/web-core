@@ -1,12 +1,17 @@
 package com.mxk.org.web.visitor.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.util.ImageUtil;
+import com.mxk.org.common.util.PointUtil;
 import com.mxk.org.common.util.StringUtil;
+import com.mxk.org.entity.CollectInformationEntity;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
@@ -26,6 +31,8 @@ import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
 import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.visitor.domain.CollectPartsDataReponse;
+import com.mxk.org.web.visitor.domain.CollectPartsPointReponse;
 import com.mxk.org.web.visitor.domain.SearchJoinSubjectPeopleRequest;
 import com.mxk.org.web.visitor.domain.SubjectJoinPeopleRespone;
 import com.mxk.org.web.visitor.domain.VisitorSearchSubjectRespone;
@@ -80,6 +87,45 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private PartsAllResponse partsAllResponse;
 	private String target;//partid或者subject id
 	private String type;
+	private CollectPartsPointReponse collectPartsPointReponse;
+	
+	@Value("${gridfs.pdf.iamge.url}")
+	private String imageurl;
+	
+	public String mxkVisitorSeeUserAjax(){
+		targetUserVO = super.getCachedUserVO(target);
+		return SUCCESS;
+	}
+	
+	//查看收藏
+	public String mxkVisitorShowPartsCollecterView(){
+		//
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null) {
+			subjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
+			subjectTop5NewPartsRespone = partService.findNewTop5Parts(partEntity.getSubjectid());
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			ImageUtil util = new ImageUtil();
+			int[] data = util.getImageWidthAndHeightFromUrl(imageurl+partEntity.getImage());
+			List<CollectInformationEntity> list =  partService.findCollectInformationEntity(partEntity.getId());
+			List<CollectPartsDataReponse> rlist = new ArrayList<CollectPartsDataReponse>();
+			if(data != null && list != null && !list.isEmpty()){
+				collectPartsPointReponse = new CollectPartsPointReponse();
+				PointUtil p = new PointUtil();
+				for(CollectInformationEntity en : list){
+					CollectPartsDataReponse partdata = new CollectPartsDataReponse();
+					partdata.setEntity(en);
+					int[] dat = p.createnPositionList(data[0], data[1]);
+					partdata.setTop(dat[0]);
+					partdata.setLeft(dat[1]);
+					rlist.add(partdata);
+				}
+				collectPartsPointReponse.setList(rlist);
+			}
+		}
+		return SUCCESS;
+	}
 	
 	//查看
 	public String mxkVisitorShowPartSilderView(){
@@ -526,6 +572,15 @@ public class MxkVisitorAction extends MxkSessionAction {
 
 	public void setPartsAllResponse(PartsAllResponse partsAllResponse) {
 		this.partsAllResponse = partsAllResponse;
+	}
+
+	public CollectPartsPointReponse getCollectPartsPointReponse() {
+		return collectPartsPointReponse;
+	}
+
+	public void setCollectPartsPointReponse(
+			CollectPartsPointReponse collectPartsPointReponse) {
+		this.collectPartsPointReponse = collectPartsPointReponse;
 	}
 	
 	
