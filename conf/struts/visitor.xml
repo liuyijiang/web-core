@@ -7,10 +7,21 @@
 
     <package name="visitor" namespace="/" extends="struts-default">
         
+        
+        <action name="visitorSeeUserShareSingleParts" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorSeeUserShareSinglePartsView">
+             <result name="success" >/WEB-INF/jsp/visitor/vistior_user_share_parts_index.jsp</result>
+         </action>
+        
+         <action name="visitorShowSinglePartsComments" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowSinglePartsCommentsView">
+             <result name="success" >/WEB-INF/jsp/visitor/visitor_single_part_commnets.jsp</result>
+         </action>
+        
          <action name="visitorShowPartsCollecter" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitorShowPartsCollecterView">
              <result name="success" >/WEB-INF/jsp/visitor/visitor_parts_collecion_view.jsp</result>
-        </action>
+         </action>
         
         <action name="visitorShowPartSilderView" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitorShowPartSilderView">
@@ -108,6 +119,13 @@
 			method="mxkVisitorLoadMoreJoinSubjectUsersAjax">
 		    <result type="json" name="success">  
                 <param name="root">subjectJoinPeopleRespone</param>
+            </result> 
+		</action>
+		
+		<action name="loadMoreUserShareSingleParts" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+			method="mxkLoadMoreUserShareSinglePartsAjax">
+		    <result type="json" name="success">  
+                <param name="root">partShowResponse</param>
             </result> 
 		</action>
 		
