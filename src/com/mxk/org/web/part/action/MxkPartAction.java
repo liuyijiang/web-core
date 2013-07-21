@@ -162,6 +162,38 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//快速发布单个parts分享
+	public String mxkCreateSinglePartAjax(){
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.AJAX_ERROR;
+		if(uservo != null && createPartRequest != null && valate()){
+			createPartRequest.setSubname(MxkConstant.MXK_EMPTY);
+			createPartRequest.setUserid(uservo.getId());
+			createPartRequest.setUserimage(uservo.getImage());
+			createPartRequest.setUsername(uservo.getName());
+			createPartRequest.setSubjectid(MxkConstant.MXK_EMPTY_SUBJECT);
+			createPartRequest.setStatus(MxkConstant.SUBJECT_TYPE_PUBLIC);
+			String partid = partService.savePart(createPartRequest);
+			if(partid != null && image != null){
+				String imageurl = gridFSFileUploadService.uploadImage(image, partid,MxkFileUploadService.IMAGE_TYPE_PNG, MxkFileUploadService.IMAGE_SIZE_FULL, max);
+				String minimageurl = gridFSFileUploadService.uploadImage(image, partid,MxkFileUploadService.IMAGE_TYPE_PNG, MxkFileUploadService.IMAGE_SIZE_MINI,min);
+			    if(imageurl != null && minimageurl != null){
+			    	partService.updatePartImage(partid,imageurl,minimageurl);
+			    	NewMessagePushMessage mes = new NewMessagePushMessage();
+			    	mes.setTragetId(partid);
+			    	mes.setUserid(uservo.getId());
+			    	messageQueueService.startNewRssPushTask(mes);
+			    }
+			}
+			message = MxkConstant.AJAX_SUCCESS;
+		}else{
+			message = MxkConstant.USER_NO_LOGIN;	
+		}
+		return SUCCESS;
+	}
+	
+	
+	
 	//创建part
 	public String mxkCreatePartAjax(){
 		uservo = super.getCurrentUserVO();
@@ -169,7 +201,7 @@ public class MxkPartAction extends MxkSessionAction {
 		if(uservo != null && currentSubjectEntity != null && valate()){
 			createPartRequest.setSubname(currentSubjectEntity.getName());
 			createPartRequest.setUserid(uservo.getId());
-			createPartRequest.setUserimage(uservo.getMinimage());
+			createPartRequest.setUserimage(uservo.getImage());
 			createPartRequest.setUsername(uservo.getName());
 			createPartRequest.setStatus(currentSubjectEntity.getType());
 			String partid = partService.savePart(createPartRequest);
@@ -184,7 +216,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    	}else{
 			    		subjectService.updateSubjectForCreatePart(createPartRequest.getSubjectid(), null);
 			    	}
-		    		currentSubjectEntity.setFaceimage(minimageurl);
+		    		//currentSubjectEntity.setFaceimage(minimageurl);
 		    		if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 		    			subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 		    		}
@@ -212,7 +244,7 @@ public class MxkPartAction extends MxkSessionAction {
 		if(uservo != null && currentSubjectEntity != null && valate()){
 			createPartRequest.setSubname(currentSubjectEntity.getName());
 			createPartRequest.setUserid(uservo.getId());
-			createPartRequest.setUserimage(uservo.getMinimage());
+			createPartRequest.setUserimage(uservo.getImage());
 			createPartRequest.setUsername(uservo.getName());
 			createPartRequest.setStatus(currentSubjectEntity.getType());
 			String partid = partService.savePart(createPartRequest);
@@ -240,6 +272,7 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//需要检查
 	private boolean valate(){
 		if(image == null){
 			return false;

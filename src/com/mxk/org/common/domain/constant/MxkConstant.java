@@ -52,5 +52,9 @@ public class MxkConstant {
 	
 	public static final String MAIL_TYPE_WEEKPUSH = "weekpush";
 	
+	public static final String MXK_EMPTY = "";
 	
+	public static final String MXK_EMPTY_SUBJECT = "#";
+	
+	public static final String MXK_PAET_SHADOW = "mxkshadow";
 }

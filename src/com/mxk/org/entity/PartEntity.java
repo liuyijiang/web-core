@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * ·Ö²¿ÊµÌåÀà 
+ * ï¿½Ö²ï¿½Êµï¿½ï¿½ï¿½ï¿½ 
  * @author liuyijiang
  *
  */
@@ -24,17 +24,18 @@ public class PartEntity implements Serializable {
 	private String subjectid;
 	private String subname;
 	private String desc;
-	private String type;//¼Ì³Ğsubject
+	private String type;//ï¿½Ì³ï¿½subject
 	private String image;
 	private String minimage;
 	private String createTime;
-	private int collect;//ÊÕ²Ø´ÎÊı
-	private int comments;//ÆÀÂÛ´ÎÊı
-	private int audios;//ÒôÆµ´ÎÊı
+	private int collect;//ï¿½Õ²Ø´ï¿½ï¿½ï¿½
+	private int comments;//ï¿½ï¿½ï¿½Û´ï¿½ï¿½ï¿½
+	private int audios;//ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½
 	
-	private String username;//ÈßÓà ÓÃ»§Ãû³Æ
-	private String userimage;//ÈßÓà ÓÃ»§Í·Ïñ
+	private String username;//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+	private String userimage;//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã»ï¿½Í·ï¿½ï¿½
 	private String status;//PUBLIC FOR-ALL
+	private String shadow;//å½±å­css
 	
 	public String getId() {
 		return id;
@@ -125,6 +126,12 @@ public class PartEntity implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getShadow() {
+		return shadow;
+	}
+	public void setShadow(String shadow) {
+		this.shadow = shadow;
 	}
 	
 	

@@ -57,6 +57,10 @@ public class MxkMainAction extends MxkSessionAction {
 		}
 	}
 	
+	public String mxkLoginOutView(){
+		return SUCCESS;
+	}
+	
 	public String mxkSendChangePasswordMailAjax(){
 		if(changePasswordRequest != null){
 			mailService.sendMail(changePasswordRequest.getUsermail());

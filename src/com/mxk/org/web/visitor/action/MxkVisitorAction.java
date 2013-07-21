@@ -92,8 +92,47 @@ public class MxkVisitorAction extends MxkSessionAction {
 	@Value("${gridfs.pdf.iamge.url}")
 	private String imageurl;
 	
+	public String mxkVisitorSeeUserShareSinglePartsView(){
+		uservo = super.getCurrentUserVO();
+		targetUserVO = super.getCachedUserVO(target);
+		if(targetUserVO != null){
+			SearchPartRequest request = new SearchPartRequest();
+			request.setPage(1);
+			request.setSubjectid(MxkConstant.MXK_EMPTY_SUBJECT);
+			request.setType(null);
+			request.setUserid(targetUserVO.getId());
+			partShowResponse = partService.findUserShareParts(request);
+			if(partShowResponse != null){
+				long allPage =partService.findUserShareSinglePartsAllPage(targetUserVO.getId());
+				partShowResponse.setAllPage(allPage);
+			}
+		    return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	
+	public String mxkLoadMoreUserShareSinglePartsAjax(){
+		partShowResponse = partService.findUserSubjectParts(searchPartRequest);
+		return SUCCESS;
+	}
+	
 	public String mxkVisitorSeeUserAjax(){
 		targetUserVO = super.getCachedUserVO(target);
+		return SUCCESS;
+	}
+	
+	public String mxkVisitorShowSinglePartsCommentsView(){
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null){
+			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
+			LoadCommentsRequest request = new LoadCommentsRequest();
+			request.setPage(1);
+			request.setTargeid(partEntity.getId());
+			request.setType(null);
+			loadCommentsRespone = commentsService.findCommentEntityByPage(request);
+		}
 		return SUCCESS;
 	}
 	
@@ -103,9 +142,13 @@ public class MxkVisitorAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
 		if(partEntity != null) {
-			subjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
-			subjectTop5NewPartsRespone = partService.findNewTop5Parts(partEntity.getSubjectid());
-			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			if(!partEntity.getSubjectid().equals(MxkConstant.MXK_EMPTY_SUBJECT)){
+				subjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
+				if(subjectEntity != null){
+					subjectTop5NewPartsRespone = partService.findNewTop5Parts(partEntity.getSubjectid());
+				}
+			}
+			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
 			ImageUtil util = new ImageUtil();
 			int[] data = util.getImageWidthAndHeightFromUrl(imageurl+partEntity.getImage());
 			List<CollectInformationEntity> list =  partService.findCollectInformationEntity(partEntity.getId());
@@ -217,31 +260,6 @@ public class MxkVisitorAction extends MxkSessionAction {
 				loadCommentsRespone.setAllpage(allpage);
 			}
 		}
-//		uservo = super.getCurrentUserVO();
-//		subjectEntity =  subjectService.findSubjectEntityById(target);
-//		if(subjectEntity != null){
-//			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
-//			vistitorSeeSubjectCommentsRespone = new VistitorSeeSubjectCommentsRespone();
-//			vistitorSeeSubjectCommentsRespone.setSubjectEntity(subjectEntity);
-//			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(subjectEntity.getId());
-//			vistitorSeeSubjectCommentsRespone.setSubjectNewPartsVO(subjectNewPartsVO);
-//			LoadCommentsRequest loadCommentsRequest = new LoadCommentsRequest();
-//			loadCommentsRequest.setPage(1);
-//			loadCommentsRequest.setTargeid(target);
-//			if(MxkConstant.COMMENT_TYPE_WAV.equals(type)){
-//				loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_WAV);
-//				vistitorSeeSubjectCommentsRespone.setType(MxkConstant.COMMENT_TYPE_WAV);
-//				vistitorSeeSubjectCommentsRespone.setLoadCommentsRespone(commentsService.findCommentEntity(loadCommentsRequest));
-//				return "WAV";
-//			}else{
-//				loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_TEXT);
-//				vistitorSeeSubjectCommentsRespone.setType(MxkConstant.COMMENT_TYPE_TEXT);
-//				vistitorSeeSubjectCommentsRespone.setLoadCommentsRespone(commentsService.findCommentEntity(loadCommentsRequest));
-//				return "TEXT";
-//			}
-//		}else{
-//			return ERROR;
-//		}
 		return SUCCESS;
 	}
 	
@@ -330,6 +348,7 @@ public class MxkVisitorAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
 		if(partEntity != null){
+			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
 			subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
 			subjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
 			LoadCommentsRequest request = new LoadCommentsRequest();

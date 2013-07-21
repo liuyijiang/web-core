@@ -429,8 +429,34 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//用户分享单一parts
+	public String mxkUserShareSinglePartsIndexView(){
+		uservo = super.getCurrentUserVO();
+		if(uservo != null){
+			SearchPartRequest request = new SearchPartRequest();
+			request.setPage(1);
+			request.setSubjectid(MxkConstant.MXK_EMPTY_SUBJECT);
+			request.setType(null);
+			request.setUserid(uservo.getId());
+			partShowResponse = partService.findUserShareParts(request);
+			if(partShowResponse != null){
+				long allPage =partService.findUserShareSinglePartsAllPage(uservo.getId());
+				partShowResponse.setAllPage(allPage);
+			}
+		    return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
 	
-	//�ղ�ҳ��
+	//加载跟多
+	public String mxkLoadMoreUserShareSinglePartsAjax(){
+		partShowResponse = partService.findUserSubjectParts(searchPartRequest);
+		return SUCCESS;
+	}
+	
+	
+	//用户收藏
 	public String mxkUserCollectIndexView() {
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -449,7 +475,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//�����û��ղ� by type
+	//过滤收藏 by type
 	public String mxkFilterUserCollectAjax(){
 		if(userCollectSearchRequest != null){
 			List<String> ids = userService.findUserCollectPartsIds(userCollectSearchRequest);

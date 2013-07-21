@@ -44,6 +44,10 @@ public class MxkPartService {
 		return partDao.findUserSubjectPartsAllPage(subjectid);
 	}
 	
+	public long findUserShareSinglePartsAllPage(String userid){
+		return partDao.findUserShareSinglePartsAllPage(userid);
+	}
+	
 	public SubjectTop5NewPartsRespone findNewTop5Parts(String subjectid){
 		SubjectTop5NewPartsRespone sub = new SubjectTop5NewPartsRespone();
 		sub.setList(partDao.findSubjectNewParts(subjectid));
@@ -107,6 +111,42 @@ public class MxkPartService {
 	
 	public long findPartEnitiyPageByType(String type){
 		return partDao.findPartEnitiyPageByType(type);
+	}
+	
+	public PartShowResponse findUserShareParts(SearchPartRequest request){
+		List<PartEntity> list = partDao.findUserSharePartsByPage(request);
+		PartShowResponse partShowResponse = null;
+		if(list != null && !list.isEmpty()){
+			partShowResponse = new PartShowResponse();
+			int index = 0;
+			List<PartEntity> list1 = new ArrayList<PartEntity>();
+			List<PartEntity> list2 = new ArrayList<PartEntity>();
+			List<PartEntity> list3 = new ArrayList<PartEntity>();
+			List<PartEntity> list4 = new ArrayList<PartEntity>();
+			partShowResponse.setList1(list1);
+			partShowResponse.setList2(list2);
+			partShowResponse.setList3(list3);
+			partShowResponse.setList4(list4);
+			for (PartEntity part : list) {
+				if(index == 0){
+					list1.add(part);
+					index ++ ;
+				}
+				else if(index == 1){
+					list2.add(part);
+					index ++ ;
+				}
+				else if(index == 2){
+					list3.add(part);
+					index ++ ;
+				}
+				else if(index == 3){
+					list4.add(part);
+					index = 0;
+				}
+			}
+		}
+		return partShowResponse;
 	}
 	
 	public PartShowResponse findUserSubjectParts(SearchPartRequest request){

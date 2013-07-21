@@ -2,6 +2,7 @@ package com.mxk.org.common.factory;
 
 import java.util.Date;
 
+import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.util.SecurityUtil;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
@@ -71,6 +72,7 @@ public class EntityFactory {
 		partEntity.setUserimage(request.getUserimage());
 		partEntity.setUsername(request.getUsername());
 		partEntity.setStatus(request.getStatus());
+		partEntity.setShadow(MxkConstant.MXK_PAET_SHADOW);
 		return partEntity;
 	}
 	

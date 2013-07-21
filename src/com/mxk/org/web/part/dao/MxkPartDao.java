@@ -59,6 +59,16 @@ public class MxkPartDao {
 		}
 	}
 	
+	public long findUserShareSinglePartsAllPage(String userid){
+	    Query q = new Query(Criteria.where("subjectid").is(MxkConstant.MXK_EMPTY_SUBJECT).and("userid").is(userid));	
+	    long count =  mog.count(q, PartEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 0;
+		}
+	}
+	
 	public List<PartEntity> findSubjectNewParts(String id){
 		List<PartEntity> list = null;
 		try{
@@ -187,6 +197,22 @@ public class MxkPartDao {
 		}else{
 			return 0;
 		}
+	}
+	
+	//用户分享的单一
+	public List<PartEntity> findUserSharePartsByPage(SearchPartRequest request){
+		List<PartEntity> rlist = null;
+		try {
+			Criteria criteria = Criteria.where("subjectid").is(request.getSubjectid()).and("userid").is(request.getUserid());
+			Query q = new Query(criteria);
+			q.sort().on("createTime", Order.DESCENDING);
+			q.limit(pageSize);
+			q.skip(pageSize*(request.getPage() - 1));
+			rlist = mog.find(q, PartEntity.class);
+    	} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} 
+		return rlist;
 	}
 	
 	public List<PartEntity> findPartEntityByPage(SearchPartRequest request){

@@ -38,7 +38,9 @@ public class MxkNewMessagePushListener implements MessageListener{
 				//1所有好友
 				pushForRssUser(userid,tragetId);
 				//2订阅专辑者
-				pushForRssSubejct(subjectId,tragetId);
+				if(!StringUtil.stringIsEmpty(subjectId)){
+					pushForRssSubejct(subjectId,tragetId);
+				}
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
