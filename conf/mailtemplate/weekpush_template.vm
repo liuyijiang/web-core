@@ -1,6 +1,7 @@
 <div style="background:#f5f5f5;height:1200px;">
-<h3>本周最火</h3>
-<center>
+<center style="font-family:Microsoft YaHei;">
+    <h3 style="font-family:Microsoft YaHei;">Hi:&nbsp;${username}</h3>
+    <h4 style="font-family:Microsoft YaHei;">米兔为你精选了本周最火的8个Part!你喜欢么？&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.waileecn.com/">更多精彩</a></h3>
     <table>
        <tr>
          <td style="word-break:break-all">
@@ -14,17 +15,17 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d52ae6845d2c32068b0bcd_mini.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id1}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image1}"></a>
+					      </td>
+					    </tr>
+					    <tr>
+					      <td style="word-break:break-all;">
+					       <span style="font-family:Microsoft YaHei;color:#999999;">${desc1}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
-					      </td>
-					    </tr>
-					    <tr>
-					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfaafafawfwafawfawfawvaawavavavavawvavwwvaawavavavavawvavwafafawfwafawfawfawvaawavavavavawvavw</small></span>
+					         <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info1}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -38,17 +39,72 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d52adf845d2c32068b0bc8_mini.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id2}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image2}"></a>
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
+					       <span style="font-family:Microsoft YaHei;color:#999999;">${desc2}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
+					         <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info2}</small></span>
+					      </td>
+					    </tr>
+					  </table>
+					</div>
+			     </div>	  
+         
+            </div>
+       </div>
+       
+       
+       <div style="width:10px;float:left;">&nbsp;</div>
+       <div style="width:220px;float:left;">
+	     
+	         <div class="thumbnails" style="margin-left: -20px;list-style: none;*zoom: 1;">
+	         
+	             <div class="span3 mxkplan mxkshadow" style="width: 220px;background:#ffffff;border-radius:3px 3px 3px 3px;filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);-moz-box-shadow: 2px 2px 10px #909090;-webkit-box-shadow: 2px 2px 10px #909090;box-shadow:2px 2px 10px #909090;">
+					<div class="thumbnail" style="display: block; padding: 4px;line-height: 20px;border: 1px solid #ddd;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;">
+					     <table style="width:210px">
+					    <tr>
+					      <td>
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id3}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image3}"></a>
+					      </td>
+					    </tr>
+					    <tr>
+					      <td style="word-break:break-all">
+					       <span style="font-family:Microsoft YaHei;color:#999999;">${desc3}</span><br />
+					      </td>
+					    </tr>
+					    <tr>
+					      <td style="word-break:break-all">
+					         <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info3}</small></span>
+					      </td>
+					    </tr>
+					  </table>
+					</div>
+			     </div>	
+			 	
+			    <div style="width:10px;">&nbsp;</div>
+			      
+			    <div class="span3 mxkplan mxkshadow" style="width: 220px;background:#ffffff;border-radius:3px 3px 3px 3px;filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);-moz-box-shadow: 2px 2px 10px #909090;-webkit-box-shadow: 2px 2px 10px #909090;box-shadow:2px 2px 10px #909090;">
+					<div class="thumbnail" style="display: block; padding: 4px;line-height: 20px;border: 1px solid #ddd;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;">
+					     <table style="width:210px">
+					    <tr>
+					      <td>
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id4}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image4}"></a>
+					      </td>
+					    </tr>
+					    <tr>
+					      <td style="word-break:break-all">
+					       <span style="font-family:Microsoft YaHei;color:#999999;">${desc4}</span><br />
+					      </td>
+					    </tr>
+					    <tr>
+					      <td style="word-break:break-all">
+					          <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info4}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -70,17 +126,17 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d2823f845d495004fe80a7_mini.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id5}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image5}"></a>
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
+					        <span><a style="font-family:Microsoft YaHei;color:#999999;">${desc5}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
+					         <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info5}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -94,73 +150,17 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51cc1e05845d2ac0f4cd97ca_mini.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id6}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image6}"></a>
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
+					       <span style="font-family:Microsoft YaHei;color:#999999;" >${desc6}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
-					      </td>
-					    </tr>
-					  </table>
-					</div>
-			     </div>	  
-         
-            </div>
-       </div>
-       
-       
-       
-       <div style="width:10px;float:left;">&nbsp;</div>
-       <div style="width:220px;float:left;">
-	     
-	         <div class="thumbnails" style="margin-left: -20px;list-style: none;*zoom: 1;">
-	         
-	             <div class="span3 mxkplan mxkshadow" style="width: 220px;background:#ffffff;border-radius:3px 3px 3px 3px;filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);-moz-box-shadow: 2px 2px 10px #909090;-webkit-box-shadow: 2px 2px 10px #909090;box-shadow:2px 2px 10px #909090;">
-					<div class="thumbnail" style="display: block; padding: 4px;line-height: 20px;border: 1px solid #ddd;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;">
-					     <table style="width:210px">
-					    <tr>
-					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d67889845d6077e0ac8e9e_full.png">
-					      </td>
-					    </tr>
-					    <tr>
-					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
-					      </td>
-					    </tr>
-					    <tr>
-					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
-					      </td>
-					    </tr>
-					  </table>
-					</div>
-			     </div>	
-			 	
-			    <div style="width:10px;">&nbsp;</div>
-			      
-			    <div class="span3 mxkplan mxkshadow" style="width: 220px;background:#ffffff;border-radius:3px 3px 3px 3px;filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);-moz-box-shadow: 2px 2px 10px #909090;-webkit-box-shadow: 2px 2px 10px #909090;box-shadow:2px 2px 10px #909090;">
-					<div class="thumbnail" style="display: block; padding: 4px;line-height: 20px;border: 1px solid #ddd;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;">
-					     <table style="width:210px">
-					    <tr>
-					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d67889845d6077e0ac8e9e_full.png">
-					      </td>
-					    </tr>
-					    <tr>
-					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
-					      </td>
-					    </tr>
-					    <tr>
-					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
+					         <span class="muted" style="font-family:Microsoft YaHei;color:#999999;"><small>${info6}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -181,17 +181,17 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d67889845d6077e0ac8e9e_full.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id7}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image7}"></a>
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
+					       <span style="color:#999999;font-family:Microsoft YaHei;">${desc7}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
+					         <span class="muted" style="color:#999999;font-family:Microsoft YaHei;"><small>${info7}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -205,17 +205,17 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <img style="width:100%;" src="http://192.168.2.127/mxk/image/51d67889845d6077e0ac8e9e_full.png">
+					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id8}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image8}"></a>
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					       <span><a href="#">wadad</a></span><br />
+					       <span  style="color:#999999;font-family:Microsoft YaHei;">${desc8}</span><br />
 					      </td>
 					    </tr>
 					    <tr>
 					      <td style="word-break:break-all">
-					         <span class="muted" style="color:#999999;"><small>afafawfwafawfawfawvaawavavavavawvavw</small></span>
+					        <span class="muted" style="color:#999999;font-family:Microsoft YaHei;"><small>${info7}</small></span>
 					      </td>
 					    </tr>
 					  </table>
@@ -229,5 +229,6 @@
        </td>
        </tr>
     </table>
+    <h3 style="font-family:Microsoft YaHei;">米兔 - 我看到我分享！</h3>
 </center>
   </div>

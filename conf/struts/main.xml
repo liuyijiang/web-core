@@ -9,7 +9,7 @@
         
          <action name="loginOutView" class="com.mxk.org.web.main.action.MxkMainAction"
             method="mxkLoginOutView">
-             <result name="success" >/WEB-INF/jsp/visitor/index.jsp</result>
+             <result name="success" >/WEB-INF/jsp/main/index.jsp</result>
          </action>
         
         <action name="testStyle" class="com.mxk.org.web.main.action.MxkMainAction" 
