@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.message.domain.MailPushMessage;
+import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkMailService;
 import com.mxk.org.web.main.domain.ChangePasswordRequest;
 import com.mxk.org.web.main.domain.RegisterCheckRequest;
@@ -23,6 +25,9 @@ public class MxkMainAction extends MxkSessionAction {
 	@Autowired
 	private MxkMailService mailService;
 	
+	@Autowired
+	private MxkMessageQueueService messageQueueService;
+	
 	private UserVO uservo;
 	private RegisterCheckRequest registerCheckRequest;
 	private String message;
@@ -31,6 +36,8 @@ public class MxkMainAction extends MxkSessionAction {
 	private String uuid;
 	
 	public String mxkTestStyle(){
+		//1 查询本周最后的8条 
+		//为每个用户发邮件
 		return SUCCESS;
 	}
 	

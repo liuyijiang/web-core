@@ -24,6 +24,14 @@ public class MxkPartService {
 	@Autowired
 	private MxkPartDao partDao;
 	
+	public void changePartsBackShadow(String id){
+		partDao.changePartsBackShadow(id);
+	}
+	
+	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime){
+		return partDao.findCollectHighPartsByTime(starttime, endtime);
+	}
+	
 	public List<CollectInformationEntity> findCollectInformationEntity(String tergetId){
 		return partDao.findCollectInformationEntity(tergetId);
 	}

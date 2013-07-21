@@ -87,6 +87,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 					partService.updatePartCommentsQuantity(
 							commentsAddRequest.getCommentedId(), "text", true);//����part��������comments audios
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
+					partService.changePartsBackShadow(commentsAddRequest.getCommentedId());
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
 					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);
@@ -130,6 +131,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 					partService.updatePartCommentsQuantity(
 							commentsAddRequest.getCommentedId(), "wav", true);//����part��������comments audios
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
+					partService.changePartsBackShadow(commentsAddRequest.getCommentedId());
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
 					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);

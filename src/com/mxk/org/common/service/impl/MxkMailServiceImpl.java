@@ -56,7 +56,7 @@ public class MxkMailServiceImpl implements MxkMailService {
 	       mailInfo.setFromAddress(hostmail);    
 	       mailInfo.setToAddress(toMail);    
 	       mailInfo.setSubject(title);    
-	       mailInfo.setContent("<a href='"+ context +"showChangePasswordView?usermail="+ toMail +"&uuid="+ uuid +"'>�޸���������3���������</a></br>");
+	       mailInfo.setContent("<a href='"+ context +"showChangePasswordView?usermail="+ toMail +"&uuid="+ uuid +"'>请在3内修改密码</a></br>");
 	       MxkSimpleMailSender m = new MxkSimpleMailSender();
 	       m.sendHtmlMail(mailInfo);
 	    }catch(Exception e){

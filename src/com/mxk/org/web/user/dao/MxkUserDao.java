@@ -35,6 +35,11 @@ public class MxkUserDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<UserEntity> findAllUsers(){
+		Query q = new Query();
+		return mog.find(q, UserEntity.class);
+	}
+	
 	public long findUserRssSubjectALlPage(String userid){
 		Query q = new Query(Criteria.where("userid").is(userid));
 		long count = mog.count(q, UserRssSubjectEntity.class);

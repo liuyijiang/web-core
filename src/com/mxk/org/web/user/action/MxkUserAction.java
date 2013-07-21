@@ -174,20 +174,38 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	public String mxkUserSeeMessageDetail(){
+	public String mxkRedictToSeeMessage(){
 		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
 		if(MessageEntity != null){
 			if(MxkConstant.PART.equals(MessageEntity.getType())){
 				target = MessageEntity.getTargetId();
 				messageService.removeMesage(MessageEntity.getId());
-				return MxkConstant.PART;
+				return SUCCESS;
 			}else{
 				target = MessageEntity.getTargetId();
 				messageService.removeMesage(MessageEntity.getId());
-				return MxkConstant.SUBJECT;
+				return "subject";
+			}
+		}else{
+			return ERROR;
+		}
+	}
+	
+	public String mxkUserSeeMessageDetail(){
+		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
+		String returnStr = "";
+		if(MessageEntity != null){
+			if(MxkConstant.PART.equals(MessageEntity.getType())){
+				target = MessageEntity.getTargetId();
+				messageService.removeMesage(MessageEntity.getId());
+				returnStr = "part";
+			}else{
+				target = MessageEntity.getTargetId();
+				messageService.removeMesage(MessageEntity.getId());
+				returnStr = "subject";
 			}
 		}
-		return ERROR;
+		return returnStr;
 	}
 	
 	
@@ -264,6 +282,7 @@ public class MxkUserAction extends MxkSessionAction {
 				en.setPin(PointUtil.randomPIN());
 				en.setTragetId(collectPartsRequest.getTargetId());
 				partService.saveCollectInformationEntity(en);
+				partService.changePartsBackShadow(collectPartsRequest.getTargetId());
 			}
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{

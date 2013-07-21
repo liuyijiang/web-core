@@ -57,4 +57,14 @@ public class MxkConstant {
 	public static final String MXK_EMPTY_SUBJECT = "#";
 	
 	public static final String MXK_PAET_SHADOW = "mxkshadow";
+	
+	public static final String MXK_PART_SHADOW_GOLDEN = "mxkshadowgolden";
+	
+	public static final String MXK_PART_SHADOW_GREEN = "mxkshadowgreen";
+	
+	public static final String MXK_PART_SHADOW_DEEPRED = "mxkshadowdeepred";
+	
+	public static final String MXK_PART_SHADOW_ORANGE = "mxkshadowdorange";
+	
+	
 }

@@ -35,6 +35,35 @@ public class MxkPartDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public void changePartsBackShadow(String id){
+		Query q = new Query(Criteria.where("id").is(id));
+		PartEntity pe = mog.findOne(q, PartEntity.class);
+		if(pe != null){
+			Update u = new Update();
+			int all = pe.getAudios()+pe.getCollect()+pe.getComments();
+			if(all >= 20 && all < 30 && !MxkConstant.MXK_PART_SHADOW_GREEN.equals(pe.getShadow())){
+				u.set("shadow", MxkConstant.MXK_PART_SHADOW_GREEN);
+				mog.updateMulti(q, u, PartEntity.class);
+			}else if(all >= 30 && all < 40 && !MxkConstant.MXK_PART_SHADOW_ORANGE.equals(pe.getShadow())){
+				u.set("shadow", MxkConstant.MXK_PART_SHADOW_ORANGE);
+				mog.updateMulti(q, u, PartEntity.class);
+			}else if(all >= 40 && all < 50 && !MxkConstant.MXK_PART_SHADOW_GOLDEN.equals(pe.getShadow())){
+				u.set("shadow", MxkConstant.MXK_PART_SHADOW_GOLDEN);
+				mog.updateMulti(q, u, PartEntity.class);
+			}else if(all >= 50 && !MxkConstant.MXK_PART_SHADOW_DEEPRED.equals(pe.getShadow())){
+				u.set("shadow", MxkConstant.MXK_PART_SHADOW_DEEPRED);
+				mog.updateMulti(q, u, PartEntity.class);
+			}
+		}
+	}
+	
+	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime){
+		Query q = new Query(Criteria.where("createTime").gte(starttime).lte(endtime));
+	    q.sort().on("collect", Order.DESCENDING);
+	    q.limit(8);
+	    return mog.find(q, PartEntity.class);
+	}
+	
 	public List<CollectInformationEntity> findCollectInformationEntity(String targetId){
 		Query q = new Query(Criteria.where("tragetId").is(targetId));
 		return mog.find(q, CollectInformationEntity.class);

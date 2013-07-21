@@ -47,6 +47,10 @@ public class MxkUserService {
 		return userDao.updateUserPassword(email, password);
 	}
 	
+	public List<UserEntity> findAllUsers(){
+		return userDao.findAllUsers();
+	}
+	
 	public SearchUserResponse findUserByName(String name,int page){
 		SearchUserResponse searchUserResponse = new SearchUserResponse();
 		List<UserEntity> list = userDao.findUserByName(name,page);
@@ -82,7 +86,7 @@ public class MxkUserService {
 		return userDao.removeUserCollect(collectPartsRequest);
 	}
 	
-	//±£´æuser²¢·µ»Ø id
+	//ï¿½ï¿½ï¿½ï¿½userï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ id
 	public UserVO saveUserEntity(UserRegisterRequest userRegisterRequest) {
 		UserEntity userEntity = EntityFactory.createUserEntity(userRegisterRequest);
 		UserVO vo = null;
@@ -100,7 +104,7 @@ public class MxkUserService {
 		return userDao.checkUser(userLoginRequest.getLoginName(), userLoginRequest.getLoginPass());
 	}
 	
-	//¸üÐÂÍ·Ïñ
+	//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	public boolean updateUserImage(String userid,String image,String minimage){
 		return userDao.updateUserImage(userid,image,minimage);
 	}
