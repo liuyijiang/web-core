@@ -131,26 +131,49 @@
   function createPartPlane(list,partthumnailid){
 	  show = '';
 	  for(var i in list){
-		  show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'>"+
-		  "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id  +"\")' onmouseout='mouseout(\""+ list[i].id  +"\")' >" +
-		  "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>" +
-		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='removeCollectPart(\""+ list[i].id  +"\")'>" +
-	      "<i class='icon-remove-circle'></i>移除</a>&nbsp;" +
-	      "<a class='btn btn-mini' href='" + path + "/visitorShowPartDetail?target="+ list[i].id +"'>" +
-	      "<i class='icon-comment'></i>评论</a></span>" + 	
-	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
-	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />" +  
-	      "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />" +
-	      "<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
-	      "</span><br /></div></li>";
+	  show = show + "<li class='span3 mxkplan "+ list[i].shadow +"'><div class='thumbnail'>"+
+	  "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
+	  "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>" +
+	  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='removeCollectPart(\""+ list[i].id +"\")'>" +
+	  "<i class='icon-remove-circle'></i>移除</a>&nbsp;" +
+	  "<a class='btn btn-mini' href='" + path + "/visitorShowPartDetail?target="+ list[i].id +"'>" +
+	  "<i class='icon-comment'></i>评论</a></span>" +
+	  "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+	  "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";
+		  if(list[i].subjectid != "#"){
+			  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
+		  }
+	  show = show + "<span class='label'>"+ list[i].type +"</span><span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
+	  "</span><br /></div></li>";
 	  }
 	  $("#"+partthumnailid).append(show);
-  }
+	  }
+  
+//   function createPartPlane(list,partthumnailid){
+// 	  show = '';
+// 	  for(var i in list){
+// 		  show = show + "<li class='span3 mxkplan "+ list[i].shadow +"'><div class='thumbnail'>"+
+// 		  "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id  +"\")' onmouseout='mouseout(\""+ list[i].id  +"\")' >" +
+// 		  "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>" +
+// 		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='removeCollectPart(\""+ list[i].id  +"\")'>" +
+// 	      "<i class='icon-remove-circle'></i>移除</a>&nbsp;" +
+// 	      "<a class='btn btn-mini' href='" + path + "/visitorShowPartDetail?target="+ list[i].id +"'>" +
+// 	      "<i class='icon-comment'></i>评论</a></span>" + 	
+// 	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+// 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";
+// 	      if(list[i].subjectid != "#"){
+// 	    	  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
+// 	      }
+// 	      show = show + "<span class='label'>"+ list[i].type +"</span><span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ num + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
+// 	      "</span><br /></div></li>";
+// 	  }
+// 	  $("#"+partthumnailid).append(show);
+//   }
   
   function showload(){ 
 	   var scrollh = document.documentElement.scrollHeight;
 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-	   if ( scrollt/scrollh > 0.2 ) {
+	   if ( scrollt/scrollh > 0.01 ) {
 		   if(!isrun){
 			  isrun = true;
 			  loadMore(); 
@@ -217,7 +240,7 @@
 			<div class="span3">
 				<ul class="thumbnails" id="partshow1">
 				    <c:forEach var="options" items="${partShowResponse.list1 }">
-					  <li class="span3 mxkplan mxkshadow">
+					  <li class="span3 mxkplan ${options.shadow }">
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
@@ -231,7 +254,10 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							<c:if test="${options.subname != '' }">
+							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							</c:if>
+							    <span class="label">${options.type }</span>
 							    <span class="pull-right muted">
 							        <small>
 								    <i class="icon-comment"></i>评论${options.comments }
@@ -248,7 +274,7 @@
 			<div class="span3">
 				<ul class="thumbnails" id="partshow2">
 					  <c:forEach var="options" items="${partShowResponse.list2 }">
-					  <li class="span3 mxkplan mxkshadow">
+					  <li class="span3 mxkplan ${options.shadow }">
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
@@ -262,7 +288,10 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							<c:if test="${options.subname != '' }">
+							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							</c:if>
+							   <span class="label">${options.type }</span>
 							    <span class="pull-right muted">
 							        <small>
 								    <i class="icon-comment"></i>评论${options.comments }
@@ -279,7 +308,7 @@
 			<div class="span3">
 				<ul class="thumbnails" id="partshow3">
 					  <c:forEach var="options" items="${partShowResponse.list3 }">
-					  <li class="span3 mxkplan mxkshadow">
+					  <li class="span3 mxkplan ${options.shadow }">
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
@@ -293,7 +322,10 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							<c:if test="${options.subname != '' }">
+							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							</c:if>
+							    <span class="label">${options.type }</span>
 							    <span class="pull-right muted">
 							        <small>
 								    <i class="icon-comment"></i>评论${options.comments }
@@ -310,7 +342,7 @@
 			<div class="span3">
 				<ul class="thumbnails" id="partshow4">
 					  <c:forEach var="options" items="${partShowResponse.list4 }">
-					  <li class="span3 mxkplan mxkshadow">
+					  <li class="span3 mxkplan ${options.shadow }">
 						<div class="thumbnail">
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
@@ -324,7 +356,10 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							<c:if test="${options.subname != '' }">
+							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							</c:if>
+							    <span class="label">${options.type }</span>
 							    <span class="pull-right muted">
 							        <small>
 								    <i class="icon-comment"></i>评论${options.comments }

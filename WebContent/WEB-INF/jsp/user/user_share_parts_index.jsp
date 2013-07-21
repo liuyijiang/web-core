@@ -71,7 +71,7 @@ function createPartPlane(list,partthumnailid){
 		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='deletePart(\""+ list[i].id  +"\")'>" +
 	      "<i class='icon-remove-sign'></i>删除&nbsp;</a><br /><span class='label label-info'>"+ list[i].createTime +"</span>" +
 	      "</span>" + 	
-	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+	      "<a href='"+ path +"/partDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />" +  
 	      "<span class='label'>"+ list[i].type +"</span><span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ num + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
 	      "</span><br /></div></li>";
@@ -180,7 +180,7 @@ function deletePart(partid){
 						            </a>
 						            <br /><span class="label label-info">${options.createTime }</span>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							    <span class="label">${options.type }</span>
@@ -209,7 +209,7 @@ function deletePart(partid){
 						            </a>
 						            <br /><span class="label label-info">${options.createTime }</span>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							    <span class="label">${options.type }</span>
@@ -238,7 +238,7 @@ function deletePart(partid){
 						            </a>
 						            <br /><span class="label label-info">${options.createTime }</span>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a href="<%=rootPath %>/partDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							    <span class="label">${options.type }</span>
@@ -267,7 +267,7 @@ function deletePart(partid){
 						            </a>
 						            <br /><span class="label label-info">${options.createTime }</span>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a href="<%=rootPath %>/partDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							    <span class="label">${options.type }</span>

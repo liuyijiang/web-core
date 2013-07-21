@@ -3,7 +3,7 @@
 <div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="brand" href="index"><strong>米兔</strong></a>
+				<a class="brand" href="index"><strong>米兔Metoo</strong></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 					   <li class="divider-vertical"></li>
@@ -48,7 +48,7 @@
 												     <li><a href="<%=rootPath %>/showNewRssMessage">我的关注</a></li>
 												     <li><a href="<%=rootPath %>/userCollectIndex">我的收藏</a></li>
 												     <li class="divider"></li>
-												     <li><a href="<%=rootPath %>/index.jsp"><i class="icon-book"></i>帮助</a></li>
+												     <li><a href="<%=rootPath %>/showHelp"><i class="icon-book"></i>帮助</a></li>
 												     <li><a href="<%=rootPath %>/userLoginOut"><i class="icon-signout"></i>退出</a></li>
 											    </ul>
 						                        </div>

@@ -47,7 +47,7 @@
 	       <c:if test="${options.type == 'subject'}">
 	                              专题
 	       </c:if>
-	       <a href="<%=rootPath %>/userSeeMessageDetail?target=${options.id}">去看看</a></span>
+	       <a href="<%=rootPath %>/redictToSeeMessage?target=${options.id}">去看看</a></span>
        </span>
        <br /><br />
      </c:forEach>

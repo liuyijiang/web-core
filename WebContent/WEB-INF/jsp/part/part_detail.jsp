@@ -185,6 +185,42 @@
 		</c:if>
 		<br/><br/>
      </div>
+     <c:if test="${partEntity.subjectid =='#'}">
+        <div class="span3">
+     	   <ul class="thumbnails">
+			 <li class="span3 mxkplan mxkshadow">
+			   <div class="thumbnail">
+			        <div style="position:relative;" onmouseover="mouseoveru()" onmouseout="mouseoutu()" >
+				         <span style="position:absolute; z-index:-1; opacity:0.8;" id="userfun">
+				           <a href="javascript:;" class="pull-right btn-inverse btn btn-mini" onclick="createUserRelation('${uservo.id}')" >加关注</a>
+				        </span>
+				        <a href="<%=rootPath%>/userSharePartsIndex">
+				          <img src="<%=imgurl %>${uservo.image }" />
+				        </a>  
+				    </div>
+				    <div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
+					<span><strong><a href="<%=rootPath%>/userSharePartsIndex">${uservo.name }</a></strong></span>
+	                    <c:if test="${uservo.sex == 1 }" >
+				           <img src="<%=assets%>mxkimage/male1.png">
+				        </c:if>
+				         <c:if test="${uservo.sex == 0 }" >
+				           <img src="<%=assets%>mxkimage/male2.png">
+				        </c:if>
+	                    </div>
+	                    <div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
+	                     <small>${uservo.info }</small>
+	                     </div>
+				         <span class="label">${uservo.interest }</span>
+				        <span >
+				         <a class="pull-right btn btn-success btn-mini" href="<%=rootPath%>/userIndex"><i class="icon-hdd"></i>专题数量${uservo.subject }</a>
+					    </span>
+					  <br /> 
+			   </div>
+             </li>
+           </ul>
+         </div>
+     </c:if>
+     <c:if test="${partEntity.subjectid !='#'}">
      <div class="span3">
      	<ul class="thumbnails">
 			  <li class="span3 mxkplan mxkshadow">
@@ -230,9 +266,31 @@
 		      </li>
 		</ul>
      </div>
+     </c:if>
   </div>
 </div>
 <br />
+<div id="addtextcommentdiv" class="container">
+  <div class="row">
+    <div class="span9 mxkplan mxkshadow " >
+         <div class="row" style="padding:5px;margin-bottom:5px;">
+          <div class="span1">
+            <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/> 
+            <span class="muted"><small>${uservo.name}</small></span>
+          </div>
+          <div class="span7">
+            <span>
+              <span class="muted">你的评论</span>
+              <span class="pull-right muted"><a href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}" ><i class="icon-microphone"></i>语音评论</a></span>
+             </span><br />
+            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
+            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button>
+          </div>
+         </div>
+    </div>
+   </div>
+   <br /> <br />
+</div>
 <!-- 编辑 -->
      <div id="editPartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
@@ -334,7 +392,33 @@
 		return false;
 	}
 	</script>	
-    
+     <script type="text/javascript">
+  replyuserid = '';
+  
+  function addTextComents(commentedId,commentedUserId,traget){
+	  var info = $("#commentstextarea").val();
+	  var datas = {"commentsAddRequest.replyUserId":replyuserid,"commentsAddRequest.commentedUserId":commentedUserId,"commentsAddRequest.commentedId":commentedId,"commentsAddRequest.info":info,"commentsAddRequest.target":traget,"commentsAddRequest.type":"text"};
+	  $.ajax({
+	   		url : path + "/addTextComments.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: datas,
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("评论成功！");
+	 			   replyuserid = '';
+	 			   window.location.href= path + "/partDetail?target="+ commentedId;
+			    }else if( item == 'error'){
+			   	   alert("网络异常请重试");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 }); 
+}
+ </script>
     
 <%@ include file="../../../footinclude.jsp"%>
 </body>

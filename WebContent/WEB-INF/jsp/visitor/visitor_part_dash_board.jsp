@@ -129,7 +129,7 @@
 	      "<i class='icon-comment'></i>评论</a></span>" + 	
 	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";  
-	      if(list[i].subname != ""){
+	      if(list[i].subjectid != "#"){
 	    	  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
 	      }
 	      show = show + "<span class='label'>"+ list[i].type +"</span><span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ num + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
