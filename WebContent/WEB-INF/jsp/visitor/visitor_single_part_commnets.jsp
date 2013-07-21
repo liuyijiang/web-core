@@ -8,153 +8,56 @@
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
+
+  function mouseover(){
+    $("partfun").css("z-index","1");
   }
   
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
+  function mouseout(){
+	$("partfun").css("z-index","-1");
   }
 
   var replyuserid = '';
   
-  function rsssubject(subjectid,subjectOwnerId){
-	  var datas = {"rssSubjectRequest.subjectid":subjectid,"rssSubjectRequest.subjectOwnerId":subjectOwnerId};
+  function collectPart(partid){
 	  $.ajax({
-	   		url : path + "/rsssubject.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: datas,
-	   		dataType : "json",
-	   		success : function(item) {
-	   		    if(item == 'success'){
-	 			   alert("订阅成功！");
-			    }else if( item == 'error'){
-			   	   alert("网络异常请重试");
-			    }else {
-			       alert(item);
-			    }
-	   		  }
-	 	 }); 
+   		url : path + "/createUserCollect.action",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		data: {"collectPartsRequest.targetId":partid},
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+ 			   alert("已将Part加入到你的收藏夹");
+ 			  var num = $("#coll").html();
+		    	 var number = parseInt(num);
+		    	 var sum = 1+ number;
+		    	 $("#coll").html(sum);
+		    }else if( item == 'error'){
+		   	   alert("网络异常请重试");
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+ 	 }); 
   }
   
-  
-</script>
-<script type="text/javascript">
-   
-
-   function filterComments(){
-	   
-   }
-   
-   
-//    function createCommnetsPlane(list,comdiv){
-// 	   var show = '';
-// 	   for (var i in list){
-		   
-// 		   "<li class='span3 mxkplan mxkshadow'><div style='padding:5px;margin-bottom:1px;'><table style='width:100%'><tr>" +
-// 		   "<td width='26%' rowspan='2'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
-// 		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-danger' href='javascript:;' onclick='createUserRelation('${options.userid}')'>" +
-// 	       "<i class='icon-remove-circle'></i>删除</a></span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>" +
-// 	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
-//            "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
-//            "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
-//            "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
-//            "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
-//            if (list[i].type == 'wav') {
-//         	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
-//         	 "<param name='movie' value='singlemp3player.swf?showDownload=false' />" +
-//         	 "<param name='wmode' value='transparent' />" +
-//         	 "<embed width='80' height='20' src='singlemp3player.swf?file="+ voice +list[i].info + "&showDownload=false' type='application/x-shockwave-flash' />" +
-//              "</object></div>";
-//            }else{
-//         	  show = show + "<span class='muted'><small>"+ list[i].info +"</small></span><br />";
-//            }
-//            show = show + "<span class='pull-right muted'><small><i class='icon-time'></i>"+ list[i].createTime +"</small></span><br /></div></li>";
-//        }
-//        $("#"+comdiv).append(show);
-//    }
-   
-   
-</script>
-<script type="text/javascript">
-// var allpage = '${loadCommentsRespone.allpage}';
-// var isrun = false;
-// var page = 2;
-// var subjectid = '${currentSubjectEntity.id}';
-
-//   function showload(){ 
-	 
-// 	   var scrollh = document.documentElement.scrollHeight;
-// 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-// 	   if ( scrollt/scrollh > 0.01 ) {
-		 
-// 		     if (!isrun) {
-// 		    	 isrun = true; 
-// 		    	 loadComments();  
-// 		     }
-// 	   }
-// 	} 
-
-// 	//绑定事件
-// 	function bindScroll(){
-// 	    $(window).bind("scroll", function(){
-// 	         showload();
-// 	    }); 
-// 	}
-
-	
-// 	function loadComments(){
-// 		 if(page <= allpage){
-// 			  var datas = {"loadCommentsRequest.targeid":subjectid,"loadCommentsRequest.page":page};
-// 			  $('#loaddiv').show();
-// 			  $.ajax({
-// 			   		url : path + "/loadMoreSubjectComments.action",
-// 			   		type : "POST",
-// 			   		cache : false,
-// 			   		async : false,
-// 			   		data: datas,
-// 			   		dataType : "json",
-// 			   		success : function(item) {
-// 			   			$('#loaddiv').hide();
-// 			 			page = page + 1;
-// 			 			var list1 = item.list1;
-// 						var list2 = item.list2;
-// 						var list3 = item.list3;
-// 						var list4 = item.list4;
-// 						if(list1 != null){
-// 							createCommnetsPlane(list1,"comments1");
-// 						}
-// 						if(list2 != null){
-// 							createCommnetsPlane(list2,"comments2");
-// 						}
-// 						if(list3 != null){
-// 							createCommnetsPlane(list3,"comments3");
-// 						}
-// 						if(list4 != null){
-// 							createCommnetsPlane(list4,"comments4");
-// 						}
-// 						isrun = false;
-// 			   		  }
-// 			 	 }); 
-// 		     } 
-// 	}
-	
 </script>
 <div class="container">
   <div class="row">
      <div class="span1">
-        <img class="img-polaroid border-radius" style="height:60px;width:60px" 
-        src="<%=imgurl %>${partEntity.minimage }" >
+        <img class="img-polaroid border-radius" 
+         src="<%=imgurl %>${targetUserVO.image }" >
      </div>
      <div class="span11">
-        <span style="font-size:20px;">
-           <strong>From:<span>
-             <a href="<%=rootPath%>/userIndex">${uservo.name }</a>
-           </span>/<span>
-           ${partEntity.subname }</span></strong><span class="muted"><small>(<i class="icon-tags"></i>${currentSubjectEntity.tags }-${currentSubjectEntity.category})</small></span>
-           </span>
+       <span style="font-size: 20px;"><strong>From:&nbsp;<a href="<%=rootPath%>/vistiorShowUserIndex?target=${targetUserVO.id}">${targetUserVO.name }</a></strong></span>
+        <c:if test="${targetUserVO.sex == 1 }" >
+           <img src="<%=assets%>mxkimage/male1.png">
+        </c:if>
+         <c:if test="${targetUserVO.sex == 0 }" >
+           <img src="<%=assets%>mxkimage/male2.png">
+        </c:if>
         <span class="pull-right">
             <a href="visitorShowPartDetail?target=${partEntity.id }" class="btn">
                <i class="icon-list"></i>Parts详情
@@ -163,7 +66,7 @@
               <i class="icon-comment-alt"></i>发布评论
             </a>
          </span><br />
-        <span>${partEntity.desc }</span><br />
+        <span>${targetUserVO.info }</span><br />
         <span><i class="icon-time"></i>Create Time:${partEntity.createTime }</span>
         <span class="pull-right">
           <span class="label label-success"><i class="icon-microphone"></i>语音${partEntity.audios}</span>
@@ -177,24 +80,37 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 			  <span>
-	            <a class="btn" href="javascript:;" onclick="showShareSubject()">
-	              <i class="icon-globe"></i>分享
-	            </a>
+	             <div class="btn-group">
+                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
+                        <i class="icon-globe"></i>分享
+                      <span class="caret"></span>
+				    </a>
+				     <ul class="dropdown-menu">
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
+		               </ul>
+				    </div>
+				    <a class="btn" href="<%=rootPath%>/visitorShowPartsCollecter?target=${partEntity.id}">
+		               <i class="icon-pushpin"></i>收藏次数<span id="coll">${partEntity.collect }</span>
+		            </a>
               </span>
              <span class="pull-right">
-	            <a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id }">
+	            <a class="btn" href="<%=rootPath %>/visitorShowSinglePartsComments?target=${partEntity.id }">
 	              <i class="icon-refresh"></i>刷新
 	            </a>
-<!-- 	            <div class="btn-group"> -->
-<!-- 			        <button class="btn">评论过滤</button> -->
-<!-- 				    <button class="btn dropdown-toggle" data-toggle="dropdown"> -->
-<!-- 				    <span class="caret"></span> -->
-<!-- 		            </button> -->
-<!-- 				    <ul class="dropdown-menu"> -->
-<!-- 				       <li><a href="javascript:;" onclick=""><i class="icon-comment-alt"></i>文本评论</a></li> -->
-<!-- 					   <li><a href="javascript:;" onclick=""><i class="icon-microphone"></i>语音评论</a></li> -->
-<!-- 	               </ul> -->
-<!--                </div> -->
              </span>
 		</div>
 	</div>
@@ -205,54 +121,44 @@
        <div class="span4">
           <ul class="thumbnails">
 			  <li class="span4 mxkplan mxkshadow">
-			   <div class='thumbnail'>
-	            <c:if test="${empty subjectNewPartsVO }">
-				   <a href="<%=rootPath %>/showSubjectDetailView"><img src="<%=imgurl %>/${currentSubjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
-			     </c:if>
-				<c:if test="${!empty subjectNewPartsVO }">
-					<table style="width:100%">
-	                <tr>
-	                  <td rowspan="2" colspan="2">
-	                  <a href="<%=rootPath %>/showSubjectDetailView">
-	                    <img src="<%=imgurl %>/${currentSubjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:205px;height:195px;">  <!-- style="width: 100%;" -->
-	                  </a>
-	                  </td>
-	                  <td>
-	                  <a href="<%=rootPath %>/partDetail?target=${subjectNewPartsVO.partId1}">
-	                  <img src="<%=imgurl %>/${subjectNewPartsVO.partImage1}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;">
-	                  </a>
-	                  </td>
-	                </tr>
-	                <tr>
-	                  <td>
-	                  <a href="<%=rootPath %>/partDetail?target=${subjectNewPartsVO.partId2}">
-	                  <img src="<%=imgurl %>/${subjectNewPartsVO.partImage2}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:95px;">
-	                  </a>
-	                  </td>
-	                </tr>
-	                <tr>
-	                  <td><a href="<%=rootPath %>/partDetail?target=${subjectNewPartsVO.partId3}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage3}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></a></td>
-	                  <td><a href="<%=rootPath %>/partDetail?target=${subjectNewPartsVO.partId4}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage4}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:100px;height:90px;"></a></td>
-	                  <td><a href="<%=rootPath %>/partDetail?target=${subjectNewPartsVO.partId5}"><img src="<%=imgurl %>/${subjectNewPartsVO.partImage5}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:80px;height:90px;"></a></td>
-	                </tr>
-			      </table>
-				</c:if>
-				<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
-					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${currentSubjectEntity.name }</a></strong></span>
-                    &nbsp;&nbsp;<small class="muted"><span class="label">${currentSubjectEntity.category }</span></small><br />
-                 </div>
+			  <div class='thumbnail'>
+				 <img src="<%=imgurl %>${partEntity.image }" />
                  <span><small>${partEntity.desc }</small></span><br />
-				<span class="pull-right">
-					<a class="btn" href="<%=rootPath %>/showSubjectDetailView"><i class="icon-hdd"></i>专题详情</a>
-				</span>
-				<br/><br/>
-				  </div>
+							    <span class="label">${partEntity.type }</span>
+							    <a class="btn btn-danger btn-mini" href="javascript:;" onclick="collectPart('${partEntity.id}')">
+		                           <i class="icon-pushpin"></i>收藏
+		                        </a>
+							    <span class="pull-right muted">
+							        <small>
+								    <i class="icon-comment"></i>评论${partEntity.comments + partEntity.audios  }
+								    <i class="icon-pushpin"></i>收藏<span id="coll">${partEntity.collect }</span>
+								    </small>
+							    </span>
+				<br/>
+				</div>
 			  </li>
 		   </ul>
        </div>
        
        <!-- 评论 -->
        <div class="span8 mxkplan mxkshadow">
+         
+         
+         <div class="row" style="padding:5px;margin-bottom:5px;">
+          <div class="span1">
+            <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/> 
+            <span class="muted"><small>${uservo.name}</small></span>
+          </div>
+          <div class="span6">
+            <span>
+              <span class="muted">你的评论</span>
+              <span class="pull-right muted"><a href="javascript:;" onclick="closeTextCommentsPop();createVoiceCommentsPop();"><i class="icon-microphone"></i>语音评论</a></span>
+             </span><br />
+            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
+            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button>
+          </div>
+         </div>
+         <hr />
          
          <c:forEach var="options" items="${loadCommentsRespone.listAll }">
 		  
@@ -262,8 +168,8 @@
 	          </div>
 	           <div class='span6'>
 	             <span>
-	             <a href='<%=imgurl %>/vistiorShowUserIndex?target=${options.userid}'>${options.username }</a>&nbsp;${options.reply }
-	              <c:if test="${options.reply =='回复' }">
+	             <a href='<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}'>${options.username }</a>&nbsp;${options.reply }
+	             <c:if test="${options.reply =='回复' }">
 		               <span>
 		               <img style="width:20px" src='<%=imgurl%>${options.replyUserImage}'/>
 		                <a href='<%=rootPath %>/vistiorShowUserIndex?target=${options.replyUserId}'>${options.replyUserName }</a>
@@ -379,6 +285,7 @@ function addTextComents(commentedId,commentedUserId,traget){
 	   		success : function(item) {
 	   		    if(item == 'success'){
 	 			   alert("评论成功！");
+	 			  window.location.href= path + "/visitorShowSinglePartsComments?target="+ commentedId;
 			    }else if( item == 'error'){
 			   	   alert("网络异常请重试");
 			    }else {

@@ -29,11 +29,12 @@
 									       <span class="caret"></span>
 					                    </button>
 									    <ul class="dropdown-menu">
+									         <li><a href="<%=rootPath%>/userSharePartsIndex">我的分享</a></li>
 									         <li><a href="<%=rootPath %>/userIndex">我的专题</a></li>
 										     <li><a href="<%=rootPath %>/showNewRssMessage">我的关注</a></li>
 										     <li><a href="<%=rootPath %>/userCollectIndex">我的收藏</a></li>
 										     <li class="divider"></li>
-										     <li><a href="#"><i class="icon-book"></i>帮助</a></li>
+				  						     <li><a href="<%=rootPath %>/index.jsp"><i class="icon-book"></i>帮助</a></li>
 										     <li><a href="<%=rootPath %>/userLoginOut"><i class="icon-signout"></i>退出</a></li>
 									    </ul>
 					                  </div>

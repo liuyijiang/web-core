@@ -16,194 +16,20 @@
   function mouseout(id){
 	$("#"+id).css("z-index","-1");
   }
-  
 </script>
-<div class="container ">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<ul class="nav" >
-				    <li>
-					<a href="<%=rootPath%>/userSharePartsIndex">&nbsp;<i class="icon-rss-sign"></i>我的分享</a>
-					</li>
-					<li>
-					<a href="<%=rootPath%>/userIndex">&nbsp;<i class="icon-hdd"></i>我的专辑&nbsp;</a>
-					</li>
-					<li class="divider-vertical"></li>
-					<li class="active">
-					<a href="#">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
-					</li>
-					<li class="divider-vertical"></li>
-					<li>
-					<a href="<%=rootPath%>/userCollectIndex">&nbsp;<i class="icon-pushpin"></i>我的收藏&nbsp;</a>
-					</li>
-					<li class="divider-vertical"></li>
-				</ul>
-				<span class="pull-right">
-				    <div class="btn-group" >
-					  <a href="<%=rootPath %>/showUserRssSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>我的订阅${uservo.rsssubject }</a>
-					  <a href="<%=rootPath %>/showUserJoinSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-external-link"></i>我参与的${uservo.joinsubject }</a>
-			          <a href="<%=rootPath%>/userOnMessage" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-envelope-alt"></i>我的消息${uservo.message }</a>
-	                </div>
-                </span>
-			</div>
-		</div>
-	</div>
-<c:if test="${empty partShowResponse }">
-   <div class="container">
-	  <div class="alert alert-block">
-	     <a class="close" data-dismiss="alert">×</a>
-	     <h4 class="alert-heading">你还没有关注什么新鲜事</h4>
-	                            现在就去关注好友订阅专题吧
-	   </div>
-  </div>
-</c:if>
-<c:if test="${!empty partShowResponse }">
- <div class="container">
-	      <div class="row">
-	      
-			<div class="span3">
-				<ul class="thumbnails" id="partshow1">
-				    <c:forEach var="options" items="${partShowResponse.list1 }">
-					  <li class="span3 mxkplan mxkshadow">
-						<div class="thumbnail">
-						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
-						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="collectPart('${options.id}')">
-						               <i class="icon-pushpin"></i>收藏
-						            </a>
-                                    <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
-                                       <i class="icon-comment"></i>评论
-                                    </a>
-						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
-						   </div>
-							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
-							    <span class="pull-right muted">
-							        <small>
-								    <i class="icon-comment"></i>评论${options.comments }
-								    <i class="icon-pushpin"></i>收藏${options.collect }
-								    </small>
-							    </span>
-						    <br />
-						</div>
-				      </li>
-				    </c:forEach>
-				</ul>
-			</div> 
-			
-			<div class="span3">
-				<ul class="thumbnails" id="partshow2">
-					  <c:forEach var="options" items="${partShowResponse.list2 }">
-					  <li class="span3 mxkplan mxkshadow">
-						<div class="thumbnail">
-						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
-						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="collectPart('${options.id}')">
-						               <i class="icon-pushpin"></i>收藏
-						            </a>
-                                    <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
-                                       <i class="icon-comment"></i>评论
-                                    </a>
-						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
-						   </div>
-							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
-							    <span class="pull-right muted">
-							       <small>
-								    <i class="icon-comment"></i>评论${options.comments }
-								    <i class="icon-pushpin"></i>收藏${options.collect }
-								    </small>
-							    </span>
-						    <br />
-						</div>
-				      </li>
-				    </c:forEach>
-				</ul>
-			</div> 
-			
-			<div class="span3">
-				<ul class="thumbnails" id="partshow3">
-					  <c:forEach var="options" items="${partShowResponse.list3 }">
-					  <li class="span3 mxkplan mxkshadow">
-						<div class="thumbnail">
-						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
-						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						           <a class="btn btn-mini btn-danger" href="javascript:;" onclick="collectPart('${options.id}')">
-						               <i class="icon-pushpin"></i>收藏
-						            </a>
-                                    <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
-                                       <i class="icon-comment"></i>评论
-                                    </a>
-						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
-						   </div>
-							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
-							    <span class="pull-right muted">
-							        <small>
-									    <i class="icon-comment"></i>评论${options.comments }
-									    <i class="icon-pushpin"></i>收藏${options.collect }
-								    </small>
-							    </span>
-						   <br />
-						</div>
-				      </li>
-				    </c:forEach>
-				</ul>
-			</div> 
-			
-			<div class="span3">
-				<ul class="thumbnails" id="partshow4">
-					  <c:forEach var="options" items="${partShowResponse.list4 }">
-					  <li class="span3 mxkplan mxkshadow">
-						<div class="thumbnail">
-						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
-						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
-						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="collectPart('${options.id}')">
-						               <i class="icon-pushpin"></i>收藏
-						            </a>
-                                   <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
-                                       <i class="icon-comment"></i>评论
-                                    </a>
-						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
-						   </div>
-							<span class="muted"><small>${options.desc }</small></span><br />
-							<span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
-							    <span class="pull-right muted">
-							        <small>
-									    <i class="icon-comment"></i>评论${options.comments }
-									    <i class="icon-pushpin"></i>收藏${options.collect }
-								    </small>
-							    </span>
-						    <br />
-						</div>
-				      </li>
-				    </c:forEach>
-				</ul>
-			</div> 
-			
-         </div>
-          <div id="loaddiv" class="mxkdivmid" style="display:none" >
-             <img src="<%=domain %>loadingred.gif" >
-             <span class="muted"><small>正在努力加载...</small></span>
-          </div>
-     </div>
- </c:if>    
 <script type="text/javascript">
-   var page = 2;
-   var isrun = false;
-   var userid= '${uservo.id}';
-   var allpage = '${partShowResponse.allPage}';
-   
-   function loadMore(){
-		  if(page <= allpage){
-	   	  var datas = {"searchPartRequest.page":page,"searchPartRequest.userid":userid};
-	      $('#loaddiv').show();
+
+var allpage = '${partShowResponse.allPage}'; //当加载页数超过总页数后不加载
+var page = 2;
+var isrun = false;
+var userid = "${uservo.id}";
+var subjectid = "#";
+function loadMore(){
+	  if(page <= allpage){
+		  var datas = {"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid,"searchPartRequest.page":page};
+		  $('#loaddiv').show();
 		  $.ajax({
-		   		url : path + "/loadMoreNewRssMessage.action",
+		   		url : path + "/loadMoreUserShareSingleParts.action",
 		   		type : "POST",
 		   		cache : false,
 		   		async : false,
@@ -231,47 +57,240 @@
 					isrun = false;
 		   		 }
 		 	 }); 
-	      }
-	   }
-   
-   function createPartPlane(list,planeid){
+	  }
+	 
+}
+
+function createPartPlane(list,partthumnailid){
 	  show = '';
 	  for(var i in list){
+		  var num = list[i].comments + list[i].audios;
 		  show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'>"+
 		  "<div style='position:relative;' onmouseover='mouseover(\""+ list[i].id  +"\")' onmouseout='mouseout(\""+ list[i].id  +"\")' >" +
 		  "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>" +
-		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='collectPart(\""+ list[i].id  +"\")'>" +
-	      "<i class='icon-pushpin'></i>收藏 </a>&nbsp;" +
-	      "<a class='btn btn-mini' href='" + path + "/visitorShowPartDetail?target="+ list[i].id +"'>" +
-	      "<i class='icon-comment'></i>评论</a></span>" + 	
+		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='deletePart(\""+ list[i].id  +"\")'>" +
+	      "<i class='icon-remove-sign'></i>删除&nbsp;</a><br /><span class='label label-info'>"+ list[i].createTime +"</span>" +
+	      "</span>" + 	
 	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />" +  
-	      "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />" +
-	      "<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
+	      "<span class='label'>"+ list[i].type +"</span><span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ num + "<i class='icon-pushpin'></i>收藏"+ list[i].collect +"</small>" +
 	      "</span><br /></div></li>";
 	  }
-	  $("#"+planeid).append(show);
-   }
-   
-   function showload(){ 
- 	   var scrollh = document.documentElement.scrollHeight;
- 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
- 	   if ( scrollt/scrollh > 0.2 ) {
- 		     if(!isrun){
- 		    	isrun = true; 
- 		    	loadMore();  
- 		  }
- 	   }
- 	} 
-   
- 	//绑定事件
- 	function bindScroll(){
- 	    $(window).bind("scroll", function(){ 
- 	       showload();
- 	    }); 
- 	}
-   
+	  $("#"+partthumnailid).append(show);
+}
+
+
+    function showload(){ 
+	   var scrollh = document.documentElement.scrollHeight;
+	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+	   if ( scrollt/scrollh > 0.01) {
+		     if(!isrun){
+		    	 isrun = true; 
+		    	 loadMore();  
+		     }
+	   }
+	} 
+
+	//绑定事件
+	function bindScroll(){
+	    $(window).bind("scroll", function(){ 
+	       showload();
+	    }); 
+	}
+
 </script>
+<script type="text/javascript">
+
+function deletePart(partid){
+	 if(!confirm("确定要删除吗？")){
+			return;  //deleteProject
+	 }else{
+		    var datas = {"target":partid};
+		     $.ajax({
+			url : path + "/deletePart.action",
+			type : "POST",
+			cache : false,
+			async : false,
+			data: datas,
+			dataType : "json",
+			success : function(item) {
+				if(item == 'success'){
+				   window.location.href= path + "/userSharePartsIndex";
+			   }else{
+				   alert("操作失败");
+			   }
+		  }
+      });
+	}	     
+ }
+ 
+</script>
+<div class="container ">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<ul class="nav" >
+				    <li class="active">
+					<a href="#">&nbsp;<i class="icon-rss-sign"></i>我的分享</a>
+					</li>
+					<li>
+					<a href="<%=rootPath%>/userIndex">&nbsp;<i class="icon-hdd"></i>我的专辑&nbsp;</a>
+					</li>
+					<li class="divider-vertical"></li>
+					<li>
+					<a href="<%=rootPath%>/showNewRssMessage">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
+					</li>
+					<li class="divider-vertical"></li>
+					<li>
+					<a href="<%=rootPath%>/userCollectIndex">&nbsp;<i class="icon-pushpin"></i>我的收藏&nbsp;</a>
+					</li>
+					<li class="divider-vertical"></li>
+				</ul>
+				<span class="pull-right">
+				    <div class="btn-group" >
+					  <a href="<%=rootPath %>/showUserRssSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>我的订阅${uservo.rsssubject }</a>
+					  <a href="<%=rootPath %>/showUserJoinSubject" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-external-link"></i>我参与的${uservo.joinsubject }</a>
+			          <a href="<%=rootPath%>/userOnMessage" class="btn" style="font-family:Microsoft YaHei;"><i class="icon-envelope-alt"></i>我的消息${uservo.message }</a>
+	                </div>
+                </span>
+			</div>
+		</div>
+	</div>
+ <div class="container">
+   <c:if test="${empty partShowResponse }">
+	  <div class="alert alert-block">
+	     <a class="close" data-dismiss="alert">×</a>
+	     <h4 class="alert-heading">你还没有分享Part!</h4>
+	                            现在就去创建分享一些好东西吧
+	  </div>
+    </c:if>
+ </div>
+ <c:if test="${!empty partShowResponse }">
+ <div class="container">
+	      <div class="row">
+	      
+			<div class="span3">
+				<ul class="thumbnails" id="partshow1">
+				    <c:forEach var="options" items="${partShowResponse.list1 }">
+					  <li class="span3 mxkplan mxkshadow">
+						<div class="thumbnail">
+						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
+						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
+						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="deletePart('${options.id}')">
+						               <i class="icon-remove-sign"></i>删除
+						            </a>
+						            <br /><span class="label label-info">${options.createTime }</span>
+						       </span>
+						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						   </div>
+							<span class="muted"><small>${options.desc }</small></span><br />
+							    <span class="label">${options.type }</span>
+							    <span class="pull-right muted">
+							        <small>
+								    <i class="icon-comment"></i>评论${options.comments + options.audios  }
+								    <i class="icon-pushpin"></i>收藏${options.collect }
+								    </small>
+							    </span>
+						    <br />
+						</div>
+				      </li>
+				    </c:forEach>
+				</ul>
+			</div> 
+			
+			<div class="span3">
+				<ul class="thumbnails" id="partshow2">
+					  <c:forEach var="options" items="${partShowResponse.list2 }">
+					  <li class="span3 mxkplan mxkshadow">
+						<div class="thumbnail">
+						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
+						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
+						             <a class="btn btn-mini btn-danger" href="javascript:;" onclick="deletePart('${options.id}')">
+						               <i class="icon-remove-sign"></i>删除
+						            </a>
+						            <br /><span class="label label-info">${options.createTime }</span>
+						       </span>
+						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						   </div>
+							<span class="muted"><small>${options.desc }</small></span><br />
+							    <span class="label">${options.type }</span>
+							    <span class="pull-right muted">
+							       <small>
+								    <i class="icon-comment"></i>评论${options.comments + options.audios  }
+								    <i class="icon-pushpin"></i>收藏${options.collect }
+								    </small>
+							    </span>
+						    <br />
+						</div>
+				      </li>
+				    </c:forEach>
+				</ul>
+			</div> 
+			
+			<div class="span3">
+				<ul class="thumbnails" id="partshow3">
+					  <c:forEach var="options" items="${partShowResponse.list3 }">
+					  <li class="span3 mxkplan mxkshadow">
+						<div class="thumbnail">
+						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
+						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
+						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="deletePart('${options.id}')">
+						               <i class="icon-remove-sign"></i>删除
+						            </a>
+						            <br /><span class="label label-info">${options.createTime }</span>
+						       </span>
+						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						   </div>
+							<span class="muted"><small>${options.desc }</small></span><br />
+							    <span class="label">${options.type }</span>
+							    <span class="pull-right muted">
+							        <small>
+									    <i class="icon-comment"></i>评论${options.comments + options.audios  }
+									    <i class="icon-pushpin"></i>收藏${options.collect }
+								    </small>
+							    </span>
+						   <br />
+						</div>
+				      </li>
+				    </c:forEach>
+				</ul>
+			</div> 
+			
+			<div class="span3">
+				<ul class="thumbnails" id="partshow4">
+					  <c:forEach var="options" items="${partShowResponse.list4 }">
+					  <li class="span3 mxkplan mxkshadow">
+						<div class="thumbnail">
+						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
+						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
+						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="deletePart('${options.id}')">
+						               <i class="icon-remove-sign"></i>删除
+						            </a>
+						            <br /><span class="label label-info">${options.createTime }</span>
+						       </span>
+						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
+						   </div>
+							<span class="muted"><small>${options.desc }</small></span><br />
+							    <span class="label">${options.type }</span>
+							    <span class="pull-right muted">
+							        <small>
+									    <i class="icon-comment"></i>评论${options.comments + options.audios  }
+									    <i class="icon-pushpin"></i>收藏${options.collect }
+								    </small>
+							    </span>
+						    <br />
+						</div>
+				      </li>
+				    </c:forEach>
+				</ul>
+			</div> 
+			
+         </div>
+          <div id="loaddiv" class="mxkdivmid" style="display:none" >
+             <img src="<%=domain %>loadingred.gif" >
+             <span class="muted"><small>正在努力加载...</small></span>
+          </div>
+     </div>
+ </c:if> 
 <%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

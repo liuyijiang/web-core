@@ -49,8 +49,8 @@
      </div>
      <div class="span11">
         <span style="font-size:20px;">
-           <strong>From:<span>
-             <a href="<%=rootPath%>/userIndex">${uservo.name }</a>
+           <strong>From:&nbsp;<span>
+             <a href="<%=rootPath%>/vistiorShowUserIndex?target=${targetUserVO.id}">${targetUserVO.name }</a>
            </span>/<span>
            ${partEntity.subname }</span></strong><span class="muted"><small>(<i class="icon-tags"></i>${subjectEntity.tags }-${subjectEntity.category})</small></span>
            </span>
@@ -76,10 +76,35 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 			  <span>
-	            <a class="btn" href="javascript:;" onclick="showShareSubject()">
-	              <i class="icon-globe"></i>分享
-	            </a>
+	             <div class="btn-group">
+                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
+                        <i class="icon-globe"></i>分享
+                      <span class="caret"></span>
+				    </a>
+				     <ul class="dropdown-menu">
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetail?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
+		               </ul>
+				    </div>
+	            
+	            <a class="btn" href="<%=rootPath%>/visitorShowPartsCollecter?target=${partEntity.id}">
+		               <i class="icon-pushpin"></i>收藏次数<span id="coll">${partEntity.collect }</span>
+		            </a>
               </span>
+              
              <span class="pull-right">
 	            <a class="btn" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id }">
 	              <i class="icon-refresh"></i>刷新
@@ -144,6 +169,22 @@
        <!-- 评论 -->
        <div class="span8 mxkplan mxkshadow">
          
+         <div class="row" style="padding:5px;margin-bottom:5px;">
+          <div class="span1">
+            <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/> 
+            <span class="muted"><small>${uservo.name}</small></span>
+          </div>
+          <div class="span6">
+            <span>
+              <span class="muted">你的评论</span>
+              <span class="pull-right muted"><a href="javascript:;" onclick="closeTextCommentsPop();createVoiceCommentsPop();"><i class="icon-microphone"></i>语音评论</a></span>
+             </span><br />
+            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
+            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button>
+          </div>
+         </div>
+         <hr />
+         
          <c:forEach var="options" items="${loadCommentsRespone.listAll }">
 		  
 		   <div class='row' style='padding:5px;margin-bottom:5px;'>
@@ -152,7 +193,13 @@
 	          </div>
 	           <div class='span6'>
 	             <span>
-	             <a href='<%=imgurl %>/vistiorShowUserIndex?target=${options.userid}'>${options.username }</a>&nbsp;${options.reply }
+	             <a href='<%=rootPath %>/vistiorShowUserIndex?target=${options.userid}'>${options.username }</a>&nbsp;${options.reply }
+	              <c:if test="${options.reply =='回复' }">
+		               <span>
+		               <img style="width:20px" src='<%=imgurl%>${options.replyUserImage}'/>
+		                <a href='<%=rootPath %>/vistiorShowUserIndex?target=${options.replyUserId}'>${options.replyUserName }</a>
+		               </span>
+		             </c:if>
 	             </span>
 	             <span class="pull-right">
 	               <a href='javascript:;' onclick="relaycomments('${options.userid }')" >回复</a>

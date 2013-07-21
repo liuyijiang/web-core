@@ -43,14 +43,14 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<ul class="nav" >
+				    <li>
+					<a href="<%=rootPath%>/visitorSeeUserShareSingleParts?target=${targetUserVO.id}">&nbsp;<i class="icon-rss-sign"></i>我的分享</a>
+					</li>
+					<li class="divider-vertical"></li>
 					<li class="active">
 					<a href="#">&nbsp;<i class="icon-hdd"></i>他的专辑&nbsp;</a>
 					</li>
 					<li class="divider-vertical"></li>
-<!-- 					<li> -->
-<%-- 					<a href="<%=rootPath%>/userCollectIndex">&nbsp;<i class="icon-pushpin"></i>他的收藏&nbsp;</a> --%>
-<!-- 					</li> -->
-<!-- 					<li class="divider-vertical"></li> -->
 				</ul>
 			</div>
 		</div>

@@ -47,12 +47,45 @@ filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,stre
 -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
 box-shadow:2px 2px 10px #909090;/*opera或ie9*/
 }
+
 .mxkshadow{
 border-radius:3px 3px 3px 3px;
-filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*ie*/
--moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
--webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
-box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#393939,direction=120,strength=4);/*ie*/
+-moz-box-shadow: 2px 2px 10px #393939;/*firefox*/
+-webkit-box-shadow: 2px 2px 10px #393939;/*safari或chrome*/
+box-shadow:2px 2px 10px #393939;/*opera或ie9*/
+}
+
+.mxkshadowgolden{
+border-radius:3px 3px 3px 3px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#FFD700,direction=120,strength=4);/*ie*/
+-moz-box-shadow: 2px 2px 10px #FFD700;/*firefox*/
+-webkit-box-shadow: 2px 2px 10px #FFD700;/*safari或chrome*/
+box-shadow:2px 2px 10px #FFD700;/*opera或ie9*/
+}
+
+.mxkshadowgreen{
+border-radius:3px 3px 3px 3px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#339900,direction=120,strength=4);/*ie*/
+-moz-box-shadow: 2px 2px 10px #339900;/*firefox*/
+-webkit-box-shadow: 2px 2px 10px #339900;/*safari或chrome*/
+box-shadow:2px 2px 10px #339900;/*opera或ie9*/
+}
+
+.mxkshadowdeepred{
+border-radius:3px 3px 3px 3px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#FF33FF,direction=120,strength=4);/*ie*/
+-moz-box-shadow: 2px 2px 10px #FF33FF;/*firefox*/
+-webkit-box-shadow: 2px 2px 10px #FF33FF;/*safari或chrome*/
+box-shadow:2px 2px 10px #FF33FF;/*opera或ie9*/
+}
+
+.mxkshadowdorange{
+border-radius:3px 3px 3px 3px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#FF6600,direction=120,strength=4);/*ie*/
+-moz-box-shadow: 2px 2px 10px #FF6600;/*firefox*/
+-webkit-box-shadow: 2px 2px 10px #FF6600;/*safari或chrome*/
+box-shadow:2px 2px 10px #FF6600;/*opera或ie9*/
 }
 
 .form-signin .form-signin-heading,.form-signin .checkbox {

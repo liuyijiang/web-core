@@ -544,7 +544,7 @@ function deleteSubject(id){
      <div id="gifSubjectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
 	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	       <h3>gif</h3>
+	       <h3>GIF动态图</h3>
         </div>
         <div class="modal-body">
            <img class="img-polaroid border-radius" src="<%=imgurl%>/${subjectExtraEntity.gifUrl}">
@@ -802,7 +802,7 @@ function deleteSubject(id){
 					data:datas,
 					success: function (data, status)
 					{  
-						if(data.message="success"){
+						if(data.message == "success"){
 							$("#loading").hide();
 							closeCreatePart();
 			    		    window.location.href= path + "/showSubjectDetailView";

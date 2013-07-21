@@ -10,6 +10,8 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
+
+<c:if test="${!empty subjectEntity }">
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -57,6 +59,40 @@
   </div>
 </div>
 <br />
+</c:if>
+
+
+<c:if test="${empty subjectEntity }">
+<div class="container">
+  <div class="row">
+     <div class="span1">
+        <img class="img-polaroid border-radius" 
+         src="<%=imgurl %>${targetUserVO.image }" >
+     </div>
+     <div class="span11">
+       <span style="font-size: 20px;"><strong>From:&nbsp;<a href="<%=rootPath%>/vistiorShowUserIndex?target=${targetUserVO.id}">${targetUserVO.name }</a></strong></span>
+        <c:if test="${targetUserVO.sex == 1 }" >
+           <img src="<%=assets%>mxkimage/male1.png">
+        </c:if>
+         <c:if test="${targetUserVO.sex == 0 }" >
+           <img src="<%=assets%>mxkimage/male2.png">
+        </c:if>
+        <span class="pull-right">
+            <a href="visitorShowPartDetail?target=${partEntity.id }" class="btn">
+               <i class="icon-list"></i>Parts详情
+            </a>
+         </span><br />
+        <span>${targetUserVO.info }</span><br />
+        <span><i class="icon-time"></i>Create Time:${partEntity.createTime }</span>
+        <span class="pull-right">
+		  <span class="label"><i class="icon-pushpin"></i>收藏${partEntity.collect  }</span>
+        </span>
+     </div>
+   </div>
+</div>    
+<br />
+</c:if>
+
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
