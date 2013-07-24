@@ -90,7 +90,6 @@
     		"<small class='pull-right'><i class='icon-rss'></i><a href='#'>"+ list[i].focus +"</a>&nbsp;<i class='icon-group'></i><a href='#'>"+ list[i].followors +"</a></small>" +
     		"</span></td></tr></table></div></li>";         
     	}
-    	alert(show);
     	$("#loadings").hide();
     	$("#showlist").html(show);
     

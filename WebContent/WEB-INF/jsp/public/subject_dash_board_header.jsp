@@ -31,7 +31,7 @@
                          </div>
 					  </ul>
 					    <div class="navbar-form"> 
-					     &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+					    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
 					     <input id="form_parm" class="span4" placeholder="搜专辑..." type="text" value="${visitorSeeSubjectDashBoardRequest.parm }">
 					     <button class="btn" onclick="to_search()" type="button">Go!</button>
 						<c:choose>
