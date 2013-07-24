@@ -92,7 +92,11 @@ public class MxkMailPushListener implements MessageListener {
 	    }
 	    for(UserEntity u:ulist){
 	    	map.put("username", u.getName());
-	    	mailService.sendTempleteEmail("米兔模型周末精选",u.getEmail(),map,"mailtemplate/weekpush_template.vm");
+	    	String mail = u.getEmail();
+	    	String host = mail.substring(mail.indexOf("@")+1,mail.lastIndexOf("."));
+	    	if(!"xt".equals(host)){
+	    		mailService.sendTempleteEmail("米兔模型周末精选",u.getEmail(),map,"mailtemplate/weekpush_template.vm");	
+	    	}
 	    }
 	}
 

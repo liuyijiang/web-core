@@ -3,6 +3,8 @@ package com.mxk.org.common.service.impl;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.mail.internet.MimeUtility;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
@@ -55,7 +57,8 @@ public class MxkMailServiceImpl implements MxkMailService {
 	       mailInfo.setPassword(hostpassword);//�����������    
 	       mailInfo.setFromAddress(hostmail);    
 	       mailInfo.setToAddress(toMail);    
-	       mailInfo.setSubject(title);    
+	      // mailInfo.setSubject(title);    
+	       mailInfo.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));
 	       mailInfo.setContent("<a href='"+ context +"showChangePasswordView?usermail="+ toMail +"&uuid="+ uuid +"'>请在3内修改密码</a></br>");
 	       MxkSimpleMailSender m = new MxkSimpleMailSender();
 	       m.sendHtmlMail(mailInfo);
@@ -90,7 +93,11 @@ public class MxkMailServiceImpl implements MxkMailService {
 	       mailInfo.setFromAddress(hostmail);    
 	       mailInfo.setToAddress(toMail); 
 	       //mailInfo.setToAddress("liuyijiang3430@qq.com");
-	       mailInfo.setSubject(title); 
+	       //mailInfo.setSubject(title); 
+	       //http://biancheng.dnbcw.info/java/321513.html  http://blog.csdn.net/wang12/article/details/5989820
+	       mailInfo.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));
+//	       sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
+//	       mailInfo.setSubject("=?UTF-8?B?"+enc.encode(title.getBytes())+"?=");
 		   String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, template, "UTF-8",model);  
 		   mailInfo.setContent(result);
 		   MxkSimpleMailSender m = new MxkSimpleMailSender();
