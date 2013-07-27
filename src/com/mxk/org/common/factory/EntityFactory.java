@@ -8,11 +8,13 @@ import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectWorkingEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
 import com.mxk.org.web.part.domain.CreatePartRequest;
 import com.mxk.org.web.subject.domain.CreateSubjectRequest;
+import com.mxk.org.web.subject.domain.CreateSubjectWorkingRequest;
 import com.mxk.org.web.subject.domain.RssSubjectRequest;
 import com.mxk.org.web.user.domain.UserRegisterRequest;
 
@@ -24,6 +26,15 @@ import com.mxk.org.web.user.domain.UserRegisterRequest;
 public class EntityFactory {
   
 	private static final String EMPTY = "";
+	
+	public static SubjectWorkingEntity createSubjectWorkingEntity(CreateSubjectWorkingRequest request){
+		SubjectWorkingEntity swe = new SubjectWorkingEntity();
+		swe.setCreateTime(request.getCreateTime());
+		swe.setPlan(request.getPlan());
+		swe.setSubjectid(request.getSubjectid());
+		swe.setUserid(request.getUserid());
+		return swe;
+	}
 	
 	public static UserRssSubjectEntity createUserRssSubjectEntity(RssSubjectRequest rssSubjectRequest){
 		UserRssSubjectEntity userRssSubjectEntity = new UserRssSubjectEntity();

@@ -24,6 +24,10 @@ public class MxkPartService {
 	@Autowired
 	private MxkPartDao partDao;
 	
+	public List<PartEntity> findPartEntityListByDate(String userid ,String subjectid,String starttime,String endtime){
+	    return partDao.findPartEntityListByDate(userid, subjectid, starttime, endtime);
+	}
+	
 	public void changePartsBackShadow(String id){
 		partDao.changePartsBackShadow(id);
 	}

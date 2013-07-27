@@ -174,22 +174,45 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	public String mxkRedictToSeeMessage(){
-		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
-		if(MessageEntity != null){
-			if(MxkConstant.PART.equals(MessageEntity.getType())){
-				target = MessageEntity.getTargetId();
-				messageService.removeMesage(MessageEntity.getId());
-				return SUCCESS;
-			}else{
-				target = MessageEntity.getTargetId();
-				messageService.removeMesage(MessageEntity.getId());
-				return "subject";
-			}
-		}else{
-			return ERROR;
-		}
-	}
+//	public String mxkRedictToSeeMessage(){
+//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
+//		if(MessageEntity != null){
+//			if(MxkConstant.PART.equals(MessageEntity.getType())){
+//				target = MessageEntity.getTargetId();
+//				messageService.removeMesage(MessageEntity.getId());
+//				return SUCCESS;
+//			}else{
+//				target = MessageEntity.getTargetId();
+//				messageService.removeMesage(MessageEntity.getId());
+//				return "subject";
+//			}
+//		}else{
+//			return ERROR;
+//		}
+//	}
+	
+//	public String mxkRedictToSeePartMessage(){
+//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
+//		if(MessageEntity != null){
+//			target = MessageEntity.getTargetId();
+//			messageService.removeMesage(MessageEntity.getId());
+//			return SUCCESS;
+//		}else{
+//			return ERROR;
+//		}
+//		
+//	}
+	
+//	public String mxkRedictToSeeSubjectMessage(){
+//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
+//		if(MessageEntity != null){
+//			target = MessageEntity.getTargetId();
+//			messageService.removeMesage(MessageEntity.getId());
+//			return SUCCESS;
+//		}else{
+//			return ERROR;
+//		}
+//	}
 	
 	public String mxkUserSeeMessageDetail(){
 		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
@@ -466,6 +489,12 @@ public class MxkUserAction extends MxkSessionAction {
 		}else{
 			return ERROR;
 		}
+	}
+	
+	//加载跟多
+	public String mxkLoadUserShareSinglePartsIndexAjax(){
+		partShowResponse = partService.findUserShareParts(searchPartRequest);
+		return SUCCESS;
 	}
 	
 	//加载跟多

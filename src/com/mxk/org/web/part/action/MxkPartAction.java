@@ -149,6 +149,7 @@ public class MxkPartAction extends MxkSessionAction {
 		partEntity = partService.findPartEntityById(target);
 		if(partEntity != null){
 			currentSubjectEntity =  subjectService.findSubjectEntityById(partEntity.getSubjectid());
+			partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
 		}
 		return SUCCESS;
 	}

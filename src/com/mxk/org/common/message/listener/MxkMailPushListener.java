@@ -66,7 +66,7 @@ public class MxkMailPushListener implements MessageListener {
 		map.put("image",vo.getImage());
 		map.put("username", vo.getName());
 		map.put("userinfo", vo.getInfo());
-		mailService.sendTempleteEmail("米兔新用户注册",vo.getEmail(),map,"mailtemplate/regist_success_template.vm");
+		mailService.sendTempleteEmail("米兔Metoo 新用户注册",vo.getEmail(),map,"mailtemplate/regist_success_template.vm");
 	}
 	
 	//每周5发送邮件
@@ -95,7 +95,7 @@ public class MxkMailPushListener implements MessageListener {
 	    	String mail = u.getEmail();
 	    	String host = mail.substring(mail.indexOf("@")+1,mail.lastIndexOf("."));
 	    	if(!"xt".equals(host)){
-	    		mailService.sendTempleteEmail("米兔模型周末精选",u.getEmail(),map,"mailtemplate/weekpush_template.vm");	
+	    		mailService.sendTempleteEmail("米兔Metoo 周末精选",u.getEmail(),map,"mailtemplate/weekpush_template.vm");	
 	    	}
 	    }
 	}

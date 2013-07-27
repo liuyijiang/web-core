@@ -35,6 +35,11 @@ public class MxkPartDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<PartEntity> findPartEntityListByDate(String userid ,String subjectid,String starttime,String endtime){
+		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid).and("createTime").gte(starttime).lte(endtime));
+	    return mog.find(q, PartEntity.class);
+	}
+	
 	public void changePartsBackShadow(String id){
 		Query q = new Query(Criteria.where("id").is(id));
 		PartEntity pe = mog.findOne(q, PartEntity.class);

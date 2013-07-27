@@ -34,10 +34,6 @@ public class MxkConstant {
 	
 	public static final String COMMENT_COM = "评论";
 	
-	public static final String SUBJECT_CATEGORY_CREATIVE = "creative";
-	
-	public static final String SUBJECT_CATEGORY_SHARE = "share";
-	
 	public static final String SUBJECT_MATERIAL_TYPE_BJ = "模型板件";
 	
 	public static final String SUBJECT_MATERIAL_TYPE_GZ = "改造材料";

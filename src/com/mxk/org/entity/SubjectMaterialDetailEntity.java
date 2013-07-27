@@ -3,6 +3,9 @@ package com.mxk.org.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class SubjectMaterialDetailEntity implements Serializable{
 
 	/**
@@ -17,7 +20,7 @@ public class SubjectMaterialDetailEntity implements Serializable{
 	private String name;
 	private String brand;
 	private String type;
-	private int num;//ÊýÁ¿
+	private int num;//ï¿½ï¿½ï¿½ï¿½
 	private BigDecimal money;
 	private BigDecimal allMoney;
 	public String getId() {

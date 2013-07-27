@@ -20,6 +20,7 @@ import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.SubjectExtraEntity;
 import com.mxk.org.entity.SubjectJoinPeopleEntity;
+import com.mxk.org.entity.SubjectWorkingEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
@@ -27,7 +28,7 @@ import com.mxk.org.web.subject.domain.SetFaceImageRequest;
 import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
 import com.mxk.org.web.user.domain.UserVO;
 /**
- * ×¨¼­dao
+ * ×¨ï¿½ï¿½dao
  * @author liuyijiang
  *
  */
@@ -41,6 +42,37 @@ public class MxkSubjectDao {
 	
 	@Autowired
 	private MongoOperations mog; 
+	
+	public SubjectWorkingEntity findSubjectWorkingEntityByDate(String userid,String subjectid,String createTime){
+		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid).and("createTime").is(createTime));
+		return mog.findOne(q, SubjectWorkingEntity.class);
+	}
+	
+	public boolean saveSubjectWorkingEntity(SubjectWorkingEntity entity){
+		boolean success = true;
+		try{
+			mog.save(entity);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+	}
+	
+	public boolean updateSubjectWorkingEntity(SubjectWorkingEntity entity){
+		boolean success = true;
+		try{
+			Query q = new Query(Criteria.where("userid").is(entity.getUserid()).and("subjectid").is(entity.getSubjectid()).and("createTime").is(entity.getCreateTime()));
+			Update u = new Update();
+			u.set("plan", entity.getPlan());
+			u.set("doc", entity.getDoc());
+			mog.updateMulti(q, u, SubjectWorkingEntity.class);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+	}
 	
 	public boolean deleteSubject(String id){
 		boolean success = true;
@@ -126,14 +158,14 @@ public class MxkSubjectDao {
 			criteria.and("tags").is(tags);
 		}
 		q = new Query(criteria);
-		q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+		q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 		q.limit(pageSize);
 		q.skip(pageSize*(page - 1));
 		List<SubjectEntity> list = mog.find(q, SubjectEntity.class);
 		return list;
 	}
 	
-	//×ÜÒ³Êý µ±Ò³ÃæÇëÇó²Ù×÷ÖÐÒ³Êýºó¾Í²»·¢ÇëÇóÁË 
+	//ï¿½ï¿½Ò³ï¿½ï¿½ ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	public int findSubjectEntityForALlPages(String tags,String type){
 		Query q = null;
 		Criteria criteria = null;
@@ -153,7 +185,7 @@ public class MxkSubjectDao {
 		}
 	}
 	
-	//×ÜÒ³Êý µ±Ò³ÃæÇëÇó²Ù×÷ÖÐÒ³Êýºó¾Í²»·¢ÇëÇóÁË
+	//ï¿½ï¿½Ò³ï¿½ï¿½ ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int findSubjectEntityByNamePages(String name){
 		Query q = new Query(Criteria.where("name").regex(".*?"+name+".*"));
 		int count = (int) mog.count(q, SubjectEntity.class);
@@ -184,7 +216,7 @@ public class MxkSubjectDao {
 		List<UserRssSubjectEntity> list = null;
 		try {
 			Query q = new Query(Criteria.where("subjectid").is(subjectid));
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize * (page - 1));
 			list = mog.find(q, UserRssSubjectEntity.class);
@@ -323,7 +355,7 @@ public class MxkSubjectDao {
 				criteria.and("type").is(request.getType());
 			}
 			Query q = new Query(criteria);
-			q.sort().on("createTime", Order.DESCENDING);//ÉýÐò
+			q.sort().on("createTime", Order.DESCENDING);//ï¿½ï¿½ï¿½ï¿½
 			q.limit(pageSize);
 			q.skip(pageSize*(request.getPage() - 1));
 			rlist = mog.find(q, SubjectEntity.class);

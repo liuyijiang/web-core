@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.SubjectExtraEntity;
+import com.mxk.org.entity.SubjectWorkingEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.subject.dao.MxkSubjectDao;
 import com.mxk.org.web.subject.domain.CreateSubjectRequest;
@@ -28,6 +29,19 @@ public class MxkSubjectService {
    
 	@Autowired
 	private MxkSubjectDao dao;
+	
+	public SubjectWorkingEntity findSubjectWorkingEntityByDate(String userid,String subjectid,String createTime){
+		return dao.findSubjectWorkingEntityByDate(userid, subjectid, createTime);
+	}
+	
+	public boolean saveSubjectWorkingEntity(SubjectWorkingEntity entity){
+		return dao.saveSubjectWorkingEntity(entity);
+	}
+	
+	public boolean updateSubjectWorkingEntity(SubjectWorkingEntity entity){
+		return dao.updateSubjectWorkingEntity(entity);
+	}
+	
 	
 	public boolean deleteSubject(String id){
 		return dao.deleteSubject(id);
@@ -61,12 +75,12 @@ public class MxkSubjectService {
 		return dao.findSubjectEntityForALl(tags,type,page);
 	}
 	
-	//×ÜÒ³Êý µ±Ò³ÃæÇëÇó²Ù×÷ÖÐÒ³Êýºó¾Í²»·¢ÇëÇóÁË 
+	//ï¿½ï¿½Ò³ï¿½ï¿½ ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	public int findSubjectEntityForALlPages(String tags,String type){
 		return dao.findSubjectEntityForALlPages(tags,type);
 	}
 	
-	//×ÜÒ³Êý µ±Ò³ÃæÇëÇó²Ù×÷ÖÐÒ³Êýºó¾Í²»·¢ÇëÇóÁË
+	//ï¿½ï¿½Ò³ï¿½ï¿½ ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int findSubjectEntityByNamePages(String name){
 		return dao.findSubjectEntityByNamePages(name);
 	}

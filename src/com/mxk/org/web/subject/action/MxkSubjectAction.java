@@ -1,6 +1,7 @@
 package com.mxk.org.web.subject.action;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.constant.MxkSubjectcCategory;
 import com.mxk.org.common.domain.session.MxkSessionContext;
+import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.common.message.domain.DeleteSubjectMessage;
 import com.mxk.org.common.message.domain.ExcelCreateMessage;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
@@ -22,6 +25,7 @@ import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.SubjectExtraEntity;
 import com.mxk.org.entity.SubjectMaterialSummaryEntity;
+import com.mxk.org.entity.SubjectWorkingEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
@@ -31,6 +35,7 @@ import com.mxk.org.web.part.domain.SearchPartRequest;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.CreateSubjectMaiterialRequest;
 import com.mxk.org.web.subject.domain.CreateSubjectRequest;
+import com.mxk.org.web.subject.domain.CreateSubjectWorkingRequest;
 import com.mxk.org.web.subject.domain.RemoveRssSubjectRequest;
 import com.mxk.org.web.subject.domain.RssSubjectRequest;
 import com.mxk.org.web.subject.domain.SetFaceImageRequest;
@@ -115,7 +120,35 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private SubjectMaterailDetailRespone subjectMaterailDetailRespone;
 	private SubjectExtraEntity subjectExtraEntity;
 	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
+	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
 	private String targetId;
+	
+	//创建进度
+	public String mxkCreateSubjectWork(){
+		uservo = super.getCurrentUserVO();
+		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+		if(createSubjectWorkingRequest != null && uservo != null && currentSubjectEntity != null){
+			String todayTime = StringUtil.todayStartTime();
+			SubjectWorkingEntity swe = subjectService.findSubjectWorkingEntityByDate(uservo.getId(), currentSubjectEntity.getId(), todayTime);
+		    if(swe != null){
+		    	swe.getDoc().add(createSubjectWorkingRequest.getDoc());
+		    	createSubjectWorkingRequest.setDocs(swe.getDoc());
+		    	SubjectWorkingEntity entity = EntityFactory.createSubjectWorkingEntity(createSubjectWorkingRequest);
+		    	subjectService.updateSubjectWorkingEntity(entity);
+		    }else{
+		    	List<String> dous = new ArrayList<String>();
+		    	dous.add(createSubjectWorkingRequest.getDoc());
+		    	createSubjectWorkingRequest.setDocs(dous);
+		    	SubjectWorkingEntity entity = EntityFactory.createSubjectWorkingEntity(createSubjectWorkingRequest);
+		    	subjectService.saveSubjectWorkingEntity(entity);
+		    }
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkSubjectWorkingView(){
+		return SUCCESS;
+	}
 	
 //	public String mxkSubjectCommentsView(){
 //		uservo = super.getCurrentUserVO();
@@ -386,29 +419,36 @@ public class MxkSubjectAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(uservo != null && currentSubjectEntity != null){
-			SearchPartRequest request = new SearchPartRequest();
-			request.setPage(1);
-			request.setSubjectid(currentSubjectEntity.getId());
-			request.setType(null);
-			request.setUserid(uservo.getId());
-			partShowResponse = partService.findUserSubjectParts(request);
-			if(partShowResponse != null){
-				partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(currentSubjectEntity.getId()));
-			}
-			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
-				if(partShowResponse != null){
-					partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(currentSubjectEntity.getId()));	
-				}
-				return MxkConstant.SUBJECT_TYPE_FOR_ALL;
+			//进度
+			if(MxkSubjectcCategory.SUBJECT_CATEGORY_WORKING.getString().equals(currentSubjectEntity.getCategory())){
+				
+				
+				return "WORKING";
 			}else{
-				SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
-				subjectExtraEntity = subjectService.findSubjectExtraEntity(currentSubjectEntity.getId());
-				if(ss != null){
-					message = MxkConstant.AJAX_SUCCESS; //�в���
-				}else{
-					message = MxkConstant.AJAX_ERROR;
+				SearchPartRequest request = new SearchPartRequest();
+				request.setPage(1);
+				request.setSubjectid(currentSubjectEntity.getId());
+				request.setType(null);
+				request.setUserid(uservo.getId());
+				partShowResponse = partService.findUserSubjectParts(request);
+				if(partShowResponse != null){
+					partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(currentSubjectEntity.getId()));
 				}
-				return MxkConstant.SUBJECT_TYPE_PUBLIC;
+				if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
+					if(partShowResponse != null){
+						partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(currentSubjectEntity.getId()));	
+					}
+					return MxkConstant.SUBJECT_TYPE_FOR_ALL;
+				}else{
+					SubjectMaterialSummaryEntity ss = subjectMaterialService.findSubjectMaterialSummaryEntityBySubjectId(currentSubjectEntity.getId());
+					subjectExtraEntity = subjectService.findSubjectExtraEntity(currentSubjectEntity.getId());
+					if(ss != null){
+						message = MxkConstant.AJAX_SUCCESS; //�в���
+					}else{
+						message = MxkConstant.AJAX_ERROR;
+					}
+					return MxkConstant.SUBJECT_TYPE_PUBLIC;
+				}
 			}
 		}else{
 			return ERROR;
@@ -709,6 +749,17 @@ public class MxkSubjectAction extends MxkSessionAction {
 	public void setSubjectTop5NewPartsRespone(
 			SubjectTop5NewPartsRespone subjectTop5NewPartsRespone) {
 		this.subjectTop5NewPartsRespone = subjectTop5NewPartsRespone;
+	}
+
+
+	public CreateSubjectWorkingRequest getCreateSubjectWorkingRequest() {
+		return createSubjectWorkingRequest;
+	}
+
+
+	public void setCreateSubjectWorkingRequest(
+			CreateSubjectWorkingRequest createSubjectWorkingRequest) {
+		this.createSubjectWorkingRequest = createSubjectWorkingRequest;
 	}
 
 	
