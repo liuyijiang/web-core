@@ -266,7 +266,13 @@ var subjectid = '${subjectEntity.id}';
 		  
 		   <div class='row' style='padding:5px;margin-bottom:5px;'>
 	          <div class='span1'>
-	           <img class='img-polaroid border-radius' src='<%=imgurl%>${options.userimage}'/>
+	           <c:if test="${!empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>
+               <span class="muted"><small>${uservo.name}</small></span>
+            </c:if>
+            <c:if test="${empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>userheader.png"/>
+            </c:if>
 	          </div>
 	           <div class='span6'>
 	             <span>

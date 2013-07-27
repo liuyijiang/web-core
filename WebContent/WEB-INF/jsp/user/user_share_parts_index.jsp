@@ -29,7 +29,7 @@ function loadMore(){
 		  var datas = {"searchPartRequest.userid":userid,"searchPartRequest.subjectid":subjectid,"searchPartRequest.page":page};
 		  $('#loaddiv').show();
 		  $.ajax({
-		   		url : path + "/loadMoreUserShareSingleParts.action",
+		   		url : path + "/loadUserShareSinglePartsIndex.action",
 		   		type : "POST",
 		   		cache : false,
 		   		async : false,

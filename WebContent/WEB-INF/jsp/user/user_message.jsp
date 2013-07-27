@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@page import="java.util.Date;" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,18 +37,22 @@
 		</div>
 	</div>
  <div class="container" >
+ <a target="_blank" href="<%=rootPath%>/newMessageOfCom?target=51f">&nbsp;<i class="icon-hdd"></i>我的专辑&nbsp;</a>
+ <a href="<%=rootPath%>/userShowNewMessageOfCom?target=51f28b4de24a111d2f3a0c49">去看看</a>
    <div class="row" id="messagelist">
      <c:forEach var="options" items="${loadUserMessageRespone.list }">
        <span class="span12" >
+       
+       
+       
 	       <img style="width:18px" class="img-polaroid border-radius"  src="<%=imgurl %>${options.userimage }"/>
-	       <span><a href="#">${options.username }</a>评论了你的
 	       <c:if test="${options.type == 'part'}">
-	          part
+	           <span><a href="#">${options.username }</a>评论了你的 part<a href="<%=rootPath %>/userShowNewMessageOfCom?target=${options.id}">去看看</a></span>
 	       </c:if>
 	       <c:if test="${options.type == 'subject'}">
-	                              专题
+	          <span><a href="#">${options.username }</a>评论了你的  专题  <a href="<%=rootPath %>/redictToSeeSubjectMessage?target=${options.id}">去看看</a></span>
 	       </c:if>
-	       <a href="<%=rootPath %>/redictToSeeMessage?target=${options.id}">去看看</a></span>
+	     
        </span>
        <br /><br />
      </c:forEach>

@@ -84,6 +84,7 @@
 		     <ul class="dropdown-menu">
 			       <li><a href="javascript:;" onclick="choosecategory('原创')">原创</a></li>
 				   <li><a href="javascript:;" onclick="choosecategory('分享')">分享</a></li>
+				   <li><a href="javascript:;" onclick="choosecategory('进度')">进度</a></li>
               </ul>
 		   </div>
          <br />
