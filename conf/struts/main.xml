@@ -7,6 +7,11 @@
 
     <package name="main" namespace="/" extends="struts-default">
         
+        <action name="userShowNewMessageOfCom" class="com.mxk.org.web.main.action.MxkMainAction" 
+             method="mxkUserShowNewMessageOfComView">
+            <result name="success" type="redirect">showPartsComments?target=${target}</result>
+         </action> 
+        
          <action name="loginOutView" class="com.mxk.org.web.main.action.MxkMainAction"
             method="mxkLoginOutView">
              <result name="success" >/WEB-INF/jsp/main/index.jsp</result>

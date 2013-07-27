@@ -49,6 +49,7 @@
        
        <action name="showSubjectDetailView" class="com.mxk.org.web.subject.action.MxkSubjectAction"
            method="mxkShowSubjectDetailView">
+           <result name="WORKING" >/WEB-INF/jsp/subject/subject_working_detail.jsp</result>
            <result name="PUBLIC" >/WEB-INF/jsp/subject/subject_detail.jsp</result>
            <result name="FOR-ALL" >/WEB-INF/jsp/subject/subject_for_all_detail.jsp</result>
            <result name="error" type="redirect">userIndex</result>
