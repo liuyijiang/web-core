@@ -98,6 +98,13 @@
             </result> 
 		</action>
 		
+		<action name="updateSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="mxkUpdateSubjectAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
 		<action name="deleteSubject" class="com.mxk.org.web.subject.action.MxkSubjectAction"
 			method="mxkDeleteSubjectAjax">
 		    <result type="json" name="success">  
