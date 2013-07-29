@@ -7,43 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-
-  function mouseover(){
-    $("partfun").css("z-index","1");
-  }
-  
-  function mouseout(){
-	$("partfun").css("z-index","-1");
-  }
-
-  var replyuserid = '';
-  
-  function collectPart(partid){
-	  $.ajax({
-   		url : path + "/createUserCollect.action",
-   		type : "POST",
-   		cache : false,
-   		async : false,
-   		data: {"collectPartsRequest.targetId":partid},
-   		dataType : "json",
-   		success : function(item) {
-   		    if(item == 'success'){
- 			   alert("已将Part加入到你的收藏夹");
- 			  var num = $("#coll").html();
-		    	 var number = parseInt(num);
-		    	 var sum = 1+ number;
-		    	 $("#coll").html(sum);
-		    }else if( item == 'error'){
-		   	   alert("网络异常请重试");
-		    }else {
-		     	alert(item);
-		    }
-   		  }
- 	 }); 
-  }
-  
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -350,6 +313,43 @@ function clear(){
 
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+
+  function mouseover(){
+    $("partfun").css("z-index","1");
+  }
+  
+  function mouseout(){
+	$("partfun").css("z-index","-1");
+  }
+
+  var replyuserid = '';
+  
+  function collectPart(partid){
+	  $.ajax({
+   		url : path + "/createUserCollect.action",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		data: {"collectPartsRequest.targetId":partid},
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+ 			   alert("已将Part加入到你的收藏夹");
+ 			  var num = $("#coll").html();
+		    	 var number = parseInt(num);
+		    	 var sum = 1+ number;
+		    	 $("#coll").html(sum);
+		    }else if( item == 'error'){
+		   	   alert("网络异常请重试");
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+ 	 }); 
+  }
+  
+</script>
 <script>
    var partsId = '${partEntity.id}';
    var partsOwner = '${partEntity.userid}';

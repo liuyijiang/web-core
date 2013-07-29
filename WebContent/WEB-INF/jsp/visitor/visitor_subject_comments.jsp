@@ -7,59 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-
-  var replyuserid = '';
-</script>
-<script type="text/javascript">
-   
-
-   function filterComments(){
-	   
-   }
-   
-   
-   function createCommnetsPlane(list,comdiv){
-	   var show = '';
-	   for (var i in list){
-		   
-		   "<li class='span3 mxkplan mxkshadow'><div style='padding:5px;margin-bottom:1px;'><table style='width:100%'><tr>" +
-		   "<td width='26%' rowspan='2'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
-		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-danger' href='javascript:;' onclick='createUserRelation('${options.userid}')'>" +
-	       "<i class='icon-remove-circle'></i>删除</a></span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>" +
-	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
-           "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
-           "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
-           "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
-           "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
-           if (list[i].type == 'wav') {
-        	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
-        	 "<param name='movie' value='singlemp3player.swf?showDownload=false' />" +
-        	 "<param name='wmode' value='transparent' />" +
-        	 "<embed width='80' height='20' src='singlemp3player.swf?file="+ voice +list[i].info + "&showDownload=false' type='application/x-shockwave-flash' />" +
-             "</object></div>";
-           }else{
-        	  show = show + "<span class='muted'><small>"+ list[i].info +"</small></span><br />";
-           }
-           show = show + "<span class='pull-right muted'><small><i class='icon-time'></i>"+ list[i].createTime +"</small></span><br /></div></li>";
-       }
-       $("#"+comdiv).append(show);
-   }
-   
-   
-</script>
-<script type="text/javascript">
-var subjectid = '${subjectEntity.id}';
-
-
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -420,6 +367,59 @@ function clear(){
 
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+
+  var replyuserid = '';
+</script>
+<script type="text/javascript">
+   
+
+   function filterComments(){
+	   
+   }
+   
+   
+   function createCommnetsPlane(list,comdiv){
+	   var show = '';
+	   for (var i in list){
+		   
+		   "<li class='span3 mxkplan mxkshadow'><div style='padding:5px;margin-bottom:1px;'><table style='width:100%'><tr>" +
+		   "<td width='26%' rowspan='2'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
+		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'><a class='btn btn-mini btn-danger' href='javascript:;' onclick='createUserRelation('${options.userid}')'>" +
+	       "<i class='icon-remove-circle'></i>删除</a></span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>" +
+	       "<img style='width:40px;height:40px'  class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' />" +
+           "</a></div></td><td width='35%'><div style='width:80px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>" +
+           "<strong><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></strong>" +
+           "</div></td><td><span class='pull-right'><a href='javascript:;' onclick='relaycomments(\""+ list[i].userid +"\")'>回复</a></span></td></tr><tr><td colspan='2'><div style='width:150px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'><span class='muted'>" +
+           "<small>"+ list[i].reply +"</small></span></div></td></tr></table>";
+           if (list[i].type == 'wav') {
+        	 show = show + "<div style='padding:5px;margin-bottom:1px;'><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='150' height='20'>" +
+        	 "<param name='movie' value='singlemp3player.swf?showDownload=false' />" +
+        	 "<param name='wmode' value='transparent' />" +
+        	 "<embed width='80' height='20' src='singlemp3player.swf?file="+ voice +list[i].info + "&showDownload=false' type='application/x-shockwave-flash' />" +
+             "</object></div>";
+           }else{
+        	  show = show + "<span class='muted'><small>"+ list[i].info +"</small></span><br />";
+           }
+           show = show + "<span class='pull-right muted'><small><i class='icon-time'></i>"+ list[i].createTime +"</small></span><br /></div></li>";
+       }
+       $("#"+comdiv).append(show);
+   }
+   
+   
+</script>
+<script type="text/javascript">
+var subjectid = '${subjectEntity.id}';
+
+
+</script>
 <script>
    var partsId = '${subjectEntity.id}';
    var partsOwner = '${subjectEntity.userid}';

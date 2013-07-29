@@ -163,8 +163,10 @@ function bindScroll(){
      	       		dataType : "json",
      	       		success : function(item) {
      	       		     $("#action").hide();
+     	       		     window.location.href= path + "/showSubjectDetailView";
      		       		 if(item == 'success'){
      	    		    	 alter("操作成功！");
+     	    		    	 
      	    		     }else{
      	    		    	 alert("网络异常请重试");
      	    		     }
@@ -191,6 +193,7 @@ function bindScroll(){
      	       		dataType : "json",
      	       		success : function(item) {
      	       		     $("#action").hide();
+     	       		     window.location.href= path + "/showSubjectDetailView";
      		       		 if(item == 'success'){
      	    		    	 alter("操作成功！");
      	    		     }else{
@@ -259,24 +262,14 @@ function deleteSubject(id){
         <span>
           <span style="font-size: 20px;"><strong>${currentSubjectEntity.name }</strong></span>
              &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })
-             <div class="btn-group">
                <c:choose>
                 <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
-                         <a id="substatus" class="btn dropdown-toggle btn-success btn-mini" data-toggle="dropdown" href="#">
-                            <i class="icon-hdd"></i>公开
-				   </a>
+                  <span class="label label-success"><i class="icon-hdd"></i>公开</span>
                 </c:when>
                 <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
-                  <a  id="substatus" class="btn dropdown-toggle btn-danger btn-mini" data-toggle="dropdown" href="#">
-                          <i class="icon-lock"></i>私有
-				   </a>
+                   <span class="label label-important"> <i class="icon-lock"></i>私有</span>
                 </c:when>
              </c:choose>
-              <ul class="dropdown-menu">
-		       <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PUBLIC')"><i class="icon-hdd"></i>公开</a></li>
-			   <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PRIVATE')"><i class="icon-lock"></i>私有</a></li>
-		       </ul>
-             </div>
            </span>
         </span>
         <span class="pull-right">
@@ -342,6 +335,7 @@ function deleteSubject(id){
 			    <ul class="dropdown-menu">
 			       <li><a href="javascript:;" onclick="useforgifshow('生成GIF')">生成GIF动态图片</a></li>
 				   <li><a href="javascript:;" onclick="useforpdfshow('生成PDF')">生成PDF电子文档</a></li>
+				   <li><a href="javascript:;" onclick="showUpdateSubjectModal();">更新专题</a></li>
 				   <li><a href="javascript:;" onclick="deleteSubject('${currentSubjectEntity.id}')">删除专题</a></li>
                </ul>
            </div>
@@ -512,6 +506,39 @@ function deleteSubject(id){
           </div>
      </div>
  </c:if>    
+ 
+ 
+   <div id="updateSubjectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	       <h3>更新专题</h3>
+        </div>
+        <div class="modal-body">
+           <div class="form-inline">
+	               <div class="btn-group">
+                    <button onclick="javascript:;" class="btn"><i class="icon-tags"></i><span id="showtags">专题标签</span></button>
+		            <button class="btn dropdown-toggle" data-toggle="dropdown">
+				       <span class="caret"></span>
+				    </button>
+		            <ul class="dropdown-menu">
+		               <li><a href="javascript:;" onclick="chooseTags('舰船模型')">舰船模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('装甲模型')">装甲模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('战机模型')">战机模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('手办模型')">手办模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('动漫模型')">动漫模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('高达模型')">高达模型</a></li>
+					   <li><a href="javascript:;" onclick="chooseTags('其他模型')">其他模型</a></li>
+		            </ul>
+               </div>
+         </div>
+        </div>
+	    <div class="modal-footer">
+	      <a href="javascript:;" class="btn btn-primary" onclick="updateSubject('${currentSubjectEntity.id}')">更新</a>
+	      <a href="javascript:;" class="btn" onclick="closeUpdateSubjectModal()">关闭</a>
+	    </div>
+    </div>
+ 
+ 
      <!-- 添加part -->
     <div id="createPartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
@@ -752,7 +779,16 @@ function deleteSubject(id){
 		 $('#materialSubjectModal').modal('hide');
 	 }
   
-  
+	 function showUpdateSubjectModal(){
+		 $('#updateSubjectModal').modal({
+	       keyboard: false
+	   });
+	 }
+ 
+	 function closeUpdateSubjectModal(){
+		 $('#updateSubjectModal').modal('hide');
+	 }
+	 
 	 function showCreatePart(){
 		 $('#createPartModal').modal({
 	       keyboard: false

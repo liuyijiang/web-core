@@ -10,7 +10,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
-
 <c:if test="${!empty subjectEntity }">
 <div class="container">
   <div class="row">
@@ -167,7 +166,8 @@
   	  
   	  </div>
   	</div>
-  	<script type="text/javascript">
+  	<%@ include file="../../../footinclude.jsp"%>
+  	  	<script type="text/javascript">
   	   function showUser(id){
   		 $('#loaddiv').show();
   		 $.ajax({
@@ -236,6 +236,5 @@
   	  }
   	   
   	</script>
-  	<%@ include file="../../../footinclude.jsp"%>
   </body>
 </html>

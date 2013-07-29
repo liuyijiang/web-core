@@ -7,31 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  
-function addTextComents(commentedId,commentedUserId,traget){
-  var info = $("#commentstextarea").val();
-  var datas = {"commentsAddRequest.commentedUserId":commentedUserId,"commentsAddRequest.commentedId":commentedId,"commentsAddRequest.info":info,"commentsAddRequest.target":traget,"commentsAddRequest.type":"text"};
-  $.ajax({
-   		url : path + "/addTextComments.action",
-   		type : "POST",
-   		cache : false,
-   		async : false,
-   		data: datas,
-   		dataType : "json",
-   		success : function(item) {
-   		    if(item == 'success'){
- 			   alert("评论成功！");
-		    }else if( item == 'error'){
-		   	   alert("网络异常请重试");
-		    }else {
-		     	alert(item);
-		    }
-   		  }
-  }); 
-}
-
-</script>
 <div class="container">
 	<div class="row">
 	     <c:if test="${vistitorSeeSubjectCommentsRespone.type == 'wav' }">
@@ -77,40 +52,6 @@ function addTextComents(commentedId,commentedUserId,traget){
 		          <span id="loading" style="display:none"><img src="<%=domain %>/image/loadingred.gif" >正在加载...</span>
 		          <span class="pull-right" id="rssmore"><a href="javascript:;" class="btn btn-small btn-primary" onclick="loadmorelist()" ><i class="icon-refresh"></i>加载更多</a></span><br />
 		         </div>
-		         <script type="text/javascript">
-		            function loadmorelist(){
-		            	var datas = {"showRssSubjectUserRequest.subjectid":subjectid,"showRssSubjectUserRequest.page":page};
-		            	$("#loading").show();
-		            	 $.ajax({
-		        				url : path + "/subjectMessageMore.action",
-		        				type : "POST",
-		        				cache : false,
-		        				async : false,
-		        				data: datas,
-		        				dataType : "json",
-		        				success : function(item) {
-		        					$("#loading").hide();
-		        					createlist(item.list);
-		        					page = page + 1 ;
-		        				}
-		        	   });
-		            }
-		            
-		            function createlist(list){
-		            	var show = '';
-		            	for (var i in list) {
-		            		//show = show + "<div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>";
- 		            		show = show + "<table style='width:100%'><tr><td width='12%'>" +
-		            		"<img class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' style='width:55px' />" +
-		            		"</td><td width='88%'><span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username + "</a></span>" +
-		                    "<span class='pull-right'><button class='btn btn-small' onclick='removeRss(\""+list[i].userid + "\")' >取消订阅</button></span>" +
-		                    "<br /><span class='muted'>"+ list[i].userdesc +"</span><br />" + 
-		                    "<span class='muted'><i class='icon-time'></i>订阅时间："+ list[i].ceateTime + "</span></td></tr></table>" +
-		                    "<div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>";
-		               }
-		               $("#rssdiv").append(show);          
-		            }
-		         </script>
 	         </c:if>
 	         <table style="width:97%">
 	            <tr>
@@ -173,65 +114,66 @@ function addTextComents(commentedId,commentedUserId,traget){
 		      </li>
 		  </ul>
 	   </div>
-	   
 	</div>
-	
 </div>
-
-<!-- <div id="addtextcommentdiv" class="container"> -->
-<!--   <div class="row"> -->
-<!--     <div class="span9 mxkplan mxkshadow " > -->
-<!--          <div class="row" style="padding:5px;margin-bottom:5px;"> -->
-<!--           <div class="span1"> -->
-<%--             <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>  --%>
-<%--             <span class="muted"><small>${uservo.name}</small></span> --%>
-<!--           </div> -->
-<!--           <div class="span7"> -->
-<!--             <span> -->
-<!--               <span class="muted">你的评论</span> -->
-<!--               <span class="pull-right muted"><a href="javascript:;" onclick="showAddVoiceCommentsDiv()">语音评论</a></span> -->
-<!--              </span><br /> -->
-<!--             <textarea id="commentstextarea" rows="3" style="width:100%"></textarea> -->
-<%--             <button class="pull-right btn btn-success btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button> --%>
-<!--           </div> -->
-<!--          </div> -->
-<!--     </div> -->
-<!--    </div> -->
-<!-- </div> -->
-
-<!-- <div id="addvoicecommentsdiv" class="container" style="display:none"> -->
-<!--   <div class="row"> -->
-<!--     <div class="span9 mxkplan mxkshadow " > -->
-<!--          <div class="row" style="padding:5px;margin-bottom:5px;"> -->
-<!--           <div class="span1"> -->
-<%--             <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>  --%>
-<%--             <span class="muted"><small>${uservo.name}</small></span> --%>
-<!--           </div> -->
-<!--           <div class="span7"> -->
-<!--             <span> -->
-<!--               <span id="status" class="muted">你的音评</span> -->
-<!--               &nbsp; -->
-<!--               <small><span id="time" class="muted"></span></small> -->
-<!--               <span class="pull-right muted"><a href="javascript:;" onclick="showAddTextCommentDiv()" >文字评论</a></span> -->
-<!--              </span><br /> -->
-<!-- 			 <div style="background-color:#eeeeee; width:200px; border:1px solid #cccccc"> -->
-<!-- 				<div id="levelbase" style="width:200px;height:15px;background-color:#ffff00"> -->
-<!-- 				  <div id="levelbar" style="height:14px; width:2px;background-color:red"></div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div style="height:5px;"></div> -->
-<!-- 			 <div> -->
-<!-- 				<a class="btn" href="javascript:;" id="record"><i class=" icon-volume-down"></i>录音</a>   -->
-<!-- 				<a class="btn" href="javascript:;" id="stop"><i class="icon-exclamation-sign"></i>停止</a>   -->
-<!-- 				<a class="btn btn-success" href="javascript:;" id="send" style="display:none"><i class="icon-upload-alt"></i>保存</a>   -->
-<!--              </div> -->
-<!--           </div> -->
-<!--          </div> -->
-<!--     </div> -->
-<!--    </div> -->
-<!-- </div> -->
-
-
 <%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+  
+function addTextComents(commentedId,commentedUserId,traget){
+  var info = $("#commentstextarea").val();
+  var datas = {"commentsAddRequest.commentedUserId":commentedUserId,"commentsAddRequest.commentedId":commentedId,"commentsAddRequest.info":info,"commentsAddRequest.target":traget,"commentsAddRequest.type":"text"};
+  $.ajax({
+   		url : path + "/addTextComments.action",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		data: datas,
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+ 			   alert("评论成功！");
+		    }else if( item == 'error'){
+		   	   alert("网络异常请重试");
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+  }); 
+}
+</script>
+ <script type="text/javascript">
+		            function loadmorelist(){
+		            	var datas = {"showRssSubjectUserRequest.subjectid":subjectid,"showRssSubjectUserRequest.page":page};
+		            	$("#loading").show();
+		            	 $.ajax({
+		        				url : path + "/subjectMessageMore.action",
+		        				type : "POST",
+		        				cache : false,
+		        				async : false,
+		        				data: datas,
+		        				dataType : "json",
+		        				success : function(item) {
+		        					$("#loading").hide();
+		        					createlist(item.list);
+		        					page = page + 1 ;
+		        				}
+		        	   });
+		            }
+		            
+		            function createlist(list){
+		            	var show = '';
+		            	for (var i in list) {
+		            		//show = show + "<div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>";
+ 		            		show = show + "<table style='width:100%'><tr><td width='12%'>" +
+		            		"<img class='img-polaroid border-radius' src='"+ imgurl + list[i].userimage +"' style='width:55px' />" +
+		            		"</td><td width='88%'><span><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username + "</a></span>" +
+		                    "<span class='pull-right'><button class='btn btn-small' onclick='removeRss(\""+list[i].userid + "\")' >取消订阅</button></span>" +
+		                    "<br /><span class='muted'>"+ list[i].userdesc +"</span><br />" + 
+		                    "<span class='muted'><i class='icon-time'></i>订阅时间："+ list[i].ceateTime + "</span></td></tr></table>" +
+		                    "<div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>";
+		               }
+		               $("#rssdiv").append(show);          
+		            }
+		         </script>
 </body>
 </html>

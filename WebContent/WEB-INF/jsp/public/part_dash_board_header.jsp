@@ -7,15 +7,15 @@
 				<div class="nav-collapse">
 					<ul class="nav">
 					   <li class="divider-vertical"></li>
-					      <a id="top_a" class="btn" data-placement="bottom" rel="popover" 
+					       <a id="top_a" class="btn" data-placement="bottom" rel="popover" 
 						      data-content="专题面板" data-original-title="小提示" href="<%=rootPath %>/visitiorShowSubjectDashBorad">
 						      <i onmouseout="$('#top_a').popover('hide');" onmouseover="$('#top_a').popover('show');" class="icon-th-large"></i>
 					       </a>
                             <div class="btn-group">
 							    <button id="filterbtn" class="btn" style="font-family:Microsoft YaHei;" ><i class="icon-search"></i>过滤查询</button>
 							    <button class="btn dropdown-toggle " data-toggle="dropdown">
-							    <span class="caret"></span>
-                            </button>
+							       <span class="caret"></span>
+                                </button>
 						    <ul class="dropdown-menu">
 						         <li><a onclick="fliter_part('舰船模型')" href="#">舰船模型</a></li>
 							     <li><a onclick="fliter_part('装甲模型')" href="#">装甲模型</a></li>
@@ -51,6 +51,7 @@
 												     <li><a href="<%=rootPath %>/userLoginOut"><i class="icon-signout"></i>退出</a></li>
 											    </ul>
 						                        </div>
+						               </span>
 						     </c:when>
 						     <c:otherwise>
 						            <span class="pull-right">

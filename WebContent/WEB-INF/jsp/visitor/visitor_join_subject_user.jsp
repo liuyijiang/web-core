@@ -7,118 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-
-  function createUserRelation(id){	  
-	  $.ajax({
-	   		url : path + "/createUserRelation.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: {"createRelationShipRequest.userid":id},
-	   		dataType : "json",
-	   		success : function(item) {
-	   		    if(item == 'success'){
-	 			   alert("关注成功");
-			    }else if( item == 'error'){
-			   	   alert("已经关注");
-			    }else {
-			     	alert(item);
-			    }
-	   		  }
-	 	 });  
-  }
-  
-</script>
-<script type="text/javascript">
-   var page = 1;
-   var allpage = '${subjectJoinPeopleRespone.allpage}';
-   var isrun = false;
-   var subjectid = '${subjectEntity.id}';
-   
-   function loadMore(){
-		  if(page <= allpage){
-			  var datas = {"searchJoinSubjectPeopleRequest.page":page,"searchJoinSubjectPeopleRequest.subjectid":subjectid};
-			  $('#loaddiv').show();
-			  $.ajax({
-			   		url : path + "/visitorLoadMoreJoinSubjectUsers.action",
-			   		type : "POST",
-			   		cache : false,
-			   		async : false,
-			   		data: datas,
-			   		dataType : "json",
-			   		success : function(item) {
-			   			$('#loaddiv').hide();
-			 			page = page + 1;
-			 			var list1 = item.list1;
-						var list2 = item.list2;
-						var list3 = item.list3;
-						var list4 = item.list4;
-						if(list1 != null){
-							createUserPlane(list1,"usershow1");
-						}
-						if(list2 != null){
-							createUserPlane(list2,"usershow2");
-						}
-						if(list3 != null){
-							createUserPlane(list3,"usershow3");
-						}
-						if(list4 != null){
-							createUserPlane(list4,"usershow4");
-						}
-						isrun = false;
-			   		 }
-			 	 }); 
-		  }
-		 
-	  }
-   
-   
-   function createUserPlane(list,userplane){
-	   var show = '';
-	   for (var i in list) {
-		   
-		   show = show +"<li class='span3 mxkplan mxkshadow'><div class='thumbnail'><div style='position:relative;' onmouseover='mouseover("+ list[i].id +")' onmouseout='mouseout("+ list[i].id +")' >" +
-		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>"+
-		   "<a class='btn btn-mini btn-inverse' href='javascript:;' onclick='createUserRelation("+ list[i].userid +")'>"+
-		   "<i class='icon-plus'></i>加关注</a></span><a href='"+ path + "/visitorShowPartDetail?target="+ list[i].userid + "'>"+
-		   "<img src='"+ imgurl + list[i].userimage +"' /></a></div>"+   
-		   "<span><a href='"+ path + "/visitorShowPartDetail?target="+ list[i].userid +"'><small>"+ list[i].username +"</small></a></span><br />"+       
-		   "<span class='muted'><small>"+ list[i].userdesc + "</small></span><br />"+            
-		   "<span class='pull-right muted'><small><i class='icon-pushpin'></i>分享Parts"+ list[i].parts +"</small></span><br />" +
-		   "</div></li>";
-			            
-	   }
-	   $("#"+userplane).append(show);
-   }
-   
-   function showload(){ 
-	   var scrollh = document.documentElement.scrollHeight;
-	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-	   if ( scrollt/scrollh > 0.03 ) {
-		     if(!isrun){
-		    	 isrun = true; 
-		    	 loadMore();  
-		     }
-	   }
-	} 
-
-	//绑定事件
-	function bindScroll(){
-	    $(window).bind("scroll", function(){ 
-	       showload();
-	    }); 
-	}
-
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -330,5 +218,117 @@
     </div>
 </div>    
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+  
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+
+  function createUserRelation(id){	  
+	  $.ajax({
+	   		url : path + "/createUserRelation.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: {"createRelationShipRequest.userid":id},
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("关注成功");
+			    }else if( item == 'error'){
+			   	   alert("已经关注");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 	 });  
+  }
+  
+</script>
+<script type="text/javascript">
+   var page = 1;
+   var allpage = '${subjectJoinPeopleRespone.allpage}';
+   var isrun = false;
+   var subjectid = '${subjectEntity.id}';
+   
+   function loadMore(){
+		  if(page <= allpage){
+			  var datas = {"searchJoinSubjectPeopleRequest.page":page,"searchJoinSubjectPeopleRequest.subjectid":subjectid};
+			  $('#loaddiv').show();
+			  $.ajax({
+			   		url : path + "/visitorLoadMoreJoinSubjectUsers.action",
+			   		type : "POST",
+			   		cache : false,
+			   		async : false,
+			   		data: datas,
+			   		dataType : "json",
+			   		success : function(item) {
+			   			$('#loaddiv').hide();
+			 			page = page + 1;
+			 			var list1 = item.list1;
+						var list2 = item.list2;
+						var list3 = item.list3;
+						var list4 = item.list4;
+						if(list1 != null){
+							createUserPlane(list1,"usershow1");
+						}
+						if(list2 != null){
+							createUserPlane(list2,"usershow2");
+						}
+						if(list3 != null){
+							createUserPlane(list3,"usershow3");
+						}
+						if(list4 != null){
+							createUserPlane(list4,"usershow4");
+						}
+						isrun = false;
+			   		 }
+			 	 }); 
+		  }
+		 
+	  }
+   
+   
+   function createUserPlane(list,userplane){
+	   var show = '';
+	   for (var i in list) {
+		   
+		   show = show +"<li class='span3 mxkplan mxkshadow'><div class='thumbnail'><div style='position:relative;' onmouseover='mouseover("+ list[i].id +")' onmouseout='mouseout("+ list[i].id +")' >" +
+		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>"+
+		   "<a class='btn btn-mini btn-inverse' href='javascript:;' onclick='createUserRelation("+ list[i].userid +")'>"+
+		   "<i class='icon-plus'></i>加关注</a></span><a href='"+ path + "/visitorShowPartDetail?target="+ list[i].userid + "'>"+
+		   "<img src='"+ imgurl + list[i].userimage +"' /></a></div>"+   
+		   "<span><a href='"+ path + "/visitorShowPartDetail?target="+ list[i].userid +"'><small>"+ list[i].username +"</small></a></span><br />"+       
+		   "<span class='muted'><small>"+ list[i].userdesc + "</small></span><br />"+            
+		   "<span class='pull-right muted'><small><i class='icon-pushpin'></i>分享Parts"+ list[i].parts +"</small></span><br />" +
+		   "</div></li>";
+			            
+	   }
+	   $("#"+userplane).append(show);
+   }
+   
+   function showload(){ 
+	   var scrollh = document.documentElement.scrollHeight;
+	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+	   if ( scrollt/scrollh > 0.03 ) {
+		     if(!isrun){
+		    	 isrun = true; 
+		    	 loadMore();  
+		     }
+	   }
+	} 
+
+	//绑定事件
+	function bindScroll(){
+	    $(window).bind("scroll", function(){ 
+	       showload();
+	    }); 
+	}
+
+</script>
 </body>
 </html>

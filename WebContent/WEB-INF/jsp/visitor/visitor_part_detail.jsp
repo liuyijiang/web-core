@@ -5,102 +5,6 @@
 <head>
  <%@ include file="../../../headerinclude.jsp"%>
 </head>
-<script type="text/javascript">
-  
-  var page = 1; // 记录页数
-  var traget = '${partEntity.id}';
-  
-  function createUserRelation(id){	  
-	  $.ajax({
-	   		url : path + "/createUserRelation.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: {"createRelationShipRequest.userid":id},
-	   		dataType : "json",
-	   		success : function(item) {
-	   		    if(item == 'success'){
-	 			   alert("关注成功");
-			    }else if( item == 'error'){
-			   	   alert("已经关注");
-			    }else {
-			     	alert(item);
-			    }
-	   		  }
-	 	 });  
-  }
-  
-  function collectPart(partid){
-	  $.ajax({
-   		url : path + "/createUserCollect.action",
-   		type : "POST",
-   		cache : false,
-   		async : false,
-   		data: {"collectPartsRequest.targetId":partid},
-   		dataType : "json",
-   		success : function(item) {
-   		    if(item == 'success'){
- 			   alert("已将Part加入到你的收藏夹");
- 			    var num = $("#coll").html();
-		    	 var number = parseInt(num);
-		    	 var sum = 1+ number;
-		    	 $("#coll").html(sum);
- 			   
-		    }else if( item == 'error'){
-		   	   alert("网络异常请重试");
-		    }else {
-		     	alert(item);
-		    }
-   		  }
- 	 }); 
-  }
-  
-  function mouseover(){
-    $("#subjectfun").css("z-index","1");
-  }
-  
-  function mouseout(){
-	$("#subjectfun").css("z-index","-1");
-  }
-  
-  function mouseoveru(){
-    $("#userfun").css("z-index","1");
-  }
-	  
-  function mouseoutu(){
-	$("#userfun").css("z-index","-1");
-  }
-  
-  function mouseoverp(){
-	    $("#partfun").css("z-index","1");
-  }
-	  
-  function mouseoutp(){
-	$("#partfun").css("z-index","-1");
-  }
-
-  function rsssubject(subjectid,subjectOwnerId){
-	  var datas = {"rssSubjectRequest.subjectid":subjectid,"rssSubjectRequest.subjectOwnerId":subjectOwnerId};
-	  $.ajax({
-	   		url : path + "/rsssubject.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: datas,
-	   		dataType : "json",
-	   		success : function(item) {
-	   		    if(item == 'success'){
-	 			   alert("订阅成功！");
-			    }else if( item == 'error'){
-			   	   alert("网络异常请重试");
-			    }else {
-			       alert(item);
-			    }
-	   		  }
-	 	 }); 
-  }
-  
-</script>
 <body class="mxkbody mxkbackgroud" >
 	<%@ include file="../public/user_page_header.jsp"%>
 <div class="container ">
@@ -325,8 +229,8 @@
    </div>
    <br /> <br />
 </div>
-
     
+<%@ include file="../../../recordfootinclude.jsp"%>
   <script type="text/javascript">
   replyuserid = '';
   
@@ -354,7 +258,101 @@
 	 }); 
 }
  </script>
-    
-<%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+  
+  var page = 1; // 记录页数
+  var traget = '${partEntity.id}';
+  
+  function createUserRelation(id){	  
+	  $.ajax({
+	   		url : path + "/createUserRelation.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: {"createRelationShipRequest.userid":id},
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("关注成功");
+			    }else if( item == 'error'){
+			   	   alert("已经关注");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 	 });  
+  }
+  
+  function collectPart(partid){
+	  $.ajax({
+   		url : path + "/createUserCollect.action",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		data: {"collectPartsRequest.targetId":partid},
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+ 			   alert("已将Part加入到你的收藏夹");
+ 			    var num = $("#coll").html();
+		    	 var number = parseInt(num);
+		    	 var sum = 1+ number;
+		    	 $("#coll").html(sum);
+ 			   
+		    }else if( item == 'error'){
+		   	   alert("网络异常请重试");
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+ 	 }); 
+  }
+  
+  function mouseover(){
+    $("#subjectfun").css("z-index","1");
+  }
+  
+  function mouseout(){
+	$("#subjectfun").css("z-index","-1");
+  }
+  
+  function mouseoveru(){
+    $("#userfun").css("z-index","1");
+  }
+	  
+  function mouseoutu(){
+	$("#userfun").css("z-index","-1");
+  }
+  
+  function mouseoverp(){
+	    $("#partfun").css("z-index","1");
+  }
+	  
+  function mouseoutp(){
+	$("#partfun").css("z-index","-1");
+  }
+
+  function rsssubject(subjectid,subjectOwnerId){
+	  var datas = {"rssSubjectRequest.subjectid":subjectid,"rssSubjectRequest.subjectOwnerId":subjectOwnerId};
+	  $.ajax({
+	   		url : path + "/rsssubject.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: datas,
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("订阅成功！");
+			    }else if( item == 'error'){
+			   	   alert("网络异常请重试");
+			    }else {
+			       alert(item);
+			    }
+	   		  }
+	 	 }); 
+  }
+  
+</script>
 </body>
 </html>

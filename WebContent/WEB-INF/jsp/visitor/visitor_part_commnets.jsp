@@ -7,40 +7,7 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
 
-  var replyuserid = '';
-  
-  function rsssubject(subjectid,subjectOwnerId){
-	  var datas = {"rssSubjectRequest.subjectid":subjectid,"rssSubjectRequest.subjectOwnerId":subjectOwnerId};
-	  $.ajax({
-	   		url : path + "/rsssubject.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: datas,
-	   		dataType : "json",
-	   		success : function(item) {
-	   		    if(item == 'success'){
-	 			   alert("订阅成功！");
-			    }else if( item == 'error'){
-			   	   alert("网络异常请重试");
-			    }else {
-			       alert(item);
-			    }
-	   		  }
-	 	 }); 
-  }
-  
-  
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -387,6 +354,40 @@ function clear(){
 
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+
+  var replyuserid = '';
+  
+  function rsssubject(subjectid,subjectOwnerId){
+	  var datas = {"rssSubjectRequest.subjectid":subjectid,"rssSubjectRequest.subjectOwnerId":subjectOwnerId};
+	  $.ajax({
+	   		url : path + "/rsssubject.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: datas,
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("订阅成功！");
+			    }else if( item == 'error'){
+			   	   alert("网络异常请重试");
+			    }else {
+			       alert(item);
+			    }
+	   		  }
+	 	 }); 
+  }
+  
+  
+</script>
 <script>
    var partsId = '${partEntity.id}';
    var partsOwner = '${partEntity.userid}';

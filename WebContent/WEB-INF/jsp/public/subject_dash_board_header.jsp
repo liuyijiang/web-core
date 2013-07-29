@@ -52,6 +52,7 @@
 												     <li><a href="<%=rootPath %>/userLoginOut"><i class="icon-signout"></i>退出</a></li>
 											    </ul>
 						                        </div>
+						                        </span>
 						     </c:when>
 						     <c:otherwise>
 						            <span class="pull-right">
