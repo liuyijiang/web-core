@@ -2,6 +2,8 @@ package com.mxk.org.common.domain.constant;
 
 public class MxkConstant {
 
+	public static final String ARRY_MARK = "#";
+	
     public static final String LOGIN_FAIL = "账号与密码不符合请重试！";
 	
 	public static final String STATUS_CHANGE_FAIL = "有其他用户在这个共享专题中发布part！";
@@ -48,7 +50,7 @@ public class MxkConstant {
 	
 	public static final String MAIL_TYPE_WEEKPUSH = "weekpush";
 	
-	public static final String MXK_EMPTY = "";
+	public static final String MXK_EMPTY = " ";
 	
 	public static final String MXK_EMPTY_SUBJECT = "#";
 	

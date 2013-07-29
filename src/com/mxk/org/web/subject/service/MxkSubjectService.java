@@ -1,11 +1,14 @@
 package com.mxk.org.web.subject.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.SubjectExtraEntity;
@@ -29,6 +32,23 @@ public class MxkSubjectService {
    
 	@Autowired
 	private MxkSubjectDao dao;
+	
+	public Map<String,String> findSubjectWorkingData(String userid,String subjectid){
+		Map<String,String>  map = null;
+		List<SubjectWorkingEntity> list = dao.findUserWorkingList(userid,subjectid);
+		if(list != null && !list.isEmpty()) {
+			map = new HashMap<String,String>();
+			List<String> date = new ArrayList<String>();
+			List<Double> pg = new ArrayList<Double>();
+			for(SubjectWorkingEntity swe : list){
+				date.add("'" + swe.getCreateTime().substring(0,swe.getCreateTime().indexOf(MxkConstant.MXK_EMPTY)) + "'");
+				pg.add(swe.getPlan());
+				map.put("date", date.toString());
+				map.put("pg", pg.toString());
+			}
+		}
+		return map;
+	}
 	
 	public SubjectWorkingEntity findSubjectWorkingEntityByDate(String userid,String subjectid,String createTime){
 		return dao.findSubjectWorkingEntityByDate(userid, subjectid, createTime);

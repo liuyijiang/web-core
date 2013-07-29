@@ -1,7 +1,6 @@
 package com.mxk.org.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,7 +23,7 @@ public class SubjectWorkingEntity implements Serializable {
 	private String userid;
 	private String subjectid;
 	private double plan;//进度
-	private List<String> doc;//记录[2012-12-12:12:21:23]wadawdaddawda  格式
+	private String doc;//记录[2012-12-12:12:21:23]wadawdaddawda ,格式
 	private String createTime;//[2012-12-11 00:00:00]
 	
 	public String getId() {
@@ -57,10 +56,10 @@ public class SubjectWorkingEntity implements Serializable {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public List<String> getDoc() {
+	public String getDoc() {
 		return doc;
 	}
-	public void setDoc(List<String> doc) {
+	public void setDoc(String doc) {
 		this.doc = doc;
 	}
 	

@@ -45,4 +45,15 @@ public class StringUtil {
 	   	 sb.append(" 23:59:59");
 	   	 return sb.toString();
     }
+    
+    public static void main(String[] args) {
+     	String str = "dassdaadewawadwadwadwa";
+//		String[] ar = str.split("#");
+//		for (String s : ar) {
+//			System.out.println(s);
+//		}
+     	str = str.replaceAll("#", " ");
+     	System.out.println(str);
+	}
+    
 }

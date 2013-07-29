@@ -43,6 +43,12 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<SubjectWorkingEntity> findUserWorkingList(String userid,String subjectid){
+		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid));
+		return mog.find(q, SubjectWorkingEntity.class);
+	}
+	
+	
 	public SubjectWorkingEntity findSubjectWorkingEntityByDate(String userid,String subjectid,String createTime){
 		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid).and("createTime").is(createTime));
 		return mog.findOne(q, SubjectWorkingEntity.class);

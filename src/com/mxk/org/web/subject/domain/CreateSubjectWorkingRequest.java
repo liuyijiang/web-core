@@ -1,7 +1,5 @@
 package com.mxk.org.web.subject.domain;
 
-import java.util.List;
-
 public class CreateSubjectWorkingRequest {
 
 	private String id;
@@ -10,7 +8,6 @@ public class CreateSubjectWorkingRequest {
 	private double plan;//进度
 	private String doc;//记录[2012-12-12:12:21:23]wadawdaddawda  格式
 	private String createTime;
-	private List<String> docs;
 	
 	public String getId() {
 		return id;
@@ -47,12 +44,6 @@ public class CreateSubjectWorkingRequest {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-	public List<String> getDocs() {
-		return docs;
-	}
-	public void setDocs(List<String> docs) {
-		this.docs = docs;
 	}
    	
 }

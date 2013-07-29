@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,50 +122,37 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private SubjectExtraEntity subjectExtraEntity;
 	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
 	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
+	private Map<String,String> subjectWorkingChart;
 	private String targetId;
 	
 	//创建进度
-	public String mxkCreateSubjectWork(){
+	public String mxkCreateSubjectWorking(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(createSubjectWorkingRequest != null && uservo != null && currentSubjectEntity != null){
 			String todayTime = StringUtil.todayStartTime();
 			SubjectWorkingEntity swe = subjectService.findSubjectWorkingEntityByDate(uservo.getId(), currentSubjectEntity.getId(), todayTime);
-		    if(swe != null){
-		    	swe.getDoc().add(createSubjectWorkingRequest.getDoc());
-		    	createSubjectWorkingRequest.setDocs(swe.getDoc());
+			createSubjectWorkingRequest.setUserid(uservo.getId());
+			createSubjectWorkingRequest.setSubjectid(currentSubjectEntity.getId());
+			createSubjectWorkingRequest.setCreateTime(todayTime);
+			//去除符号
+			StringBuffer sb = new StringBuffer();
+			sb.append(createSubjectWorkingRequest.getDoc().replace(MxkConstant.ARRY_MARK, MxkConstant.MXK_EMPTY)); 
+			sb.append(MxkConstant.MXK_EMPTY+"["+StringUtil.dateToString(new Date(), null) +"]"+MxkConstant.ARRY_MARK);
+			if(swe != null){
+				createSubjectWorkingRequest.setDoc(createSubjectWorkingRequest.getDoc()+sb.toString());
 		    	SubjectWorkingEntity entity = EntityFactory.createSubjectWorkingEntity(createSubjectWorkingRequest);
 		    	subjectService.updateSubjectWorkingEntity(entity);
 		    }else{
 		    	List<String> dous = new ArrayList<String>();
 		    	dous.add(createSubjectWorkingRequest.getDoc());
-		    	createSubjectWorkingRequest.setDocs(dous);
+		    	createSubjectWorkingRequest.setDoc(sb.toString());
 		    	SubjectWorkingEntity entity = EntityFactory.createSubjectWorkingEntity(createSubjectWorkingRequest);
 		    	subjectService.saveSubjectWorkingEntity(entity);
 		    }
 		}
 		return SUCCESS;
 	}
-	
-	public String mxkSubjectWorkingView(){
-		return SUCCESS;
-	}
-	
-//	public String mxkSubjectCommentsView(){
-//		uservo = super.getCurrentUserVO();
-//		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
-//		if(currentSubjectEntity != null){
-//			subjectMessageShowRespone = new SubjectMessageShowRespone();
-//			subjectMessageShowRespone.setSubjectEntity(currentSubjectEntity);
-//			SubjectNewPartsVO subjectNewPartsVO = partService.findSubjectNewParts(currentSubjectEntity.getId());
-//			subjectMessageShowRespone.setSubjectNewPartsVO(subjectNewPartsVO);
-//			loadCommentsRequest = new LoadCommentsRequest();
-//			loadCommentsRequest.setPage(1);
-//			loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
-//			loadCommentsRequest.setType(MxkConstant.COMMENT_TYPE_TEXT);
-//		}
-//		return SUCCESS;
-//	}
 	
 	public String mxkDeleteSubjectAjax(){
 		message = MxkConstant.USER_NO_LOGIN;
@@ -420,11 +408,6 @@ public class MxkSubjectAction extends MxkSessionAction {
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(uservo != null && currentSubjectEntity != null){
 			//进度
-			if(MxkSubjectcCategory.SUBJECT_CATEGORY_WORKING.getString().equals(currentSubjectEntity.getCategory())){
-				
-				
-				return "WORKING";
-			}else{
 				SearchPartRequest request = new SearchPartRequest();
 				request.setPage(1);
 				request.setSubjectid(currentSubjectEntity.getId());
@@ -434,6 +417,10 @@ public class MxkSubjectAction extends MxkSessionAction {
 				if(partShowResponse != null){
 					partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(currentSubjectEntity.getId()));
 				}
+//				if(MxkSubjectcCategory.SUBJECT_CATEGORY_WORKING.getString().equals(currentSubjectEntity.getCategory())){
+//					subjectWorkingChart = subjectService.findSubjectWorkingData(uservo.getId(), currentSubjectEntity.getId());
+//					return "WORKING";
+//				}
 				if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 					if(partShowResponse != null){
 						partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(currentSubjectEntity.getId()));	
@@ -449,7 +436,6 @@ public class MxkSubjectAction extends MxkSessionAction {
 					}
 					return MxkConstant.SUBJECT_TYPE_PUBLIC;
 				}
-			}
 		}else{
 			return ERROR;
 		}
@@ -760,6 +746,14 @@ public class MxkSubjectAction extends MxkSessionAction {
 	public void setCreateSubjectWorkingRequest(
 			CreateSubjectWorkingRequest createSubjectWorkingRequest) {
 		this.createSubjectWorkingRequest = createSubjectWorkingRequest;
+	}
+
+	public Map<String, String> getSubjectWorkingChart() {
+		return subjectWorkingChart;
+	}
+
+	public void setSubjectWorkingChart(Map<String, String> subjectWorkingChart) {
+		this.subjectWorkingChart = subjectWorkingChart;
 	}
 
 	

@@ -331,6 +331,7 @@ public class MxkUserAction extends MxkSessionAction {
 	
 	
 	public String mxkShowUserRegisterView(){
+		super.removeSession();
 		return SUCCESS;
 	}
 	

@@ -21,7 +21,10 @@ import com.mxk.org.web.comments.service.MxkMessageService;
 import com.mxk.org.web.main.domain.ChangePasswordRequest;
 import com.mxk.org.web.main.domain.RegisterCheckRequest;
 import com.mxk.org.web.part.service.MxkPartService;
+import com.mxk.org.web.subject.domain.CreateSubjectWorkingRequest;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
+import com.mxk.org.web.subject.domain.SubjectTop5NewPartsRespone;
+import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 import com.mxk.org.web.user.service.MxkUserService;
 
@@ -50,6 +53,9 @@ public class MxkMainAction extends MxkSessionAction {
 	@Autowired
 	private MxkCommentsService commentsService;
 	
+	@Autowired
+	private MxkSubjectService subjectService;
+	
 	private UserVO uservo;
 	private RegisterCheckRequest registerCheckRequest;
 	private String message;
@@ -61,6 +67,9 @@ public class MxkMainAction extends MxkSessionAction {
 	private String usermail;
 	private String uuid;
 	private String target;//
+	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
+	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
+	private LoadCommentsRequest loadCommentsRequest;
 	
 	public String mxkTestStyle(){
 		//1 查询本周最后的8条 
@@ -91,10 +100,10 @@ public class MxkMainAction extends MxkSessionAction {
 					
 				}
 				
-			}, 1000);
+			}, 10000);
 			uservo = super.getCurrentUserVO();
 			partEntity = partService.findPartEntityById(messageEntity.getTargetId());
-			currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+			currentSubjectEntity =   subjectService.findSubjectEntityById(partEntity.getSubjectid());
 			if(partEntity != null){
 				subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
 				LoadCommentsRequest request = new LoadCommentsRequest();
@@ -108,7 +117,47 @@ public class MxkMainAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	public String mxkUserShowNewMessageOfSubjectComView(){
+		
+		MessageEntity messageEntity = messageService.findMessageEntityById(target);
+		if(messageEntity != null){
+			target = messageEntity.getTargetId();
+			uuid =  messageEntity.getId();
+			Timer t = new Timer();
+			t.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					messageService.removeMesage(uuid);
+					
+				}
+				
+			}, 10000);
+			uservo = super.getCurrentUserVO();
+			currentSubjectEntity =  subjectService.findSubjectEntityById(target);
+			if(currentSubjectEntity != null){
+				subjectTop5NewPartsRespone = partService.findNewTop5Parts(currentSubjectEntity.getId());
+				loadCommentsRequest = new LoadCommentsRequest();
+				loadCommentsRequest.setPage(1);
+				loadCommentsRequest.setTargeid(currentSubjectEntity.getId());
+				loadCommentsRequest.setType(null);
+				loadCommentsRespone = commentsService.findCommentEntityByPage(loadCommentsRequest);
+				if(loadCommentsRespone != null){
+					long allpage = commentsService.findCommentsPage(loadCommentsRequest);
+					loadCommentsRespone.setAllpage(allpage);
+				}
+			}
+			
+		}
+		return SUCCESS;
+	}
+	
+	
 	public String mxkRegisterCheckAjax(){
+		UserVO user = super.getCurrentUserVO();
+		if(user != null){
+			registerCheckRequest.setCurrentName(user.getName());
+		}
 		if(userService.checkParmUnique(registerCheckRequest)){
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{
@@ -240,6 +289,32 @@ public class MxkMainAction extends MxkSessionAction {
 
 	public void setTarget(String target) {
 		this.target = target;
+	}
+
+	public SubjectTop5NewPartsRespone getSubjectTop5NewPartsRespone() {
+		return subjectTop5NewPartsRespone;
+	}
+
+	public void setSubjectTop5NewPartsRespone(
+			SubjectTop5NewPartsRespone subjectTop5NewPartsRespone) {
+		this.subjectTop5NewPartsRespone = subjectTop5NewPartsRespone;
+	}
+
+	public CreateSubjectWorkingRequest getCreateSubjectWorkingRequest() {
+		return createSubjectWorkingRequest;
+	}
+
+	public void setCreateSubjectWorkingRequest(
+			CreateSubjectWorkingRequest createSubjectWorkingRequest) {
+		this.createSubjectWorkingRequest = createSubjectWorkingRequest;
+	}
+
+	public LoadCommentsRequest getLoadCommentsRequest() {
+		return loadCommentsRequest;
+	}
+
+	public void setLoadCommentsRequest(LoadCommentsRequest loadCommentsRequest) {
+		this.loadCommentsRequest = loadCommentsRequest;
 	}
 
 	

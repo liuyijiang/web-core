@@ -113,7 +113,11 @@ public class MxkUserService {
 		if(MxkConstant.VALIATE_EMAIL.equals(registerCheckRequest.getType())){
 			return userDao.checkUserEmailUnique(registerCheckRequest.getParm());
 		}else if(MxkConstant.VALIATE_NAME.equals(registerCheckRequest.getType())){
-			return userDao.checkUserNameUnique(registerCheckRequest.getParm());
+			if(registerCheckRequest.getParm().equals(registerCheckRequest.getCurrentName())){
+				return true;
+			}else{
+				return userDao.checkUserNameUnique(registerCheckRequest.getParm());
+			}
 		}else{
 			return false;
 		}

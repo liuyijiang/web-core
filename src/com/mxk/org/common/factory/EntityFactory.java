@@ -33,6 +33,7 @@ public class EntityFactory {
 		swe.setPlan(request.getPlan());
 		swe.setSubjectid(request.getSubjectid());
 		swe.setUserid(request.getUserid());
+		swe.setDoc(request.getDoc());
 		return swe;
 	}
 	
