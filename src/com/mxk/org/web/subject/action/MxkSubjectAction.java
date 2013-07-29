@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
-import com.mxk.org.common.domain.constant.MxkSubjectcCategory;
 import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.common.message.domain.DeleteSubjectMessage;
@@ -124,6 +123,17 @@ public class MxkSubjectAction extends MxkSessionAction {
 	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
 	private Map<String,String> subjectWorkingChart;
 	private String targetId;
+	
+	//更新subjsct
+	public String mxkUpdateSubjectAjax(){
+		uservo = getCurrentUserVO();
+		message = MxkConstant.AJAX_SUCCESS;
+		if(uservo != null && createSubjectRequest != null){
+			createSubjectRequest.setUserid(uservo.getId());
+			subjectService.updateSubjectEntity(createSubjectRequest);
+		}
+		return SUCCESS;
+	}
 	
 	//创建进度
 	public String mxkCreateSubjectWorking(){

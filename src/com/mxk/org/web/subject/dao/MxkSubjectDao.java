@@ -23,6 +23,7 @@ import com.mxk.org.entity.SubjectJoinPeopleEntity;
 import com.mxk.org.entity.SubjectWorkingEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserRssSubjectEntity;
+import com.mxk.org.web.subject.domain.CreateSubjectRequest;
 import com.mxk.org.web.subject.domain.SearchSubjectRequest;
 import com.mxk.org.web.subject.domain.SetFaceImageRequest;
 import com.mxk.org.web.subject.domain.UpdateSubjectStatusRequest;
@@ -42,6 +43,26 @@ public class MxkSubjectDao {
 	
 	@Autowired
 	private MongoOperations mog; 
+	
+	public void updateSubjectEntity(CreateSubjectRequest request){
+		Query q = new Query(Criteria.where("id").is(request.getId()));
+		SubjectEntity sub = mog.findOne(q, SubjectEntity.class);
+		if(sub != null && sub.getUserid().equals(request.getUserid())){
+			Update usub = new Update();
+			usub.set("info", request.getInfo());
+			usub.set("name", request.getName());
+			usub.set("category", request.getCategory());
+			if(!sub.getTags().equals(request.getTags())){
+				usub.set("tags", request.getTags());
+				Query qpart = new Query(Criteria.where("subjectid").is(sub.getId()).and("userid").is(sub.getUserid()));
+				Update upart = new Update();
+				upart.set("type", request.getTags());
+				mog.updateMulti(qpart, upart, PartEntity.class);
+			}
+			mog.updateMulti(q,usub,SubjectEntity.class);
+		}
+	}
+	
 	
 	public List<SubjectWorkingEntity> findUserWorkingList(String userid,String subjectid){
 		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid));

@@ -33,6 +33,11 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public void updateSubjectEntity(CreateSubjectRequest request){
+		dao.updateSubjectEntity(request);
+	}
+	
+	
 	public Map<String,String> findSubjectWorkingData(String userid,String subjectid){
 		Map<String,String>  map = null;
 		List<SubjectWorkingEntity> list = dao.findUserWorkingList(userid,subjectid);

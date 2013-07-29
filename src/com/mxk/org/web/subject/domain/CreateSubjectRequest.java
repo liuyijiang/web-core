@@ -9,6 +9,7 @@ public class CreateSubjectRequest {
 	private String faceiamge;
 	private String tags;//
 	private String category;
+	private String id;
 	
 	public String getName() {
 		return name;
@@ -51,6 +52,12 @@ public class CreateSubjectRequest {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
