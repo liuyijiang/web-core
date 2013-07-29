@@ -11,6 +11,11 @@
            method="mxkSubjectCommentsView">
            <result name="success" >WEB-INF/jsp/subject/subject_comments.jsp</result>
        </action> 
+       
+       <action name="createSubjectWorking" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+           method="mxkCreateSubjectWorking">
+           <result name="success" type="redirect">showSubjectDetailView</result>
+       </action> 
         
        <action name="createSubjectMaterial" class="com.mxk.org.web.subject.action.MxkSubjectAction"
            method="mxkCreateSubjectMaterial">

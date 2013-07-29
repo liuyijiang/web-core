@@ -9,7 +9,12 @@
         
         <action name="userShowNewMessageOfCom" class="com.mxk.org.web.main.action.MxkMainAction" 
              method="mxkUserShowNewMessageOfComView">
-            <result name="success" type="redirect">showPartsComments?target=${target}</result>
+            <result name="success" >/WEB-INF/jsp/part/part_comments.jsp</result>
+         </action> 
+        
+        <action name="userShowNewMessageOfSubjectCom" class="com.mxk.org.web.main.action.MxkMainAction" 
+             method="mxkUserShowNewMessageOfSubjectComView">
+            <result name="success" >WEB-INF/jsp/subject/subject_comments.jsp</result>
          </action> 
         
          <action name="loginOutView" class="com.mxk.org.web.main.action.MxkMainAction"
