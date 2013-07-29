@@ -25,6 +25,7 @@
 <script type="text/javascript" src="assets/js/bootstrap-popover.js"></script>
 <script type="text/javascript" src="assets/js/jquery.form.js"></script>
 <script type="text/javascript" src="assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="assets/js/cloud-carousel.1.0.5.js"></script>
 
 <script type="text/javascript"> 
      var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");

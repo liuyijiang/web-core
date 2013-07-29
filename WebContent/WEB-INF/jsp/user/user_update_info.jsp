@@ -12,7 +12,7 @@
    var emailvalidate = false;
    
     function valiateparm(type){
-    	if(type == "email"){
+    	if(type == "name"){
     		$("#emailvaliate").html("");
     		var parm = $('#username').val();
     		var datas = {"registerCheckRequest.parm":parm,"registerCheckRequest.type":type};
@@ -35,7 +35,7 @@
     }
     
     function callback(message,type){
-    	if(type == "email"){
+    	if(type == "name"){
     		if(message == "success"){
     			$("#emailvaliate").html("<span class='text-success'><i class='icon-ok icon-2x'></i>可以使用这个昵称</span>");
     			emailvalidate = true;
@@ -64,9 +64,9 @@
 					<span style="font-size: 20px;" class="text-info"><strong>修改个人信息</strong></span><br />
 					<hr />
 					<label>用户昵称</label>
-					<input id="username" type="text"
+					<input id="username" type="text" value="${uservo.name }"
 						class="input-block-level" style="width:400px" name="userRegisterRequest.username"
-						onblur="valiateparm('email')" /><span id="emailvaliate"></span><br /> 
+						onblur="valiateparm('name')" /><span id="emailvaliate"></span><br /> 
 					<span class="muted"><small>用户名要唯一哟</small></span> <br />
 					<hr />
 					<label>性别</label> 
@@ -88,7 +88,7 @@
 						<label>个性头像:</label> <input type="file" name="userRegisterRequest.image"
 							class="input-block-level"> <br />
 					    <label>个性宣言</label> <input
-							id="useremail" type="text" class="input-block-level"
+							id="useremail" type="text" class="input-block-level" value="${uservo.info }"
 							name="userRegisterRequest.info" />
 					</div>
 		    </form>

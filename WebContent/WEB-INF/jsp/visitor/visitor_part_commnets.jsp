@@ -127,9 +127,16 @@
 					<table style="width:100%">
 	                <tr>
 	                  <td rowspan="2" colspan="2">
-	                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">
-	                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
-	                  </a>
+	                  <c:if test="${!empty subjectEntity }">
+		                  <a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">
+		                    <img src="<%=imgurl %>/${subjectEntity.faceimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
+		                  </a>
+	                  </c:if>
+	                  <c:if test="${empty subjectEntity }">
+	                     <a href="visitorShowPartDetail?target=${partEntity.id }">
+		                    <img src="<%=imgurl %>/${partEntity.minimage}" style="border-radius:3px 3px 3px 3px;border: 1px solid #e5e5e5;width:203px;height:195px;">  <!-- style="width: 100%;" -->
+		                  </a>
+	                  </c:if>
 	                  </td>
 	                  <td>
 	                  <a href="<%=rootPath %>/visitorShowPartDetail?target=${subjectNewPartsVO.partId1}">
@@ -314,7 +321,8 @@ function addTextComents(commentedId,commentedUserId,traget){
 	   		dataType : "json",
 	   		success : function(item) {
 	   		    if(item == 'success'){
-	 			   alert("评论成功！");
+	 			  alert("评论成功！");
+	 			  window.location.href= path + "/visitorShowPartsCommnets?target=" + commentedId;
 			    }else if( item == 'error'){
 			   	   alert("网络异常请重试");
 			    }else {
@@ -392,8 +400,8 @@ function clear(){
         callback_activityTime:     function(time){callback_activityTime(time); },
         callback_finished_sending:     function(time){ callback_finished_sending() },
         swf_path : 'jRecorder.swf',
-        'rec_width': '500',
-		'rec_height': '400',
+        'rec_width': '600',
+		'rec_height': '500',
      }
    
    );

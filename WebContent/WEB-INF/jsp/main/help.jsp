@@ -8,9 +8,7 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
-	
 <div class="container">
-<h1><a href="http://localhost:8086/webmxk/userShowNewMessageOfCom?target=51f28b4de24a111d2f3a0c49">ss</a></h1>
        <h4>关于米兔Metoo</h4>
 	  <span>在米兔Metoo你可以享受什么</span>
 	  <br />
@@ -29,7 +27,7 @@
 	  <ol>
 	    <li><a href="#mkpart">分享part</a></li>
 	    <li><a href="#mksubject">创建专题</a></li>
-	    <li><a href="#mkwork">管理制作进度</a></li>
+<!-- 	    <li><a href="#mkwork">管理制作进度</a></li> -->
 	    <li><a href="#mkgif">生成电子文档或GIF图片</a></li>
 	    <li><a href="#mkm">分享制作材料</a></li>
 	  </ol>

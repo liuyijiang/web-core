@@ -182,7 +182,7 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<c:if test="${options.subname != '' }">
+							<c:if test="${options.subjectid != '#' }">
 							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							</c:if>
 							   <span class="label">${options.type }</span>
@@ -216,7 +216,7 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<c:if test="${options.subname != '' }">
+							<c:if test="${options.subjectid != '#' }">
 							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							</c:if>
 							<span class="label">${options.type }</span>
@@ -250,7 +250,7 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<c:if test="${options.subname != '' }">
+							<c:if test="${options.subjectid != '#' }">
 							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							</c:if>
 							<span class="label">${options.type }</span>
@@ -284,7 +284,7 @@
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
-							<c:if test="${options.subname != '' }">
+							<c:if test="${options.subjectid != '#' }">
 							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
 							</c:if>
 							<span class="label">${options.type }</span>

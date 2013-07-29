@@ -43,7 +43,7 @@
 		           <img src="<%=imgurl %>${options.image }" >
                    <div class="container">
 		            <div class="carousel-caption">
-		              <span class="lead">${options.desc }</span>
+		              <span class="lead"><font color="#FFFFFF">${options.desc }</font></span>
 		            </div>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
 		           <img src="<%=imgurl %>${options.image }" >
                   <div class="container">
 		            <div class="carousel-caption">
-		              <span class="lead">${options.desc }</span>
+		              <span class="lead"><font color="#FFFFFF">${options.desc }</font></span>
 		            </div>
                   </div>
                 </div>

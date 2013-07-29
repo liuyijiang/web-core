@@ -8,21 +8,21 @@
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
 <div class="container">
-   <span style="font-size: 20px;"><strong>${currentSubjectEntity.name } </strong></span>
+   <span style="font-size: 20px;"><strong>${subjectEntity.name } </strong></span>
    <span>
-      	<span class="label">${currentSubjectEntity.category }</span>
+      	<span class="label">${subjectEntity.category }</span>
                       	 <c:choose>
-		                <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
+		                <c:when test="${subjectEntity.type == 'PUBLIC'}">
                            <span class="label label-success">
                               <i class="icon-hdd"></i>公开
 						   </span>
 		                </c:when>
-		                <c:when test="${currentSubjectEntity.type == 'FOR-ALL'}">
+		                <c:when test="${subjectEntity.type == 'FOR-ALL'}">
 		                  <span class="label label-warning">
                              <i class="icon-globe"></i>共享
 						   </span>
 		                </c:when>
-		                <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
+		                <c:when test="${subjectEntity.type == 'PRIVATE'}">
 		                  <span class="label label-important">
                              <i class="icon-globe"></i>私有
 						   </span>
@@ -43,7 +43,7 @@
 		           <img src="<%=imgurl %>${options.image }" >
                    <div class="container">
 		            <div class="carousel-caption">
-		              <span class="lead">${options.desc }</span>
+		              <span class="lead"><font color="#FFFFFF">${options.desc }</font></span>
 		            </div>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
 		           <img src="<%=imgurl %>${options.image }" >
                   <div class="container">
 		            <div class="carousel-caption">
-		              <span class="lead">${options.desc }</span>
+		              <span class="lead"><font color="#FFFFFF">${options.desc }</font></span>
 		            </div>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
               <li class="span3 mxkplan mxkshadow">
 	            <div class="thumbnail">
 	               <img  src="<%=imgurl %>${targetUserVO.image }" >
-	               <span ><strong>${uservo.name } </strong>
+	               <span ><strong>${targetUserVO.name } </strong>
 				        <c:if test="${targetUserVO.sex == 1 }" >
 				           <img src="<%=assets%>mxkimage/male1.png">
 				        </c:if>
@@ -80,8 +80,8 @@
                      <br />
                     <span class="muted">${targetUserVO.info }</span><br />
                     <span class="pull-right">
-                          <a href="showCreateSubjectView" class="btn btn-info"><i class="icon-plus-sign"></i>评论专题</a>
-			              <a href="showCreateSubjectView" class="btn btn-info"><i class="icon-plus-sign"></i>加关注</a>
+                          <a class="btn btn-primary" href="<%=rootPath %>/visitiorShowSubjectComements?target=${subjectEntity.id}"><i class="icon-comments-alt"></i>评论专题</a>
+			              <a href="javascript:;" class="btn btn-inverse" onclick="createUserRelation('${targetUserVO.id}')"><i class="icon-plus"></i>加关注</a>
 			         </span><br /><br />
 	             </div>
 		      </li>
@@ -93,6 +93,29 @@
  
  
 </div>
+<script type="text/javascript">
+  
+function createUserRelation(id){	  
+	  $.ajax({
+	   		url : path + "/createUserRelation.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: {"createRelationShipRequest.userid":id},
+	   		dataType : "json",
+	   		success : function(item) {
+	   		    if(item == 'success'){
+	 			   alert("关注成功");
+			    }else if( item == 'error'){
+			   	   alert("已经关注");
+			    }else {
+			     	alert(item);
+			    }
+	   		  }
+	 	 });  
+}
+
+</script>
 <%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

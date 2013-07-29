@@ -6,29 +6,6 @@
  <%@ include file="../../../headerinclude.jsp"%>
 </head>
 <script type="text/javascript">
-function showCreatePart(){
-	 $('#createPartModal').modal({
-      keyboard: false
-  });
-}
-
-function closeCreatePart(){
-	 $('#createPartModal').modal('hide');
-}
-
-
-function showCreateSubjectWorking(){
-	 $('#createSubjectWorking').modal({
-     keyboard: false
- });
-}
-
-function closeCreateSubjectWorking(){
-	 $('#createSubjectWorking').modal('hide');
-}
-
-</script>
-<script type="text/javascript">
 var page = 2;
 var userid = '${currentSubjectEntity.userid}';
 var subjectid = '${currentSubjectEntity.id}';
@@ -139,6 +116,90 @@ function bindScroll(){
        		  });
        }
        
+       function useforgifshow(message){
+    	   useforgif = true;
+    	   userforpdf = false;
+    	   showchecks();
+    	   $('#usepart').show();
+    	   $('#usepart').html(message);
+       }
+       
+       function useforpdfshow(message){
+    	   useforgif = false;
+    	   userforpdf = true;
+    	   showchecks();
+    	   $('#usepart').show();
+    	   $('#usepart').html(message);
+       }
+       
+       function showchecks(){
+    	   $('.checkbox').show();
+    	   //$('[id=checks]').show();
+       }
+       
+       function doaction(){
+    	   if(userforpdf){
+    		   createpdf();  
+    	   }else{
+    		   createGif();
+    	   }
+       }
+       
+       function createGif(){
+    	   var ids = "";
+    	   $('.thechecks').each(function(i){
+    		   if($(this).attr("checked")){
+    			   ids = ids + $(this).val() + ",";
+   			   }
+    	   });  
+    	   if(ids != ""){
+    		   $("#action").show();
+    		   $.ajax({
+     	       		url : path + "/createGif.action",
+     	       		type : "POST",
+     	       		cache : false,
+     	       		async : false,
+     	       		data: {"partids":ids},
+     	       		dataType : "json",
+     	       		success : function(item) {
+     	       		     $("#action").hide();
+     		       		 if(item == 'success'){
+     	    		    	 alter("操作成功！");
+     	    		     }else{
+     	    		    	 alert("网络异常请重试");
+     	    		     }
+     	       		  }
+               }); 
+    	   }
+       }
+       
+       function createpdf(){
+    	   var ids = "";
+    	   $('.thechecks').each(function(i){
+    		   if($(this).attr("checked")){
+    			   ids = ids + $(this).val() + ",";
+   			   }
+    	   }); 
+    	   if(ids != ""){
+    		   $("#action").show();
+    		   $.ajax({
+     	       		url : path + "/createPdf.action",
+     	       		type : "POST",
+     	       		cache : false,
+     	       		async : false,
+     	       		data: {"partids":ids},
+     	       		dataType : "json",
+     	       		success : function(item) {
+     	       		     $("#action").hide();
+     		       		 if(item == 'success'){
+     	    		    	 alter("操作成功！");
+     	    		     }else{
+     	    		    	 alert("网络异常请重试");
+     	    		     }
+     	       		  }
+               }); 
+    	   }
+       }
        
 </script>
 <script type="text/javascript">
@@ -198,29 +259,52 @@ function deleteSubject(id){
         <span>
           <span style="font-size: 20px;"><strong>${currentSubjectEntity.name }</strong></span>
              &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags })
-             
-                   <a id="substatus" class="btn dropdown-toggle btn-success btn-mini" data-toggle="dropdown" href="#">
-                                                             编辑
+             <div class="btn-group">
+               <c:choose>
+                <c:when test="${currentSubjectEntity.type == 'PUBLIC'}">
+                         <a id="substatus" class="btn dropdown-toggle btn-success btn-mini" data-toggle="dropdown" href="#">
+                            <i class="icon-hdd"></i>公开
 				   </a>
-               
+                </c:when>
+                <c:when test="${currentSubjectEntity.type == 'PRIVATE'}">
+                  <a  id="substatus" class="btn dropdown-toggle btn-danger btn-mini" data-toggle="dropdown" href="#">
+                          <i class="icon-lock"></i>私有
+				   </a>
+                </c:when>
+             </c:choose>
+              <ul class="dropdown-menu">
+		       <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PUBLIC')"><i class="icon-hdd"></i>公开</a></li>
+			   <li><a href="javascript:;" onclick="changeSubjectStutas('${currentSubjectEntity.id}','PRIVATE')"><i class="icon-lock"></i>私有</a></li>
+		       </ul>
+             </div>
            </span>
         </span>
         <span class="pull-right">
            <a href="javascript:;" class="btn btn-info" onclick="showCreatePart()"><i class="icon-pushpin"></i>添加Part</a>
-            <a class="btn btn-warning" href="javascript:;" onclick="showCreateSubjectWorking()">
-              <i class="icon-edit-sign"></i>进度总结
+             <a class="btn btn-warning" href="javascript:;">
+              <i class="icon-edit-sign"></i>执行计划
             </a>
          </span>
         <br />
         <span class="muted"><small>${currentSubjectEntity.info }</small></span><br />
         <span><i class="icon-time"></i>Create Time:${currentSubjectEntity.createTime }</span>
-        <span class="span3 pull-right">
-           <div class="progress progress-success progress-striped">
-              <div class="bar bar-success" style="width: 60%;">完成60%</div>
-           </div>
+        <span>
+           <c:if test="${subjectExtraEntity.pdfUrl != '-' }">
+              <a class="btn btn-mini" href="<%=pdf %>${subjectExtraEntity.pdfUrl}" target="_blank"><i class='icon-download-alt'></i>下载PDF</a>
+           </c:if>
+           <c:if test="${subjectExtraEntity.gifUrl != '-' }">
+              <button class="btn btn-mini" onclick="showGifSubject()" ><i class="icon-picture"></i>查看GIF</button>
+           </c:if>
         </span>
+             <div class="btn-group pull-right " >
+			  <a href="<%=rootPath %>/subjectMessage" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a>
+			  <a href="<%=rootPath %>/subjectCommentsText"class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }</a>
+			  <a class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${currentSubjectEntity.parts }</a>
+	        </div>
+        <br />
      </div>
   </div>
+  <br />
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -456,37 +540,240 @@ function deleteSubject(id){
 	    </div>
     </div>
     
-    <!--   -->
-    <div id="createSubjectWorking" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <!-- gif -->
+     <div id="gifSubjectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
 	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	       <h3>进度总结</h3>
+	       <h3>GIF动态图</h3>
         </div>
         <div class="modal-body">
-          <form id="planform" action="createProjectPlan" method="post">
-			 <span>
-				 <small>完成进度</small><br />
-				 <input id="tagname" type="text" class="input-block-level" style="width:300px">%
-			 </span>
-			 <br />
-			 <small>写点总结吧</small><br />
-			 <textarea id="partinfo" rows="3" style="width:98%" ></textarea>
-			 <span class="text-info">优秀的进度管控会让你的制作充满乐趣绝不烂尾.</span>
-          </form>
+           <img class="img-polaroid border-radius" src="<%=imgurl%>/${subjectExtraEntity.gifUrl}">
         </div>
 	    <div class="modal-footer">
-	      <a href="javascript:;" class="btn btn-primary" onclick="saveWorking()">发布</a>
-	      <a href="javascript:;" class="btn" onclick="closeCreateSubjectWorking()">关闭</a>
+	      <a href="javascript:;" class="btn" onclick="closeGifSubject()" >关闭</a>
 	    </div>
     </div>
-   <script type="text/javascript">
-     function saveWorking(){
-    	 
-     }
-   
-   
-   </script> 
     
+    <!-- 材料 -->
+    <div id="materialSubjectModal" class="modalbig hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	       <h3>创建材料单</h3>
+        </div>
+        <div style="padding:10px;margin-bottom:5px;">
+            <div class="alert alert-error" id="errormessagediv" style="display: none">
+			   <span id="errormessage"></span>
+		    </div>
+	        <div class="form-inline">
+				<input type="text" style="width:360px" id="mname"
+					class="input-block-level" placeholder="材料名称" onblur="cleanError()" />
+				<input type="text" style="width: 180px" id="factroy"
+					class="input-block-level" placeholder="品牌" onblur="cleanError()" />	
+				<select id="type" style="width: 120px">
+					<option value="模型板件">模型板件</option>
+					<option value="工具辅料">工具辅料</option>
+					<option value="改造材料">改造材料</option>
+					<option value="油漆辅料">油漆辅料</option>
+					<option value="其他材料">其他材料</option>
+				</select> 
+				<input type="text" style="width: 60px" id="num"
+					class="input-block-level" placeholder="数量" onblur="cleanError()" />
+				<input type="text" style="width: 60px" id="money"
+					class="input-block-level" placeholder="单价" onblur="cleanError()" />
+				<button class="btn pull-right btn-info" onclick="addList()">
+					<i class="icon-plus"></i>添加
+				</button>
+			</div>
+			<br /> <span class="text-success"><i
+				class="icon-shopping-cart"></i>制作材料清单</span>
+			<table id="listtable"
+				class="table table-striped table-bordered table-condensed">
+				<tr>
+					<td width="45%">材料名称</td>
+					<td width="15%">品牌</td>
+					<td width="10%">类型</td>
+					<td width="10%">数量</td>
+					<td width="10%">单价</td>
+					<td width="10%">操作</td>
+				</tr>
+			</table>
+	    </div>		
+	    <div class="modal-footer">
+	      <a href="javascript:;" class="btn btn-primary" onclick="add()" >保存</a>
+	      <a href="javascript:;" class="btn" onclick="closeCreateMaterial()" >关闭</a>
+	    </div>
+    </div>
+    
+ <script type="text/javascript">
+    var namearray = new Array();
+	var typearray = new Array();
+	var cjarray = new Array();
+	var slarray = new Array();
+	var jearray = new Array();
+
+	function cleanError() {
+		$('#errormessagediv').hide();
+		$('#errormessage').html("");
+	}
+
+	function addList() {
+		var name = $("#mname").val();
+		var type = $("#type").val();
+		var factroy = $("#factroy").val();
+		var num = $("#num").val();
+		var money = $("#money").val();
+
+		if (name.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料名称");
+			return;
+		}
+
+		if (factroy.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入品牌名称");
+			return;
+		}
+
+		if (num.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料数量");
+			return;
+		} else {
+			var regu = /^[-]{0,1}[0-9]{1,}$/;
+			if (!regu.test(num.trim())) {
+				$('#errormessagediv').show();
+				$('#errormessage').html("材料数量格式有误");
+				return;
+			}
+		}
+
+		if (money.trim() == "") {
+			$('#errormessagediv').show();
+			$('#errormessage').html("你还没输入材料单价");
+			return;
+		} else {
+			if (isNaN(money)) {
+				$('#errormessagediv').show();
+				$('#errormessage').html("材料单价格式有误");
+				return;
+			}
+		}
+		// var len = $("#tab tr").length;     
+		$("#listtable").append("<tr>"
+								+ "<td>"
+								+ name
+								+ "</td>"
+								+ "<td>"
+								+ type
+								+ "</td>"
+								+ "<td>"
+								+ factroy
+								+ "</td>"
+								+ "<td>"
+								+ num
+								+ "</td>"
+								+ "<td>"
+								+ money
+								+ "</td>"
+								+ "<td><a href='javascript:' onclick='removeLine(this);'>删除</a></td>"
+								+ "</tr>");
+
+	}
+
+	function removeLine(k) {
+		$(k).parent().parent().remove();
+	}
+
+	function add() {
+
+		$("#listtable tr td:nth-child(1)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				namearray.push(s);
+			}
+
+		});
+		$("#listtable tr td:nth-child(2)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				typearray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(3)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				cjarray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(4)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				slarray.push(s);
+			}
+		});
+		$("#listtable tr td:nth-child(5)").each(function(i) {
+			if (i != 0) {
+				var s = $(this).text();
+				jearray.push(s);
+			}
+		});
+		for ( var i = 0; i < typearray.length; i++) {
+			$("#upfrom")
+					.append(
+							"<tr><td>"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].name' value="+namearray[i]+"><input name='createSubjectMaiterialRequest.list["+i+"].type' value="+typearray[i]+">"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].brand' value="+cjarray[i]+"><input  name='createSubjectMaiterialRequest.list["+i+"].num' value="+slarray[i]+">"
+									+ "<input name='createSubjectMaiterialRequest.list["+i+"].money' value="+jearray[i]+">"
+									+ "</td></tr>");
+		}
+		$("#tfrom").submit();
+
+	}
+ 
+ </script>
+ 
+  <script type="text/javascript">
+    
+    var hasmaterial = '${message}';
+  
+     function showCreateMaterial(){
+    	 if(hasmaterial == 'success'){
+    		 window.location.href= path + "/showSubjectMaterial";
+    	 }else{
+    		 $('#materialSubjectModal').modal({
+    		       keyboard: false
+    		 }); 
+    	 }
+		
+	 }
+
+	 function closeCreateMaterial(){
+		 $('#materialSubjectModal').modal('hide');
+	 }
+  
+  
+	 function showCreatePart(){
+		 $('#createPartModal').modal({
+	       keyboard: false
+	   });
+	 }
+ 
+	 function closeCreatePart(){
+		 $('#createPartModal').modal('hide');
+	 }
+	 
+	 function showGifSubject(){
+		 $('#gifSubjectModal').modal({
+	       keyboard: false
+	   });
+     }
+	 
+	 function closeGifSubject(){
+		 $('#gifSubjectModal').modal('hide'); 
+	 }
+ 
+ </script>
   <script type="text/javascript"> 
    function validateImage() {
   	  return true;
@@ -533,6 +820,12 @@ function deleteSubject(id){
 		return false;
 	}
 	</script>
+	<!-- 材料  -->	   
+     <form id="tfrom" action="createSubjectMaterial" method="post" style="display:none">
+		<table id="upfrom">
+
+		</table>
+	</form>
 <%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

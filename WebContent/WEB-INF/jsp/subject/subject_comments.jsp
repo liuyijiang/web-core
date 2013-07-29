@@ -179,6 +179,27 @@ var subjectid = '${currentSubjectEntity.id}';
        <!-- 评论 -->
        <div class="span8 mxkplan mxkshadow">
          
+         <div class="row" style="padding:5px;margin-bottom:5px;">
+          <div class="span1">
+            <c:if test="${!empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>
+               <span class="muted"><small>${uservo.name}</small></span>
+            </c:if>
+            <c:if test="${empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>userheader.png"/>
+            </c:if>
+          </div>
+          <div class="span6">
+            <span>
+              <span class="muted">你的评论</span>
+              <span class="pull-right muted"><a href="javascript:;" onclick="closeTextCommentsPop();createVoiceCommentsPop();"><i class="icon-microphone"></i>语音评论</a></span>
+             </span><br />
+            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
+            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${currentSubjectEntity.id}','${currentSubjectEntity.userid }','subject')">评论</button>
+          </div>
+         </div>
+         <hr />
+         
          <c:forEach var="options" items="${loadCommentsRespone.listAll }">
 		  
 		   <div class='row' style='padding:5px;margin-bottom:5px;'>
@@ -308,6 +329,7 @@ function addTextComents(commentedId,commentedUserId,traget){
 	   		success : function(item) {
 	   		    if(item == 'success'){
 	 			   alert("评论成功！");
+	 			  window.location.href= path + "/subjectComments";
 			    }else if( item == 'error'){
 			   	   alert("网络异常请重试");
 			    }else {
@@ -385,8 +407,8 @@ function clear(){
         callback_activityTime:     function(time){callback_activityTime(time); },
         callback_finished_sending:     function(time){ callback_finished_sending() },
         swf_path : 'jRecorder.swf',
-        'rec_width': '500',
-		'rec_height': '400',
+        'rec_width': '600',
+		'rec_height': '500',
      }
    
    );

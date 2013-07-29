@@ -44,7 +44,7 @@
 			<div class="navbar-inner">
 				<ul class="nav" >
 				    <li>
-					<a href="<%=rootPath%>/visitorSeeUserShareSingleParts?target=${targetUserVO.id}">&nbsp;<i class="icon-rss-sign"></i>我的分享</a>
+					<a href="<%=rootPath%>/visitorSeeUserShareSingleParts?target=${targetUserVO.id}">&nbsp;<i class="icon-rss-sign"></i>他的分享</a>
 					</li>
 					<li class="divider-vertical"></li>
 					<li class="active">

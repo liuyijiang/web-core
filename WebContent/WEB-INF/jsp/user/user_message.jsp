@@ -47,10 +47,10 @@
        
 	       <img style="width:18px" class="img-polaroid border-radius"  src="<%=imgurl %>${options.userimage }"/>
 	       <c:if test="${options.type == 'part'}">
-	           <span><a href="#">${options.username }</a>评论了你的 part<a href="<%=rootPath %>/userShowNewMessageOfCom?target=${options.id}">去看看</a></span>
+	           <span><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userId}">${options.username }</a>评论了你的 part<a href="<%=rootPath %>/userShowNewMessageOfCom?target=${options.id}">去看看</a></span>
 	       </c:if>
 	       <c:if test="${options.type == 'subject'}">
-	          <span><a href="#">${options.username }</a>评论了你的  专题  <a href="<%=rootPath %>/redictToSeeSubjectMessage?target=${options.id}">去看看</a></span>
+	          <span><a href="<%=rootPath %>/vistiorShowUserIndex?target=${options.userId}">${options.username }</a>评论了你的  专题  <a href="<%=rootPath %>/userShowNewMessageOfSubjectCom?target=${options.id}">去看看</a></span>
 	       </c:if>
 	     
        </span>
