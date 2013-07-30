@@ -17,37 +17,6 @@
 
 <body class="mxkbody mxkbackgroud" onload="showChart()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-    function showChart(){
-        $.jqplot('chart', [<%=data%>], {
-    	    animate: true,
-            animateReplot: true,
-            grid: {
-                drawBorder: false,
-                drawGridlines: false,
-                background: '#ffffff',
-                shadow:false
-            },
-            axesDefaults: {
-                 
-            },
-            seriesDefaults:{
-                renderer:$.jqplot.PieRenderer,
-                rendererOptions: {
-                    showDataLabels: true
-                }
-            },
-            legend: {
-                show: true,
-                rendererOptions: {
-                    numberRows: 1
-                },
-                location: 's'
-            }
-        });
-    }
-</script>
-
 <div class="container">
 	<div class="row">
 	  <div class="span7 mxkplan mxkshadow">
@@ -324,6 +293,36 @@ function closeCreateMaterial(){
  
  </script>
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+    function showChart(){
+        $.jqplot('chart', [<%=data%>], {
+    	    animate: true,
+            animateReplot: true,
+            grid: {
+                drawBorder: false,
+                drawGridlines: false,
+                background: '#ffffff',
+                shadow:false
+            },
+            axesDefaults: {
+                 
+            },
+            seriesDefaults:{
+                renderer:$.jqplot.PieRenderer,
+                rendererOptions: {
+                    showDataLabels: true
+                }
+            },
+            legend: {
+                show: true,
+                rendererOptions: {
+                    numberRows: 1
+                },
+                location: 's'
+            }
+        });
+    }
+</script>
 <%@ include file="../../../chartinclude.jsp"%>
  </body>
 </html>

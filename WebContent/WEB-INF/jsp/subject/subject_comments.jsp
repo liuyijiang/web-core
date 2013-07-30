@@ -7,36 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-
-  var replyuserid = '';
-</script>
-
-<script type="text/javascript">
-function showCreatePart(){
-	 $('#createPartModal').modal({
-      keyboard: false
-  });
-}
-
-function closeCreatePart(){
-	 $('#createPartModal').modal('hide');
-}
-
-
-// var allpage = '${loadCommentsRespone.allpage}';
-// var isrun = false;
-// var page = 2;
-var subjectid = '${currentSubjectEntity.id}';
-	
-</script>
 <div class="container">
   <div class="row">
      <div class="span1">
@@ -394,6 +364,36 @@ function clear(){
 
 </script>
 <%@ include file="../../../recordfootinclude.jsp"%>
+<script type="text/javascript">
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+
+  var replyuserid = '';
+</script>
+
+<script type="text/javascript">
+function showCreatePart(){
+	 $('#createPartModal').modal({
+      keyboard: false
+  });
+}
+
+function closeCreatePart(){
+	 $('#createPartModal').modal('hide');
+}
+
+
+// var allpage = '${loadCommentsRespone.allpage}';
+// var isrun = false;
+// var page = 2;
+var subjectid = '${currentSubjectEntity.id}';
+	
+</script>
 <script>
    var partsId = '${currentSubjectEntity.id}';
    var partsOwner = '${currentSubjectEntity.userid}'; 

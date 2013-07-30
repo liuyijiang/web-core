@@ -8,6 +8,41 @@
 <body class="mxkbody mxkbackgroud" onload="seachUserFriends()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
+<div class="container ">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<ul class="nav" >
+					<li>
+					<a href="<%=rootPath%>/userFoucsView">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
+					</li>
+					<li class="divider-vertical"></li>
+					<li class="active">
+					<a href="javascript:;">&nbsp;<i class="icon-group"></i>我的粉丝&nbsp;</a>
+					</li>
+				</ul>
+				<div class="navbar-form pull-right">
+					<div class="input-append">
+					   <input id="theparm" class="span3" placeholder="搜索好友..." type="text">
+				       <button class="btn" type="button" onclick="searchUser()">Go!</button>
+					</div>
+			    </div>
+			</div>
+		</div>
+	</div>
+<div class="container" style="display:none">
+ <span id="selectmessage"></span>
+</div>
+<div class="container">
+  <ul class="thumbnails" id="showlist">  
+		
+  </ul>
+</div>
+<div class="container" id="loadings" style="display:none">
+  <img src="<%=domain %>loadingred.gif" >
+  <span class="muted"><small>正在努力加载...</small></span>
+</div>
+
+<%@ include file="../../../footinclude.jsp"%>
 <script type="text/javascript">
     var friendpage = 1; 
     var all = '${uservo.focus}';
@@ -114,43 +149,5 @@
   	 	 });  
     }
 </script>
-<div class="container ">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<ul class="nav" >
-					<li>
-					<a href="<%=rootPath%>/userFoucsView">&nbsp;<i class="icon-rss"></i>我的关注&nbsp;</a>
-					</li>
-					<li class="divider-vertical"></li>
-					<li class="active">
-					<a href="javascript:;">&nbsp;<i class="icon-group"></i>我的粉丝&nbsp;</a>
-					</li>
-				</ul>
-				<div class="navbar-form pull-right">
-					<div class="input-append">
-					   <input id="theparm" class="span3" placeholder="搜索好友..." type="text">
-				       <button class="btn" type="button" onclick="searchUser()">Go!</button>
-					</div>
-			    </div>
-			</div>
-		</div>
-	</div>
-<div class="container" style="display:none">
- <span id="selectmessage"></span>
-</div>
-<div class="container">
-  <ul class="thumbnails" id="showlist">  
-		
-  </ul>
-</div>
-<div class="container" id="loadings" style="display:none">
-  <img src="<%=domain %>loadingred.gif" >
-  <span class="muted"><small>正在努力加载...</small></span>
-</div>
-
-
-
-
-<%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

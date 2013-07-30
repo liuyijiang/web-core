@@ -8,34 +8,6 @@
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
-<script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-  function collectPart(partid){
-	  $.ajax({
-   		url : path + "/createUserCollect.action",
-   		type : "POST",
-   		cache : false,
-   		async : false,
-   		data: {"collectPartsRequest.targetId":partid},
-   		dataType : "json",
-   		success : function(item) {
-   		    if(item == 'success'){
- 			   alert("已将Part加入到你的收藏夹");
-		    }else if( item == 'error'){
-		   	   alert("网络异常请重试");
-		    }else {
-		     	alert(item);
-		    }
-   		  }
- 	 }); 
-  }
-</script>
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -305,5 +277,33 @@
    
 </script>
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+  function collectPart(partid){
+	  $.ajax({
+   		url : path + "/createUserCollect.action",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		data: {"collectPartsRequest.targetId":partid},
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+ 			   alert("已将Part加入到你的收藏夹");
+		    }else if( item == 'error'){
+		   	   alert("网络异常请重试");
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+ 	 }); 
+  }
+</script>
 </body>
 </html>

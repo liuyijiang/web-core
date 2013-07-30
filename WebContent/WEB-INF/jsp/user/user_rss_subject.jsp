@@ -8,39 +8,6 @@
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
-<script type="text/javascript">
-   
-   var userid = '${uservo.id}';
-
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-  
-  function removeRss(subjectid){
-		 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
-		 $.ajax({
-				url : path + "/removeRssSubject.action",
-				type : "POST",
-				cache : false,
-				async : false,
-				data: datas,
-				dataType : "json",
-				success : function(item) {
-					if(item == 'success'){
-						window.location.href= path + "/showUserRssSubject";
-					}else{
-						alert("网络连接异常！");
-					}
-				}
-	    });
-		
-	}
-  
-</script>
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -240,6 +207,40 @@
           </div>
      </div>
  </c:if>    
+<%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+   
+   var userid = '${uservo.id}';
+
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+  
+  function removeRss(subjectid){
+		 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
+		 $.ajax({
+				url : path + "/removeRssSubject.action",
+				type : "POST",
+				cache : false,
+				async : false,
+				data: datas,
+				dataType : "json",
+				success : function(item) {
+					if(item == 'success'){
+						window.location.href= path + "/showUserRssSubject";
+					}else{
+						alert("网络连接异常！");
+					}
+				}
+	    });
+		
+	}
+  
+</script>
 <script type="text/javascript">
  var page =2 ;
  var isrun = false;
@@ -327,6 +328,5 @@
 
  
 </script>
-<%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

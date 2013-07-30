@@ -215,7 +215,8 @@
              <span class="muted"><small>正在努力加载...</small></span>
           </div>
      </div>
- </c:if>    
+ </c:if> 
+ <%@ include file="../../../footinclude.jsp"%>   
 <script type="text/javascript">
 
 var page = 2;
@@ -303,6 +304,5 @@ function loadMore(){
 	}
 
 </script>
-<%@ include file="../../../footinclude.jsp"%>
 </body>
 </html>

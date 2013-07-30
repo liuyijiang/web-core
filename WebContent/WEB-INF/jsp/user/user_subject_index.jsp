@@ -8,95 +8,6 @@
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/user_public_header.jsp"%>
-<script type="text/javascript">
-  function mouseover(id){
-    $("#"+id).css("z-index","1");
-  }
-  
-  function mouseout(id){
-	$("#"+id).css("z-index","-1");
-  }
-</script>
-<script type="text/javascript">
-   var isrun = false;
-   var page = 2;
-   var allpage = '${subjectsShowResponse.allpage}';
-   var userid= '${uservo.id}';
-   function loadMore(){
-	  if(page <= allpage){
-   	  var datas = {"searchSubjectRequest.page":page,"searchSubjectRequest.useid":userid};
-      $('#loaddiv').show();
-	  $.ajax({
-	   		url : path + "/loadMoreUserSubject.action",
-	   		type : "POST",
-	   		cache : false,
-	   		async : false,
-	   		data: datas,
-	   		dataType : "json",
-	   		success : function(item) {
-	   			$('#loaddiv').hide();
-	 			page = page + 1;
-	 			var list1 = item.list1;
-				var list2 = item.list2;
-				var list3 = item.list3;
-				var list4 = item.list4;
-				if(list1 != null){
-					createSubjectPlane(list1,"planshow1");
-				}
-				if(list2 != null){
-					createSubjectPlane(list2,"planshow2");
-				}
-				if(list3 != null){
-					createSubjectPlane(list3,"planshow3");
-				}
-				if(list4 != null){
-					createSubjectPlane(list4,"planshow4");
-				}
-				isrun = false;
-	   		 }
-	 	 }); 
-      }
-   }
-
-   function createSubjectPlane(list,planeid){
-	   var show = '';
-	   for (var i in list){
-		   show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
-		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>";
-		   if(list[i].type == 'FOR-ALL'){
-			   show = show + "<span class='label label-warning'>共享</span>";
-		   } else if(list[i].type == 'PRIVATE'){
-			   show = show + "<span class='label label-important'>私有</span>";
-		   } else {
-			   show = show + "<span class='label label-success'>公开</span>";
-		   }
-		   show = show + " </span><a href='cachSubject?subid="+ list[i].id +"'><img src='"+ imgurl + list[i].faceimage + "' /></a>" +
-		   "</div><div class='mxkomitdiv'><small>"+ list[i].name +"<span class='muted'>("+ list[i].category +")</span></small></div>" +
-		   "<span class='muted'><small>"+ list[i].info +"</small></span><br />" +
-		   "<a class='btn btn-block' href='cachSubject?subid="+ list[i].id +"'><i class='icon-edit'></i>继续编辑</a></div></li>";
-	   }
-	   $("#"+planeid).append(show);
-   }
-   
-   function showload(){ 
- 	   var scrollh = document.documentElement.scrollHeight;
- 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
- 	   if ( scrollt/scrollh > 0.2 ) {
- 		     if(!isrun){
- 		    	 isrun = true; 
- 		    	 loadMore();  
- 		     }
- 	   }
- 	} 
-   
- 	//绑定事件
- 	function bindScroll(){
- 	    $(window).bind("scroll", function(){ 
- 	       showload();
- 	    }); 
- 	}
-   
-</script>
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -257,5 +168,94 @@
           </c:if>
      </div>
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+  function mouseover(id){
+    $("#"+id).css("z-index","1");
+  }
+  
+  function mouseout(id){
+	$("#"+id).css("z-index","-1");
+  }
+</script>
+<script type="text/javascript">
+   var isrun = false;
+   var page = 2;
+   var allpage = '${subjectsShowResponse.allpage}';
+   var userid= '${uservo.id}';
+   function loadMore(){
+	  if(page <= allpage){
+   	  var datas = {"searchSubjectRequest.page":page,"searchSubjectRequest.useid":userid};
+      $('#loaddiv').show();
+	  $.ajax({
+	   		url : path + "/loadMoreUserSubject.action",
+	   		type : "POST",
+	   		cache : false,
+	   		async : false,
+	   		data: datas,
+	   		dataType : "json",
+	   		success : function(item) {
+	   			$('#loaddiv').hide();
+	 			page = page + 1;
+	 			var list1 = item.list1;
+				var list2 = item.list2;
+				var list3 = item.list3;
+				var list4 = item.list4;
+				if(list1 != null){
+					createSubjectPlane(list1,"planshow1");
+				}
+				if(list2 != null){
+					createSubjectPlane(list2,"planshow2");
+				}
+				if(list3 != null){
+					createSubjectPlane(list3,"planshow3");
+				}
+				if(list4 != null){
+					createSubjectPlane(list4,"planshow4");
+				}
+				isrun = false;
+	   		 }
+	 	 }); 
+      }
+   }
+
+   function createSubjectPlane(list,planeid){
+	   var show = '';
+	   for (var i in list){
+		   show = show + "<li class='span3 mxkplan mxkshadow'><div class='thumbnail'><div style='position:relative;' onmouseover='mouseover(\""+ list[i].id +"\")' onmouseout='mouseout(\""+ list[i].id +"\")' >" +
+		   "<span style='position:absolute; z-index:-1; opacity: 0.8;' id='"+ list[i].id +"'>";
+		   if(list[i].type == 'FOR-ALL'){
+			   show = show + "<span class='label label-warning'>共享</span>";
+		   } else if(list[i].type == 'PRIVATE'){
+			   show = show + "<span class='label label-important'>私有</span>";
+		   } else {
+			   show = show + "<span class='label label-success'>公开</span>";
+		   }
+		   show = show + " </span><a href='cachSubject?subid="+ list[i].id +"'><img src='"+ imgurl + list[i].faceimage + "' /></a>" +
+		   "</div><div class='mxkomitdiv'><small>"+ list[i].name +"<span class='muted'>("+ list[i].category +")</span></small></div>" +
+		   "<span class='muted'><small>"+ list[i].info +"</small></span><br />" +
+		   "<a class='btn btn-block' href='cachSubject?subid="+ list[i].id +"'><i class='icon-edit'></i>继续编辑</a></div></li>";
+	   }
+	   $("#"+planeid).append(show);
+   }
+   
+   function showload(){ 
+ 	   var scrollh = document.documentElement.scrollHeight;
+ 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
+ 	   if ( scrollt/scrollh > 0.3 ) {
+ 		     if(!isrun){
+ 		    	 isrun = true; 
+ 		    	 loadMore();  
+ 		     }
+ 	   }
+ 	} 
+   
+ 	//绑定事件
+ 	function bindScroll(){
+ 	    $(window).bind("scroll", function(){ 
+ 	       showload();
+ 	    }); 
+ 	}
+   
+</script>
 </body>
 </html>

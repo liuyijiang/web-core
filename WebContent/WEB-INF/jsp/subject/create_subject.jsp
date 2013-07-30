@@ -7,42 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 	<%@ include file="../public/user_page_header.jsp"%>
-	<script type="text/javascript">
-	   function chooseType(type){
-		   $('#subjecttype').val(type);
-		   $('#showtype').html(type);
-	   }
-	   
-	   function chooseTags(tag){
-		   $('#subjecttag').val(tag);
-		   $('#showtags').html(tag);
-		   
-	   }
-	   
-	   function subform(){
-		   var name = $('#tagname').val();
-		   var tags = $('#subjecttag').val();
-		   if(name == ''){
-			   alert("请输入专题名称");
-			   return;
-		   }
-		   if(tags == ''){
-			   alert("请选择专题标签");
-			   return; 
-		   }
-		   $('#subjectname').val(name);
-		   $('#form').submit();
-		   
-	   }
-	   
-	   function choosecategory(category){
-		   $("#category_btn").html(category);
-		   $("#subjectcategory").val(category);
-	   }
-	   
-	</script>
-	
-	
 	<div class="container mxkplan mxkshadow">
 	  <br />
 	  <table class="table">
@@ -126,5 +90,40 @@
 	  <br />
 	</div>
 	<%@ include file="../../../footinclude.jsp"%>
+	<script type="text/javascript">
+	   function chooseType(type){
+		   $('#subjecttype').val(type);
+		   $('#showtype').html(type);
+	   }
+	   
+	   function chooseTags(tag){
+		   $('#subjecttag').val(tag);
+		   $('#showtags').html(tag);
+		   
+	   }
+	   
+	   function subform(){
+		   var name = $('#tagname').val();
+		   var tags = $('#subjecttag').val();
+		   if(name == ''){
+			   alert("请输入专题名称");
+			   return;
+		   }
+		   if(tags == ''){
+			   alert("请选择专题标签");
+			   return; 
+		   }
+		   $('#subjectname').val(name);
+		   $('#form').submit();
+		   
+	   }
+	   
+	   function choosecategory(category){
+		   $("#category_btn").html(category);
+		   $("#subjectcategory").val(category);
+	   }
+	   
+	</script>
+	
 </body>
 </html>

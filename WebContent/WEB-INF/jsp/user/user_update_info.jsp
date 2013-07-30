@@ -7,53 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud">
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-   
-   var emailvalidate = false;
-   
-    function valiateparm(type){
-    	if(type == "name"){
-    		$("#emailvaliate").html("");
-    		var parm = $('#username').val();
-    		var datas = {"registerCheckRequest.parm":parm,"registerCheckRequest.type":type};
-    		validate(datas,type);
-    	}
-    }
-   
-    function validate(datas,type){
-    	$.ajax({
-			url : path + "/registerCheck.action",
-			type : "POST",
-			cache : false,
-			async : false,
-			data: datas,
-			dataType : "json",
-			success : function(item) {
-				callback(item,type);
-			}
-       });
-    }
-    
-    function callback(message,type){
-    	if(type == "name"){
-    		if(message == "success"){
-    			$("#emailvaliate").html("<span class='text-success'><i class='icon-ok icon-2x'></i>可以使用这个昵称</span>");
-    			emailvalidate = true;
-    		}else{
-    			emailvalidate = false;
-    			$("#emailvaliate").html("<span class='text-error'><i class='icon-remove icon-2x'></i>这个昵称已被使用</span>");
-    		}
-    	}
-    }
-    
-    
-    function sub(){
-    	if(emailvalidate){
-    		$("#re").submit();
-    	}
-    }
-
-</script>
   <div class="container ">
 		<div class="row">
            <div class="span1">
@@ -101,6 +54,53 @@
 		</div>
 	</div>
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+   
+   var emailvalidate = false;
+   
+    function valiateparm(type){
+    	if(type == "name"){
+    		$("#emailvaliate").html("");
+    		var parm = $('#username').val();
+    		var datas = {"registerCheckRequest.parm":parm,"registerCheckRequest.type":type};
+    		validate(datas,type);
+    	}
+    }
+   
+    function validate(datas,type){
+    	$.ajax({
+			url : path + "/registerCheck.action",
+			type : "POST",
+			cache : false,
+			async : false,
+			data: datas,
+			dataType : "json",
+			success : function(item) {
+				callback(item,type);
+			}
+       });
+    }
+    
+    function callback(message,type){
+    	if(type == "name"){
+    		if(message == "success"){
+    			$("#emailvaliate").html("<span class='text-success'><i class='icon-ok icon-2x'></i>可以使用这个昵称</span>");
+    			emailvalidate = true;
+    		}else{
+    			emailvalidate = false;
+    			$("#emailvaliate").html("<span class='text-error'><i class='icon-remove icon-2x'></i>这个昵称已被使用</span>");
+    		}
+    	}
+    }
+    
+    
+    function sub(){
+    	if(emailvalidate){
+    		$("#re").submit();
+    	}
+    }
+
+</script>
 </body>
 
 </html>

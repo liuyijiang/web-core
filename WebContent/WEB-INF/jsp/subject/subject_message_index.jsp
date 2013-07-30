@@ -7,32 +7,6 @@
 </head>
 <body class="mxkbody mxkbackgroud" >
 <%@ include file="../public/user_page_header.jsp"%>
-<script type="text/javascript">
-  
-var subjectid = '${subjectMessageShowRespone.subjectEntity.id}';
-var page = 2;
-
-function removeRss(userid){
-	 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
-	 $.ajax({
-			url : path + "/removeRssSubject.action",
-			type : "POST",
-			cache : false,
-			async : false,
-			data: datas,
-			dataType : "json",
-			success : function(item) {
-				if(item == 'success'){
-					alert("操作成功！");
-				}else{
-					alert("网络连接异常！");
-				}
-			}
-    });
-	
-}
-
-</script>
 <div class="container">
 	<div class="row">
 	      <div class="span8 mxkplan mxkshadow">
@@ -142,5 +116,31 @@ function removeRss(userid){
 	</div>
 </div>
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+  
+var subjectid = '${subjectMessageShowRespone.subjectEntity.id}';
+var page = 2;
+
+function removeRss(userid){
+	 var datas = {"removeRssSubjectRequest.userid":userid,"removeRssSubjectRequest.subjectid":subjectid};
+	 $.ajax({
+			url : path + "/removeRssSubject.action",
+			type : "POST",
+			cache : false,
+			async : false,
+			data: datas,
+			dataType : "json",
+			success : function(item) {
+				if(item == 'success'){
+					alert("操作成功！");
+				}else{
+					alert("网络连接异常！");
+				}
+			}
+    });
+	
+}
+
+</script>
 </body>
 </html>

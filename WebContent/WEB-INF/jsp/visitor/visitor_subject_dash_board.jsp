@@ -305,7 +305,7 @@
     function showload(){ 
  	   var scrollh = document.documentElement.scrollHeight;
  	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
- 	   if ( scrollt/scrollh > 0.3 ) {
+ 	   if ( scrollt/scrollh > 0.2 ) {
  		     if(!isrun){
  		    	 isrun = true; 
  		    	 loadMore();  

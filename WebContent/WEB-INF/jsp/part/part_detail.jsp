@@ -5,93 +5,7 @@
 <head>
  <%@ include file="../../../headerinclude.jsp"%>
 </head>
-<script type="text/javascript">
 
-  function mouseover(){
-    $("#subjectfun").css("z-index","1");
-  }
-  
-  function mouseout(){
-	$("#subjectfun").css("z-index","-1");
-  }
-
-  function mouseoverp(){
-	    $("#partfun").css("z-index","1");
-  }
-	  
-  function mouseoutp(){
-	$("#partfun").css("z-index","-1");
-  }
-  
-  function showEditPartModal(){
-		 $('#editPartModal').modal({
-	       keyboard: false
-	   });
-	 }
-
-  function closeEditPartModal(){
-	 $('#editPartModal').modal('hide');
-  }
-  
-  function useForSubjectFace(partid,subid){
-	     var datas = {"setFaceImageRequest.partid":partid,"setFaceImageRequest.subjectid":subid};
-	     $.ajax({
-    		url : path + "/setSubjectFaceImage.action",
-    		type : "POST",
-    		cache : false,
-    		async : false,
-    		data: datas,
-    		dataType : "json",
-    		success : function(item) {
-    		     if(item == 'success'){
-    		    	 window.location.href= path + "partDetail?target=" + partid;
-    		     }else{
-    		    	 alert("网络异常请重试");
-    		     }
-    		  }
-		  });
-   }
-  
-  function updatePart(partid){
-	     var info = $('#partinfo').val();
-	     var datas = {"updatePartInfoRequest.partid":partid,"updatePartInfoRequest.info":info};
-	     $.ajax({
-    		url : path + "/updatePart.action",
-    		type : "POST",
-    		cache : false,
-    		async : false,
-    		data: datas,
-    		dataType : "json",
-    		success : function(item) {
-    		    $('#partmessage').html(info);
-    		    closeEditPartModal();
-    		  }
-		  });
-   }
-  
-  function deletePart(partid){
-	  if(!confirm("确定要删除吗？")){
-  		return;  //deleteProject
-       }else{
-	    var datas = {"target":partid};
-	     $.ajax({
- 		url : path + "/deletePart.action",
- 		type : "POST",
- 		cache : false,
- 		async : false,
- 		data: datas,
- 		dataType : "json",
- 		success : function(item) {
- 			if(item == 'success'){
- 			   window.location.href= path + "/showSubjectDetailView";
- 		   }else{
- 			   alert("操作失败");
- 		   }
- 	  }
-	});
-   }
-}
-</script>
 <body class="mxkbody mxkbackgroud" >
 	<%@ include file="../public/user_page_header.jsp"%>
 <div class="container ">
@@ -421,5 +335,92 @@
  </script>
     
 <%@ include file="../../../footinclude.jsp"%>
+<script type="text/javascript">
+
+  function mouseover(){
+    $("#subjectfun").css("z-index","1");
+  }
+  
+  function mouseout(){
+	$("#subjectfun").css("z-index","-1");
+  }
+
+  function mouseoverp(){
+	    $("#partfun").css("z-index","1");
+  }
+	  
+  function mouseoutp(){
+	$("#partfun").css("z-index","-1");
+  }
+  
+  function showEditPartModal(){
+		 $('#editPartModal').modal({
+	       keyboard: false
+	   });
+	 }
+
+  function closeEditPartModal(){
+	 $('#editPartModal').modal('hide');
+  }
+  
+  function useForSubjectFace(partid,subid){
+	     var datas = {"setFaceImageRequest.partid":partid,"setFaceImageRequest.subjectid":subid};
+	     $.ajax({
+    		url : path + "/setSubjectFaceImage.action",
+    		type : "POST",
+    		cache : false,
+    		async : false,
+    		data: datas,
+    		dataType : "json",
+    		success : function(item) {
+    		     if(item == 'success'){
+    		    	 window.location.href= path + "partDetail?target=" + partid;
+    		     }else{
+    		    	 alert("网络异常请重试");
+    		     }
+    		  }
+		  });
+   }
+  
+  function updatePart(partid){
+	     var info = $('#partinfo').val();
+	     var datas = {"updatePartInfoRequest.partid":partid,"updatePartInfoRequest.info":info};
+	     $.ajax({
+    		url : path + "/updatePart.action",
+    		type : "POST",
+    		cache : false,
+    		async : false,
+    		data: datas,
+    		dataType : "json",
+    		success : function(item) {
+    		    $('#partmessage').html(info);
+    		    closeEditPartModal();
+    		  }
+		  });
+   }
+  
+  function deletePart(partid){
+	  if(!confirm("确定要删除吗？")){
+  		return;  //deleteProject
+       }else{
+	    var datas = {"target":partid};
+	     $.ajax({
+ 		url : path + "/deletePart.action",
+ 		type : "POST",
+ 		cache : false,
+ 		async : false,
+ 		data: datas,
+ 		dataType : "json",
+ 		success : function(item) {
+ 			if(item == 'success'){
+ 			   window.location.href= path + "/showSubjectDetailView";
+ 		   }else{
+ 			   alert("操作失败");
+ 		   }
+ 	  }
+	});
+   }
+}
+</script>
 </body>
 </html>
