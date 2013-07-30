@@ -202,7 +202,7 @@
 	             </c:if>
 	             <c:if test="${options.type == 'wav' }">
 	               <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20">
-					    <param name="movie" value="singlemp3player.swf?showDownload=false" />
+					    <param name="movie" value="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" />
 					    <param name="wmode" value="transparent" />
 					    <embed wmode="transparent" width="150" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false"
 		                type="application/x-shockwave-flash" />
@@ -423,6 +423,8 @@ var subjectid = '${subjectEntity.id}';
 <script>
    var partsId = '${subjectEntity.id}';
    var partsOwner = '${subjectEntity.userid}';
+   var userrecorderId = '${uservo.id}';
+   
    $.jRecorder(
      
      { 
@@ -431,7 +433,7 @@ var subjectid = '${subjectEntity.id}';
         callback_stopped_recording:     function(){callback_stopped(); },
         callback_activityLevel:          function(level){callback_activityLevel(level); },
         callback_activityTime:     function(time){callback_activityTime(time); },
-        callback_finished_sending:     function(time){ callback_finished_sending() },
+        callback_finished_sending:     function(time){ callback_finished_sending(); },
         swf_path : 'jRecorder.swf',
         'rec_width': '600',
 		'rec_height': '500',
@@ -453,7 +455,11 @@ var subjectid = '${subjectEntity.id}';
    
    
     $('#send').click(function(){
-      $.jRecorder.sendData();
+    	if(userrecorderId != ""){
+   		  $.jRecorder.sendData();
+   	    }else{
+   	      alert("请先登录米兔");	
+   	    }
     });
    
 

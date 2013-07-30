@@ -79,7 +79,7 @@
 	             </c:if>
 	             <c:if test="${options.type == 'wav' }">
 	               <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="150" height="20">
-					    <param name="movie" value="singlemp3player.swf?showDownload=false" />
+					    <param name="movie" value="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false" />
 					    <param name="wmode" value="transparent" />
 					    <embed wmode="transparent" width="150" height="20" src="singlemp3player.swf?file=<%=voice %>${options.info }&showDownload=false"
 		                type="application/x-shockwave-flash" />
