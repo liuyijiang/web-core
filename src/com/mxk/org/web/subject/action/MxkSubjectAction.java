@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.constant.MxkSubjectcCategory;
 import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.factory.EntityFactory;
 import com.mxk.org.common.message.domain.DeleteSubjectMessage;
@@ -129,8 +130,16 @@ public class MxkSubjectAction extends MxkSessionAction {
 		uservo = getCurrentUserVO();
 		message = MxkConstant.AJAX_SUCCESS;
 		if(uservo != null && createSubjectRequest != null){
-			createSubjectRequest.setUserid(uservo.getId());
-			subjectService.updateSubjectEntity(createSubjectRequest);
+			if(valiate(createSubjectRequest)){
+				createSubjectRequest.setUserid(uservo.getId());
+				subjectService.updateSubjectEntity(createSubjectRequest);
+				currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+				currentSubjectEntity.setCategory(createSubjectRequest.getCategory());
+				currentSubjectEntity.setInfo(createSubjectRequest.getInfo());
+				currentSubjectEntity.setTags(createSubjectRequest.getTags());
+				currentSubjectEntity.setName(createSubjectRequest.getName());
+				super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,currentSubjectEntity);
+			}
 		}
 		return SUCCESS;
 	}
@@ -520,7 +529,7 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//չʾ
+	//
 	public String mxkShowSubjectMaterialView(){
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
@@ -546,6 +555,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 		}
 		if (StringUtil.stringIsEmpty(createSubjectRequest.getType())) {
 			return false;
+		}
+		if (!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(createSubjectRequest.getCategory()) && !MxkSubjectcCategory.SUBJECT_CATEGORY_CREATIVE.getString().equals(createSubjectRequest.getCategory())) {
+			createSubjectRequest.setCategory(MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString());
 		}
 		return true;
 	}
