@@ -260,6 +260,15 @@
 				<a class="btn" href="javascript:;" id="stop"><i class="icon-exclamation-sign"></i>停止</a>  
 				<a class="btn btn-success" href="javascript:;" id="send" style="display:none"><i class="icon-upload-alt"></i>保存</a>  
              </div>
+              <br />
+             <div id="iemess" style="display:none" class="alert alert-block">
+	            <a class="close" data-dismiss="alert">×</a>
+	             <span class="alert-heading">对IE为内核的奇葩浏览器支持不好哟！亲</span><br />
+	             <small><span>为了有更好的用户体验建议使用
+		        <a href="http://firefox.com.cn/download/">Firefox</a>
+		        <a href="https://www.google.com/intl/zh-CN/chrome/browser/">Chrome</a>
+		      </span></small>
+	         </div>
           </div>
           
         </div>
@@ -328,6 +337,7 @@ function closeTextCommentsPop(){
 
 function createTextCommentsPop(){
 	 istext = true;
+	 
 	 $('#createTextCommentsModal').modal({
       keyboard: false
   });
@@ -339,6 +349,9 @@ function closeVoiceCommentsPop(){
 
 function createVoiceCommentsPop(){
 	 istext = false;
+	 if(navigator.userAgent.indexOf('MSIE') >= 0){
+		 $("#iemess").show();
+	 }
 	 $('#createVoiceCommentsModal').modal({
      keyboard: false
      });
