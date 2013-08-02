@@ -29,7 +29,7 @@
 												    <span class="caret"></span>
 						                           </button>
 											    <ul class="dropdown-menu">
-											         <li><a href="<%=rootPath%>/userSharePartsIndex">我的分享</a></li>
+											         <li><a href="<%=rootPath%>/userSharePartsIndex">单图分享</a></li>
 											         <li><a href="<%=rootPath %>/userIndex">我的专题</a></li>
 												     <li><a href="<%=rootPath %>/showNewRssMessage">我的关注</a></li>
 												     <li><a href="<%=rootPath %>/userCollectIndex">我的收藏</a></li>

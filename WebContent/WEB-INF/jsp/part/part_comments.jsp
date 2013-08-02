@@ -92,7 +92,12 @@
 			  <li class="span4 mxkplan mxkshadow">
 			   <div class='thumbnail'>
 	            <c:if test="${empty subjectNewPartsVO }">
-				   <a href="<%=rootPath %>/showSubjectDetailView"><img src="<%=imgurl %>/${currentSubjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
+	               <c:if test="${partEntity.subjectid == '#' }">
+	               <a href="<%=rootPath %>/partDetail?target=${partEntity.id}"><img src="<%=imgurl %>/${partEntity.image }" /></a>
+	               </c:if>
+	               <c:if test="${partEntity.subjectid != '#' }">
+	                   <a href="<%=rootPath %>/showSubjectDetailView"><img src="<%=imgurl %>/${currentSubjectEntity.faceimage }" /></a>  <!-- style="width: 100%;" -->
+	               </c:if>
 			     </c:if>
 				<c:if test="${!empty subjectNewPartsVO }">
 					<table style="width:100%">
@@ -122,13 +127,21 @@
 	                </tr>
 			      </table>
 				</c:if>
+				<c:if test="${partEntity.subjectid != '#' }">
 				<div style="text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">
 					<span><strong><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${subjectEntity.id}">${currentSubjectEntity.name }</a></strong></span>
                     &nbsp;&nbsp;<small class="muted"><span class="label">${currentSubjectEntity.category }</span></small><br />
                  </div>
+                 </c:if>
                  <span><small>${partEntity.desc }</small></span><br />
 				<span class="pull-right">
+				 <c:if test="${partEntity.subjectid != '#' }">
 					<a class="btn" href="<%=rootPath %>/showSubjectDetailView"><i class="icon-hdd"></i>专题详情</a>
+				 </c:if>
+				  <c:if test="${partEntity.subjectid == '#' }">
+				     <i class="icon-time"></i>${partEntity.createTime }
+				     &nbsp;<span class="label">${partEntity.type }</span>
+				  </c:if>
 				</span>
 				<br/><br/>
 				  </div>
