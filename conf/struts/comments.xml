@@ -7,6 +7,13 @@
 
     <package name="comments" namespace="/" extends="struts-default">
         
+        <global-results>
+		    <result name="error">/WEB-INF/jsp/main/error.jsp</result>
+	     </global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+        
         <action name="addVoiceComments" class="com.mxk.org.web.comments.action.MxkCommentsAction"
             method="mxkAddVoiceComments">
             <result name="success" ></result>

@@ -21,6 +21,31 @@
    <!-- 分布式session -->
    <bean name="mxkSessionFilter" class="com.mxk.org.common.filter.MxkSessionFilter"></bean>
    
+   <!-- 权限控制 -->
+   <bean name="mxkSecurityFilter" class="com.mxk.org.common.filter.MxkSecurityFilter">
+        <property name="set">  
+            <set>  
+                <value>${url.partDashBoard}</value>  
+                <value>${url.visitiorShowSubjectDashBorad}</value> 
+                <value>${url.index}</value> 
+                <value>${url.loginView}</value> 
+                <value>${url.registerView}</value> 
+                <value>${url.loginIn}</value> 
+                <value>${url.userRegister}</value>
+                <value>${url.registerCheck}</value>  
+                <value>${url.sendChangePasswordMail}</value>  
+                <value>${url.showChangePasswordView}</value>  
+                <value>${url.updateUserPassword}</value> 
+                <value>${url.visitorFilterSubjectByType}</value>  
+                <value>${url.visitorFilterPartsType}</value>
+                <value>${url.showRegist}</value>  
+                <value>${url.loginOutView}</value>
+                <value>${url.vistiorShowSubjectDatailFromShare}</value>  
+                <value>${url.visitorShowPartDetailFromShare}</value>
+            </set>  
+        </property>  
+   </bean>
+   
    <import resource="applicationMongoDBContext.xml"/>
    <import resource="applicationJedisContext.xml"/>
    <import resource="applicationMemcashedContext.xml"/>

@@ -7,6 +7,13 @@
 
     <package name="part" namespace="/" extends="struts-default">
         
+        <global-results>
+		    <result name="error">/WEB-INF/jsp/main/error.jsp</result>
+	     </global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+        
        <action name="partDetail" class="com.mxk.org.web.part.action.MxkPartAction"
            method="mxkShowPartDetailView">
            <result name="success" >/WEB-INF/jsp/part/part_detail.jsp</result>
