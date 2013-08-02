@@ -94,7 +94,9 @@ public class MxkPartAction extends MxkSessionAction {
 		partEntity = partService.findPartEntityById(target);
 		currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
 		if(partEntity != null){
-			subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
+			if(!MxkConstant.MXK_EMPTY_SUBJECT.equals(partEntity.getSubjectid())){
+				subjectNewPartsVO = partService.findSubjectNewParts(partEntity.getSubjectid());
+			}
 			LoadCommentsRequest request = new LoadCommentsRequest();
 			request.setPage(1);
 			request.setTargeid(partEntity.getId());
