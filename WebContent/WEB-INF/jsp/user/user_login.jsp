@@ -57,7 +57,7 @@ body {
 	   function sendmail(){
 		   var mail = $('#sendmail').val();
 		   $.ajax({
-				url : path + "/sendChangePasswordMail.action",
+				url : path + "/sendChangePasswordMail",
 				type : "POST",
 				cache : false,
 				async : false,

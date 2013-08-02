@@ -12,6 +12,9 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<ul class="nav" >
+				   <li>
+					<a href="<%=rootPath%>/userSharePartsIndex">&nbsp;<i class="icon-rss-sign"></i>单图分享</a>
+					</li>
 					<li >
 					<a href="<%=rootPath%>/userIndex">&nbsp;<i class="icon-hdd"></i>我的专辑&nbsp;</a>
 					</li>

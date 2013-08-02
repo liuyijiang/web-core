@@ -42,9 +42,29 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 			  <span>
-	            <a class="btn" href="javascript:;" onclick="showShareSubject()">
-	              <i class="icon-globe"></i>分享
-	            </a>
+	            <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="icon-globe"></i>分享
+                      <span class="caret"></span>
+				    </a>
+				     <ul class="dropdown-menu">
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${currentSubjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
+		               </ul>
+				    </div>
               </span>
              <span class="pull-right">
 	            <a class="btn" href="<%=rootPath %>/showPartsComments?target=${partEntity.id }">
@@ -172,6 +192,9 @@
                    </object><br />
 	             </c:if>
 	             <span><i class='icon-time'></i>${options.createTime }</span>
+	              <c:if test="${options.userid == uservo.id || options.commentedUserId == uservo.id}">
+	                <span class="pull-right"><a href="javascript:;" onclick="deleCom('${options.id}','${options.commentedId }')">删除</a></span>
+	             </c:if>
 	           </div>
             </div>
             <div style='padding:1px;margin-bottom:1px;'><div style='width:100%; border-top:1px solid #cccccc'></div></div>
@@ -253,6 +276,34 @@
 	      <a href="javascript:;" class="btn" onclick="closeVoiceCommentsPop()">关闭</a>
 	    </div>
     </div>
+    
+<script type="text/javascript">
+  function deleCom(comid,partid){
+	  if(!confirm("确定要删除这个评论吗？")){
+	  		return;  //deleteComments
+	  }else{
+		  $.ajax({
+		   		url : path + "/deleteComments.action",
+		   		type : "POST",
+		   		cache : false,
+		   		async : false,
+		   		data: {"traget":comid},
+		   		dataType : "json",
+		   		success : function(item) {
+		   		    if(item == 'success'){
+		 			   alert("删除成功！");
+		 			   window.location.href= path + "/showPartsComments?target="+ partid;
+				    }else if( item == 'error'){
+				   	   alert("网络异常请重试");
+				    }else {
+				     	alert(item);
+				    }
+		   	}
+		 }); 
+	}
+  }
+
+</script>
 <script type="text/javascript">
 
 function relaycomments(userid){

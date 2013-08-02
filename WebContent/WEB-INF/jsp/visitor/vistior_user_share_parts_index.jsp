@@ -13,7 +13,7 @@
 			<div class="navbar-inner">
 				<ul class="nav" >
 				    <li class="active">
-					<a href="#"><i class="icon-rss-sign"></i>他的分享</a>
+					<a href="#"><i class="icon-rss-sign"></i>单图分享</a>
 					</li>
 					<li class="divider-vertical"></li>
 					<li>

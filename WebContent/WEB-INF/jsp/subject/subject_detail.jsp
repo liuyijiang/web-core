@@ -64,17 +64,17 @@
 				    </a>
 				     <ul class="dropdown-menu">
 					       <li>
-						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/vistiorShowSubjectDatailFromShare?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
 						                   分享到新浪微博
 						       </a>
 					       </li>
 						   <li>
-							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/vistiorShowSubjectDatailFromShare?target=${currentSubjectEntity.id }&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${subjectEntity.name }&nbsp;&nbsp;${currentSubjectEntity.info }" target="_blank">
 							         分享到QQ微信
 							   </a>
 						   </li>
 						   <li>
-							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&summary=${subjectEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatail?target=${currentSubjectEntity.id }" target="_blank">
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${currentSubjectEntity.faceimage }&title=${currentSubjectEntity.name }&nbsp;&summary=${subjectEntity.info }|&nbsp;<%=rootPath%>/vistiorShowSubjectDatailFromShare?target=${currentSubjectEntity.id }" target="_blank">
 							         分享到QQ空间
 							   </a>
 						  </li>

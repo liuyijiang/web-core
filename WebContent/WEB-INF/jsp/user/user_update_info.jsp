@@ -56,9 +56,10 @@
 <%@ include file="../../../footinclude.jsp"%>
 <script type="text/javascript">
    
-   var emailvalidate = false;
+   var emailvalidate = true;
    
     function valiateparm(type){
+    	emailvalidate = false;
     	if(type == "name"){
     		$("#emailvaliate").html("");
     		var parm = $('#username').val();

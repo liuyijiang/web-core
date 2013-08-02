@@ -7,6 +7,11 @@
 		<welcome-file>/WEB-INF/jsp/main/mxkredirect.jsp</welcome-file>
   </welcome-file-list>
   
+  <error-page>
+     <error-code>404</error-code>
+     <location>/WEB-INF/jsp/main/nopage.jsp</location>
+  </error-page>
+  
    <!-- 乱码 -->
   <filter>  
 	<filter-name>characterEncodingFilter</filter-name>  
@@ -33,6 +38,16 @@
    </filter>     
     <filter-mapping>  
        <filter-name>mxkSessionFilter</filter-name>  
+       <url-pattern>/*</url-pattern>  
+   </filter-mapping>  
+   
+   <!-- 权限 filiter -->
+   <filter>     
+       <filter-name>mxkSecurityFilter</filter-name>     
+       <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>     
+   </filter>     
+    <filter-mapping>  
+       <filter-name>mxkSecurityFilter</filter-name>  
        <url-pattern>/*</url-pattern>  
    </filter-mapping>  
     

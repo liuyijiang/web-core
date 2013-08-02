@@ -194,7 +194,7 @@
 	  $("#partshow4").html('');
 	  var datas = {"searchPartRequest.page":1,"searchPartRequest.type":filtertype};
 	  $.ajax({
-	   		url : path + "/visitorFilterPartsType.action",
+	   		url : path + "/visitorFilterPartsType",
 	   		type : "POST",
 	   		cache : false,
 	   		async : false,

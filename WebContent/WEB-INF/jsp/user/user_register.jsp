@@ -107,7 +107,7 @@
 	   
 	    function validate(datas,type){
 	    	$.ajax({
-				url : path + "/registerCheck.action",
+				url : path + "/registerCheck",
 				type : "POST",
 				cache : false,
 				async : false,

@@ -17,13 +17,13 @@
 							       <span class="caret"></span>
                                 </button>
 						    <ul class="dropdown-menu">
-						         <li><a onclick="fliter_part('舰船模型')" href="#">舰船模型</a></li>
-							     <li><a onclick="fliter_part('装甲模型')" href="#">装甲模型</a></li>
-							     <li><a onclick="fliter_part('战机模型')" href="#">战机模型</a></li>
-							     <li><a onclick="fliter_part('手办模型')" href="#">手办模型</a></li>
-							     <li><a onclick="fliter_part('动漫模型')" href="#">动漫模型</a></li>
-							     <li><a onclick="fliter_part('高达模型')" href="#">高达模型</a></li>
-							     <li><a onclick="fliter_part('其他模型')" href="#">其他模型</a></li>
+						         <li><a onclick="fliter_part('舰船模型')" href="javascript:;">舰船模型</a></li>
+							     <li><a onclick="fliter_part('装甲模型')" href="javascript:;">装甲模型</a></li>
+							     <li><a onclick="fliter_part('战机模型')" href="javascript:;">战机模型</a></li>
+							     <li><a onclick="fliter_part('手办模型')" href="javascript:;">手办模型</a></li>
+							     <li><a onclick="fliter_part('动漫模型')" href="javascript:;">动漫模型</a></li>
+							     <li><a onclick="fliter_part('高达模型')" href="javascript:;">高达模型</a></li>
+							     <li><a onclick="fliter_part('其他模型')" href="javascript:;">其他模型</a></li>
 							     <li class="divider"></li>
 							     <li><a href="<%=rootPath %>/partDashBoard">所有模型</a></li>
 						    </ul>

@@ -203,7 +203,7 @@
     	  $("#partshow4").html('');
     	  var datas = {"visitorSeeSubjectDashBoardRequest.page":1,"visitorSeeSubjectDashBoardRequest.tags":filtertype};
     	  $.ajax({
-    	   		url : path + "/visitorFilterSubjectByType.action",
+    	   		url : path + "/visitorFilterSubjectByType",
     	   		type : "POST",
     	   		cache : false,
     	   		async : false,
