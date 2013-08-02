@@ -146,23 +146,41 @@ public class MxkCommentsAction extends MxkSessionAction {
 	}
 	
     public String mxkDeleteCommentsAjax(){
-    	if(traget != null){
+    	UserVO uservo = super.getCurrentUserVO();
+    	if(traget != null && uservo != null){
     		CommentEntity en = commentsService.findSingleCommentEntity(traget);
-    		if(MxkConstant.COMMENT_TYPE_WAV.equals(en.getType())){
-    			gridFSFileUploadService.removeFile(en.getInfo(), MxkGridFSFileUploadService.FILE_TYPE_VOICE);
+    		if(valiteOuner(uservo.getId(),en)){
+	    		if(MxkConstant.COMMENT_TYPE_WAV.equals(en.getType())){
+	    			gridFSFileUploadService.removeFile(en.getInfo(), MxkGridFSFileUploadService.FILE_TYPE_VOICE);
+	    		}
+	    		commentsService.removeComments(en.getId());
+				if (MxkConstant.PART.equals(en.getTarget())) {
+					partService.updatePartCommentsQuantity(en.getCommentedId(),en.getType(),false);
+	    		}else {
+	    			subjectService.updateSubjectCommentsQuantity(en.getCommentedId(), false);
+	    		}
     		}
-    		commentsService.removeComments(en.getId());
-			if (MxkConstant.PART.equals(en.getTarget())) {
-				partService.updatePartCommentsQuantity(en.getCommentedId(),en.getTarget(),false);
-    		}else {
-    			subjectService.updateSubjectCommentsQuantity(en.getCommentedId(), false);
-    		}
+    		message = MxkConstant.AJAX_SUCCESS;
+    	}else{
+    		message = MxkConstant.USER_NO_LOGIN;
     	}
-    	message = MxkConstant.AJAX_SUCCESS;
     	return SUCCESS;
     }
 	
-	
+	private boolean valiteOuner(String userid,CommentEntity en){
+		if(en == null){
+			return false;
+		}
+		if(userid.equals(en.getUserid())){ //我评论的 我可以删
+		   return true;	
+		}
+		if(userid.equals(en.getCommentedUserId())){ //评论我的我可以删
+			return true;
+		}
+		return false;//不能删
+	}
+    
+    
 	public CommentsAddRequest getCommentsAddRequest() {
 		return commentsAddRequest;
 	}

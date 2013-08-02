@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
-import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.message.domain.MailPushMessage;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkMailService;
@@ -70,6 +69,11 @@ public class MxkMainAction extends MxkSessionAction {
 	private SubjectTop5NewPartsRespone subjectTop5NewPartsRespone;
 	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
 	private LoadCommentsRequest loadCommentsRequest;
+	
+	//测试提示
+	public String mxkShowRegist(){
+		return SUCCESS;
+	}
 	
 	public String mxkTestStyle(){
 		//1 查询本周最后的8条 

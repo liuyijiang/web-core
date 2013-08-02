@@ -288,6 +288,31 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return "PUBLIC";
 	}
 	
+	public String mxkVistiorShowSubjectDatailFromShareView(){
+		uservo = super.getCurrentUserVO();
+		subjectEntity =  subjectService.findSubjectEntityById(target);
+		if(subjectEntity != null){
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+			SearchPartRequest request = new SearchPartRequest();
+			request.setPage(1);
+			request.setSubjectid(subjectEntity.getId());
+			request.setType(null);
+			partShowResponse = partService.findUserSubjectParts(request);
+			if(partShowResponse != null){
+				partShowResponse.setAllPage(partService.findUserSubjectPartsAllPage(subjectEntity.getId()));
+			}
+			if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(subjectEntity.getType())){
+				if(partShowResponse != null){
+					partShowResponse.setJoiner(subjectJoinPeopleService.findTop5SubjectJoiner(subjectEntity.getId()));	
+				}
+				return "FOR-ALL";
+			}else{
+				return "PUBLIC";
+			}
+		}
+		return "PUBLIC";
+	}
+	
 	
 	//vistier主界面
 	public String mxkVistiorShowUserIndexView(){
@@ -334,6 +359,17 @@ public class MxkVisitorAction extends MxkSessionAction {
 	}
 
 	public String mxkVisitorShowPartDetailView(){
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null){
+			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
+			subjectEntity = subjectService.findSubjectEntityById(partEntity.getSubjectid());
+		    partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
+		}
+		return SUCCESS;
+	}
+	
+	public String mxkVisitorShowPartDetailFromShareView(){
 		uservo = super.getCurrentUserVO();
 		partEntity = partService.findPartEntityById(target);
 		if(partEntity != null){

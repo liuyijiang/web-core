@@ -22,6 +22,7 @@ public class MxkBaseAction extends ActionSupport implements ServletRequestAware,
 	public HttpServletRequest request;  
 	public HttpServletResponse response; 
 	
+	public static final String NEED_LOGIN = "needLogin";
 	
 	@Override
 	public void setServletResponse(HttpServletResponse response) {
