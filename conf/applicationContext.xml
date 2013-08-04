@@ -42,6 +42,9 @@
                 <value>${url.loginOutView}</value>
                 <value>${url.vistiorShowSubjectDatailFromShare}</value>  
                 <value>${url.visitorShowPartDetailFromShare}</value>
+                <value>${url.visitorLoadMoreSubject}</value>
+                <value>${url.visitorLoadMoreParts}</value>
+                <value>${url.testMail}</value>
             </set>  
         </property>  
    </bean>

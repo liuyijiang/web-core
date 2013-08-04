@@ -15,7 +15,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id1}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image1}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id1}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image1}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -39,7 +39,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id2}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image2}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id2}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image2}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -70,7 +70,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id3}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image3}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id3}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image3}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -94,7 +94,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id4}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image4}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id4}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image4}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -126,7 +126,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id5}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image5}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id5}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image5}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -150,7 +150,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id6}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image6}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id6}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image6}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -181,7 +181,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id7}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image7}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id7}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image7}"></a>
 					      </td>
 					    </tr>
 					    <tr>
@@ -205,7 +205,7 @@
 					     <table style="width:210px">
 					    <tr>
 					      <td>
-					       <a href="http://www.waileecn.com/visitorShowPartDetail?target=${id8}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image8}"></a>
+					       <a href="http://www.waileecn.com/visitorShowPartDetailFromShare?target=${id8}"><img style="width:100%;" src="http://www.waileecn.com/mxk/image/${image8}"></a>
 					      </td>
 					    </tr>
 					    <tr>
