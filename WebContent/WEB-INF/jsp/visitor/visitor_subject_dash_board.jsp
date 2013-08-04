@@ -247,7 +247,7 @@
     	  }
 	      $('#loaddiv').show();
 		  $.ajax({
-		   		url : path + "/visitorLoadMoreSubject.action",
+		   		url : path + "/visitorLoadMoreSubject",
 		   		type : "POST",
 		   		cache : false,
 		   		async : false,
