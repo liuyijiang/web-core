@@ -24,6 +24,10 @@
                                     <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
                                        <i class="icon-comment"></i>评论
                                     </a>
+                                    <c:if test="${options.audios != 0 }">
+	                                    <br />
+	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
+                                    </c:if>
 						       </span>
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
@@ -58,6 +62,10 @@
                                     <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
                                        <i class="icon-comment"></i>评论
                                     </a>
+                                    <c:if test="${options.audios != 0 }">
+	                                    <br />
+	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
+                                    </c:if>
 						       </span>
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
@@ -92,6 +100,10 @@
                                     <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
                                        <i class="icon-comment"></i>评论
                                     </a>
+                                    <c:if test="${options.audios != 0 }">
+	                                    <br />
+	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
+                                    </c:if>
 						       </span>
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
@@ -126,6 +138,10 @@
                                    <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}">
                                        <i class="icon-comment"></i>评论
                                     </a>
+                                    <c:if test="${options.audios != 0 }">
+	                                    <br />
+	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
+                                    </c:if>
 						       </span>
 						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
@@ -276,8 +292,11 @@
 		  "<a class='btn btn-mini btn-danger' href='javascript:;' onclick='collectPart(\""+ list[i].id  +"\")'>" +
 	      "<i class='icon-pushpin'></i>收藏 </a>&nbsp;" +
 	      "<a class='btn btn-mini' href='" + path + "/visitorShowPartDetail?target="+ list[i].id +"'>" +
-	      "<i class='icon-comment'></i>评论</a></span>" + 	
-	      "<a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+	      "<i class='icon-comment'></i>评论</a>";
+	      if(list[i].audios != 0){
+	    	  show = show + " <br /><span class='label label-warning'><i class='icon-microphone'></i>语音评论"+ list[i].audios +"</span>";  
+	      }
+	      show = show +  "</span><a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";  
 	      if(list[i].subjectid != "#"){
 	    	  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
@@ -293,7 +312,8 @@
   function showload(){ 
 	   var scrollh = document.documentElement.scrollHeight;
 	   var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-	   if ( scrollt/scrollh > 0.2) {
+	   
+	   if ( scrollh - scrollt <= 1000) {
 		     if(!isrun){
 		    	 isrun = true; 
 		    	 loadMore();  
