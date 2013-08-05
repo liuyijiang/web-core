@@ -42,18 +42,18 @@ public class MxkSecurityFilter extends HttpServlet implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		if(checkUserLogined()){ //已登录
+//		if(checkUserLogined()){ //已登录
 			chain.doFilter(req, res);
-		}else{
-			HttpServletRequest request = (HttpServletRequest) req;
-			HttpServletResponse response = (HttpServletResponse) res;
-			String path = request.getServletPath();  //得到当前请求的路径
-			if(!checkUrlNeedLogin(path)){
-				chain.doFilter(req, res);
-			}else{
-				response.sendRedirect(request.getContextPath()+"/showRegist");
-			}
-		}
+//		}else{
+//			HttpServletRequest request = (HttpServletRequest) req;
+//			HttpServletResponse response = (HttpServletResponse) res;
+//			String path = request.getServletPath();  //得到当前请求的路径
+//			if(!checkUrlNeedLogin(path)){
+//				chain.doFilter(req, res);
+//			}else{
+//				response.sendRedirect(request.getContextPath()+"/showRegist");
+//			}
+//		}
 	}
 
 	@Override
