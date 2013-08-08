@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.connect.mencache.MemcachSessionLoad;
 import com.mxk.org.common.domain.session.MxkSessionContext;
+import com.mxk.org.common.domain.web.CurrentlyBrowsingPagesRespone;
 import com.mxk.org.common.service.MxkRedisCacheService;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.web.user.domain.UserVO;
@@ -36,6 +37,35 @@ public class MxkSessionAction extends MxkBaseAction{
 	@Autowired
 	private MxkRedisCacheService redisCacheService;
 	
+	public void setSessionPage(CurrentlyBrowsingPagesRespone reposne){
+		String mxkjsesson = UUID.randomUUID().toString();
+		Cookie cook = new Cookie(MxkSessionContext.MXK_PAGE_JSEESION,mxkjsesson);
+		cook.setPath("/");
+		ServletActionContext.getResponse().addCookie(cook);//MXK_PAGE_SESSION
+		JSONObject jb = JSONObject.fromObject(reposne);
+		sessionContext.getKey().put(MxkSessionContext.MXK_PAGE_SESSION, mxkjsesson);
+		msload.setSessionData(sessionContext.getKey().get(MxkSessionContext.MXK_PAGE_SESSION), jb.toString());
+	}
+	
+	public CurrentlyBrowsingPagesRespone getSessionPage(){
+		String key = sessionContext.getKey().get(MxkSessionContext.MXK_PAGE_SESSION);
+		CurrentlyBrowsingPagesRespone res = null;
+		if(!StringUtil.stringIsEmpty(key)){
+			String respon = msload.getSessionData(key);
+			if(respon != null){
+				JSONObject json = JSONObject.fromObject(respon);
+				res = (CurrentlyBrowsingPagesRespone)JSONObject.toBean(json,CurrentlyBrowsingPagesRespone.class);
+			}
+		}
+		return res;
+	}
+	
+	public void removePageSession(){
+		Cookie cook = new Cookie(MxkSessionContext.MXK_PAGE_JSEESION,"");
+		cook.setPath("/");
+		ServletActionContext.getResponse().addCookie(cook);//����վ�����key
+	}
+	
 	public void removeSession(){
 		Cookie cook = new Cookie(MxkSessionContext.MXK_JSEESION,"");
 		cook.setPath("/");
@@ -55,7 +85,7 @@ public class MxkSessionAction extends MxkBaseAction{
 		String mxkjsesson = UUID.randomUUID().toString();
 		Cookie cook = new Cookie(MxkSessionContext.MXK_JSEESION,mxkjsesson);
 		cook.setPath("/");
-		ServletActionContext.getResponse().addCookie(cook);//����վ�����key
+		ServletActionContext.getResponse().addCookie(cook);//
 		sessionContext.getKey().put(MxkSessionContext.MXK_SESSION, mxkjsesson);
 		msload.setSessionData(sessionContext.getKey().get(MxkSessionContext.MXK_SESSION), str);
 	}
@@ -85,4 +115,5 @@ public class MxkSessionAction extends MxkBaseAction{
 		String jsessionid = sessionContext.getKey().get(MxkSessionContext.MXK_SESSION);
 		msload.setSessionData(jsessionid+key, jb.toString());
 	}
+
 }

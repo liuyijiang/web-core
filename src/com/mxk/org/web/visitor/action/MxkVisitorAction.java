@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.web.CurrentlyBrowsingPagesRespone;
 import com.mxk.org.common.util.ImageUtil;
 import com.mxk.org.common.util.PointUtil;
 import com.mxk.org.common.util.StringUtil;
@@ -88,9 +89,15 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private String target;//partid或者subject id
 	private String type;
 	private CollectPartsPointReponse collectPartsPointReponse;
+	private CurrentlyBrowsingPagesRespone cashpage;
 	
 	@Value("${gridfs.pdf.iamge.url}")
 	private String imageurl;
+	
+	//top 10
+	public String mxkVisitorShowTop10PartsView(){
+		return SUCCESS;
+	}
 	
 	public String mxkVisitorSeeUserShareSinglePartsView(){
 		uservo = super.getCurrentUserVO();
@@ -188,6 +195,11 @@ public class MxkVisitorAction extends MxkSessionAction {
 		visitorSearchSubjectRespone = new VisitorSearchSubjectRespone();
 		List<SubjectEntity> list = null;
 		if(visitorSeeSubjectDashBoardRequest != null){
+//			cashpage = super.getSessionPage();
+//			if(cashpage != null){
+//				cashpage.setSubjectPage(visitorSeeSubjectDashBoardRequest.getPage());
+//				super.setSessionPage(cashpage);
+//			}
 			if(!StringUtil.stringIsEmpty(visitorSeeSubjectDashBoardRequest.getParm())){ //ģ���ԃ
 				list = subjectService.findSubjectEntityByName(visitorSeeSubjectDashBoardRequest.getParm(), visitorSeeSubjectDashBoardRequest.getPage());
 			}else{
@@ -219,6 +231,16 @@ public class MxkVisitorAction extends MxkSessionAction {
 	//专题面板
 	public String mxkVisitiorShowSubjectDashBoradView(){
 		uservo = super.getCurrentUserVO();
+//		if(cashpage == null){
+//			cashpage = new CurrentlyBrowsingPagesRespone();
+//			cashpage.setSubjectPage(1);
+//			super.setSessionPage(cashpage);
+//		} else {
+//			if(cashpage.getSubjectPage() == 0 ){
+//				cashpage.setSubjectPage(1);
+//				super.setSessionPage(cashpage);
+//			}
+//		}
 		visitorSearchSubjectRespone = new VisitorSearchSubjectRespone();
 		List<SubjectEntity> list = null;
 		int allpage = 0;
@@ -323,9 +345,19 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	
 	//partsDashBoard
 	public String mxkVisitorShowPartDashBoardView(){
+//		cashpage = super.getSessionPage();
+//		if(cashpage == null){
+//			cashpage = new CurrentlyBrowsingPagesRespone();
+//			cashpage.setPartPage(1);
+//			super.setSessionPage(cashpage);
+//		} else {
+//			if(cashpage.getPartPage() == 0 ){
+//				cashpage.setPartPage(1);
+//				super.setSessionPage(cashpage);
+//			}
+//		}
 		uservo = super.getCurrentUserVO();
 		SearchPartRequest request = new SearchPartRequest();
 		request.setPage(1);
@@ -354,6 +386,11 @@ public class MxkVisitorAction extends MxkSessionAction {
 		if(StringUtil.stringIsEmpty(searchPartRequest.getType())){
 			searchPartRequest.setType(null);
 		}
+//		cashpage = super.getSessionPage();
+//		if(cashpage != null){
+//			cashpage.setPartPage(searchPartRequest.getPage());
+//			super.setSessionPage(cashpage);
+//		}
 		partShowResponse = partService.findUserSubjectParts(searchPartRequest);	
 		return SUCCESS;
 	}
@@ -636,6 +673,14 @@ public class MxkVisitorAction extends MxkSessionAction {
 	public void setCollectPartsPointReponse(
 			CollectPartsPointReponse collectPartsPointReponse) {
 		this.collectPartsPointReponse = collectPartsPointReponse;
+	}
+
+	public CurrentlyBrowsingPagesRespone getCashpage() {
+		return cashpage;
+	}
+
+	public void setCashpage(CurrentlyBrowsingPagesRespone cashpage) {
+		this.cashpage = cashpage;
 	}
 	
 	
