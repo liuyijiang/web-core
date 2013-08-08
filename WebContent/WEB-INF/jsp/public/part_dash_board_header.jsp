@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %> 
-<div class="navbar navbar-fixed-top" style="opacity: 0.9;">
+<div class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.9;">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand" href="index"><strong>米兔Metoo</strong></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 					   <li class="divider-vertical"></li>
-					       <a id="top_a" class="btn btn-info" onclick="showActionBar(true)" href="javascript:;" >
-						      <i class="icon-info-sign"></i> 
+					       <a id="top_a" class="btn btn-inverse" onclick="showActionBar(true)" href="javascript:;" >
+						      <i class="icon-list"></i> 
 					       </a>
                             <div class="btn-group">
-							    <button id="filterbtn" class="btn" style="font-family:Microsoft YaHei;" ><i class="icon-search"></i>过滤查询</button>
-							    <button class="btn dropdown-toggle " data-toggle="dropdown">
+							    <button id="filterbtn" class="btn btn-inverse" style="font-family:Microsoft YaHei;" ><i class="icon-search"></i>过滤查询</button>
+							    <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
 							       <span class="caret"></span>
                                 </button>
 						    <ul class="dropdown-menu">
@@ -29,9 +29,9 @@
                          </div>
 					  </ul>
 					    <div class="navbar-form"> 
-					     &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+					     &nbsp; &nbsp;
 					     <input id="form_parm" class="span4" placeholder="搜专辑..." type="text">
-					     <button class="btn" onclick="to_search()" type="button">Go!</button>
+					     <button class="btn btn-inverse" onclick="to_search()" type="button">Go!</button>
 						<c:choose>
 						     <c:when test="${!empty uservo}">
 						              <span class="pull-right">
@@ -55,7 +55,7 @@
 						     <c:otherwise>
 						            <span class="pull-right">
 						                <a href="registerView" class="btn btn-success"><i class="icon-user"></i>&nbsp;用户注册 &nbsp;</a>
-						                <a href="loginView" class="btn"><i class="icon-signin"></i>&nbsp;登陆</a>
+						                <a href="loginView" class="btn btn-inverse"><i class="icon-signin"></i>&nbsp;登陆</a>
 						              </span>
 						     </c:otherwise>
 						</c:choose>
@@ -65,7 +65,6 @@
 		</div>
 		<%@ include file="public_action_tool_bar.jsp"%>
 	</div>
-<br /><br /><br />
 <form id="top_form" action="<%=rootPath %>/visitiorShowSubjectDashBorad" method="POST" style="display:none">
    <input id="topsearchparm" name="visitorSeeSubjectDashBoardRequest.parm" >
 </form>

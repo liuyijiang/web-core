@@ -6,11 +6,63 @@
 <%@ include file="../../../headerinclude.jsp"%>  
 </head>
 <body class="mxkbody  mxkbackgroud" onload="bindScroll();"  onbeforeunload="fixedScroll()">
-<%@ include file="../public/part_dash_board_header.jsp"%>    
+<%@ include file="../public/part_dash_board_header.jsp"%>
+<br /><br />  
+<div style="position:relative;" >
+ <div id="actionbar" style="display:none;height:100%;width:100%;background-color:#000000; position:fixed; z-index:1; opacity: 0.8;" >
+   <button class="close">&times;</button>
+   <div class="container">
+   display:none;
+   <div class="row">
+	     <div class="span9 mxkplan mxkshadow">
+	        	<div class="navbar">
+					<div class="navbar-inner form-inline ">
+					   <span >
+	                  <div class="btn-group">
+                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
+                        <i class="icon-globe"></i>分享
+                      <span class="caret"></span>
+				    </a>
+				     <ul class="dropdown-menu">
+					       <li>
+						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+						                   分享到新浪微博
+						       </a>
+					       </li>
+						   <li>
+							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
+							         分享到QQ微信
+							   </a>
+						   </li>
+						   <li>
+							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }" target="_blank">
+							         分享到QQ空间
+							   </a>
+						  </li>
+		               </ul>
+				    </div>
+				    <a class="btn" href="<%=rootPath%>/visitorShowPartsCollecter?target=${partEntity.id}">
+		               <i class="icon-pushpin"></i>收藏次数<span id="coll">${partEntity.collect }</span>
+		            </a>
+			             <span class="pull-right">
+					          <c:if test="${! empty subjectEntity}">
+					            <a class="btn btn-primary" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
+					          </c:if>
+					          <c:if test="${empty subjectEntity}">
+					            <a class="btn btn-primary" href="<%=rootPath %>/visitorShowSinglePartsComments?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
+					          </c:if>
+				        </span>
+			     </span>
+				</div>
+			 </div>
+	     </div>
+     </div>
+   
+   </div>
+ </div>
 <c:if test="${!empty partShowResponse }">
  <div class="container">
 	      <div class="row">
-	      
 			<div class="span3">
 				<ul class="thumbnails" id="partshow1">
 				    <c:forEach var="options" items="${partShowResponse.list1 }">
@@ -170,8 +222,8 @@
           </div>
      </div>
  </c:if>
- 
- <%@ include file="../public//public_page_footer.jsp"%> 
+ </div>
+ <%@ include file="../public/public_page_footer.jsp"%> 
  <%@ include file="../../../basefootinclude.jsp"%>
  <script type="text/javascript">
    var allpage = '${partShowResponse.allPage}'; //当加载页数超过总页数后不加载
