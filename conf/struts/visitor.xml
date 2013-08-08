@@ -14,6 +14,11 @@
 			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
         
+        <action name="showTopParts" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowTop10PartsView">
+             <result name="success" >/WEB-INF/jsp/visitor/visitor_show_top10_parts.jsp</result>
+         </action>
+        
         <action name="visitorSeeUserShareSingleParts" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitorSeeUserShareSinglePartsView">
              <result name="success" >/WEB-INF/jsp/visitor/vistior_user_share_parts_index.jsp</result>
