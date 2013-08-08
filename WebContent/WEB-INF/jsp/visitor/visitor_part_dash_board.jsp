@@ -5,8 +5,8 @@
 <head>
 <%@ include file="../../../headerinclude.jsp"%>  
 </head>
-<body class="mxkbody  mxkbackgroud" onload="bindScroll()">
-<%@ include file="../public/part_dash_board_header.jsp"%>
+<body class="mxkbody  mxkbackgroud" onload="bindScroll();"  onbeforeunload="fixedScroll()">
+<%@ include file="../public/part_dash_board_header.jsp"%>    
 <c:if test="${!empty partShowResponse }">
  <div class="container">
 	      <div class="row">
@@ -15,7 +15,7 @@
 				<ul class="thumbnails" id="partshow1">
 				    <c:forEach var="options" items="${partShowResponse.list1 }">
 					  <li class="span3 mxkplan ${options.shadow }">
-						<div class="thumbnail">
+						<div class="thumbnail" >
 						   <div style="position:relative;" onmouseover="mouseover('${options.id }')" onmouseout="mouseout('${options.id }')" >
 						       <span style="position:absolute; z-index:-1; opacity: 0.8;" id="${options.id }">
 						            <a class="btn btn-mini btn-danger" href="javascript:;" onclick="collectPart('${options.id}')">
@@ -169,11 +169,13 @@
              <span class="muted"><small>正在努力加载...</small></span>
           </div>
      </div>
- </c:if>    
+ </c:if>
+ 
+ <%@ include file="../public//public_page_footer.jsp"%> 
  <%@ include file="../../../basefootinclude.jsp"%>
  <script type="text/javascript">
    var allpage = '${partShowResponse.allPage}'; //当加载页数超过总页数后不加载
-   var page = 2;
+   var page = '${cashpage.partPage + 1}';
    var isrun = false;
   function mouseover(id){
     $("#"+id).css("z-index","1");
@@ -296,7 +298,7 @@
 	      if(list[i].audios != 0){
 	    	  show = show + " <br /><span class='label label-warning'><i class='icon-microphone'></i>语音评论"+ list[i].audios +"</span>";  
 	      }
-	      show = show +  "</span><a href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+	      show = show +  "</span><a target='_self' href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";  
 	      if(list[i].subjectid != "#"){
 	    	  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
@@ -323,11 +325,21 @@
 
 	//绑定事件
 	function bindScroll(){
+//         if(arr=document.cookie.match(/partsScrollTop=([^;]+)(;|$)/)){
+//         	 alert(1);
+//         	 alert(arr[1]);
+//         	document.documentElement.scrollTop=parseInt(arr[1]);
+//         }		
 	    $(window).bind("scroll", function(){ 
 	       showload();
 	    }); 
 	}
 
+	function fixedScroll(){
+// 		document.cookie="partsScrollTop="+document.documentElement.scrollTop;
+// 	    alert("partsScrollTop="+document.documentElement.scrollTop);
+	}
+	
 </script>
 </body>
 </html>

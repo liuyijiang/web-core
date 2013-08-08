@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %> 
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" style="opacity: 0.8;">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand" href="index"><strong>米兔Metoo</strong></a>

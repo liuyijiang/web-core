@@ -192,7 +192,7 @@
 <script type="text/javascript">
    
     var allpage = '${visitorSearchSubjectRespone.allPage}';
-    var page = 2;
+    var page = '${cashpage.subjectPage + 1}';
     var isrun = false;
     var type = '${type}';
     

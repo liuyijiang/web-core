@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %> 
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" style="opacity: 0.9;">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand" href="index"><strong>米兔Metoo</strong></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 					   <li class="divider-vertical"></li>
-					       <a id="top_a" class="btn" data-placement="bottom" rel="popover" 
-						      data-content="专题面板" data-original-title="小提示" href="<%=rootPath %>/visitiorShowSubjectDashBorad">
-						      <i onmouseout="$('#top_a').popover('hide');" onmouseover="$('#top_a').popover('show');" class="icon-th-large"></i>
+					       <a id="top_a" class="btn btn-info" onclick="showActionBar(true)" href="javascript:;" >
+						      <i class="icon-info-sign"></i> 
 					       </a>
                             <div class="btn-group">
 							    <button id="filterbtn" class="btn" style="font-family:Microsoft YaHei;" ><i class="icon-search"></i>过滤查询</button>
@@ -64,10 +63,9 @@
 				</div>
 			</div>
 		</div>
+		<%@ include file="public_action_tool_bar.jsp"%>
 	</div>
-	<br />
-	<br />
-<br />
+<br /><br /><br />
 <form id="top_form" action="<%=rootPath %>/visitiorShowSubjectDashBorad" method="POST" style="display:none">
    <input id="topsearchparm" name="visitorSeeSubjectDashBoardRequest.parm" >
 </form>
