@@ -61,6 +61,11 @@
             <result name="success" >/WEB-INF/jsp/visitor/visitor_part_detail.jsp</result>
         </action>
         
+         <action name="visitorShowPartDetailPop" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="mxkVisitorShowPartDetailViewPop">
+            <result name="success" >/WEB-INF/jsp/visitor/visitor_part_detail_pop.jsp</result>
+        </action>
+        
         <action name="visitorShowPartDetailFromShare" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="mxkVisitorShowPartDetailFromShareView">
             <result name="success" >/WEB-INF/jsp/visitor/visitor_part_detail.jsp</result>
