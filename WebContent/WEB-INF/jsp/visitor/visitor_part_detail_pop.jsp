@@ -3,8 +3,10 @@
 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %>  
 <%
 String rootPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-String imgurl = "http://192.168.2.127/mxk/image/";
-String voice = "http://192.168.2.127/mxk/voice/";
+// String imgurl = "http://192.168.2.127/mxk/image/";
+// String voice = "http://192.168.2.127/mxk/voice/";
+String imgurl = "http://www.waileecn.com/mxk/image/";
+String voice = "http://www.waileecn.com/mxk/voice/";
 String assets = "http://www.waileecn.com/mxk/assets/";   
 %>
 <div class="row">
@@ -67,7 +69,7 @@ String assets = "http://www.waileecn.com/mxk/assets/";
 		  <hr />
 		<c:forEach var="options" items="${partNewCommentsResponse.list }">
 		  
-		   <div class='row' style='padding:5px;margin-bottom:5px;'>
+		   <div class='row' id="commnetstext" style='padding:5px;margin-bottom:5px;'>
 	          <div class='span1'>
 	           <img class='img-polaroid border-radius' src='<%=imgurl%>${options.userimage}'/>
 	          </div>
@@ -275,7 +277,8 @@ String assets = "http://www.waileecn.com/mxk/assets/";
 	   		    if(item == 'success'){
 	 			   alert("评论成功！");
 	 			   replyuserid = '';
-	 			   window.location.href= path + "/visitorShowPartDetail?target="+ commentedId;
+	 			  loadParts(commentedId);
+	 			   //window.location.href= path + "/visitorShowPartDetail?target="+ commentedId;
 			    }else if( item == 'error'){
 			   	   alert("网络异常请重试");
 			    }else {
@@ -283,11 +286,13 @@ String assets = "http://www.waileecn.com/mxk/assets/";
 			    }
 	   		  }
 	 }); 
-}
+ }
+  
+  
  </script>
 <script type="text/javascript">
   
-  var page = 1; // 记录页数
+  var partpage = 1; // 记录页数
   var traget = '${partEntity.id}';
   
   function createUserRelation(id){	  
@@ -380,4 +385,17 @@ String assets = "http://www.waileecn.com/mxk/assets/";
 	 	 }); 
   }
   
+</script>
+<script type="text/javascript">
+function loadParts(id){ 
+	$("#partsdivshow").show();
+	$("#londingprts").show();
+	var divheight = document.documentElement.scrollTop + document.body.scrollTop + 20;
+	$("#divheight").css("height",divheight);
+	var currentpage = page;
+    $("#partsdiv").load(path +'/visitorShowPartDetailPop?target='+id,function() {
+    	page = currentpage;
+    	$("#londingprts").hide();
+    });  
+}  
 </script>
