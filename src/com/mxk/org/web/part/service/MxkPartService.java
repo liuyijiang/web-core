@@ -32,8 +32,8 @@ public class MxkPartService {
 		partDao.changePartsBackShadow(id);
 	}
 	
-	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime){
-		return partDao.findCollectHighPartsByTime(starttime, endtime);
+	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime,int limit){
+		return partDao.findCollectHighPartsByTime(starttime, endtime,limit);
 	}
 	
 	public List<CollectInformationEntity> findCollectInformationEntity(String tergetId){

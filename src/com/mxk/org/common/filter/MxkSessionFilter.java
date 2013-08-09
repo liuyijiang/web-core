@@ -44,9 +44,9 @@ public class MxkSessionFilter extends HttpServlet implements Filter {
 				if(cookie.getName().equals(MxkSessionContext.MXK_JSEESION)){
 					sessionCntext.getKey().put(MxkSessionContext.MXK_SESSION, cookie.getValue());
 				}
-				if(cookie.getName().equals(MxkSessionContext.MXK_PAGE_JSEESION)){
-					sessionCntext.getKey().put(MxkSessionContext.MXK_PAGE_SESSION, cookie.getValue());
-				}
+//				if(cookie.getName().equals(MxkSessionContext.MXK_PAGE_JSEESION)){
+//					sessionCntext.getKey().put(MxkSessionContext.MXK_PAGE_SESSION, cookie.getValue());
+//				}
 			}
 		}
 		chain.doFilter(req, res);

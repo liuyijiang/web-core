@@ -79,7 +79,7 @@ public class MxkMailPushListener implements MessageListener {
 	    Date start =rightNow.getTime();
 	    String startTime = StringUtil.dateToString(start, null);
 	    String endTime = StringUtil.dateToString(end, null);
-	    List<PartEntity> list = partService.findCollectHighPartsByTime(startTime, endTime);
+	    List<PartEntity> list = partService.findCollectHighPartsByTime(startTime, endTime,8);
 	    List<UserEntity> ulist = userService.findAllUsers();
 	    Map<String,String> map = new HashMap<String,String>();
 	    for(int i=0 ;i<list.size();i++){

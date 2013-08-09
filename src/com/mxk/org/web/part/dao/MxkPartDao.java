@@ -62,11 +62,12 @@ public class MxkPartDao {
 		}
 	}
 	
-	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime){
+	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime,int limit){
 		Query q = new Query(Criteria.where("createTime").gte(starttime).lte(endtime));
-	    q.sort().on("collect", Order.DESCENDING);
-	    q.limit(8);
-	    return mog.find(q, PartEntity.class);
+	    q.sort().on("collect", Order.DESCENDING).on("comments", Order.DESCENDING).on("audios", Order.DESCENDING);
+	    q.limit(limit);
+	    List<PartEntity> list = mog.find(q, PartEntity.class);
+	    return list;
 	}
 	
 	public List<CollectInformationEntity> findCollectInformationEntity(String targetId){
