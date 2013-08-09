@@ -5,60 +5,35 @@
 <head>
 <%@ include file="../../../headerinclude.jsp"%>  
 </head>
-<body class="mxkbody  mxkbackgroud" onload="bindScroll();"  onbeforeunload="fixedScroll()">
+<body class="mxkbody  mxkbackgroud" onload="bindScroll();">
 <%@ include file="../public/part_dash_board_header.jsp"%>
 <br /><br />  
+<script type="text/javascript">
+function loadParts(id){ 
+	$("#partsdivshow").show();
+	$("#londingprts").show();
+	var divheight = document.documentElement.scrollTop + document.body.scrollTop + 20;
+	$("#divheight").css("height",divheight);
+	var currentpage = page;
+    $("#partsdiv").load(path +'/visitorShowPartDetailPop?target='+id,function() {
+    	page = currentpage;
+    	$("#londingprts").hide();
+    });  
+}  
+</script>
 <div style="position:relative;" >
- <div id="actionbar" style="display:none;height:100%;width:100%;background-color:#000000; position:fixed; z-index:1; opacity: 0.8;" >
-   <button class="close">&times;</button>
-   <div class="container">
-   display:none;
-   <div class="row">
-	     <div class="span9 mxkplan mxkshadow">
-	        	<div class="navbar">
-					<div class="navbar-inner form-inline ">
-					   <span >
-	                  <div class="btn-group">
-                      <a class="btn dropdown-toggle btn " data-toggle="dropdown" href="#">
-                        <i class="icon-globe"></i>分享
-                      <span class="caret"></span>
-				    </a>
-				     <ul class="dropdown-menu">
-					       <li>
-						      <a href="http://service.weibo.com/share/share.php?url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
-						                   分享到新浪微博
-						       </a>
-					       </li>
-						   <li>
-							   <a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&nbsp;${partEntity.desc }" target="_blank">
-							         分享到QQ微信
-							   </a>
-						   </li>
-						   <li>
-							   <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%=rootPath%>/index&pic=<%=imgurl %>${partEntity.image }&title=${subjectEntity.name }&nbsp;&summary=${partEntity.desc }|&nbsp;<%=rootPath%>/visitorShowPartDetailFromShare?target=${partEntity.id }" target="_blank">
-							         分享到QQ空间
-							   </a>
-						  </li>
-		               </ul>
-				    </div>
-				    <a class="btn" href="<%=rootPath%>/visitorShowPartsCollecter?target=${partEntity.id}">
-		               <i class="icon-pushpin"></i>收藏次数<span id="coll">${partEntity.collect }</span>
-		            </a>
-			             <span class="pull-right">
-					          <c:if test="${! empty subjectEntity}">
-					            <a class="btn btn-primary" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
-					          </c:if>
-					          <c:if test="${empty subjectEntity}">
-					            <a class="btn btn-primary" href="<%=rootPath %>/visitorShowSinglePartsComments?target=${partEntity.id}"><i class="icon-comments-alt"></i>评论Parts</a>
-					          </c:if>
-				        </span>
-			     </span>
-				</div>
-			 </div>
-	     </div>
-     </div>
-   
-   </div>
+ <div id="partsdivshow" style="display:none;height:100%;width:100%;position:absolute;z-index:1;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+      <div id="divheight"></div>
+       <div id="londingprts" class="mxkdivmid" style="display:none" >
+            <img id="" src="<%=domain %>loadingred.gif">
+            <span class="muted"><small>正在努力加载...</small></span>
+       </div>
+       <div style="width:100%;">
+         <button class="btn pull-right btn-danger" onclick="$('#partsdivshow').hide();$('#partsdiv').html('');">&times;</button>
+       </div>
+	   <div id="partsdiv" class="container">
+	   
+	   </div>
  </div>
 <c:if test="${!empty partShowResponse }">
  <div class="container">
@@ -81,7 +56,7 @@
 	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
                                     </c:if>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a onclick="loadParts('${options.id}')" href="javascript:;" style="cursor:-moz-zoom-in" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							<c:if test="${options.subjectid != '#' }">
@@ -119,7 +94,7 @@
 	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
                                     </c:if>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a onclick="loadParts('${options.id}')" href="javascript:;" style="cursor:-moz-zoom-in" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							<c:if test="${options.subjectid != '#' }">
@@ -157,7 +132,7 @@
 	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
                                     </c:if>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}"><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a onclick="loadParts('${options.id}')" href="javascript:;" style="cursor:-moz-zoom-in" ><img style="cursor:-moz-zoom-in" src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							<c:if test="${options.subjectid != '#' }">
@@ -195,7 +170,7 @@
 	                                    <span class="label label-warning"><i class="icon-microphone"></i>语音评论${options.audios}</span>
                                     </c:if>
 						       </span>
-						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id}" ><img src="<%=imgurl %>${options.minimage}" /></a>
+						       	<a onclick="loadParts('${options.id}')" href="javascript:;" style="cursor:-moz-zoom-in" ><img src="<%=imgurl %>${options.minimage}" /></a>
 						   </div>
 							<span class="muted"><small>${options.desc }</small></span><br />
 							<c:if test="${options.subjectid != '#' }">
@@ -227,7 +202,7 @@
  <%@ include file="../../../basefootinclude.jsp"%>
  <script type="text/javascript">
    var allpage = '${partShowResponse.allPage}'; //当加载页数超过总页数后不加载
-   var page = '${cashpage.partPage + 1}';
+   var page = 2;
    var isrun = false;
   function mouseover(id){
     $("#"+id).css("z-index","1");
@@ -350,7 +325,7 @@
 	      if(list[i].audios != 0){
 	    	  show = show + " <br /><span class='label label-warning'><i class='icon-microphone'></i>语音评论"+ list[i].audios +"</span>";  
 	      }
-	      show = show +  "</span><a target='_self' href='"+ path +"/visitorShowPartDetail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].minimage +"' /></a>" +
+	      show = show +  "</span><a onclick='loadParts(\""+ list[i].id +"\")' href='javascript:;' style='cursor:-moz-zoom-in' ><img src='"+ imgurl + list[i].minimage +"' /></a>" +
 	      "</div><span class='muted'><small>"+ list[i].desc +"</small></span><br />";  
 	      if(list[i].subjectid != "#"){
 	    	  show = show + "<span class='text-info'><small><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].subjectid +"'>《"+ list[i].subname +"》</a></small></span><br />";
@@ -377,21 +352,11 @@
 
 	//绑定事件
 	function bindScroll(){
-//         if(arr=document.cookie.match(/partsScrollTop=([^;]+)(;|$)/)){
-//         	 alert(1);
-//         	 alert(arr[1]);
-//         	document.documentElement.scrollTop=parseInt(arr[1]);
-//         }		
 	    $(window).bind("scroll", function(){ 
 	       showload();
 	    }); 
 	}
 
-	function fixedScroll(){
-// 		document.cookie="partsScrollTop="+document.documentElement.scrollTop;
-// 	    alert("partsScrollTop="+document.documentElement.scrollTop);
-	}
-	
 </script>
 </body>
 </html>

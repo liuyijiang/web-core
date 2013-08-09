@@ -36,8 +36,8 @@
 						     <c:when test="${!empty uservo}">
 						              <span class="pull-right">
 						                 <div class="btn-group">
-												    <button class="btn"><img style="width:18px" src="<%=imgurl %>${uservo.minimage }"/><strong>${uservo.name }</strong></button>
-												    <button class="btn dropdown-toggle " data-toggle="dropdown">
+												    <button class="btn btn-inverse"><img style="width:18px" src="<%=imgurl %>${uservo.minimage }"/><strong>${uservo.name }</strong></button>
+												    <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
 												    <span class="caret"></span>
 						                           </button>
 											    <ul class="dropdown-menu">

@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<div style="position:relative;" >
-  <div id="actionbar" style="padding:10px;display:none;height:50px;width:100%;background-color:#000000; position: fixed; z-index:2; opacity: 0.8;" >
+<div >
+  <div id="actionbar"  style="padding:5px;display:none;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
      <div class="container">
      <a class="btn btn-small" href="<%=rootPath %>/partDashBoard">
 	   <i class="icon-th"></i>Parts面板
 	 </a>
      <a class="btn btn-small" href="<%=rootPath %>/visitiorShowSubjectDashBorad">
 	   <i class="icon-th-large"></i>专题面板
+	 </a>
+	 <a class="btn btn-small" href="#" onclick="$('#actionbar_user').show();">
+	   <i class="icon-th-large"></i>找模友
 	 </a>
 	 <a class="btn btn btn-danger btn-small" href="<%=rootPath %>/showTopParts">
 	   <i class="icon-signal"></i>Top 10
@@ -18,6 +21,12 @@
        </span>
      </div>
   </div>
+  
+<!--   <div id="actionbar_user"  style="padding:5px;display:none;height:40px;width:100%;background-color:#34495e;  opacity: 0.9;" > -->
+<!--      dadasd -->
+    
+<!--   </div> -->
+  
 </div>
 <script type="text/javascript">
    function showActionBar(actionbarshow){
