@@ -37,7 +37,7 @@
   function to_search(){
 	 var top_parm = $("#form_parm").val();
 	 if(top_parm == ""){
-		 alert("请输入查询条件！");
+		 alert("请输入查询条件");
 	 }else{
 		 $("#topsearchparm").val(top_parm);
 		 $("#top_form").submit();

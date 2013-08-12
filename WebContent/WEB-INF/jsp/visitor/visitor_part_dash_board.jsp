@@ -6,7 +6,7 @@
 <%@ include file="../../../headerinclude.jsp"%>  
 </head>
 <body class="mxkbody  mxkbackgroud" onload="bindScroll();">
-<%@ include file="../public/part_dash_board_header.jsp"%>
+<%@ include file="../public/part_dash_board_header.jsp"%> 
 <br /><br />  
 <script type="text/javascript">
 function loadParts(id){ 
@@ -36,6 +36,7 @@ function loadParts(id){
 	   </div>
  </div>
 <c:if test="${!empty partShowResponse }">
+<br />  
  <div class="container">
 	      <div class="row">
 			<div class="span3">

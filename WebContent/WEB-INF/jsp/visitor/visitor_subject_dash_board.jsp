@@ -38,6 +38,11 @@
 						   </div>
 							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
+							<span>
+							  <img class="img-polaroid" src="<%=imgurl %>${options.userimage}" style="width:15px">
+							  <a href="<%=rootPath%>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a>
+							</span><br />
+							    <span class="label">${options.category }</span>
 							    <span class="pull-right muted">
 							        <small>
 							         <i class="icon-comment"></i>评论${options.comments }
@@ -76,6 +81,11 @@
 						   </div>
 							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
+							<span>
+							  <img class="img-polaroid" src="<%=imgurl %>${options.userimage}" style="width:15px">
+							  <a href="<%=rootPath%>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a>
+							</span><br />    
+							<span class="label">${options.category }</span>
 							    <span class="pull-right muted">
 							        <small>
 							         <i class="icon-comment"></i>评论${options.comments }
@@ -114,6 +124,11 @@
 						   </div>
 							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
+							<span>
+							  <img class="img-polaroid" src="<%=imgurl %>${options.userimage}" style="width:15px">
+							  <a href="<%=rootPath%>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a>
+							</span><br />  
+							<span class="label">${options.category }</span>
 							    <span class="pull-right muted">
 							        <small>
 							         <i class="icon-comment"></i>评论${options.comments }
@@ -152,6 +167,11 @@
 						   </div>
 							<span class="muted"><small><strong>${options.name }</strong><span class="muted">(${options.category })</span></small></span><br />
 							<span class="muted"><small>${options.info }</small></span><br />
+							<span>
+							  <img class="img-polaroid" src="<%=imgurl %>${options.userimage}" style="width:15px">
+							  <a href="<%=rootPath%>/vistiorShowUserIndex?target=${options.userid}">${options.username }</a>
+							</span><br />  
+							<span class="label">${options.category }</span> 
 							    <span class="pull-right muted">
 							        <small>
 							         <i class="icon-comment"></i>评论${options.comments }
@@ -290,6 +310,7 @@
     		show = show + "</span><a href='"+ path +"/vistiorShowSubjectDatail?target="+ list[i].id +"'><img src='"+ imgurl + list[i].faceimage +"' /></a></div>" + 
     		"<span class='muted'><small><strong>"+ list[i].name +"</strong><span class='muted'>("+ list[i].category +")</span></small></span><br />" +
     		"<span class='muted'><small>"+ list[i].info +"</small></span><br />" +
+    		"<span><img class='img-polaroid' src='" + imgurl + list[i].userimage +"' style='width:15px'><a href='"+ path + "/vistiorShowUserIndex?target="+ list[i].userid +"'>"+ list[i].username +"</a></span><br /><span class='label'>" + list[i].category +"</span>" +
     		"<span class='pull-right muted'><small><i class='icon-comment'></i>评论"+ list[i].comments +"<i class='icon-pushpin'></i>Parts"+ list[i].parts; 
     	   if(list[i].type == 'FOR-ALL'){
     		  show = show + "<span class='label label-warning'>共享</span>";

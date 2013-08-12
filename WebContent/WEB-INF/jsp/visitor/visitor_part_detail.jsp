@@ -102,7 +102,35 @@
 			  <span class="pull-right"><a class="btn" href="<%=rootPath %>/visitorShowSinglePartsComments?target=${partEntity.id}">更多评论</a>&nbsp;&nbsp;</span>
 		   </c:if>
 		</c:if>
-		<br/><br/>
+		<br/>
+		
+		<div id="addtextcommentdiv" >
+  <div class="row">
+    <div class="span9  " >
+         <div class="row" style="padding:5px;margin-bottom:5px;">
+          <div class="span1">
+            <c:if test="${!empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>
+               <span class="muted"><small>${uservo.name}</small></span>
+            </c:if>
+            <c:if test="${empty uservo}">
+               <img class="img-polaroid border-radius" src="<%=imgurl %>userheader.png"/>
+            </c:if>
+          </div>
+          <div class="span7">
+            <span>
+              <span class="muted">你的评论</span>
+              <span class="pull-right muted"><a href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}" ><i class="icon-microphone"></i>语音评论</a></span>
+             </span><br />
+            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
+            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button>
+          </div>
+         </div>
+    </div>
+   </div>
+   <br />
+</div>
+		
      </div>
      <c:if test="${empty subjectEntity}">
          <div class="span3">
@@ -202,37 +230,50 @@
 		</ul>
      </div>
      </c:if>
+     
+<!--      <div class="span3"> -->
+<!--        <ul class="thumbnails"> -->
+<!--           <li class="span3 mxkplan mxkshadow"> -->
+<!--             <div class="thumbnail" > -->
+<!--               <a class="btn">喜欢</a> -->
+<!--               <a class="btn">评分</a> -->
+<!--               <a class="btn">赞</a> -->
+<!--             </div> -->
+<!--           </li> -->
+<!--        </ul> -->
+<!--      </div> -->
+     
+     <div class="span3">
+         <h4>他还分享了</h4>
+				<ul class="thumbnails" id="partshow1">
+				    <c:forEach var="options" items="${mandomparts.list }">
+					  <li class="span3 mxkplan ${options.shadow }">
+						<div class="thumbnail" >
+						   <div style="position:relative;" >
+						       	<a href="<%=rootPath %>/visitorShowPartDetail?target=${options.id }" ><img src="<%=imgurl %>${options.minimage}" /></a>
+						   </div>
+							<span class="muted"><small>${options.desc }</small></span><br />
+							<c:if test="${options.subjectid != '#' }">
+							  <span class="text-info"><small><a href="<%=rootPath %>/vistiorShowSubjectDatail?target=${options.subjectid}">《${options.subname }》</a></small></span><br />
+							</c:if>
+							   <span class="label">${options.type }</span>
+							    <span class="pull-right muted">
+							        <small>
+								    <i class="icon-comment"></i>评论${options.comments + options.audios  }
+								    <i class="icon-pushpin"></i>收藏${options.collect }
+								    </small>
+							    </span>
+						    <br />
+						</div>
+				      </li>
+				    </c:forEach>
+				</ul>
+				<a class="btn btn-primary pull-right" href="<%=rootPath%>/partDashBoard">更多分享</a>
+			</div> 
   </div>
 </div>
 <br />
 
-<div id="addtextcommentdiv" class="container">
-  <div class="row">
-    <div class="span9 mxkplan mxkshadow " >
-         <div class="row" style="padding:5px;margin-bottom:5px;">
-          <div class="span1">
-            <c:if test="${!empty uservo}">
-               <img class="img-polaroid border-radius" src="<%=imgurl %>${uservo.image }"/>
-               <span class="muted"><small>${uservo.name}</small></span>
-            </c:if>
-            <c:if test="${empty uservo}">
-               <img class="img-polaroid border-radius" src="<%=imgurl %>userheader.png"/>
-            </c:if>
-          </div>
-          <div class="span7">
-            <span>
-              <span class="muted">你的评论</span>
-              <span class="pull-right muted"><a href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}" ><i class="icon-microphone"></i>语音评论</a></span>
-             </span><br />
-            <textarea id="commentstextarea" rows="3" style="width:100%"></textarea>
-            <button class="pull-right btn btn-primary btn-small" onclick="addTextComents('${partEntity.id}','${partEntity.userid }','part')">评论</button>
-          </div>
-         </div>
-    </div>
-   </div>
-   <br /> <br />
-</div>
-    
 <%@ include file="../../../recordfootinclude.jsp"%>
 <script type="text/javascript">
   function deleCom(comid,partid){
