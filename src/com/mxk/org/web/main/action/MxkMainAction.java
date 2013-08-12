@@ -70,6 +70,12 @@ public class MxkMainAction extends MxkSessionAction {
 	private CreateSubjectWorkingRequest createSubjectWorkingRequest;
 	private LoadCommentsRequest loadCommentsRequest;
 	
+	//update
+	public String updateSubjectActionss(){
+		subjectService.btnUpdateSubjects();
+		return SUCCESS;
+	}
+	
 	//测试提示
 	public String mxkShowRegist(){
 		return SUCCESS;

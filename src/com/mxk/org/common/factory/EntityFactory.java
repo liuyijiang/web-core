@@ -104,6 +104,8 @@ public class EntityFactory {
 		subjectEntity.setParts(0);
 		subjectEntity.setTags(request.getTags());
 		subjectEntity.setCategory(request.getCategory());
+		subjectEntity.setUserimage(request.getUserimage());
+		subjectEntity.setUsername(request.getUsername());
 		return subjectEntity;
 	}
 	

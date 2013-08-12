@@ -24,12 +24,20 @@ public class MxkPartService {
 	@Autowired
 	private MxkPartDao partDao;
 	
+	public List<PartEntity> findUserPartsMadom(String userid,int num){
+		return partDao.findUserPartsMadom(userid,num);
+	}
+	
 	public List<PartEntity> findPartEntityListByDate(String userid ,String subjectid,String starttime,String endtime){
 	    return partDao.findPartEntityListByDate(userid, subjectid, starttime, endtime);
 	}
 	
 	public void changePartsBackShadow(String id){
 		partDao.changePartsBackShadow(id);
+	}
+	
+	public List<PartEntity> findCollectHighPartsByTimeAndType(String starttime,String endtime,int limit,String type){
+		return partDao.findCollectHighPartsByTimeAndType(starttime, endtime,limit,type);
 	}
 	
 	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime,int limit){

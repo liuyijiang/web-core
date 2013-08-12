@@ -33,6 +33,11 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public void btnUpdateSubjects(){
+		dao.btnUpdateSubjects();
+	}
+	
+	
 	public void updateSubjectEntity(CreateSubjectRequest request){
 		dao.updateSubjectEntity(request);
 	}

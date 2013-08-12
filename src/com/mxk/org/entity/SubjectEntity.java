@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Ö÷ÌâÊµÌåÀà
+ * ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -22,17 +22,20 @@ public class SubjectEntity implements Serializable {
 	private String id;
 	private String userid;
 	private String name;
-	private String info;//ÃèÊö
-	private String faceimage;//·âÃæÍ¼
-	private String type;//ÀàĞÍ PUBLIC PRIVATE FOR-ALL
+	private String info;//ï¿½ï¿½ï¿½ï¿½
+	private String faceimage;//ï¿½ï¿½ï¿½ï¿½Í¼
+	private String type;//ï¿½ï¿½ï¿½ï¿½ PUBLIC PRIVATE FOR-ALL
 	private String tags;//
 	private String createTime;
-	private int comments;//ÆÀÂÛ´ÎÊı
-	private int attention;//¶©ÔÄ
-	private int level;//ÆÀ¼¶
-	private int parts;//partÊıÁ¿
-	private int joinpeople;//¹«¿ª×¨Ìâ²ÎÓëÈËÊı
-	private String category;//Ô­´´ ·ÖÏí
+	private int comments;//ï¿½ï¿½ï¿½Û´ï¿½ï¿½ï¿½
+	private int attention;//ï¿½ï¿½ï¿½ï¿½
+	private int level;//ï¿½ï¿½ï¿½ï¿½
+	private int parts;//partï¿½ï¿½ï¿½ï¿½
+	private int joinpeople;//ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String category;//Ô­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	
+	private String username;
+	private String userimage;
 	
 	public String getId() {
 		return id;
@@ -117,6 +120,18 @@ public class SubjectEntity implements Serializable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getUserimage() {
+		return userimage;
+	}
+	public void setUserimage(String userimage) {
+		this.userimage = userimage;
 	}
     
 	

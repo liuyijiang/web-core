@@ -44,6 +44,25 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	/**
+	 * 批量修改历史数据 
+	 */
+	public void btnUpdateSubjects(){
+		Query qs = new Query();
+		List<SubjectEntity> list = mog.find(qs, SubjectEntity.class);
+		for (SubjectEntity sub : list) {
+			Update up = new Update();
+			Query qu = new Query(Criteria.where("id").is(sub.getUserid()));
+			UserEntity un = mog.findOne(qu, UserEntity.class);
+			up.set("username", un.getName());
+			up.set("userimage", un.getImage());
+			Query qsone = new Query(Criteria.where("id").is(sub.getId()));
+			mog.updateMulti(qsone, up, SubjectEntity.class);
+		}
+		
+	}
+	
+	
 	public void updateSubjectEntity(CreateSubjectRequest request){
 		Query q = new Query(Criteria.where("id").is(request.getId()));
 		SubjectEntity sub = mog.findOne(q, SubjectEntity.class);

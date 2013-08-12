@@ -35,6 +35,21 @@ public class MxkPartDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public List<PartEntity> findUserPartsMadom(String userid,int num){
+		//得到总数
+		List<PartEntity> list = null;
+		Query q = new Query(Criteria.where("userid").is(userid));
+		long count = mog.count(q, PartEntity.class);
+		if (count != 0) {
+			long page = (count + num - 1) / num;
+			Long i = (long)(Math.random()*page);
+			q.limit(num);
+			q.skip(i.intValue());
+			list = mog.find(q, PartEntity.class);
+		}
+		return list;
+	}
+	
 	public List<PartEntity> findPartEntityListByDate(String userid ,String subjectid,String starttime,String endtime){
 		Query q = new Query(Criteria.where("userid").is(userid).and("subjectid").is(subjectid).and("createTime").gte(starttime).lte(endtime));
 	    return mog.find(q, PartEntity.class);
@@ -65,6 +80,19 @@ public class MxkPartDao {
 	public List<PartEntity> findCollectHighPartsByTime(String starttime,String endtime,int limit){
 		Query q = new Query(Criteria.where("createTime").gte(starttime).lte(endtime));
 	    q.sort().on("collect", Order.DESCENDING).on("comments", Order.DESCENDING).on("audios", Order.DESCENDING);
+	    q.limit(limit);
+	    List<PartEntity> list = mog.find(q, PartEntity.class);
+	    return list;
+	}
+	
+	public List<PartEntity> findCollectHighPartsByTimeAndType(String starttime,String endtime,int limit,String type){
+		Query q  = null;
+		if(type == null){
+			q = new Query();
+		}else{
+			q = new Query(Criteria.where("createTime").gte(starttime).lte(endtime));
+		}
+		q.sort().on("collect", Order.DESCENDING).on("comments", Order.DESCENDING).on("audios", Order.DESCENDING);
 	    q.limit(limit);
 	    List<PartEntity> list = mog.find(q, PartEntity.class);
 	    return list;

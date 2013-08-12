@@ -11,6 +11,9 @@ public class CreateSubjectRequest {
 	private String category;
 	private String id;
 	
+	private String username;
+	private String userimage;
+	
 	public String getName() {
 		return name;
 	}
@@ -58,6 +61,18 @@ public class CreateSubjectRequest {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getUserimage() {
+		return userimage;
+	}
+	public void setUserimage(String userimage) {
+		this.userimage = userimage;
 	}
 	
 	

@@ -35,6 +35,7 @@ import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
 import com.mxk.org.web.visitor.domain.CollectPartsDataReponse;
 import com.mxk.org.web.visitor.domain.CollectPartsPointReponse;
+import com.mxk.org.web.visitor.domain.MandomIntroducePartsReponse;
 import com.mxk.org.web.visitor.domain.SearchJoinSubjectPeopleRequest;
 import com.mxk.org.web.visitor.domain.SubjectJoinPeopleRespone;
 import com.mxk.org.web.visitor.domain.VisitorSearchSubjectRespone;
@@ -92,20 +93,27 @@ public class MxkVisitorAction extends MxkSessionAction {
 	private String type;
 	private CollectPartsPointReponse collectPartsPointReponse;
 	private VisitorSeeTop10Respone topRespone;
+	private MandomIntroducePartsReponse mandomparts;
 	
 	@Value("${gridfs.pdf.iamge.url}")
 	private String imageurl;
 	
 	//top 10
-	public String mxkVisitorShowTop10PartsView(){
+	public String mxkVisitorShowTop10PartsView() throws Exception{
 		Date end = new Date();
 		Calendar rightNow = Calendar.getInstance();
 	    rightNow.setTime(end);
-	    rightNow.add(Calendar.DAY_OF_YEAR,-7);
-	    Date start =rightNow.getTime();
+	    if("1".equals(type)){
+	    	 rightNow.add(Calendar.DAY_OF_YEAR,-7);
+	    }else if("2".equals(type)){
+	    	 rightNow.add(Calendar.DAY_OF_YEAR,-30);
+	    }else{
+	    	type = null;
+	    }
+	    Date start = rightNow.getTime();
 	    String startTime = StringUtil.dateToString(start, null);
 	    String endTime = StringUtil.dateToString(end, null);
-	    List<PartEntity> list = partService.findCollectHighPartsByTime(startTime, endTime,10);
+	    List<PartEntity> list = partService.findCollectHighPartsByTimeAndType(startTime, endTime,10,type);
 	    topRespone = new VisitorSeeTop10Respone();
 	    topRespone.setList(list);
 	    return SUCCESS;
@@ -400,6 +408,8 @@ public class MxkVisitorAction extends MxkSessionAction {
 			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
 			subjectEntity = subjectService.findSubjectEntityById(partEntity.getSubjectid());
 		    partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
+		    mandomparts = new MandomIntroducePartsReponse();
+		    mandomparts.setList(partService.findUserPartsMadom(partEntity.getUserid(),2));
 		}
 		return SUCCESS;
 	}
@@ -411,6 +421,8 @@ public class MxkVisitorAction extends MxkSessionAction {
 			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
 			subjectEntity = subjectService.findSubjectEntityById(partEntity.getSubjectid());
 		    partNewCommentsResponse = commentsService.findNewComments(partEntity.getId());
+		    mandomparts = new MandomIntroducePartsReponse();
+		    mandomparts.setList(partService.findUserPartsMadom(partEntity.getUserid(),2));
 		}
 		return SUCCESS;
 	}
@@ -679,6 +691,14 @@ public class MxkVisitorAction extends MxkSessionAction {
 
 	public void setTopRespone(VisitorSeeTop10Respone topRespone) {
 		this.topRespone = topRespone;
+	}
+
+	public MandomIntroducePartsReponse getMandomparts() {
+		return mandomparts;
+	}
+
+	public void setMandomparts(MandomIntroducePartsReponse mandomparts) {
+		this.mandomparts = mandomparts;
 	}
 
 	

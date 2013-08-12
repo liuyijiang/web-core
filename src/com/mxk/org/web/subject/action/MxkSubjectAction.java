@@ -472,6 +472,8 @@ public class MxkSubjectAction extends MxkSessionAction {
 		if(valiate(createSubjectRequest) && uservo != null){
 			createSubjectRequest.setUserid(uservo.getId());
 			createSubjectRequest.setFaceiamge(defaultImageUrl);
+			createSubjectRequest.setUserimage(uservo.getImage());
+			createSubjectRequest.setUsername(uservo.getName());
 			if(subjectService.saveSubject(createSubjectRequest)){
 				uservo.setSubject(uservo.getSubject() + 1);
 				super.updateCurrentUserVO(uservo);
