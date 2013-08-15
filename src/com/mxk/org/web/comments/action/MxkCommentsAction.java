@@ -1,20 +1,33 @@
 package com.mxk.org.web.comments.action;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MetooGiftResultMessage;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.HttpUtil;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
+import com.mxk.org.entity.GiftEntity;
+import com.mxk.org.entity.MessageEntity;
+import com.mxk.org.entity.UserGiftEntity;
+import com.mxk.org.entity.UserLikeEntity;
+import com.mxk.org.entity.UserPointEntity;
+import com.mxk.org.web.comments.domain.BaseRequest;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
+import com.mxk.org.web.comments.domain.GiftInfoResponse;
+import com.mxk.org.web.comments.domain.LikeInfoResponse;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
+import com.mxk.org.web.comments.domain.PageModelRequest;
+import com.mxk.org.web.comments.domain.SendGiftRequest;
+import com.mxk.org.web.comments.domain.SetPointRequest;
 import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.comments.service.MxkMessageService;
 import com.mxk.org.web.part.service.MxkPartService;
@@ -53,16 +66,137 @@ public class MxkCommentsAction extends MxkSessionAction {
 	private CommentsAddRequest commentsAddRequest;
 	private LoadCommentsRequest loadCommentsRequest;
 	private LoadCommentsRespone loadCommentsRespone;
+	private SendGiftRequest sendGiftRequest;
+	private GiftInfoResponse giftInfoResponse;
+	private LikeInfoResponse likeInfoResponse;
+	private PageModelRequest pageModel;
+	private BaseRequest baseRequest;
+	private SetPointRequest setPointRequest;
 	private UserVO uservo;
 	private String message;
 	private String traget;
+	
+	//送礼
+	public String metooSendGiftAjax(){
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.USER_NO_LOGIN;
+		if(uservo != null && sendGiftRequest != null){
+			if(commentsService.checkGiftHasBeenSend(sendGiftRequest.getTargetId(), uservo.getId())){
+				UserGiftEntity entity = new UserGiftEntity();
+				UserVO targetUserVO = super.getCachedUserVO(sendGiftRequest.getSendGifttToUserId());
+				if(targetUserVO != null){
+					GiftEntity ge = commentsService.randomGift();
+					entity.setSendGiftTime(StringUtil.dateToString(new Date(), null));
+					entity.setSendGifttUserId(uservo.getId());
+					entity.setSendGiftUserImage(uservo.getImage());
+					entity.setSendGiftUserName(uservo.getName());
+					entity.setGiftType(ge.getGifType());
+					entity.setGifImage(ge.getGifImage());
+					entity.setGifMessage(ge.getGifMessage());
+					entity.setGiftName(ge.getGiftName());
+					entity.setTragetId(sendGiftRequest.getTargetId());
+					entity.setUserid(targetUserVO.getId());
+					entity.setUsed(1);//为使用
+					if(MxkConstant.SUBJECT.equals(sendGiftRequest.getType())){
+						entity.setTragetType(MxkConstant.SUBJECT);
+					}else{
+						entity.setTragetType(MxkConstant.PART);
+					}
+					if(commentsService.sendGiftToUser(entity)){
+						MessageEntity messageEntity = new MessageEntity();
+						messageEntity.setMess("送了一个礼物");
+						messageEntity.setTargetId(entity.getTragetId());
+						messageEntity.setTargetUserId(entity.getUserid());
+						messageEntity.setType(entity.getTragetType());
+						messageEntity.setUserId(entity.getSendGifttUserId());
+						messageEntity.setUserimage(entity.getSendGiftUserImage());
+						messageEntity.setUsername(entity.getSendGiftUserName());
+						messageService.createMessage(messageEntity);
+						message = ge.getGiftName()+","+ ge.getGifMessage()+","+ge.getGifImage();
+					}else{
+						message = MetooGiftResultMessage.GIFT_SEND_ERROR.getString();
+					}
+				}
+			}else{
+				message = MetooGiftResultMessage.GIFT_SEND_REPEAT.getString();
+			}
+		}
+		return SUCCESS;
+	}
+	
+	//查看礼物
+	public String metooFindSendGiftByPageAjax(){
+		if(pageModel != null){
+			giftInfoResponse = new GiftInfoResponse();
+			if(pageModel.getAllPage() == 0){
+				giftInfoResponse.setAllpage(commentsService.findCountOfUserGiftEntity(pageModel.getTragetId()));
+			}
+			giftInfoResponse.setList(commentsService.findUserGiftEntityByPage(pageModel.getTragetId(), pageModel.getCurrentPage()));
+		}
+		return SUCCESS;	
+	}
+	
+	//喜欢
+	public String metooLikeThisAjax(){
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.USER_NO_LOGIN;
+		if (uservo != null && baseRequest != null){
+			if(commentsService.checkHaslBeenLiked(baseRequest.getTragetid(), uservo.getId())){
+				UserLikeEntity entity = new UserLikeEntity();
+				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
+				entity.setTargetId(baseRequest.getTragetid());
+				entity.setUserid(uservo.getId());
+				entity.setUserimage(uservo.getImage());
+				entity.setUsername(uservo.getName());
+				if(MxkConstant.SUBJECT.equals(baseRequest.getTrageType())){
+					entity.setTargetType(MxkConstant.SUBJECT);
+				}else{
+					entity.setTargetType(MxkConstant.PART);
+				}
+				commentsService.saveUserliked(entity);
+				message = MxkConstant.AJAX_SUCCESS;
+			}
+		}
+		return SUCCESS;	
+	}
+	
+	//查看like
+	public String metooFindLikeThisByPageAjax(){
+		if(pageModel != null){
+			likeInfoResponse = new LikeInfoResponse();
+			if(pageModel.getAllPage() == 0){
+				likeInfoResponse.setAllpage(commentsService.findCountOfUserLikeEntity(pageModel.getTragetId()));
+			}
+			likeInfoResponse.setList(commentsService.findUserLikeEntityByPage(pageModel.getTragetId(), pageModel.getCurrentPage()));
+		}
+		return SUCCESS;	
+	}
+	
+	public String metooSetPointAjax () {
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.USER_NO_LOGIN;
+		if (uservo != null && setPointRequest != null){
+			if (commentsService.checkHasBeanSetPoint(setPointRequest.getTragetid(), uservo.getId())) {
+				UserPointEntity entity = new UserPointEntity();
+				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
+				entity.setPoint(setPointRequest.getPoint());
+				entity.setTargetId(setPointRequest.getTragetid());
+				entity.setTargetType(setPointRequest.getTrageType());
+				entity.setUserid(uservo.getId());
+				entity.setUserimage(uservo.getImage());
+				entity.setUsername(uservo.getName());
+				commentsService.saveUserSetPonit(entity);
+				message = MxkConstant.AJAX_SUCCESS;
+			}
+		}
+		return SUCCESS;
+	}
 	
 	//
 	public String mxkLoadTrageCommentsAjax(){
 		loadCommentsRespone = commentsService.findCommentEntity(loadCommentsRequest);
 		return SUCCESS;
 	}
-	
 
 	public String mxkAddTextCommentsAjax(){ 
 		uservo = super.getCurrentUserVO();
@@ -231,6 +365,55 @@ public class MxkCommentsAction extends MxkSessionAction {
 
 	public void setTraget(String traget) {
 		this.traget = traget;
+	}
+
+	public SendGiftRequest getSendGiftRequest() {
+		return sendGiftRequest;
+	}
+
+	public void setSendGiftRequest(SendGiftRequest sendGiftRequest) {
+		this.sendGiftRequest = sendGiftRequest;
+	}
+
+	public GiftInfoResponse getGiftInfoResponse() {
+		return giftInfoResponse;
+	}
+
+	public void setGiftInfoResponse(GiftInfoResponse giftInfoResponse) {
+		this.giftInfoResponse = giftInfoResponse;
+	}
+
+	public PageModelRequest getPageModel() {
+		return pageModel;
+	}
+
+	public void setPageModel(PageModelRequest pageModel) {
+		this.pageModel = pageModel;
+	}
+
+	public BaseRequest getBaseRequest() {
+		return baseRequest;
+	}
+
+	public void setBaseRequest(BaseRequest baseRequest) {
+		this.baseRequest = baseRequest;
+	}
+
+	public LikeInfoResponse getLikeInfoResponse() {
+		return likeInfoResponse;
+	}
+
+	public void setLikeInfoResponse(LikeInfoResponse likeInfoResponse) {
+		this.likeInfoResponse = likeInfoResponse;
+	}
+
+	public SetPointRequest getSetPointRequest() {
+		return setPointRequest;
+	}
+
+	public void setSetPointRequest(SetPointRequest setPointRequest) {
+		this.setPointRequest = setPointRequest;
 	} 
+	
 	
 }

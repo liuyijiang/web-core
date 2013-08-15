@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 /**
- * ÓÃ»§ÊµÌåÀà
+ * ï¿½Ã»ï¿½Êµï¿½ï¿½ï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -23,15 +23,18 @@ public class UserEntity implements Serializable {
 	private String email;
 	private String password;
 	private String createTime;
-	private String info;//¸öÈËÃèÊö
-	private String interest;//ÐÇÇò
+	private String info;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String interest;//ï¿½ï¿½ï¿½ï¿½
 	private String image;
-	private String minimage;//´óÍ¼
+	private String minimage;//ï¿½ï¿½Í¼
 	private int sex;//1nman  0woman
-	private int level;//µÈ¼¶
-	private int followors;//·ÛË¿ÊýÁ¿
-	private int focus;//¹Ø×¢ÊýÁ¿
-	private int subject;//×¨ÌâÊýÁ¿
+	private int level;//ï¿½È¼ï¿½
+	private int followors;//ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
+	private int focus;//ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½
+	private int subject;//×¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	
+	private int parts;
+	private int gifts;
 	
 	public String getId() {
 		return id;
@@ -117,6 +120,18 @@ public class UserEntity implements Serializable {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
-	
+	public int getParts() {
+		return parts;
+	}
+	public void setParts(int parts) {
+		this.parts = parts;
+	}
+	public int getGifts() {
+		return gifts;
+	}
+	public void setGifts(int gifts) {
+		this.gifts = gifts;
+	}
+    	
 	
 }

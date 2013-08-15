@@ -9,6 +9,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Order;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.mxk.org.common.factory.EntityFactory;
@@ -16,6 +19,10 @@ import com.mxk.org.common.message.domain.VoiceTransformMessage;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.util.VoiceTransformUtil;
 import com.mxk.org.entity.CommentEntity;
+import com.mxk.org.entity.GiftEntity;
+import com.mxk.org.entity.UserGiftEntity;
+import com.mxk.org.entity.UserLikeEntity;
+import com.mxk.org.entity.UserPointEntity;
 import com.mxk.org.web.comments.dao.MxkCommentsDao;
 import com.mxk.org.web.comments.domain.CommentsAddRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
@@ -37,6 +44,50 @@ public class MxkCommentsService {
 	
 	@Autowired
 	private MxkCommentsDao commentsDao;
+	
+	public boolean saveUserSetPonit(UserPointEntity entity){
+		return commentsDao.saveUserSetPonit(entity);
+	}
+	
+	public boolean checkHasBeanSetPoint(String tragetId,String userid){
+		return commentsDao.checkHasBeanSetPoint(tragetId, userid);
+	}
+	
+	public long findCountOfUserLikeEntity(String tragetid){
+		return commentsDao.findCountOfUserLikeEntity(tragetid);
+	}
+	
+	public List<UserLikeEntity> findUserLikeEntityByPage(String tragetid,int page){
+		return commentsDao.findUserLikeEntityByPage(tragetid, page);
+	}
+	
+	public boolean checkHaslBeenLiked(String tragetId,String userid){
+		return commentsDao.checkHaslBeenLiked(tragetId, userid);
+	}
+	
+	public boolean saveUserliked(UserLikeEntity entity){
+		return commentsDao.saveUserliked(entity);
+	}
+	
+	public long findCountOfUserGiftEntity(String tragetid){
+		return commentsDao.findCountOfUserGiftEntity(tragetid);
+	}
+	
+	public List<UserGiftEntity> findUserGiftEntityByPage(String tragetid,int page){
+		return commentsDao.findUserGiftEntityByPage(tragetid, page);
+	}
+	
+	public GiftEntity randomGift(){
+		return commentsDao.randomGift();
+	}
+	
+	public boolean checkGiftHasBeenSend(String tragetId,String sendGifttUserId){
+		return commentsDao.checkGiftHasBeenSend(tragetId, sendGifttUserId);
+	}
+	
+	public boolean sendGiftToUser(UserGiftEntity entity){
+		return commentsDao.sendGiftToUser(entity);
+	}
 	
 	public List<CommentEntity> findTargetAllComment(String target){
 		return commentsDao.findTargetAllComment(target);

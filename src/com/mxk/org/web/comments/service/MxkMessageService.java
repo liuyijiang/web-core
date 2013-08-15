@@ -27,6 +27,10 @@ public class MxkMessageService {
 		messageEntity.setUserimage(commentsAddRequest.getUserimage());
 		return messageDao.createMessage(messageEntity);
 	}
+	
+	public boolean createMessage(MessageEntity messageEntity) {
+		return messageDao.createMessage(messageEntity);
+	}
 
 	public MessageEntity findMessageEntityById(String id){
 		return messageDao.findMessageEntityById(id);

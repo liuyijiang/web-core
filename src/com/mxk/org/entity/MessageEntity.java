@@ -3,7 +3,7 @@ package com.mxk.org.entity;
 import java.io.Serializable;
 
 /**
- * µ±ÓÃ»§ÆÀÂÛºó »áÉú³ÉÒ»¸öÏûÏ¢¸ø±»ÆÀÂÛµÄÈË
+ * ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ûºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -15,13 +15,14 @@ public class MessageEntity implements Serializable {
 	private static final long serialVersionUID = 1574003454468699090L;
 	
 	private String id;
-	private String userId;//message ·¢ÆðÈËid
+	private String userId;//message ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
 	private String username;
 	private String userimage;
-	private String targetUserId;//message ÊÕµ½ÈËid
+	private String targetUserId;//message ï¿½Õµï¿½ï¿½ï¿½id
 	private String type;//subject part
 	private String targetId;//subject part id
-	private int deleteItSelf;//×Ô¶¯É¾³ý 1É¾³ý 0²»×Ô¶¯É¾³ý
+	private int deleteItSelf;//ï¿½Ô¶ï¿½É¾ï¿½ï¿½ 1É¾ï¿½ï¿½ 0ï¿½ï¿½ï¿½Ô¶ï¿½É¾ï¿½ï¿½
+	private String mess;
 	
 	public String getId() {
 		return id;
@@ -70,6 +71,12 @@ public class MessageEntity implements Serializable {
 	}
 	public void setUserimage(String userimage) {
 		this.userimage = userimage;
+	}
+	public String getMess() {
+		return mess;
+	}
+	public void setMess(String mess) {
+		this.mess = mess;
 	}
 	
 	

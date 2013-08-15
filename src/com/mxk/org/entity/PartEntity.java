@@ -37,6 +37,10 @@ public class PartEntity implements Serializable {
 	private String status;//PUBLIC FOR-ALL
 	private String shadow;//影子css
 	
+	private int gifts;
+	private int likes;
+	private int highPoint;
+	
 	public String getId() {
 		return id;
 	}
@@ -132,6 +136,24 @@ public class PartEntity implements Serializable {
 	}
 	public void setShadow(String shadow) {
 		this.shadow = shadow;
+	}
+	public int getGifts() {
+		return gifts;
+	}
+	public void setGifts(int gifts) {
+		this.gifts = gifts;
+	}
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+	public int getHighPoint() {
+		return highPoint;
+	}
+	public void setHighPoint(int highPoint) {
+		this.highPoint = highPoint;
 	}
 	
 	
