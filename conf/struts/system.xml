@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="system" namespace="/" extends="struts-default">
+        
+        <global-results>
+		    <result name="error">/WEB-INF/jsp/main/error.jsp</result>
+	     </global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+        
+         <action name="addGiftView" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooAddGiftView">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+         
+          <action name="addGift" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooAddGift">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+    
+    </package>
+   
+   
+</struts>

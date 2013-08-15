@@ -43,6 +43,29 @@
                  <param name="root">message</param>
             </result>  
         </action>
+        
+        <action name="sendGift" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="metooSendGiftAjax">
+            <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+        </action>
+        
+        <action name="setPoint" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="metooSetPointAjax">
+            <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+        </action>
+        
+        <action name="setLike" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="metooLikeThisAjax">
+            <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+        </action>
+        
+        
 		
    </package>
    

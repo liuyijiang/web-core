@@ -11,5 +11,6 @@
 	<include file="struts/subject.xml"></include>
 	<include file="struts/visitor.xml"></include>
 	<include file="struts/comments.xml"></include>
+	<include file="struts/system.xml"></include>
 	
 </struts>
