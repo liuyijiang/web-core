@@ -81,7 +81,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.USER_NO_LOGIN;
 		if(uservo != null && sendGiftRequest != null){
-			if(commentsService.checkGiftHasBeenSend(sendGiftRequest.getTargetId(), uservo.getId())){
+			//if(commentsService.checkGiftHasBeenSend(sendGiftRequest.getTargetId(), uservo.getId())){
 				UserGiftEntity entity = new UserGiftEntity();
 				UserVO targetUserVO = super.getCachedUserVO(sendGiftRequest.getSendGifttToUserId());
 				if(targetUserVO != null){
@@ -117,9 +117,9 @@ public class MxkCommentsAction extends MxkSessionAction {
 						message = MetooGiftResultMessage.GIFT_SEND_ERROR.getString();
 					}
 				}
-			}else{
-				message = MetooGiftResultMessage.GIFT_SEND_REPEAT.getString();
-			}
+//			}else{
+//				message = MetooGiftResultMessage.GIFT_SEND_REPEAT.getString();
+//			}
 		}
 		return SUCCESS;
 	}
@@ -141,7 +141,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.USER_NO_LOGIN;
 		if (uservo != null && baseRequest != null){
-			if(commentsService.checkHaslBeenLiked(baseRequest.getTragetid(), uservo.getId())){
+			//if(commentsService.checkHaslBeenLiked(baseRequest.getTragetid(), uservo.getId())){
 				UserLikeEntity entity = new UserLikeEntity();
 				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
 				entity.setTargetId(baseRequest.getTragetid());
@@ -155,7 +155,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 				}
 				commentsService.saveUserliked(entity);
 				message = MxkConstant.AJAX_SUCCESS;
-			}
+			//}
 		}
 		return SUCCESS;	
 	}
@@ -176,7 +176,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 		uservo = super.getCurrentUserVO();
 		message = MxkConstant.USER_NO_LOGIN;
 		if (uservo != null && setPointRequest != null){
-			if (commentsService.checkHasBeanSetPoint(setPointRequest.getTragetid(), uservo.getId())) {
+			// if (commentsService.checkHasBeanSetPoint(setPointRequest.getTragetid(), uservo.getId())) {
 				UserPointEntity entity = new UserPointEntity();
 				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
 				entity.setPoint(setPointRequest.getPoint());
@@ -187,7 +187,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 				entity.setUsername(uservo.getName());
 				commentsService.saveUserSetPonit(entity);
 				message = MxkConstant.AJAX_SUCCESS;
-			}
+			// }
 		}
 		return SUCCESS;
 	}

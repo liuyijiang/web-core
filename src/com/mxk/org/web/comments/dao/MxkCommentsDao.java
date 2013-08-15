@@ -84,7 +84,8 @@ public class MxkCommentsDao {
 			Long i = (long)(Math.random()*page);
 			q.limit(1);
 			q.skip(i.intValue());
-			en = mog.find(q, GiftEntity.class).get(0);
+			List<GiftEntity> list = mog.find(q, GiftEntity.class);
+			en = list.get(0);
 		}
 		return en;
 	}

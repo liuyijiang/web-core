@@ -98,6 +98,16 @@ public class MxkVisitorAction extends MxkSessionAction {
 	@Value("${gridfs.pdf.iamge.url}")
 	private String imageurl;
 	
+	//游客查看part额外信息 
+	public String metooVisitorSeePartsExtraInfoView(){
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		if(partEntity != null){
+			targetUserVO = super.getCachedUserVO(partEntity.getUserid());
+		}
+		return SUCCESS;
+	}
+	
 	//top 10
 	public String mxkVisitorShowTop10PartsView() throws Exception{
 		Date end = new Date();
