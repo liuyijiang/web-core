@@ -9,6 +9,8 @@
 <script type="text/javascript" src="<%=fassets %>/js/bootstrap-tooltip.js"></script>
 <script type="text/javascript" src="<%=fassets %>/js/bootstrap-popover.js"></script>
 
+<script type="text/javascript" src="assets/js/metoo.js"></script>
+
 <script type="text/javascript"> 
      var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
       document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb2b2d8bf1eddfda520470cc87bb9d858' type='text/javascript'%3E%3C/script%3E"));

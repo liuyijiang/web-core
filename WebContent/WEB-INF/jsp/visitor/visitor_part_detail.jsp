@@ -58,7 +58,7 @@
 		           <div style="background-color:#008800;width:60px;height:60px;text-align:right" align="right">
 	                  <center>
 	                    <br /> 
-	                    <font style="font-size:25px;" color="#FFFFFF"><strong id="point_str">${partEntity.highPoint }分</strong></font>
+	                    <font style="font-size:25px;" color="#FFFFFF"><strong>${partEntity.highPoint }分</strong></font>
 	                  </center>
 	               </div>
 		          </c:if>
@@ -69,15 +69,14 @@
 		</div>
 		<span style="padding:19px;" id="partmessage" >${partEntity.desc }</span><br />
 		<span style="padding:19px;" >
-		<a class="btn btn-mini">礼物x${partEntity.gifts  }</a>
-		<a class="btn btn-mini">喜欢x${partEntity.likes  }</a>
-		<a class="btn btn-mini">最高评分${partEntity.highPoint }</a>
-		           <a class="btn btn-success btn-mini" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-microphone"></i>语音${partEntity.audios}</a>
-		           <a class="btn btn-info btn-mini" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</a>
-		           <a class="btn btn-danger btn-mini" href="javascript:;" onclick="collectPart('${partEntity.id}')">
-		               <i class="icon-pushpin"></i>收藏
-		           </a></span>
-		  <hr />
+			<a class="btn btn-mini" href="<%=rootPath %>/visitorSeePartsExtraInfo?target=${partEntity.id }&type=1"><i class="icon-gift"></i>礼物x${partEntity.gifts  }</a>
+			<a class="btn btn-mini" href="<%=rootPath %>/visitorSeePartsExtraInfo?target=${partEntity.id }&type=2"><i class="icon-heart"></i>喜欢x${partEntity.likes  }</a>
+			<a class="btn btn-mini" href="<%=rootPath %>/visitorSeePartsExtraInfo?target=${partEntity.id }&type=3"><i class="icon-trophy"></i>最高评分${partEntity.highPoint }</a>
+	        <a class="btn btn-success btn-mini" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-microphone"></i>语音${partEntity.audios}</a>
+	        <a class="btn btn-info btn-mini" href="<%=rootPath %>/visitorShowPartsCommnets?target=${partEntity.id}"><i class="icon-comment-alt"></i>文字${partEntity.comments  }</a>
+	        <a class="btn btn-danger btn-mini" href="javascript:;" onclick="collectPart('${partEntity.id}')"><i class="icon-pushpin"></i>收藏</a>
+        </span>
+		<hr />
 		<c:forEach var="options" items="${partNewCommentsResponse.list }">
 		  
 		   <div class='row' style='padding:5px;margin-bottom:5px;'>
@@ -273,8 +272,9 @@
     	   		    if(item.indexOf(',') != -1){
     	 			   array = item.split(",");
     	 			   $("#gif_image").attr("src","http://www.waileecn.com/mxk/assets/mxkimage/gift/"+array[2]);
-    	 			   $("#gif_name").html(array[1]);
-    	 			   $("#gif_message").html(array[2]);
+    	 			   $("#gif_name").html(array[0]);
+    	 			   $("#gif_message").html(array[1]);
+    	 			   $("#gift_show").show(1000);
     			    }else {
     			     	alert(item);
     			    }
@@ -294,7 +294,7 @@
     	   		dataType : "json",
     	   		success : function(item) {
     	   		    if(item == 'success'){
-    	 			   $("#point_str").html(point+"分");
+    	 			   $("#point_str").html(point);
     	 			   $("#point_show").show(1000);
     			    }else {
     			     	alert(item);
@@ -335,13 +335,13 @@
               <a class="btn" href="javascript:;" onclick="showactionthis(2);setlike('${partEntity.id }','part');"><i class="icon-heart"></i>喜欢</a>
               <a class="btn" href="javascript:;" onclick="showactionthis(3)"><i class="icon-trophy"></i>评分</a>
               <div class="well" id="gift_this" style="display:none">
-                <span>dadadadadadas</span><br />
-                <span><a href="#">收到礼物</a></span>
-                 <span class="pull-right"><a class="btn"  href="javascript:;" onclick="sendGift('${partEntity.userid}','${partEntity.id }','part')">送礼</a></span>
-                 <div id="gift_show">
-                    <span id="gif_name"></span><br />
-                    <img  id="gif_image" /><br />
-                    <span id="gif_message"></span>
+                <span class="muted">感谢你对&nbsp;<a href="javascript:;">${targetUserVO.name }</a>&nbsp;积极分享的肯定 你可以送一个礼物给他</span><br />
+                 <span class="pull-right"><a class="btn btn-mini"  href="javascript:;" onclick="sendGift('${partEntity.userid}','${partEntity.id }','part')">送礼</a></span><br />
+                 <div id="gift_show" style="display:none">
+                   <center>
+	                    <span class="label label-success"><strong><span id="gif_name"></span></strong><img  id="gif_image" /></span><br />
+	                    <small><span id="gif_message" class="muted"></span></small>
+                    </center>
                  </div>
               </div>
              <div class="well" id="like_this" style="display:none">
@@ -350,17 +350,17 @@
 	               <div style="background-color:#FFFF00;width:60px;height:60px">
 	                  <center>
 	                    <br /> 
-	                    <font style="font-size:25px;" color="#FFFFFF"><strong>+1</strong></font>
+	                    <font style="font-size:25px;" color="#000000"><strong>+1</strong></font>
 	                  </center>
 	               </div>
                </center>
              </div>
              <div class="well" id="point_this" style="display:none">
-               <span>1~10分</span>
+               <span>1~10分&nbsp;你怎么看</span>
                <br />
                <span class="form-inline">
                <select id="point_select" style="width:60px">
-               <option value="1">1</option>
+                  <option value="1">1</option>
                   <option value="2">2</option>
                    <option value="3">3</option>
                     <option value="4">4</option>
@@ -374,10 +374,10 @@
                </span>
                <center id="point_show" style="display:none">
                <br /> 
-	               <div style="background-color:#FF0000;width:60px;height:60px">
+	               <div style="background-color:#008800;;width:60px;height:60px">
 	                  <center>
 	                    <br /> 
-	                    <font style="font-size:25px;" color="#FFFFFF"><strong id="point_str"></strong></font>
+	                    <font style="font-size:25px;" color="#FFFFFF"><strong ><span id="point_str"></span>分</strong></font>
 	                  </center>
 	               </div>
                </center>
