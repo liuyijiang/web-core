@@ -1,0 +1,87 @@
+/* 0 */
+{
+  "_id" : ObjectId("520c4311e24a6d52e67ea669"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "ALARM",
+  "gifImage" : "alarm.png",
+  "giftName" : "闹钟",
+  "gifMessage" : "送你一个闹钟定好时间随时开工！",
+  "point" : 2
+}
+
+/* 1 */
+{
+  "_id" : ObjectId("520c4311e24a6d52e67ea66a"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "RUBY",
+  "gifImage" : "ruby.png",
+  "giftName" : "宝石",
+  "gifMessage" : "一颗10卡拉的大红宝石",
+  "point" : 4
+}
+
+/* 2 */
+{
+  "_id" : ObjectId("520c4311e24a6d52e67ea66b"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "CALCULATOR",
+  "gifImage" : "calculator.png",
+  "giftName" : "计算器",
+  "gifMessage" : "一个计算器你可以算下你做模型用了多少钱",
+  "point" : 2
+}
+
+/* 3 */
+{
+  "_id" : ObjectId("520c4311e24a6d52e67ea66c"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "CAMERA",
+  "gifImage" : "camera.png",
+  "giftName" : "照相机",
+  "gifMessage" : "送你一个照相机不要当冠希哥",
+  "point" : 2
+}
+
+/* 4 */
+{
+  "_id" : ObjectId("520c4311e24a6d52e67ea66d"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "CD",
+  "gifImage" : "cd.png",
+  "giftName" : "CD",
+  "gifMessage" : "送你一张CD里面有好看的东东哟",
+  "point" : 3
+}
+
+/* 5 */
+{
+  "_id" : ObjectId("520dbcc027a73819b029a3ca"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "COINS",
+  "gifImage" : "coins.png",
+  "giftName" : "金币",
+  "gifMessage" : "一点小意思不成敬意",
+  "point" : 2
+}
+
+/* 6 */
+{
+  "_id" : ObjectId("520dbdeb27a73819b029a3cb"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "COMPUTER",
+  "gifImage" : "computer.png",
+  "giftName" : "电脑",
+  "gifMessage" : "一台电脑 有空就多上下米兔分享图片",
+  "point" : 3
+}
+
+/* 7 */
+{
+  "_id" : ObjectId("520dbe0f27a73819b029a3cc"),
+  "_class" : "com.mxk.org.entity.GiftEntity",
+  "gifType" : "CROWN",
+  "gifImage" : "crown.png",
+  "giftName" : "金皇冠",
+  "gifMessage" : "带上金皇冠 做一个王者",
+  "point" : 4
+}
