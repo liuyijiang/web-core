@@ -2,6 +2,7 @@ package com.mxk.org.web.comments.domain;
 
 public class SetPointRequest {
    
+	private String trageUserId;
 	private String tragetid;
 	private String trageType;
 	private int point;
@@ -23,6 +24,12 @@ public class SetPointRequest {
 	}
 	public void setPoint(int point) {
 		this.point = point;
+	}
+	public String getTrageUserId() {
+		return trageUserId;
+	}
+	public void setTrageUserId(String trageUserId) {
+		this.trageUserId = trageUserId;
 	}
 	
 	

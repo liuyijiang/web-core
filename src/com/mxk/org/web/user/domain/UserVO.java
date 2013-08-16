@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
 /**
- * userentity µÄÖµŒ¦Ïó ë[²Øpassword
+ * userentity ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ ï¿½[ï¿½ï¿½password
  * @author liuyijiang
  *
  */
@@ -20,19 +20,20 @@ public class UserVO implements Serializable{
 	private String name;
 	private String email;
 	private String createTime;
-	private String info;//¸öÈËÃèÊö
-	private String interest;//ÐÇÇò
+	private String info;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String interest;//ï¿½ï¿½ï¿½ï¿½
 	private String image;
-	private String minimage;//´óÍ¼
+	private String minimage;//ï¿½ï¿½Í¼
 	private int sex;//1nman  0woman
-	private int level;//µÈ¼¶
-	private int followors;//·ÛË¿ÊýÁ¿
-	private int focus;//¹Ø×¢ÊýÁ¿
-	private int subject;//×¨ÌâÊýÁ¿
+	private int level;//ï¿½È¼ï¿½
+	private int followors;//ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½
+	private int focus;//ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½
+	private int subject;//×¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	private long message;//ÌáÐÑ
+	private long message;//ï¿½ï¿½ï¿½ï¿½
 	private long joinsubject;
 	private long rsssubject;
+	private int parts;
 	
 	public String getId() {
 		return id;
@@ -129,6 +130,12 @@ public class UserVO implements Serializable{
 	}
 	public void setRsssubject(long rsssubject) {
 		this.rsssubject = rsssubject;
+	}
+	public int getParts() {
+		return parts;
+	}
+	public void setParts(int parts) {
+		this.parts = parts;
 	}
 	
 	

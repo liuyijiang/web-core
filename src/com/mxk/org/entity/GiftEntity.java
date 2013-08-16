@@ -1,11 +1,17 @@
 package com.mxk.org.entity;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class GiftEntity {
+public class GiftEntity implements Serializable {
    
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3384575271940151301L;
 	@Id
 	private String id;
 	private String gifType;

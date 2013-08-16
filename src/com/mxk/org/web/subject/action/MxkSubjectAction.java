@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MetooPointTypeConstant;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.domain.constant.MxkSubjectcCategory;
 import com.mxk.org.common.domain.session.MxkSessionContext;
@@ -51,6 +52,7 @@ import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
 import com.mxk.org.web.subject.service.MxkSubjectMaterialService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.user.service.MetooUserTitleService;
 
 /**
  * 
@@ -97,6 +99,9 @@ public class MxkSubjectAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
+	
+	@Autowired
+	private MetooUserTitleService userTitleService;
 	
 	private CreateSubjectRequest createSubjectRequest;
 	
@@ -181,6 +186,10 @@ public class MxkSubjectAction extends MxkSessionAction {
 			if(currentSubjectEntity != null){
 				if(currentSubjectEntity.getUserid().equals(uservo.getId())){
 					if(subjectService.deleteSubject(currentSubjectEntity.getId())){
+						//删除专题
+						if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(createSubjectRequest.getCategory())){
+							userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, false, false);
+						}
 						DeleteSubjectMessage mess = new DeleteSubjectMessage();
 						mess.setSubjectid(currentSubjectEntity.getId());
 						messageQueueService.startDeleteSubjectTask(mess);
@@ -475,6 +484,10 @@ public class MxkSubjectAction extends MxkSessionAction {
 			createSubjectRequest.setUserimage(uservo.getImage());
 			createSubjectRequest.setUsername(uservo.getName());
 			if(subjectService.saveSubject(createSubjectRequest)){
+				//增加积分
+				if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(createSubjectRequest.getCategory())){
+					userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, false);
+				}
 				uservo.setSubject(uservo.getSubject() + 1);
 				super.updateCurrentUserVO(uservo);
 				return SUCCESS;

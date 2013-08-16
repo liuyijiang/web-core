@@ -25,6 +25,7 @@ public class VOFactory {
 		vo.setMinimage(userEntity.getMinimage());
 		vo.setName(userEntity.getName());
 		vo.setSubject(userEntity.getSubject());
+		vo.setParts(userEntity.getParts());
 		return vo;
 	}
 	

@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.common.domain.constant.MetooGiftResultMessage;
+import com.mxk.org.common.domain.constant.MetooPointTypeConstant;
+import com.mxk.org.common.domain.constant.MetooResultMessage;
 import com.mxk.org.common.domain.constant.MxkConstant;
+import com.mxk.org.common.domain.constant.MxkSubjectcCategory;
 import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.util.HttpUtil;
@@ -16,6 +19,8 @@ import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.entity.GiftEntity;
 import com.mxk.org.entity.MessageEntity;
+import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectPriceEntity;
 import com.mxk.org.entity.UserGiftEntity;
 import com.mxk.org.entity.UserLikeEntity;
 import com.mxk.org.entity.UserPointEntity;
@@ -28,11 +33,13 @@ import com.mxk.org.web.comments.domain.LoadCommentsRespone;
 import com.mxk.org.web.comments.domain.PageModelRequest;
 import com.mxk.org.web.comments.domain.SendGiftRequest;
 import com.mxk.org.web.comments.domain.SetPointRequest;
+import com.mxk.org.web.comments.domain.SetPriceRequest;
 import com.mxk.org.web.comments.service.MxkCommentsService;
 import com.mxk.org.web.comments.service.MxkMessageService;
 import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.user.service.MetooUserTitleService;
 /**
  * 评论
  * @author liuyijiang
@@ -63,6 +70,9 @@ public class MxkCommentsAction extends MxkSessionAction {
 	@Autowired
 	private MxkMessageQueueService messageQueueService;
 	
+	@Autowired
+	private MetooUserTitleService userTitleService;
+	
 	private CommentsAddRequest commentsAddRequest;
 	private LoadCommentsRequest loadCommentsRequest;
 	private LoadCommentsRespone loadCommentsRespone;
@@ -71,10 +81,52 @@ public class MxkCommentsAction extends MxkSessionAction {
 	private LikeInfoResponse likeInfoResponse;
 	private PageModelRequest pageModel;
 	private BaseRequest baseRequest;
+	private SetPriceRequest setPriceRequest;
 	private SetPointRequest setPointRequest;
 	private UserVO uservo;
 	private String message;
 	private String traget;
+	
+	//定价
+	public String metooSetPriceToSubjectAjax(){
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.USER_NO_LOGIN;
+		if(uservo != null && setPriceRequest != null){
+			SubjectEntity su = subjectService.findSubjectEntityById(setPriceRequest.getSubjectid());
+			if(su == null){
+				return SUCCESS;
+			}
+			if(commentsService.checkHasBeenSetPrice(setPriceRequest.getSubjectid(), uservo.getId())){
+				SubjectPriceEntity entity = new SubjectPriceEntity();
+				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
+				if(setPriceRequest.getMoney() < 1){
+					entity.setMoney(1);
+				}else{
+					entity.setMoney(setPriceRequest.getMoney());
+				}
+				entity.setSetPriceUserId(uservo.getId());
+				entity.setSetPriceUserImage(uservo.getImage());
+				entity.setSetPriceUserName(uservo.getName());
+				entity.setSubjectid(setPriceRequest.getSubjectid());
+				commentsService.saveSubjectPriceEntity(entity);
+				
+				//增加积分
+				if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(su.getCategory())){
+					userTitleService.updatePoint(su.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, true);
+				}
+				userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
+				message = MxkConstant.AJAX_SUCCESS;
+			}else{
+				message = MetooResultMessage.ACTION_REPEAT.getString();
+			}
+		}
+		return SUCCESS;
+	}
+	
+	//评价查询
+	public String metooFindSetPriceToSubjectByPage(){
+		return SUCCESS;
+	}
 	
 	//送礼
 	public String metooSendGiftAjax(){
@@ -153,7 +205,18 @@ public class MxkCommentsAction extends MxkSessionAction {
 				}else{
 					entity.setTargetType(MxkConstant.PART);
 				}
-				commentsService.saveUserliked(entity);
+				if(commentsService.saveUserliked(entity)){
+					//增加积分
+					if(MxkConstant.SUBJECT.equals(baseRequest.getTrageType())){
+						SubjectEntity su = subjectService.findSubjectEntityById(baseRequest.getTragetid());
+						if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(su.getCategory())){ //分享不加分
+							userTitleService.updatePoint(su.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, true);
+						}
+					}else{
+						userTitleService.updatePoint(baseRequest.getTrageUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, true);
+					}
+					userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
+				}
 				message = MxkConstant.AJAX_SUCCESS;
 			//}
 		}
@@ -185,7 +248,18 @@ public class MxkCommentsAction extends MxkSessionAction {
 				entity.setUserid(uservo.getId());
 				entity.setUserimage(uservo.getImage());
 				entity.setUsername(uservo.getName());
-				commentsService.saveUserSetPonit(entity);
+				if(commentsService.saveUserSetPonit(entity)){
+					//增加积分
+					if(MxkConstant.SUBJECT.equals(setPointRequest.getTrageType())){
+						SubjectEntity su = subjectService.findSubjectEntityById(setPointRequest.getTragetid());
+						if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(su.getCategory())){ //分享不加分
+						   userTitleService.updatePoint(su.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, true);
+						}
+					}else{
+						userTitleService.updatePoint(setPointRequest.getTrageUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, true);
+					}
+					userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
+				}
 				message = MxkConstant.AJAX_SUCCESS;
 			// }
 		}
@@ -218,17 +292,28 @@ public class MxkCommentsAction extends MxkSessionAction {
 			}
 			if(commentsService.saveTextComment(commentsAddRequest)){
 				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
-					partService.updatePartCommentsQuantity(
-							commentsAddRequest.getCommentedId(), "text", true);//����part��������comments audios
+					if(!uservo.getId().equals(commentsAddRequest.getCommentedUserId())){ //自己给自己评论不加分
+					   userTitleService.updatePoint(commentsAddRequest.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, true);
+					}
+					partService.updatePartCommentsQuantity(commentsAddRequest.getCommentedId(), "text", true);//����part��������comments audios
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
 					partService.changePartsBackShadow(commentsAddRequest.getCommentedId());
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
+					if(!uservo.getId().equals(commentsAddRequest.getCommentedUserId())){ //自己给自己评论不加分
+						SubjectEntity su = subjectService.findSubjectEntityById(commentsAddRequest.getCommentedId());
+						if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(su.getCategory())){ //分享不加分
+					       userTitleService.updatePoint(commentsAddRequest.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, true);
+						}
+					}
 					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
 					message = MxkConstant.AJAX_SUCCESS;
 				}
-			}
+				if(!uservo.getId().equals(commentsAddRequest.getCommentedUserId())){ //自己给自己评论不加分
+			       userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
+				}
+		     }
 		}else{
 			message = MxkConstant.USER_NO_LOGIN;
 		}
@@ -262,15 +347,25 @@ public class MxkCommentsAction extends MxkSessionAction {
 			}
 			if(commentsService.saveVoiceComment(commentsAddRequest,request.getInputStream())){
 				if(MxkConstant.PART.equals(commentsAddRequest.getTarget())){
+					if(!uservo.getId().equals(commentsAddRequest.getCommentedUserId())){
+						userTitleService.updatePoint(commentsAddRequest.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, true);
+					}
 					partService.updatePartCommentsQuantity(
 							commentsAddRequest.getCommentedId(), "wav", true);//����part��������comments audios
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
 					partService.changePartsBackShadow(commentsAddRequest.getCommentedId());
 					message = MxkConstant.AJAX_SUCCESS;
 				}else if(MxkConstant.SUBJECT.equals(commentsAddRequest.getTarget())){
+					SubjectEntity su = subjectService.findSubjectEntityById(commentsAddRequest.getCommentedId());
+					if(!MxkSubjectcCategory.SUBJECT_CATEGORY_SHARE.getString().equals(su.getCategory())){ //分享不加分
+				       userTitleService.updatePoint(commentsAddRequest.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, true, true);
+					}
 					subjectService.updateSubjectCommentsQuantity(commentsAddRequest.getCommentedId(), true);
 					messageService.createMessage(commentsAddRequest);//������Ϣ��ʾ
 					message = MxkConstant.AJAX_SUCCESS;
+				}
+				if(!uservo.getId().equals(commentsAddRequest.getCommentedUserId())){ //自己给自己评论不加分
+				 userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
 				}
 			}
 		}else{
@@ -293,6 +388,10 @@ public class MxkCommentsAction extends MxkSessionAction {
 	    		}else {
 	    			subjectService.updateSubjectCommentsQuantity(en.getCommentedId(), false);
 	    		}
+				if(!uservo.getId().equals(en.getCommentedUserId())){
+					//删除积分
+					deleteTilePoint(uservo.getId(),en);
+				}
     		}
     		message = MxkConstant.AJAX_SUCCESS;
     	}else{
@@ -314,6 +413,24 @@ public class MxkCommentsAction extends MxkSessionAction {
 		return false;//不能删
 	}
     
+	private void deleteTilePoint(String userid,CommentEntity en){
+		if(userid.equals(en.getUserid())){ //我评论的 我可以删
+			userTitleService.updatePoint(userid, MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, false, false);
+			if(MxkConstant.SUBJECT.equals(en.getTarget())){
+				userTitleService.updatePoint(en.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, false, true);
+			}else if(MxkConstant.PART.equals(en.getTarget())){
+				userTitleService.updatePoint(en.getCommentedUserId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, false, true);
+			}
+		}
+		if(userid.equals(en.getCommentedUserId())){ //评论我的我可以删
+			if(MxkConstant.SUBJECT.equals(en.getTarget())){
+				userTitleService.updatePoint(userid, MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT, false, true);
+			}else if(MxkConstant.PART.equals(en.getTarget())){
+				userTitleService.updatePoint(userid, MetooPointTypeConstant.METOO_POINT_TYPE_PART, false, true);
+			}
+		}
+		
+	}
     
 	public CommentsAddRequest getCommentsAddRequest() {
 		return commentsAddRequest;
@@ -413,7 +530,14 @@ public class MxkCommentsAction extends MxkSessionAction {
 
 	public void setSetPointRequest(SetPointRequest setPointRequest) {
 		this.setPointRequest = setPointRequest;
+	}
+
+	public SetPriceRequest getSetPriceRequest() {
+		return setPriceRequest;
+	}
+
+	public void setSetPriceRequest(SetPriceRequest setPriceRequest) {
+		this.setPriceRequest = setPriceRequest;
 	} 
-	
 	
 }

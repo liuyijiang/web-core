@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MetooResultMessage;
+import com.mxk.org.common.domain.constant.MetooTitleConstant;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.factory.VOFactory;
 import com.mxk.org.common.message.domain.MailPushMessage;
@@ -23,6 +25,7 @@ import com.mxk.org.entity.MessageEntity;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserFriendEntity;
+import com.mxk.org.entity.UserTitleEntity;
 import com.mxk.org.web.comments.service.MxkMessageService;
 import com.mxk.org.web.part.domain.PartShowResponse;
 import com.mxk.org.web.part.domain.SearchPartRequest;
@@ -43,6 +46,7 @@ import com.mxk.org.web.user.domain.UserCollectSearchRequest;
 import com.mxk.org.web.user.domain.UserLoginRequest;
 import com.mxk.org.web.user.domain.UserRegisterRequest;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.user.service.MetooUserTitleService;
 import com.mxk.org.web.user.service.MxkUserFriendService;
 import com.mxk.org.web.user.service.MxkUserService;
 import com.mxk.org.web.visitor.domain.CollectPartsRequest;
@@ -85,6 +89,9 @@ public class MxkUserAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkUserService userService;
+	
+	@Autowired
+	private MetooUserTitleService userTitleService;
 	
 	@Autowired
 	private MxkGridFSFileUploadService gridFSFileUploadService;
@@ -133,7 +140,7 @@ public class MxkUserAction extends MxkSessionAction {
 	private SearchPartRequest searchPartRequest;
 	private SearchSubjectRequest searchSubjectRequest;
 	private String target;//
-	
+	private int type;
 	//最新消息
 	public String mxkShowNewRssMessageView(){
 		uservo = super.getCurrentUserVO();
@@ -382,6 +389,25 @@ public class MxkUserAction extends MxkSessionAction {
 						vo.setMinimage(minimageurl);
 					}
 				}
+				//创建用户头衔
+				UserTitleEntity title = new UserTitleEntity();
+				title.setCommentPoint(0);
+				title.setCommentTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
+			    title.setCommentTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_COMMENT_SUFFIX_NAME.getString());
+			    title.setLevel(1);
+			    title.setLevelPoint(10);//注册加10分
+			    title.setSharePoint(0);
+			    title.setShareTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
+			    title.setShareTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SHARE_SUFFIX_NAME.getString());
+			    title.setSubjectPoint(0);
+			    title.setSubjectTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
+			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SUBJECT_SUFFIX_NAME.getString());
+			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
+			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
+			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
+			    title.setUserid(vo.getId());
+			    userTitleService.saveUserTitle(title);
+			    
 				redisCacheService.setUserVO(vo.getId(), vo);
 			    super.setSessionKey(vo.getId()); // 
 			    MailPushMessage mes = new MailPushMessage();
@@ -638,6 +664,23 @@ public class MxkUserAction extends MxkSessionAction {
 		return true;
 	}
 
+	//升级
+	public String metooUpgradeUserTileAjax() {
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.AJAX_ERROR;
+		if(uservo != null){
+			if(userTitleService.upgradeUserTile(uservo.getId(), type)){
+				message = MxkConstant.AJAX_SUCCESS;
+			}else{
+				message = MetooResultMessage.UPGRADE_FAIL.getString();
+			}
+		}else{
+			message = MxkConstant.USER_NO_LOGIN;
+		}
+		return SUCCESS;
+	}
+	
+	
 	public UserRegisterRequest getUserRegisterRequest() {
 		return userRegisterRequest;
 	}
@@ -809,6 +852,14 @@ public class MxkUserAction extends MxkSessionAction {
 
 	public void setSearchSubjectRequest(SearchSubjectRequest searchSubjectRequest) {
 		this.searchSubjectRequest = searchSubjectRequest;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 	

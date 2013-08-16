@@ -2,6 +2,7 @@ package com.mxk.org.web.comments.domain;
 
 public class BaseRequest {
   
+	private String trageUserId;
 	private String tragetid;
 	private String trageType;
 	
@@ -17,7 +18,11 @@ public class BaseRequest {
 	public void setTrageType(String trageType) {
 		this.trageType = trageType;
 	}
-	
-	
+	public String getTrageUserId() {
+		return trageUserId;
+	}
+	public void setTrageUserId(String trageUserId) {
+		this.trageUserId = trageUserId;
+	}
 	
 }

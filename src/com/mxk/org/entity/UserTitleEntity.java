@@ -15,14 +15,20 @@ public class UserTitleEntity implements Serializable {
 	@Id
 	private String id;
 	private String userid;
-	private String level;
+	private int level;
 	private long levelPoint;
 	private long sharePoint;
 	private String shareTitle;
+	private String shareTileCode;
+	private String shareTileImage;
 	private long commentPoint;
 	private String commentTitle;
+	private String commentTileCode;
+	private String commentTileImage;
 	private long subjectPoint;
 	private String subjectTitle;
+	private String subjectTileCode;
+	private String subjectTileImage;
 	
 	public String getId() {
 		return id;
@@ -35,12 +41,6 @@ public class UserTitleEntity implements Serializable {
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-	public String getLevel() {
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
 	}
 	public long getLevelPoint() {
 		return levelPoint;
@@ -84,7 +84,47 @@ public class UserTitleEntity implements Serializable {
 	public void setSubjectTitle(String subjectTitle) {
 		this.subjectTitle = subjectTitle;
 	}
-	
-	
+	public String getShareTileCode() {
+		return shareTileCode;
+	}
+	public void setShareTileCode(String shareTileCode) {
+		this.shareTileCode = shareTileCode;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public String getCommentTileCode() {
+		return commentTileCode;
+	}
+	public void setCommentTileCode(String commentTileCode) {
+		this.commentTileCode = commentTileCode;
+	}
+	public String getSubjectTileCode() {
+		return subjectTileCode;
+	}
+	public void setSubjectTileCode(String subjectTileCode) {
+		this.subjectTileCode = subjectTileCode;
+	}
+	public String getShareTileImage() {
+		return shareTileImage;
+	}
+	public void setShareTileImage(String shareTileImage) {
+		this.shareTileImage = shareTileImage;
+	}
+	public String getCommentTileImage() {
+		return commentTileImage;
+	}
+	public void setCommentTileImage(String commentTileImage) {
+		this.commentTileImage = commentTileImage;
+	}
+	public String getSubjectTileImage() {
+		return subjectTileImage;
+	}
+	public void setSubjectTileImage(String subjectTileImage) {
+		this.subjectTileImage = subjectTileImage;
+	}
 	
 }

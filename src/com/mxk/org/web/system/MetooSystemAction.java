@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mxk.org.common.base.MxkSessionAction;
 import com.mxk.org.entity.GiftEntity;
+import com.mxk.org.entity.TitleEntity;
 import com.mxk.org.web.system.dao.MetooSystemDao;
 
 public class MetooSystemAction  extends MxkSessionAction {
@@ -21,11 +22,12 @@ public class MetooSystemAction  extends MxkSessionAction {
 	public String metooAddGiftView(){
 		return SUCCESS;
 	}
-	
+
+	//添加礼物
 	public String metooAddGift(){ 
 		GiftEntity g1 = new GiftEntity();
 		g1.setGifImage("alarm.png");
-		g1.setGifMessage("送你一个闹钟定好时间随时开工！");
+		g1.setGifMessage("送你一个闹钟 定好时间随时开工");
 		g1.setGifType("ALARM");
 		g1.setPoint(2);
 		g1.setGiftName("闹钟");
@@ -60,7 +62,24 @@ public class MetooSystemAction  extends MxkSessionAction {
 		dao.createGift(g5);
 		return SUCCESS;
 	}
+	
 
+	//更新所有用户的parts数量
+	public String metooUpdateUserParts(){
+		dao.updateUserParts();
+		return SUCCESS;
+	}
+	
+	//更新title
+	public String  metooUpdateTitle(){
+		TitleEntity e = new TitleEntity();
+		e.setCode("METOO_TITLE_RUMEN");
+		e.setName("入门级");
+		e.setPoint(0);
+		return SUCCESS;
+	}
+	
+	
 	public GiftEntity getGiftEntity() {
 		return giftEntity;
 	}

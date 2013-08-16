@@ -40,6 +40,7 @@ public class SubjectEntity implements Serializable {
 	private int gifts;
 	private int likes;
 	private int highPoint;
+	private double highMoney;
 	
 	public String getId() {
 		return id;
@@ -154,6 +155,12 @@ public class SubjectEntity implements Serializable {
 	}
 	public void setHighPoint(int highPoint) {
 		this.highPoint = highPoint;
+	}
+	public double getHighMoney() {
+		return highMoney;
+	}
+	public void setHighMoney(double highMoney) {
+		this.highMoney = highMoney;
 	}
     
 	

@@ -95,7 +95,6 @@ public class MxkUserDao {
 		return list;
     }
 	
-	//������Ͳ�ѯ��ҳ��
 	public long findUserCollectPartsPages(UserCollectSearchRequest userCollectSearchRequest){
 		long count = 0;
 		Criteria criteria = Criteria.where("userid").is(userCollectSearchRequest.getUserid());

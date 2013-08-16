@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MetooPointTypeConstant;
 import com.mxk.org.common.domain.constant.MxkConstant;
 import com.mxk.org.common.domain.session.MxkSessionContext;
 import com.mxk.org.common.message.domain.NewMessagePushMessage;
@@ -28,6 +29,7 @@ import com.mxk.org.web.part.service.MxkPartService;
 import com.mxk.org.web.subject.domain.SubjectNewPartsVO;
 import com.mxk.org.web.subject.service.MxkSubjectService;
 import com.mxk.org.web.user.domain.UserVO;
+import com.mxk.org.web.user.service.MetooUserTitleService;
 /**
  * partaction ҳ����ת��method mxkShow��ͷ ��view��β ajax����Ҫ��ajax��β
  * @author liuyijiang
@@ -60,6 +62,9 @@ public class MxkPartAction extends MxkSessionAction {
 	
 	@Autowired
 	private MxkCommentsService commentsService;
+	
+	@Autowired
+	private MetooUserTitleService userTitleService;
 	
 	private CreatePartRequest createPartRequest;
 	private File image;
@@ -128,6 +133,8 @@ public class MxkPartAction extends MxkSessionAction {
 				gridFSFileUploadService.removeFile(partEntity.getImage(),MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
 				gridFSFileUploadService.removeFile(partEntity.getMinimage(), MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
 			}
+			//头衔减分
+			userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, false, false);
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{
 			message = MxkConstant.AJAX_ERROR;
@@ -187,6 +194,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    	mes.setUserid(uservo.getId());
 			    	messageQueueService.startNewRssPushTask(mes);
 			    }
+			    userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
 			}
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{
@@ -223,6 +231,8 @@ public class MxkPartAction extends MxkSessionAction {
 		    		if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 		    			subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 		    		}
+		    		//头衔加分
+		    		userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,currentSubjectEntity);
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();
@@ -239,9 +249,8 @@ public class MxkPartAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//�οʹ���part
+	//公共部分分享part
 	public String mxkCreatePartBySubjectIdAjax(){
-		//�Ժ��Ϊ�첽�ı��� activemq
 		uservo = super.getCurrentUserVO();
 		currentSubjectEntity =  subjectService.findSubjectEntityById(createPartRequest.getSubjectid());
 		if(uservo != null && currentSubjectEntity != null && valate()){
@@ -260,7 +269,10 @@ public class MxkPartAction extends MxkSessionAction {
 			    	if(MxkConstant.SUBJECT_TYPE_FOR_ALL.equals(currentSubjectEntity.getType())){
 			    		subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 			    	}
-			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
+			    	//头衔加分
+		    		userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
+			    	
+		    		currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();
 			    	mes.setTragetId(partid);
 			    	mes.setUserid(uservo.getId());

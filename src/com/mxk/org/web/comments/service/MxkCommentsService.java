@@ -20,6 +20,7 @@ import com.mxk.org.common.message.serivce.MxkMessageQueueService;
 import com.mxk.org.common.util.VoiceTransformUtil;
 import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.entity.GiftEntity;
+import com.mxk.org.entity.SubjectPriceEntity;
 import com.mxk.org.entity.UserGiftEntity;
 import com.mxk.org.entity.UserLikeEntity;
 import com.mxk.org.entity.UserPointEntity;
@@ -44,6 +45,15 @@ public class MxkCommentsService {
 	
 	@Autowired
 	private MxkCommentsDao commentsDao;
+	
+	
+	public boolean checkHasBeenSetPrice(String subjectid,String userid){
+		return commentsDao.checkHasBeenSetPrice(subjectid, userid);
+	}
+	
+	public boolean saveSubjectPriceEntity(SubjectPriceEntity entity){
+		return commentsDao.saveSubjectPriceEntity(entity);
+	}
 	
 	public boolean saveUserSetPonit(UserPointEntity entity){
 		return commentsDao.saveUserSetPonit(entity);

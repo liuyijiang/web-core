@@ -19,6 +19,7 @@ import com.mxk.org.entity.CommentEntity;
 import com.mxk.org.entity.GiftEntity;
 import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.SubjectPriceEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserGiftEntity;
 import com.mxk.org.entity.UserLikeEntity;
@@ -38,6 +39,55 @@ public class MxkCommentsDao {
 	
 	@Autowired
 	private MongoOperations mog; 
+	
+	public List<SubjectPriceEntity> s(String subjectid,int page){
+		Query q = new Query(Criteria.where("subjectid").is(subjectid));
+		q.sort().on("createTime", Order.DESCENDING);
+		q.limit(pageSize);
+		q.skip(pageSize*(page - 1));
+		return mog.find(q, SubjectPriceEntity.class);
+	}
+	
+	public long findCountOfSubjectPriceEntity(String subjectid){
+		Query q = new Query(Criteria.where("subjectid").is(subjectid));
+		long count = mog.count(q, SubjectPriceEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 1;
+		}
+	}
+	
+	public boolean checkHasBeenSetPrice(String subjectid,String userid){
+		boolean success = false;
+		Query q = new Query(Criteria.where("subjectid").is(subjectid).and("setPriceUserId").is(userid));
+	    long num = mog.count(q, SubjectPriceEntity.class);
+	    if(num == 0){
+	    	success = true;
+	    }
+	    return success;
+	}
+	
+	public boolean saveSubjectPriceEntity(SubjectPriceEntity entity){
+		boolean success = true;
+		try {
+			Query q = new Query(Criteria.where("id").is(entity.getSubjectid()));
+			SubjectEntity su = mog.findOne(q, SubjectEntity.class);
+			if(su != null){
+				mog.save(entity);
+				if(su.getHighMoney() < entity.getMoney()){
+					Update u = new Update();
+					u.set("highMoney", entity.getMoney());
+					mog.updateMulti(q, u, SubjectEntity.class);
+				}
+			}
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+	}
+	
 	
 	public long findCountOfUserLikeEntity(String tragetid){
 		Query q = new Query(Criteria.where("tragetId").is(tragetid));
