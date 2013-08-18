@@ -65,7 +65,28 @@
             </result>  
         </action>
         
-        
+        <action name="findLikeThisByPage" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+			method="metooFindLikeThisByPageAjax">
+			<result type="json">
+				<param name="root">likeInfoResponse</param>
+			</result>
+		</action>
+		
+		<action name="findSendGiftByPage" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+			method="metooFindSendGiftByPageAjax">
+			<result type="json">
+				<param name="root">giftInfoResponse</param>
+			</result>
+		</action>
+		
+		<action name="findSetPointByPage" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+			method="metooFindSetPointByPageAjax">
+			<result type="json">
+				<param name="root">pointInfoResponse</param>
+			</result>
+		</action>
+		
+		
 		
    </package>
    

@@ -14,6 +14,27 @@
 			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
         
+        <action name="updateUserParts" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooUpdateUserParts">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+         
+         <action name="createUserTitle" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooCreateUserTitle">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+        
+         <action name="updateUserTitle" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooUpdateUserTitle">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+        
+        
+        <action name="updateTitle" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooUpdateTitle">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+        
          <action name="addGiftView" class="com.mxk.org.web.system.MetooSystemAction"
             method="metooAddGiftView">
             <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
