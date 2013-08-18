@@ -14,15 +14,13 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mxk.org.common.domain.constant.MetooPointTypeConstant;
+import com.mxk.org.common.domain.constant.MetooTitleConstant;
 import com.mxk.org.entity.TitleEntity;
 import com.mxk.org.entity.UserTitleEntity;
 
 @Component
 public class MetooUserTitleDao {
    
-	@Value("${mxk.page.pagesize}")
-	private int pageSize;
-	
 	@Value("${metoo.title.share.point}")
 	private int sharePoint;
 	
@@ -40,8 +38,14 @@ public class MetooUserTitleDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public UserTitleEntity findUserTitleEntity(String userid){
+		Query q = new Query(Criteria.where("userid").is(userid));
+		UserTitleEntity tit = mog.findOne(q, UserTitleEntity.class);
+		return tit;
+	}
+	
 	public boolean upgradeUserShareTile(String userid,MetooPointTypeConstant type){
-		boolean success = true;
+		boolean success = false;
 		try{
 			Query q = new Query(Criteria.where("userid").is(userid));
 			UserTitleEntity tit = mog.findOne(q, UserTitleEntity.class);
@@ -50,10 +54,24 @@ public class MetooUserTitleDao {
 			List<TitleEntity> list = mog.find(qt, TitleEntity.class);
 			TitleEntity matchTitle = null;
 			for (TitleEntity t : list) {
-				if (t.getPoint() > tit.getSharePoint() ) { //
-				     break;	
-				}else{
-					matchTitle = t;
+				if(MetooPointTypeConstant.METOO_POINT_TYPE_PART.equals(type)){
+					if (t.getPoint() > tit.getSharePoint() ) { //
+					     break;	
+					}else{
+						matchTitle = t;
+					}
+				} else if(MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT.equals(type)) {
+					if (t.getPoint() > tit.getCommentPoint() ) { //
+					     break;	
+					}else{
+						matchTitle = t;
+					}
+				} else if(MetooPointTypeConstant.METOO_POINT_TYPE_SUBJECT.equals(type)){
+					if (t.getPoint() > tit.getSubjectPoint()) { //
+					     break;	
+					}else{
+						matchTitle = t;
+					}
 				}
 			}
 			if(matchTitle != null){
@@ -63,31 +81,36 @@ public class MetooUserTitleDao {
 					   if(matchTitle.getCode().equals(tit.getShareTileCode())){
 							success = false;
 					   }else{
-						   u.set("shareTitle", matchTitle.getName());
+						   u.set("shareTitle", matchTitle.getName()+MetooTitleConstant.METOO_TITLE_SHARE_SUFFIX_NAME.getString());
 						   u.set("shareTileCode", matchTitle.getCode());
 						   u.set("shareTileImage", matchTitle.getImage()); 
+						   mog.updateMulti(q, u, UserTitleEntity.class);
+						   success = true;
 					   }
 					   break;
 				   case METOO_POINT_TYPE_COMMENT:
 					   if(matchTitle.getCode().equals(tit.getCommentTileCode())){
 							success = false;
 					   }else{
-						   u.set("commentTitle", matchTitle.getName());
+						   u.set("commentTitle", matchTitle.getName()+MetooTitleConstant.METOO_TITLE_COMMENT_SUFFIX_NAME.getString());
 						   u.set("commentTileCode", matchTitle.getCode());
 						   u.set("commentTileImage", matchTitle.getImage());
+						   mog.updateMulti(q, u, UserTitleEntity.class);
+						   success = true;
 					   }
 					   break;
 				   case METOO_POINT_TYPE_SUBJECT:
 					   if(matchTitle.getCode().equals(tit.getSubjectTileCode())){
 							success = false;
 					   }else{
-						   u.set("subjectTitle", matchTitle.getName());
+						   u.set("subjectTitle", matchTitle.getName()+MetooTitleConstant.METOO_TITLE_SUBJECT_SUFFIX_NAME.getString());
 						   u.set("subjectTileCode", matchTitle.getCode());
 						   u.set("subjectTileImage", matchTitle.getImage());
+						   mog.updateMulti(q, u, UserTitleEntity.class);
+						   success = true;
 					   }
 					   break;
 				}
-				mog.updateMulti(q, u, UserTitleEntity.class);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -95,6 +118,16 @@ public class MetooUserTitleDao {
 		}
 		return success;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void updatePoint(String userid,MetooPointTypeConstant type,boolean isadd,boolean isbase){
 		switch (type) {

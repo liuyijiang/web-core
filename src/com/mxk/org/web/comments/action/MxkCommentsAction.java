@@ -31,6 +31,7 @@ import com.mxk.org.web.comments.domain.LikeInfoResponse;
 import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
 import com.mxk.org.web.comments.domain.PageModelRequest;
+import com.mxk.org.web.comments.domain.PointInfoResponse;
 import com.mxk.org.web.comments.domain.SendGiftRequest;
 import com.mxk.org.web.comments.domain.SetPointRequest;
 import com.mxk.org.web.comments.domain.SetPriceRequest;
@@ -83,6 +84,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 	private BaseRequest baseRequest;
 	private SetPriceRequest setPriceRequest;
 	private SetPointRequest setPointRequest;
+	private PointInfoResponse pointInfoResponse;
 	private UserVO uservo;
 	private String message;
 	private String traget;
@@ -264,6 +266,17 @@ public class MxkCommentsAction extends MxkSessionAction {
 			// }
 		}
 		return SUCCESS;
+	}
+	
+	public String metooFindSetPointByPageAjax(){
+		if(pageModel != null){
+			pointInfoResponse = new PointInfoResponse();
+			if(pageModel.getAllPage() == 0){
+				pointInfoResponse.setAllpage(commentsService.findCountOfUserSetPoint(pageModel.getTragetId()));
+			}
+			pointInfoResponse.setList(commentsService.findUserPointEntity(pageModel.getTragetId(), pageModel.getCurrentPage()));
+		}
+		return SUCCESS;	
 	}
 	
 	//
@@ -538,6 +551,14 @@ public class MxkCommentsAction extends MxkSessionAction {
 
 	public void setSetPriceRequest(SetPriceRequest setPriceRequest) {
 		this.setPriceRequest = setPriceRequest;
+	}
+
+	public PointInfoResponse getPointInfoResponse() {
+		return pointInfoResponse;
+	}
+
+	public void setPointInfoResponse(PointInfoResponse pointInfoResponse) {
+		this.pointInfoResponse = pointInfoResponse;
 	} 
 	
 }

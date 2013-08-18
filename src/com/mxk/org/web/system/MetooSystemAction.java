@@ -64,9 +64,21 @@ public class MetooSystemAction  extends MxkSessionAction {
 	}
 	
 
-	//更新所有用户的parts数量
+	//更新所有用户的parts数量1
 	public String metooUpdateUserParts(){
 		dao.updateUserParts();
+		return SUCCESS;
+	}
+	
+	//2
+	public String metooCreateUserTitle(){
+		dao.systemCreateUserTitle();
+		return SUCCESS;
+	}
+	
+	//3
+	public String metooUpdateUserTitle(){
+		dao.systemUpdateUserTitle();
 		return SUCCESS;
 	}
 	
@@ -75,7 +87,9 @@ public class MetooSystemAction  extends MxkSessionAction {
 		TitleEntity e = new TitleEntity();
 		e.setCode("METOO_TITLE_RUMEN");
 		e.setName("入门级");
-		e.setPoint(0);
+		e.setPoint(10);
+		e.setImage("rumen.png");
+		dao.createTitle(e);
 		return SUCCESS;
 	}
 	

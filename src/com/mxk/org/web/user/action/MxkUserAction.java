@@ -141,6 +141,7 @@ public class MxkUserAction extends MxkSessionAction {
 	private SearchSubjectRequest searchSubjectRequest;
 	private String target;//
 	private int type;
+	
 	//最新消息
 	public String mxkShowNewRssMessageView(){
 		uservo = super.getCurrentUserVO();
@@ -180,46 +181,6 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 		return SUCCESS;
 	}
-	
-//	public String mxkRedictToSeeMessage(){
-//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
-//		if(MessageEntity != null){
-//			if(MxkConstant.PART.equals(MessageEntity.getType())){
-//				target = MessageEntity.getTargetId();
-//				messageService.removeMesage(MessageEntity.getId());
-//				return SUCCESS;
-//			}else{
-//				target = MessageEntity.getTargetId();
-//				messageService.removeMesage(MessageEntity.getId());
-//				return "subject";
-//			}
-//		}else{
-//			return ERROR;
-//		}
-//	}
-	
-//	public String mxkRedictToSeePartMessage(){
-//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
-//		if(MessageEntity != null){
-//			target = MessageEntity.getTargetId();
-//			messageService.removeMesage(MessageEntity.getId());
-//			return SUCCESS;
-//		}else{
-//			return ERROR;
-//		}
-//		
-//	}
-	
-//	public String mxkRedictToSeeSubjectMessage(){
-//		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
-//		if(MessageEntity != null){
-//			target = MessageEntity.getTargetId();
-//			messageService.removeMesage(MessageEntity.getId());
-//			return SUCCESS;
-//		}else{
-//			return ERROR;
-//		}
-//	}
 	
 	public String mxkUserSeeMessageDetail(){
 		MessageEntity MessageEntity = messageService.findMessageEntityById(target);
@@ -371,7 +332,7 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	
+	//注册
 	public String mxkUserRegister(){
 		if(valiateUserForRegister(userRegisterRequest)){
 			userRegisterRequest.setImageurl(defaultImageUrl);
@@ -407,6 +368,17 @@ public class MxkUserAction extends MxkSessionAction {
 			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
 			    title.setUserid(vo.getId());
 			    userTitleService.saveUserTitle(title);
+			   //缓存头衔
+			    vo.setCommentPoint(title.getCommentPoint());
+				vo.setCommentTileImage(title.getCommentTileImage());
+				vo.setCommentTitle(title.getCommentTitle());
+				vo.setSharePoint(title.getSubjectPoint());
+				vo.setShareTileImage(title.getCommentTileImage());
+				vo.setShareTitle(title.getShareTitle());
+				vo.setSubjectTitle(title.getSubjectTitle());
+				vo.setSubjectPoint(title.getSubjectPoint());
+				vo.setSubjectTileImage(title.getSubjectTileImage());
+			    
 			    
 				redisCacheService.setUserVO(vo.getId(), vo);
 			    super.setSessionKey(vo.getId()); // 
@@ -431,8 +403,21 @@ public class MxkUserAction extends MxkSessionAction {
 			long messages = messageService.findMessageCount(userEntity.getId());//�����Ϣ����
 			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//��ò���subject
 			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//���ĵ�ר��
+			//获得头衔
+			UserTitleEntity title = userTitleService.findUserTitleEntity(userEntity.getId());
 			super.setSessionKey(userEntity.getId());  
 			UserVO vo = VOFactory.createUserVOFormEnitiy(userEntity);
+			if(title != null){
+				vo.setCommentPoint(title.getCommentPoint());
+				vo.setCommentTileImage(title.getCommentTileImage());
+				vo.setCommentTitle(title.getCommentTitle());
+				vo.setSharePoint(title.getSharePoint());
+				vo.setShareTileImage(title.getShareTileImage());
+				vo.setShareTitle(title.getShareTitle());
+				vo.setSubjectTitle(title.getSubjectTitle());
+				vo.setSubjectPoint(title.getSubjectPoint());
+				vo.setSubjectTileImage(title.getSubjectTileImage());
+			}
 			vo.setMessage(messages);
 			vo.setJoinsubject(joinsubject);
 			vo.setRsssubject(rsssubject);
@@ -670,7 +655,27 @@ public class MxkUserAction extends MxkSessionAction {
 		message = MxkConstant.AJAX_ERROR;
 		if(uservo != null){
 			if(userTitleService.upgradeUserTile(uservo.getId(), type)){
-				message = MxkConstant.AJAX_SUCCESS;
+				//
+				UserTitleEntity title = userTitleService.findUserTitleEntity(uservo.getId());
+				if(title != null){
+					uservo.setCommentPoint(title.getCommentPoint());
+					uservo.setCommentTileImage(title.getCommentTileImage());
+					uservo.setCommentTitle(title.getCommentTitle());
+					uservo.setSharePoint(title.getSharePoint());
+					uservo.setShareTileImage(title.getShareTileImage());
+					uservo.setShareTitle(title.getShareTitle());
+					uservo.setSubjectTitle(title.getSubjectTitle());
+					uservo.setSubjectPoint(title.getSubjectPoint());
+					uservo.setSubjectTileImage(title.getSubjectTileImage());
+				}
+				super.updateCurrentUserVO(uservo);
+				if(type==1){
+					message = MxkConstant.AJAX_SUCCESS+"," + uservo.getShareTitle();
+				}else if(type==2){
+					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getCommentTitle();
+				}else if(type==3){
+					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getSubjectTitle();
+				}
 			}else{
 				message = MetooResultMessage.UPGRADE_FAIL.getString();
 			}

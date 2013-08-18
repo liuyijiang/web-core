@@ -194,7 +194,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    	mes.setUserid(uservo.getId());
 			    	messageQueueService.startNewRssPushTask(mes);
 			    }
-			    userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
+			    userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
 			}
 			message = MxkConstant.AJAX_SUCCESS;
 		}else{
@@ -232,7 +232,7 @@ public class MxkPartAction extends MxkSessionAction {
 		    			subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 		    		}
 		    		//头衔加分
-		    		userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
+		    		userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
 			    	currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH,currentSubjectEntity);
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();
@@ -270,7 +270,7 @@ public class MxkPartAction extends MxkSessionAction {
 			    		subjectService.addSubjectJoinPeople(uservo, currentSubjectEntity.getId());
 			    	}
 			    	//头衔加分
-		    		userTitleService.updatePoint(partEntity.getUserid(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
+		    		userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_PART, true, false);
 			    	
 		    		currentSubjectEntity.setParts(currentSubjectEntity.getParts()+1);
 			    	NewMessagePushMessage mes = new NewMessagePushMessage();

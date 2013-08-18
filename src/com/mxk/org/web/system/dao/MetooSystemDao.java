@@ -27,6 +27,10 @@ public class MetooSystemDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public void createTitle(TitleEntity title){
+		mog.save(title);
+	}
+	
 	public void createGift(GiftEntity entity){
 		mog.save(entity);
 	}

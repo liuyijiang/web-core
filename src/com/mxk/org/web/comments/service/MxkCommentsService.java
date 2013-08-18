@@ -46,6 +46,13 @@ public class MxkCommentsService {
 	@Autowired
 	private MxkCommentsDao commentsDao;
 	
+	public long findCountOfUserSetPoint(String tragetid){
+		return commentsDao.findCountOfUserSetPoint(tragetid);
+	}
+	
+	public List<UserPointEntity> findUserPointEntity(String tragetid,int page){
+		return commentsDao.findUserPointEntity(tragetid, page);
+	}
 	
 	public boolean checkHasBeenSetPrice(String subjectid,String userid){
 		return commentsDao.checkHasBeenSetPrice(subjectid, userid);

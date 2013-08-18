@@ -88,6 +88,24 @@ public class MxkCommentsDao {
 		return success;
 	}
 	
+	public long findCountOfUserSetPoint(String tragetid){
+		Query q = new Query(Criteria.where("targetId").is(tragetid));
+		long count = mog.count(q, UserPointEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 1;
+		}
+	}
+	
+	public List<UserPointEntity> findUserPointEntity(String tragetid,int page){
+		Query q = new Query(Criteria.where("targetId").is(tragetid));
+		q.sort().on("createTime", Order.DESCENDING);//����
+		q.limit(pageSize);
+		q.skip(pageSize*(page - 1));
+		return mog.find(q, UserPointEntity.class);
+	}
+	
 	
 	public long findCountOfUserLikeEntity(String tragetid){
 		Query q = new Query(Criteria.where("tragetId").is(tragetid));
@@ -100,7 +118,7 @@ public class MxkCommentsDao {
 	}
 	
 	public List<UserLikeEntity> findUserLikeEntityByPage(String tragetid,int page){
-		Query q = new Query(Criteria.where("tragetId").is(tragetid));
+		Query q = new Query(Criteria.where("targetId").is(tragetid));
 		q.sort().on("createTime", Order.DESCENDING);//����
 		q.limit(pageSize);
 		q.skip(pageSize*(page - 1));

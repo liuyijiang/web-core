@@ -14,6 +14,10 @@ public class MetooUserTitleService {
 	@Autowired
 	private MetooUserTitleDao userTitleDao;
 	
+	public UserTitleEntity findUserTitleEntity(String userid){
+	   return userTitleDao.findUserTitleEntity(userid);
+    }
+	
 	public boolean upgradeUserTile(String userid,int type){
 		boolean success = true;
 		switch (type) {

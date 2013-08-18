@@ -23,18 +23,19 @@ public class UserEntity implements Serializable {
 	private String email;
 	private String password;
 	private String createTime;
-	private String info;//��������
-	private String interest;//����
+	private String info;//心情
+	private String interest;//
 	private String image;
-	private String minimage;//��ͼ
+	private String minimage;//小头像
 	private int sex;//1nman  0woman
-	private int level;//�ȼ�
-	private int followors;//��˿����
-	private int focus;//��ע����
-	private int subject;//ר������
+	private int level;//等级
+	private int followors;//粉丝
+	private int focus;//关注
+	private int subject;//专辑数
 	
 	private int parts;
 	private int gifts;
+	private int eCret;//证书
 	
 	public String getId() {
 		return id;
@@ -131,6 +132,12 @@ public class UserEntity implements Serializable {
 	}
 	public void setGifts(int gifts) {
 		this.gifts = gifts;
+	}
+	public int geteCret() {
+		return eCret;
+	}
+	public void seteCret(int eCret) {
+		this.eCret = eCret;
 	}
     	
 	
