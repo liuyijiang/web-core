@@ -7,7 +7,7 @@
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<%@ include file="../public/user_public_header.jsp"%>
+<%@ include file="../public/update_user_public_header.jsp"%>
 <script type="text/javascript">
   function mouseover(id){
     $("#"+id).css("z-index","1");

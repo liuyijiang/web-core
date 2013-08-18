@@ -79,9 +79,9 @@
           }
       </script>
 	
-	   <footer>
-			<%@ include file="../public/footer.jsp"%>
-		</footer>
+<!-- 	   <footer> -->
+<%-- 			<%@ include file="../public/footer.jsp"%> --%>
+<!-- 		</footer> -->
 	<%@ include file="../../../footinclude.jsp"%>
 	<script type="text/javascript">
    

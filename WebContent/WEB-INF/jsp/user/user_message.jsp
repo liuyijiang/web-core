@@ -8,7 +8,7 @@
 </head>
 <body class="mxkbody mxkbackgroud">
 <%@ include file="../public/user_page_header.jsp"%>
-<%@ include file="../public/user_public_header.jsp"%>
+<%@ include file="../public/update_user_public_header.jsp"%>
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">

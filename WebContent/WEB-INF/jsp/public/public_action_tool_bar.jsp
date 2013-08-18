@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <div >
+  <div id="upgrade_div" style="padding:5px;display:none;height:1000px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+     <br /><br /><br /><br /><br /><br /><br /><br />
+     <center>
+       <font color="#FFFFFF" style="font-size:40px">恭喜升级为：<span id="upgrade_message"></span></font>
+     </center>
+  </div>
   <div id="actionbar"  style="padding:5px;display:none;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
      <div class="container">
      <a class="btn btn-small" href="<%=rootPath %>/partDashBoard">
@@ -8,12 +14,6 @@
      <a class="btn btn-small" href="<%=rootPath %>/visitiorShowSubjectDashBorad">
 	   <i class="icon-th-large"></i>专题面板
 	 </a>
-<!-- 	 <a class="btn btn-small" href="javascript:;"> -->
-<!-- 	   <i class="icon-search"></i>找模友 -->
-<!-- 	 </a> -->
-<!-- 	 <a class="btn btn-small" href="javascript:;"> -->
-<!-- 	   <i class="icon-search"></i>找Part -->
-<!-- 	 </a> -->
 	 <a class="btn btn btn-danger btn-small" href="javascript:;" onclick="$('#actionbar_top10').show();showTop10('1');">
 	   <i class="icon-signal"></i>Top 10
 	 </a>
