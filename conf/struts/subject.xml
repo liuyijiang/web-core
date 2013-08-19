@@ -161,6 +161,13 @@
             </result> 
 		</action>
 		
+		<action name="createSubjectQrCode" class="com.mxk.org.web.subject.action.MxkSubjectAction"
+			method="metooCreateSubjectQrCodeAjax">
+		    <result type="json" name="success">  
+                <param name="root">message</param>
+            </result> 
+		</action>
+		
 		<action name="subjectMessageMore" class="com.mxk.org.web.subject.action.MxkSubjectAction"
 			method="mxkSubjectMessageMoreAjax">
 		    <result type="json" name="success">  

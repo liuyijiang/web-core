@@ -262,6 +262,13 @@
 		</action>
     
     
+    <action name="refreshUserStatus" class="com.mxk.org.web.user.action.MxkUserAction"
+			method="metooRefreshUserStatusAjax">
+		    <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+		</action>
+    
    </package>
    
    
