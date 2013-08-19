@@ -12,7 +12,7 @@
 <script type="text/javascript" src="<%=fassets %>/js/bootstrap-popover.js"></script>
 <script type="text/javascript" src="<%=fassets %>/js/jquery.form.js"></script>
 <script type="text/javascript" src="<%=fassets %>/js/ajaxfileupload.js"></script>
-
+<script type="text/javascript" src="assets/js/metoo.js"></script>
 
 <!-- <script type="text/javascript" src="assets/js/jquery-1.7.2.js"></script> -->
 <!-- <script type="text/javascript" src="assets/js/bootstrap-modal.js"></script> -->

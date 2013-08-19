@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <%@ include file="../../../headerinclude.jsp"%>
+ <%@ include file="../../../headerinclude.jsp"%> 
 </head>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>

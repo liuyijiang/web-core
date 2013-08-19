@@ -7,7 +7,7 @@
 </head>
 <body class="mxkbody  mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<%@ include file="../public/update_user_subject_header.jsp"%>
+<%@ include file="../public/update_user_subject_header.jsp"%> 
 <!-- <div class="container"> -->
 <!--   <div class="row"> -->
 <!--      <div class="span1"> -->

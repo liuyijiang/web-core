@@ -17,3 +17,22 @@
    		  }
  	 }); 
   }
+  
+  function refreshUserStatus(){
+	  alert(1);
+	  $.ajax({
+   		url : path + "/refreshUserStatus",
+   		type : "POST",
+   		cache : false,
+   		async : false,
+   		dataType : "json",
+   		success : function(item) {
+   		    if(item == 'success'){
+   		    	alert("状态已刷新");
+   		    	location.reload(); 
+		    }else {
+		     	alert(item);
+		    }
+   		  }
+ 	 }); 
+  }

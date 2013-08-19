@@ -53,7 +53,7 @@
 				  <a href="<%=rootPath%>/userFollowersView" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-group"></i>粉丝${uservo.followors }</a>
 		 </div>
 		 <span class="pull-right">
-		 <a href="#" class="btn btn-mini">刷新状态</a>
+		 <a href="javascript:;" onclick="refreshUserStatus()" class="btn btn-mini">刷新状态</a>
 		  <div class="btn-group">
              <a class="btn dropdown-toggle btn-mini " data-toggle="dropdown" href="#">
                <span >升级</span>
@@ -110,6 +110,7 @@
 	      <a href="javascript:;" class="btn" onclick="closeCreatePart()">关闭</a>
 	    </div>
     </div>
+    
 <script type="text/javascript">
 
 function mouseoverheader(){
@@ -119,7 +120,6 @@ function mouseoverheader(){
   function mouseoutheader(){
 	$("#userheaderimage").css("z-index","-1");
   }
-
 
 function showCreatePart(){
 	 $('#createPartModal').modal({
