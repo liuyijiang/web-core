@@ -33,7 +33,8 @@
 	     <span class="label label-info"><img src="<%=metootitle%>${uservo.shareTileImage }">${uservo.shareTitle}</span>/
 	     <span class="label label-success"><img src="<%=metootitle%>${uservo.commentTileImage}">${uservo.commentTitle } </span>/
 	     <span class="label label-important"><img src="<%=metootitle%>${uservo.subjectTileImage}">${uservo.subjectTitle }</span> 
-	     <small><a href="#">更多头衔</a></small></span><br />
+	  </span>  
+	     <small><a href="javascript:;" onclick="showuserTitleModal()">更多头衔</a></small><br />
        <div style="height:3px"></div>
 	   <span><a class="btn btn-mini">证书x4</a></span>
 	   <span><a class="btn btn-mini">礼物x411</a></span>
@@ -71,6 +72,204 @@
   </div>
 </div>
 <br />
+
+<div id="userTitleModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	       <h3>头衔状态</h3>
+        </div>
+        <div class="modal-body">
+           <table class="table table-striped">
+           <tr>
+            <td>
+                                       等级
+             </td>
+             <td>
+                                     类型
+             </td>
+             <td>
+                                      所需积分
+             </td>
+           </tr>
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>rumen.png">入门级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 10 分
+             </td>
+             </tr>
+             
+              <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>caogen.png">草根级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 30 分
+             </td>
+             </tr>
+             
+             
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>diaosi.png">屌丝级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 50 分
+             </td>
+             </tr>
+             
+             
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>chuji.png">初级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 100 分
+             </td>
+             </tr>
+             
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>zhongji.png">中级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 200 分
+             </td>
+             </tr>
+             
+             
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>gaoji.png">高级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 300 分
+             </td>
+             </tr>
+             
+             
+             <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>tongpai.png">铜牌</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 500 分
+             </td>
+             </tr>
+             
+              <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>yinpai.png">银牌</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 700 分
+             </td>
+             </tr>
+             
+              <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>jinpai.png">金牌</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 1000 分
+             </td>
+             </tr>
+             
+                <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>zhuanjia.png">专家级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 1500 分
+             </td>
+             </tr>
+             
+             
+               <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>fasao.png">发烧级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 2200 分
+             </td>
+             </tr>
+             
+             
+               <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>zuanshi.png">钻石级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 3000 分
+             </td>
+             </tr>
+             
+             
+               <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>guhui.png">专家级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 4000 分
+             </td>
+             </tr>
+             
+              <tr>
+             <td>
+              <span class='label'><img src="<%=metootitle%>tianshi.png">天使级</span>
+             </td>
+             <td>
+                                      分享家/评论家/制作家
+             </td>
+             <td>
+                                      所需积分 5500 分
+             </td>
+             </tr>
+             
+           </table>
+        </div>
+    </div>
+
 
 <div id="createPartModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
@@ -112,6 +311,12 @@
     </div>
     
 <script type="text/javascript">
+function showuserTitleModal(){
+	 $('#userTitleModal').modal({
+	      keyboard: false
+	  });
+}
+
 
 function mouseoverheader(){
     $("#userheaderimage").css("z-index","1");

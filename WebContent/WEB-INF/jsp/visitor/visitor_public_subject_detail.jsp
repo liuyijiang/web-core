@@ -28,7 +28,7 @@
          <span class="pull-right">
           <a href="javascript:;" class="btn btn-primary"  onclick="rsssubject('${subjectEntity.id}','${subjectEntity.userid }')"><i class="icon-rss"></i>订阅专题</a>
 <%--           <c:if test=""></c:if> --%>
-          <a href="javascript:;" class="btn btn-success"  onclick=""><i class="icon-jpy"></i>专题定价</a>
+          <a href="javascript:;" class="btn btn-success"  onclick="sendSubCommentModal()"><i class="icon-jpy"></i>专题定价</a>
           <br />
             <span class="pull-right">
               <c:if test="${subjectEntity.qrcodeImage != null }">
@@ -78,6 +78,40 @@
     </div>
 </div>
 <br />
+<script type="text/javascript">
+function sendSubCommentModal(){
+	 $('#sendSubCommentModal').modal({
+	      keyboard: false
+   });
+}
+
+  
+</script>
+ <div id="sendSubCommentModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	       <h3 id="subCommentsheader">专题作品定价</h3>
+        </div>
+        <div class="modal-body">
+             <div class="well">
+				  <div class="control-group success">
+				  <label class="control-label" for="inputSuccess">你来为这个专题作品定个价吧！</label>
+				  <div class="controls">
+				         <span class="form-inline">
+				           <input type="text" id="inputSuccess">
+				           <a class="btn">确定</a>
+				           &nbsp;
+				           <span style="font-size: 18px;"><strong>
+				                            最高定价： ${subjectEntity.highMoney }元
+				                            </strong></span>
+				          </span>
+				  </div>
+		          </div>
+	          </div>
+        </div>
+    </div>
+
+
 
   <div id="sendSubCommentModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-header">
@@ -135,7 +169,7 @@
     
 <script type="text/javascript">
 
-function showSubCommentsModal(type){
+   function showSubCommentsModal(type){
 	  if(type == 1){
 		  $("#gift_this_model").show();
 		  $("#point_this_model").hide();  

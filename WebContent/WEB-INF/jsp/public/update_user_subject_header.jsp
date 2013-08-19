@@ -31,6 +31,10 @@
                 <div style="height:3px"></div>
                 <img  style="width:85px;" src="<%=imgurl %>${currentSubjectEntity.qrcodeImage}">
               </c:if>
+               <span id="qrcodeloading" style="display:none" >
+	             <img src="<%=domain %>loadingred.gif" >
+	             <span class="muted"><small>正在生成...</small></span>
+               </span>
 		   </span>
          </span>
         <br />
@@ -73,6 +77,7 @@
 <br />
  <script type="text/javascript">
     function createqrcode(id){
+    	$("#qrcodeloading").show();
     	$.ajax({
        		url : path + "/createSubjectQrCode",
        		type : "POST",
@@ -82,6 +87,7 @@
        		dataType : "json",
        		success : function(item) {
        		    if(item == 'success'){
+       		    	  $("#qrcodeloading").hide();
        		         location.reload(); 
     		    }else if( item == 'error'){
     		   	   alert("网络异常请重试");
