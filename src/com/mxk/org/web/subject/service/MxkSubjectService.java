@@ -33,6 +33,10 @@ public class MxkSubjectService {
 	@Autowired
 	private MxkSubjectDao dao;
 	
+	public boolean updateSubjectQrCode(String id,String qrcodeImage){
+		return dao.updateSubjectQrCode(id, qrcodeImage);
+	}
+	
 	public void btnUpdateSubjects(){
 		dao.btnUpdateSubjects();
 	}

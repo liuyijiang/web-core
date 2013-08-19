@@ -33,7 +33,7 @@ public class SubjectEntity implements Serializable {
 	private int parts;//part����
 	private int joinpeople;//����ר���������
 	private String category;//ԭ�� ����
-	
+	private String qrcodeImage;
 	private String username;
 	private String userimage;
 	
@@ -162,7 +162,11 @@ public class SubjectEntity implements Serializable {
 	public void setHighMoney(double highMoney) {
 		this.highMoney = highMoney;
 	}
-    
-	
+	public String getQrcodeImage() {
+		return qrcodeImage;
+	}
+	public void setQrcodeImage(String qrcodeImage) {
+		this.qrcodeImage = qrcodeImage;
+	}
 
 }

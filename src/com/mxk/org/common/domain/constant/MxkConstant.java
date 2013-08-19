@@ -2,6 +2,8 @@ package com.mxk.org.common.domain.constant;
 
 public class MxkConstant {
 
+	public static final String ENTER = "\n";
+	
 	public static final String ARRY_MARK = "#";
 	
     public static final String LOGIN_FAIL = "账号与密码不符合请重试！";

@@ -44,6 +44,20 @@ public class MxkSubjectDao {
 	@Autowired
 	private MongoOperations mog; 
 	
+	public boolean updateSubjectQrCode(String id,String qrcodeImage){
+		boolean success = true;
+		try{
+			Query qs = new Query(Criteria.where("id").is(id));	
+			Update u = new Update();
+			u.set("qrcodeImage", qrcodeImage);
+			mog.updateMulti(qs, u, SubjectEntity.class);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(),e);
+		}
+		return success;
+	}
+	
 	/**
 	 * 批量修改历史数据 
 	 */

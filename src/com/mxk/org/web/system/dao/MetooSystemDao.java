@@ -49,15 +49,15 @@ public class MetooSystemDao {
 				UserTitleEntity title = new UserTitleEntity();
 				title.setCommentPoint(commot);
 				title.setCommentTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setCommentTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString());
+			    title.setCommentTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_COMMENT_SUFFIX_NAME.getString());
 			    title.setLevel(1);
 			    title.setLevelPoint(share+sub+commot+10);//注册加10分
 			    title.setSharePoint(share);
 			    title.setShareTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setShareTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString());
+			    title.setShareTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SHARE_SUFFIX_NAME.getString());
 			    title.setSubjectPoint(sub);
 			    title.setSubjectTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString());
+			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SUBJECT_SUFFIX_NAME.getString());
 			    title.setUserid(en.getId());
 			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
 			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());

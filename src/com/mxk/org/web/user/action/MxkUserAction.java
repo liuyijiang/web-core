@@ -142,6 +142,36 @@ public class MxkUserAction extends MxkSessionAction {
 	private String target;//
 	private int type;
 	
+	//刷新用户积分状态
+	public String metooRefreshUserStatusAjax(){
+		uservo = super.getCurrentUserVO();
+		message = MxkConstant.USER_NO_LOGIN;
+		if(uservo != null){
+			long messages = messageService.findMessageCount(uservo.getId());//消息
+			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(uservo.getId());//加入的专题
+			long rsssubject = subjectService.findUserRssSubjectNum(uservo.getId());//订阅的专题
+			UserTitleEntity title = userTitleService.findUserTitleEntity(uservo.getId());
+			if(title != null){
+				uservo.setCommentPoint(title.getCommentPoint());
+				uservo.setCommentTileImage(title.getCommentTileImage());
+				uservo.setCommentTitle(title.getCommentTitle());
+				uservo.setSharePoint(title.getSharePoint());
+				uservo.setShareTileImage(title.getShareTileImage());
+				uservo.setShareTitle(title.getShareTitle());
+				uservo.setSubjectTitle(title.getSubjectTitle());
+				uservo.setSubjectPoint(title.getSubjectPoint());
+				uservo.setSubjectTileImage(title.getSubjectTileImage());
+			}
+			uservo.setMessage(messages);
+			uservo.setJoinsubject(joinsubject);
+			uservo.setRsssubject(rsssubject);
+			super.updateCurrentUserVO(uservo);
+			message = MxkConstant.AJAX_SUCCESS;
+		}
+		return SUCCESS;
+	}
+	
+	
 	//最新消息
 	public String mxkShowNewRssMessageView(){
 		uservo = super.getCurrentUserVO();
@@ -400,9 +430,9 @@ public class MxkUserAction extends MxkSessionAction {
 	public String mxkUserLoginIn(){
 		UserEntity userEntity = userService.checkUserLogin(userLoginRequest);
 		if(userEntity != null && userEntity.getId() != null){
-			long messages = messageService.findMessageCount(userEntity.getId());//�����Ϣ����
-			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//��ò���subject
-			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//���ĵ�ר��
+			long messages = messageService.findMessageCount(userEntity.getId());//消息
+			long joinsubject = subjectJoinPeopleService.findUserJoinSubject(userEntity.getId());//加入的专题
+			long rsssubject = subjectService.findUserRssSubjectNum(userEntity.getId());//订阅的专题
 			//获得头衔
 			UserTitleEntity title = userTitleService.findUserTitleEntity(userEntity.getId());
 			super.setSessionKey(userEntity.getId());  
@@ -435,7 +465,7 @@ public class MxkUserAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//�޸�����
+	//更新账号
 	public String mxkUpdateUserPassword(){
 		if(userChangePasswordRequest != null && userChangePasswordRequest.getTwopassword() != null && userChangePasswordRequest.getOnepassword() != null){
 			if(userChangePasswordRequest.getOnepassword().equals(userChangePasswordRequest.getTwopassword()) && mailService.checkUuid(userChangePasswordRequest.getUsermail(),userChangePasswordRequest.getUuid(),true)){
@@ -459,7 +489,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//�û���¼�����
+	//用户专题界面
 	public String mxkUserIndexView(){
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
@@ -475,7 +505,7 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 	}
 	
-	//�첽���ظ��
+	//加载更多专题
 	public String mxkLoadMoreUserSubjectAjax(){
 		if (searchSubjectRequest != null) {
 		  subjectsShowResponse = subjectService.findSubjectEntityBySearchRequest(searchSubjectRequest);

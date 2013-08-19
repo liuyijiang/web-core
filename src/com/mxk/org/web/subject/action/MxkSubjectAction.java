@@ -23,6 +23,7 @@ import com.mxk.org.common.service.MxkGifService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.service.MxkPdfService;
 import com.mxk.org.common.service.MxkRedisCacheService;
+import com.mxk.org.common.util.QrCodeUtil;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.entity.SubjectEntity;
 import com.mxk.org.entity.SubjectExtraEntity;
@@ -475,7 +476,40 @@ public class MxkSubjectAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//�½�ר��
+	//生成二維碼
+	public String metooCreateSubjectQrCodeAjax(){
+		uservo = super.getCurrentUserVO();
+		SubjectEntity sub = subjectService.findSubjectEntityById(targetId);
+		if(uservo != null && sub != null){
+			if(sub.getUserid().equals(uservo.getId())){
+				String str = uservo.getName()+MxkConstant.ENTER+uservo.getEmail()+MxkConstant.ENTER+sub.getName()+MxkConstant.ENTER+sub.getCategory();
+				QrCodeUtil util = new QrCodeUtil();
+				File file = util.createQrCodeImage(str, sub.getId());
+				if(file != null){
+					String fileName = sub.getId()+ QrCodeUtil.QRCODE + MxkGridFSFileUploadService.FILE_TYPE_IMAGE;
+					gridFSFileUploadService.removeFile(fileName, MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
+					String url = gridFSFileUploadService.uploadFile(file, sub.getId()+ QrCodeUtil.QRCODE, MxkGridFSFileUploadService.FILE_TYPE_IMAGE);
+					if(subjectService.updateSubjectQrCode(sub.getId(),url )){
+						 message = MxkConstant.AJAX_SUCCESS;
+						 currentSubjectEntity =  super.getSessionData(MxkSessionContext.MXK_SUBJECT_CASH, SubjectEntity.class);
+						 currentSubjectEntity.setQrcodeImage(url);
+						 super.setSessionData(MxkSessionContext.MXK_SUBJECT_CASH, currentSubjectEntity);
+					}else{
+						message = MxkConstant.AJAX_ERROR;
+					}
+				    file.delete();
+				}else{
+					message = "专辑数据太长";
+				}
+			}
+		}else{
+			message = MxkConstant.USER_NO_LOGIN;
+		}
+		return SUCCESS;
+	}
+	
+	
+	//創建轉圖
 	public String mxkCreateSubject(){
 		uservo = getCurrentUserVO();
 		if(valiate(createSubjectRequest) && uservo != null){
