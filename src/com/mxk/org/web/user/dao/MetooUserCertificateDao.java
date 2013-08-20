@@ -9,9 +9,11 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mxk.org.entity.UserCertificateEntity;
+import com.mxk.org.entity.UserEntity;
 
 
 @Component
@@ -25,7 +27,15 @@ public class MetooUserCertificateDao {
 	public boolean saveCertificate(UserCertificateEntity entity){
 		boolean success = true;
 		try {
-			mog.save(entity);
+			Query q = new Query(Criteria.where("userid").is(entity.getUserid()).and("title").is(entity.getTitle()));
+			long i = mog.count(q, UserCertificateEntity.class);
+			if(i == 0){
+				mog.save(entity);
+				Query qu = new Query(Criteria.where("userid").is(entity.getUserid()));
+				Update u = new Update();
+				u.inc("eCret", 1);
+				mog.updateMulti(qu, u, UserEntity.class);
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 			success = false;

@@ -19,6 +19,7 @@ public class UserCertificateEntity implements Serializable {
     private String imageurl;
     private String title;
     private String createTime;
+    private String titleImage;
     
 	public String getId() {
 		return id;
@@ -49,6 +50,12 @@ public class UserCertificateEntity implements Serializable {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public String getTitleImage() {
+		return titleImage;
+	}
+	public void setTitleImage(String titleImage) {
+		this.titleImage = titleImage;
 	}
     
     

@@ -28,6 +28,7 @@ import com.mxk.org.common.util.ValidateUtil;
 import com.mxk.org.entity.CollectInformationEntity;
 import com.mxk.org.entity.MessageEntity;
 import com.mxk.org.entity.SubjectEntity;
+import com.mxk.org.entity.UserCertificateEntity;
 import com.mxk.org.entity.UserEntity;
 import com.mxk.org.entity.UserFriendEntity;
 import com.mxk.org.entity.UserTitleEntity;
@@ -723,22 +724,39 @@ public class MxkUserAction extends MxkSessionAction {
 				File file = util.pressCertificateText(uservo.getId(), type,uservo.getName(), uservo.getShareTitle(),Font.BOLD, 25,
 						Color.BLACK, 1);
 				String filename = "";
-				super.updateCurrentUserVO(uservo);
+				String titleName = "";
+				String titleImage = "";
 				if(type==1){
 					filename = uservo.getId()+ title.getShareTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_SHARE.getString();
+					titleName = uservo.getShareTitle();
+					titleImage = uservo.getShareTileImage();
 					message = MxkConstant.AJAX_SUCCESS+"," + uservo.getShareTitle();
 				}else if(type==2){
 					filename = uservo.getId()+ title.getCommentTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_COMMENT.getString();
+					titleName = uservo.getCommentTitle();
+					titleImage = uservo.getCommentTileImage();
 					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getCommentTitle();
 				}else if(type==3){
 					filename = uservo.getId()+ title.getSubjectTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_SUBJECT.getString();
+					titleName = uservo.getSubjectTitle();
+					titleImage = uservo.getSubjectTileImage();
 					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getSubjectTitle();
 				}
 				if(file != null){
 					gridFSFileUploadService.removeFile(filename, MxkGridFSFileUploadService.FILE_TYPE_JPG);
 					gridFSFileUploadService.uploadFile(file, filename, MxkGridFSFileUploadService.FILE_TYPE_JPG);
+					
+					UserCertificateEntity cer = new UserCertificateEntity();
+					cer.setCreateTime(StringUtil.dateToString(new Date(), null));
+					cer.setImageurl(filename+MxkGridFSFileUploadService.FILE_TYPE_JPG);
+					cer.setTitle(titleName);
+					cer.setUserid(uservo.getId());
+					cer.setTitleImage(titleImage);
+					userTitleService.saveTitleCertificate(cer);
+					uservo.seteCret(uservo.geteCret()+1);
 					file.delete();
 				}
+				super.updateCurrentUserVO(uservo);
 			}else{
 				message = MetooResultMessage.UPGRADE_FAIL.getString();
 			}

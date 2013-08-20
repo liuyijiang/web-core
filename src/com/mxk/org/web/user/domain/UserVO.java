@@ -44,7 +44,7 @@ public class UserVO implements Serializable{
 	private long subjectPoint;
 	private String subjectTitle;
 	private String subjectTileImage;
-	
+	private int eCret;
 	
 	public String getId() {
 		return id;
@@ -201,6 +201,12 @@ public class UserVO implements Serializable{
 	}
 	public void setSubjectTileImage(String subjectTileImage) {
 		this.subjectTileImage = subjectTileImage;
+	}
+	public int geteCret() {
+		return eCret;
+	}
+	public void seteCret(int eCret) {
+		this.eCret = eCret;
 	}
 	
 	

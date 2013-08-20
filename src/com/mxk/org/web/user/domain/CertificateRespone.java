@@ -9,7 +9,7 @@ public class CertificateRespone {
 	private List<UserCertificateEntity> list1;
 	private List<UserCertificateEntity> list2;
 	private List<UserCertificateEntity> list3;
-	
+	private List<UserCertificateEntity> list4;
 	public List<UserCertificateEntity> getList1() {
 		return list1;
 	}
@@ -27,6 +27,12 @@ public class CertificateRespone {
 	}
 	public void setList3(List<UserCertificateEntity> list3) {
 		this.list3 = list3;
+	}
+	public List<UserCertificateEntity> getList4() {
+		return list4;
+	}
+	public void setList4(List<UserCertificateEntity> list4) {
+		this.list4 = list4;
 	}
 	
 	
