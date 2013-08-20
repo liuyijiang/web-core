@@ -86,6 +86,12 @@
 			</result>
 		</action>
 		
+		<action name="setPriceToSubject" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+            method="metooSetPriceToSubjectAjax">
+            <result type="json" name="success">  
+                 <param name="root">message</param>
+            </result>  
+        </action>
 		
 		
    </package>

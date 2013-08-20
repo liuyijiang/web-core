@@ -14,7 +14,10 @@
 			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
         
-        
+        <action name="vistiorShowSubjectExtra" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
+            method="metooVistiorShowSubjectExtraView">
+             <result name="success" >/WEB-INF/jsp/visitor/visitor_subject_extra_info.jsp</result>
+         </action>
         
         <action name="visitorSeePartsExtraInfo" class="com.mxk.org.web.visitor.action.MxkVisitorAction"
             method="metooVisitorSeePartsExtraInfoView">
