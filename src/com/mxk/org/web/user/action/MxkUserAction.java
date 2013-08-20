@@ -1,5 +1,8 @@
 package com.mxk.org.web.user.action;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.mxk.org.common.base.MxkSessionAction;
+import com.mxk.org.common.domain.constant.MetooCertificateConstant;
 import com.mxk.org.common.domain.constant.MetooResultMessage;
 import com.mxk.org.common.domain.constant.MetooTitleConstant;
 import com.mxk.org.common.domain.constant.MxkConstant;
@@ -17,6 +21,7 @@ import com.mxk.org.common.service.MxkFileUploadService;
 import com.mxk.org.common.service.MxkGridFSFileUploadService;
 import com.mxk.org.common.service.MxkMailService;
 import com.mxk.org.common.service.MxkRedisCacheService;
+import com.mxk.org.common.util.ImageUtil;
 import com.mxk.org.common.util.PointUtil;
 import com.mxk.org.common.util.StringUtil;
 import com.mxk.org.common.util.ValidateUtil;
@@ -34,6 +39,7 @@ import com.mxk.org.web.subject.domain.SearchSubjectRequest;
 import com.mxk.org.web.subject.domain.SubjectsShowResponse;
 import com.mxk.org.web.subject.service.MxkSubjectJoinPeopleService;
 import com.mxk.org.web.subject.service.MxkSubjectService;
+import com.mxk.org.web.user.domain.CertificateRespone;
 import com.mxk.org.web.user.domain.CreateRelationShipRequest;
 import com.mxk.org.web.user.domain.LoadUserMessageRequest;
 import com.mxk.org.web.user.domain.LoadUserMessageRespone;
@@ -120,6 +126,7 @@ public class MxkUserAction extends MxkSessionAction {
 	@Autowired
 	private MxkSubjectJoinPeopleService subjectJoinPeopleService;
 	
+	private CertificateRespone certificateRespone;
 	private UserRegisterRequest userRegisterRequest;
 	private UserLoginRequest userLoginRequest;
 	private SubjectEntity currentSubjectEntity;
@@ -679,6 +686,19 @@ public class MxkUserAction extends MxkSessionAction {
 		return true;
 	}
 
+//	public String metooShowUserTitleDetail(){
+//		
+//	}
+	
+	//查看证书
+	public String metooShowUserCertificateView(){
+		uservo = super.getCurrentUserVO();
+		if(uservo != null){
+			certificateRespone = userTitleService.findUserAllCertificate(uservo.getId());
+		}
+		return SUCCESS;
+	}
+	
 	//升级
 	public String metooUpgradeUserTileAjax() {
 		uservo = super.getCurrentUserVO();
@@ -698,13 +718,26 @@ public class MxkUserAction extends MxkSessionAction {
 					uservo.setSubjectPoint(title.getSubjectPoint());
 					uservo.setSubjectTileImage(title.getSubjectTileImage());
 				}
+				//生产证书
+				ImageUtil util = new ImageUtil();
+				File file = util.pressCertificateText(uservo.getId(), type,uservo.getName(), uservo.getShareTitle(),Font.BOLD, 25,
+						Color.BLACK, 1);
+				String filename = "";
 				super.updateCurrentUserVO(uservo);
 				if(type==1){
+					filename = uservo.getId()+ title.getShareTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_SHARE.getString();
 					message = MxkConstant.AJAX_SUCCESS+"," + uservo.getShareTitle();
 				}else if(type==2){
+					filename = uservo.getId()+ title.getCommentTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_COMMENT.getString();
 					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getCommentTitle();
 				}else if(type==3){
+					filename = uservo.getId()+ title.getSubjectTileCode()+MetooCertificateConstant.METOO_CERTIFICATE_TITLE_SUBJECT.getString();
 					message = MxkConstant.AJAX_SUCCESS+","  + uservo.getSubjectTitle();
+				}
+				if(file != null){
+					gridFSFileUploadService.removeFile(filename, MxkGridFSFileUploadService.FILE_TYPE_JPG);
+					gridFSFileUploadService.uploadFile(file, filename, MxkGridFSFileUploadService.FILE_TYPE_JPG);
+					file.delete();
 				}
 			}else{
 				message = MetooResultMessage.UPGRADE_FAIL.getString();
@@ -895,6 +928,16 @@ public class MxkUserAction extends MxkSessionAction {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+
+	public CertificateRespone getCertificateRespone() {
+		return certificateRespone;
+	}
+
+
+	public void setCertificateRespone(CertificateRespone certificateRespone) {
+		this.certificateRespone = certificateRespone;
 	}
 	
 	

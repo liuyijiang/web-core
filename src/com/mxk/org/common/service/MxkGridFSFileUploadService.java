@@ -12,6 +12,8 @@ public interface MxkGridFSFileUploadService {
 	
 	public final static String FILE_TYPE_GIF = ".gif";
 	
+	public final static String FILE_TYPE_JPG = ".jpg";
+	
 	public final static String FILE_TYPE_XLS = ".xls";
 	
     public static final String IMAGE_SIZE_FULL = "_full";

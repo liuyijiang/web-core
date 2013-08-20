@@ -44,7 +44,7 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 	private String excelCollection;
 	
 	/**
-	 *  size Í¼Æ¬ÊÇ´óÍ¼»¹ÊÇÐ¡Í¼
+	 *  size Í¼Æ¬ï¿½Ç´ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ð¡Í¼
 	 */
 	@Override
 	public String uploadImage(File file, String id, String type, String size,double max) {
@@ -53,11 +53,11 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		DB db = mog.getCollection(mog.getCollectionName(UserEntity.class)).getDB();
 		db.requestStart(); 
 		try{
-			 //Ñ¹ËõÍ¼Æ¬
+			 //Ñ¹ï¿½ï¿½Í¼Æ¬
 			 weakZipImage(file,max);
-			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//Éè¶¨gridfsÊý¾Ý¿âÎ»ÖÃ
-			 gfsInput.setFilename(id + size + type);//Éè¶¨ÎÄ¼þÃû
-			 gfsInput.setContentType("png");//Éè¶¨ÎÄ¼þÀàÐÍ
+			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//ï¿½è¶¨gridfsï¿½ï¿½Ý¿ï¿½Î»ï¿½ï¿½
+			 gfsInput.setFilename(id + size + type);//ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½
+			 gfsInput.setContentType("png");//ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 			 gfsInput.save(); //save
 			 successName = id + size + type;
 		}catch(Exception e){
@@ -73,8 +73,8 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		DB db = mog.getCollection(mog.getCollectionName(UserEntity.class)).getDB();
 		db.requestStart(); 
 		try{
-			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//Éè¶¨gridfsÊý¾Ý¿âÎ»ÖÃ
-			 gfsInput.setFilename(id  + type);//Éè¶¨ÎÄ¼þÃû
+			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//ï¿½è¶¨gridfsï¿½ï¿½Ý¿ï¿½Î»ï¿½ï¿½
+			 gfsInput.setFilename(id  + type);//ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½
 			 gfsInput.save(); //save
 			 gfsInput.setContentType(getContentTypeName(type));
 			 successName = id + type;
@@ -94,6 +94,8 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		}else if(MxkGridFSFileUploadService.FILE_TYPE_XLS.equals(type)){
 			return excelCollection;
 		}else if(MxkGridFSFileUploadService.FILE_TYPE_GIF.equals(type)){
+			return imageCollection;
+		}else if(MxkGridFSFileUploadService.FILE_TYPE_JPG.equals(type)){
 			return imageCollection;
 		}else{
 			return null;
@@ -116,7 +118,7 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		}
 	}
 	
-	//Ç¿ÖÆÑ¹Ëõ Í¼Æ¬ÐÎ×´¸Ä±ä
+	//Ç¿ï¿½ï¿½Ñ¹ï¿½ï¿½ Í¼Æ¬ï¿½ï¿½×´ï¿½Ä±ï¿½
 	private void strongZipImage(File file, int width, int height) throws Exception{
 		 BufferedImage image = ImageIO.read(file);
 		 BufferedImage bfImage = new BufferedImage(width, height,
@@ -129,7 +131,7 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
          os.close();
 	}
 	
-	//ÈõÑ¹Ëõ Í¼Æ¬ÐÎ×´²»¸Ä±ä
+	//ï¿½ï¿½Ñ¹ï¿½ï¿½ Í¼Æ¬ï¿½ï¿½×´ï¿½ï¿½ï¿½Ä±ï¿½
 	private void weakZipImage(File file,double max){
 		try{
 			BufferedImage image = ImageIO.read(file);
@@ -184,11 +186,11 @@ public class MxkGridFSFileUploadServiceImpl implements MxkGridFSFileUploadServic
 		DB db = mog.getCollection(mog.getCollectionName(UserEntity.class)).getDB();
 		db.requestStart(); 
 		try{
-			 //Ñ¹ËõÍ¼Æ¬
+			 //Ñ¹ï¿½ï¿½Í¼Æ¬
 			 strongZipImage(file,witdh,height);
-			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//Éè¶¨gridfsÊý¾Ý¿âÎ»ÖÃ
-			 gfsInput.setFilename(id + size + type);//Éè¶¨ÎÄ¼þÃû
-			 gfsInput.setContentType("png");//Éè¶¨ÎÄ¼þÀàÐÍ
+			 gfsInput = new GridFS(db, getGridFsCollectionName(type)).createFile(file);//ï¿½è¶¨gridfsï¿½ï¿½Ý¿ï¿½Î»ï¿½ï¿½
+			 gfsInput.setFilename(id + size + type);//ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½
+			 gfsInput.setContentType("png");//ï¿½è¶¨ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 			 gfsInput.save(); //save
 			 successName = id + size + type;
 		}catch(Exception e){

@@ -300,6 +300,17 @@ public class MxkVisitorAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//額外信息
+	public String metooVistiorShowSubjectExtraView(){
+		uservo = super.getCurrentUserVO();
+		subjectEntity =  subjectService.findSubjectEntityById(target);
+		if(subjectEntity != null){
+			targetUserVO = super.getCachedUserVO(subjectEntity.getUserid());
+		}
+		return SUCCESS;
+	}
+	
+	
 	public String mxkVistiorShowSubjectDatailView(){
 		uservo = super.getCurrentUserVO();
 		subjectEntity =  subjectService.findSubjectEntityById(target);
