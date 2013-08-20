@@ -8,7 +8,7 @@
 <%-- 评论部分  --%>
 <body class="mxkbody mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
-<%@ include file="../public/visitor_subject_public_header.jsp"%> 
+<%@ include file="../public/visitor_subject_public_header.jsp"%>  
 <!-- part -->
 <c:if test="${!empty partShowResponse }">
  <div class="container">
