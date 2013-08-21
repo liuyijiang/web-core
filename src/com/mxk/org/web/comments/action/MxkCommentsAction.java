@@ -100,7 +100,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 			if(su == null){
 				return SUCCESS;
 			}
-			if(commentsService.checkHasBeenSetPrice(setPriceRequest.getSubjectid(), uservo.getId())){
+//			if(commentsService.checkHasBeenSetPrice(setPriceRequest.getSubjectid(), uservo.getId())){
 				SubjectPriceEntity entity = new SubjectPriceEntity();
 				entity.setCreateTime(StringUtil.dateToString(new Date(), null));
 				if(setPriceRequest.getMoney() < 1){
@@ -120,9 +120,9 @@ public class MxkCommentsAction extends MxkSessionAction {
 				}
 				userTitleService.updatePoint(uservo.getId(), MetooPointTypeConstant.METOO_POINT_TYPE_COMMENT, true, false);
 				message = MxkConstant.AJAX_SUCCESS;
-			}else{
-				message = MetooResultMessage.ACTION_REPEAT.getString();
-			}
+//			}else{
+//				message = MetooResultMessage.ACTION_REPEAT.getString();
+//			}
 		}
 		return SUCCESS;
 	}

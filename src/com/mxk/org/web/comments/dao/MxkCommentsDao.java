@@ -109,7 +109,7 @@ public class MxkCommentsDao {
 	
 	
 	public long findCountOfUserLikeEntity(String tragetid){
-		Query q = new Query(Criteria.where("tragetId").is(tragetid));
+		Query q = new Query(Criteria.where("targetId").is(tragetid));
 		long count = mog.count(q, UserLikeEntity.class);
 		if(count != 0){
 			return (count + pageSize - 1) / pageSize;
