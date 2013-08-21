@@ -31,6 +31,7 @@
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" /> 
 <link rel="stylesheet" type="text/css" href="assets/css/mxk.css" /> 
+<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 <!-- test -->
 <script type="text/javascript">
 var path = '<%=rootPath%>';
