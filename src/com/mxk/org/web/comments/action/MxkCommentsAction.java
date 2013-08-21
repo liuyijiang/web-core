@@ -32,6 +32,7 @@ import com.mxk.org.web.comments.domain.LoadCommentsRequest;
 import com.mxk.org.web.comments.domain.LoadCommentsRespone;
 import com.mxk.org.web.comments.domain.PageModelRequest;
 import com.mxk.org.web.comments.domain.PointInfoResponse;
+import com.mxk.org.web.comments.domain.PriceResponse;
 import com.mxk.org.web.comments.domain.SendGiftRequest;
 import com.mxk.org.web.comments.domain.SetPointRequest;
 import com.mxk.org.web.comments.domain.SetPriceRequest;
@@ -85,6 +86,7 @@ public class MxkCommentsAction extends MxkSessionAction {
 	private SetPriceRequest setPriceRequest;
 	private SetPointRequest setPointRequest;
 	private PointInfoResponse pointInfoResponse;
+	private PriceResponse priceResponse;
 	private UserVO uservo;
 	private String message;
 	private String traget;
@@ -126,8 +128,15 @@ public class MxkCommentsAction extends MxkSessionAction {
 	}
 	
 	//评价查询
-	public String metooFindSetPriceToSubjectByPage(){
-		return SUCCESS;
+	public String metooFindSetPriceToSubjectByPageAjax(){
+		if(pageModel != null){
+			priceResponse = new PriceResponse();
+			if(pageModel.getAllPage() == 0){
+				priceResponse.setAllpage(commentsService.findCountOfSubjectPriceEntity(pageModel.getTragetId()));
+			}
+			priceResponse.setList(commentsService.findSubjectPriceEntity(pageModel.getTragetId(), pageModel.getCurrentPage()));
+		}
+		return SUCCESS;	
 	}
 	
 	//送礼
@@ -559,6 +568,14 @@ public class MxkCommentsAction extends MxkSessionAction {
 
 	public void setPointInfoResponse(PointInfoResponse pointInfoResponse) {
 		this.pointInfoResponse = pointInfoResponse;
+	}
+
+	public PriceResponse getPriceResponse() {
+		return priceResponse;
+	}
+
+	public void setPriceResponse(PriceResponse priceResponse) {
+		this.priceResponse = priceResponse;
 	} 
 	
 }

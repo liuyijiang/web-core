@@ -40,7 +40,7 @@ public class MxkCommentsDao {
 	@Autowired
 	private MongoOperations mog; 
 	
-	public List<SubjectPriceEntity> s(String subjectid,int page){
+	public List<SubjectPriceEntity> findSubjectPriceEntity(String subjectid,int page){
 		Query q = new Query(Criteria.where("subjectid").is(subjectid));
 		q.sort().on("createTime", Order.DESCENDING);
 		q.limit(pageSize);
@@ -87,6 +87,7 @@ public class MxkCommentsDao {
 		}
 		return success;
 	}
+	
 	
 	public long findCountOfUserSetPoint(String tragetid){
 		Query q = new Query(Criteria.where("targetId").is(tragetid));
