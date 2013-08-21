@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * ·Ö²¼Ê½session »º´æ
+ * ï¿½Ö²ï¿½Ê½session ï¿½ï¿½ï¿½ï¿½
  * @author liuyijiang
  *
  */
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class MemcachSessionLoad {
 
 	@Value("${memcach.exp}")
-	private int exptime;//¹ýÆÚÊ±¼ä
+	private int exptime;//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	
 	@Autowired
 	@Qualifier("memcachedClient")
