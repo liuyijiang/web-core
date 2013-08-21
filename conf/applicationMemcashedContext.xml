@@ -11,7 +11,7 @@
    
 <!-- 	  <property name="servers" value="${memcach.servers},${memcach.servers2}"/> 集群 -->
 	<bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
-    <property name="servers" value="${memcach.servers},${memcach.servers2}"/>
+    <property name="servers" value="${memcach.servers}"/>
     <property name="protocol" value="BINARY"/>
     <property name="transcoder">
       <bean class="net.spy.memcached.transcoders.SerializingTranscoder">
