@@ -33,7 +33,7 @@
              <span class="muted"><small>正在努力加载...</small></span>
          </div>
          <div id="show_gift_div"></div>
-         <span id="show_gift_more" style="display:none" class="pull-right"><a href="javascript:;">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+         <span id="show_gift_more" style="display:none" class="pull-right"><a href="javascript:;" onclick="showloadgift(false)">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
       </div><!-- gift -->
       
       <div id="show_like_con" style="padding:5px;display:none" class="span12" >
@@ -42,7 +42,7 @@
              <span class="muted"><small>正在努力加载...</small></span>
          </div>
          <div id="show_like_div"></div>
-         <span id="show_like_more" class="pull-right"><a href="javascript:;">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+         <span id="show_like_more" style="display:none" class="pull-right"><a href="javascript:;" onclick="showloadlike(false)">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
       </div><!-- like -->
        
        <div id="show_point_con" style="padding:5px;display:none" class="span12" >
@@ -51,7 +51,7 @@
              <span class="muted"><small>正在努力加载...</small></span>
          </div>
          <div id="show_point_div"></div>
-         <span id="show_point_more"  class="pull-right"><a href="javascript:;">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+         <span id="show_point_more"  style="display:none" class="pull-right"><a href="javascript:;" onclick="showloadPoint(false)">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
       </div><!-- point -->
       
       <div id="show_price_con" style="padding:5px;display:none" class="span12" >
@@ -60,14 +60,12 @@
              <span class="muted"><small>正在努力加载...</small></span>
          </div>
          <div id="show_price_div"></div>
-         <span id="show_price_more"  class="pull-right"><a href="javascript:;">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+         <span id="show_price_more" style="display:none"  class="pull-right"><a href="javascript:;" onclick="showloadPrice(false)">加载更多</a>&nbsp; &nbsp;&nbsp; &nbsp;</span>
       </div><!-- price -->
        
-       
     </div>
-   
 </div>
-
+<br /><br /><br />
 
 <script type="text/javascript">
    var type = '${type}';
@@ -90,7 +88,7 @@
    
    function cleanlikediv(){
 	   $("#show_like_con").hide();
-	   pricepage = 1;
+	   likepage = 1;
 	   likeallpage = 0;
 	   $("#likediv").attr("class",""); 
    }
@@ -180,6 +178,11 @@
 	   		data: datas,
 	   		dataType : "json",
 	   		success : function(item) {
+	   			if(item.allpage > 1){
+	   				priceallpage = item.allpage;
+	   				$("#show_price_more").show();
+	   			}
+	   			pricepage = pricepage + 1;
 	   			$("#show_price_load").hide();
 	   			createPriceDiv(item.list);
 	   		  }
@@ -210,9 +213,10 @@
    		success : function(item) {
    			$("#show_gift_load").hide();
    			if(item.allpage > 1){
-   				giftpage = giftpage + 1;
+   				giftallpage = item.allpage;
    				$("#show_gift_more").show();
    			}
+   			giftpage = giftpage + 1;
    			createGiftDiv(item.list);
    		  }
 	  }); 
@@ -243,6 +247,11 @@
 	   		dataType : "json",
 	   		success : function(item) {
 	   		 $("#show_like_load").hide();
+		   		if(item.allpage > 1){
+		   			likeallpage = item.allpage;
+	   				$("#show_like_more").show();
+	   			}
+		   		likepage = likepage + 1;
 	   			createLikeDiv(item.list);
 	   		  }
 		  }); 
@@ -272,6 +281,11 @@
 	   		data: datas,
 	   		dataType : "json",
 	   		success : function(item) {
+	   			if(item.allpage > 1){
+	   				pointallpage = item.allpage;
+	   				$("#show_point_more").show();
+	   			}
+	   			pointpage = pointpage + 1;
 	   			$("#show_point_load").hide();
 	   			createPointDiv(item.list);
 	   		  }
