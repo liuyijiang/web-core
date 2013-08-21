@@ -93,6 +93,12 @@
             </result>  
         </action>
 		
+		<action name="findSetPriceToSubjectByPage" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+			method="metooFindSetPriceToSubjectByPageAjax">
+			<result type="json">
+				<param name="root">priceResponse</param>
+			</result>
+		</action>
 		
    </package>
    
