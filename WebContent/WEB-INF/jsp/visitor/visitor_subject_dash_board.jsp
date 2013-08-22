@@ -198,7 +198,7 @@
           </div>
      </div>
  </c:if>    
-
+ <%@ include file="../public/public_page_footer.jsp"%> 
 <%@ include file="../../../basefootinclude.jsp"%>
 <script type="text/javascript">
   function mouseover(id){
@@ -275,7 +275,9 @@
 		   		dataType : "json",
 		   		success : function(item) {
 		   			$('#loaddiv').hide();
-		 			page = page + 1;
+		   		    number = parseInt(page);
+		 			page = number + 1;
+		 			setfooterPage(page-1);
 		 			var list1 = item.subjectsShowResponse.list1;
 					var list2 = item.subjectsShowResponse.list2;
 					var list3 = item.subjectsShowResponse.list3;
@@ -336,6 +338,7 @@
 
  	//绑定事件
  	function bindScroll(){
+ 		setfooterallpage(allpage);
  	    $(window).bind("scroll", function(){ 
  	       showload();
  	    }); 

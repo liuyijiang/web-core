@@ -14,6 +14,9 @@
      <a class="btn btn-small" href="<%=rootPath %>/visitiorShowSubjectDashBorad">
 	   <i class="icon-th-large"></i>专题面板
 	 </a>
+	 <a class="btn btn-small btn-success" href="javascript:;" onclick="$('#actionbar_fastgo').show();">
+	   <i class="icon-external-link"></i>快速跳转
+	 </a>
 	 <a class="btn btn btn-danger btn-small" href="javascript:;" onclick="$('#actionbar_top10').show();showTop10('1');">
 	   <i class="icon-signal"></i>Top 10
 	 </a>
@@ -23,6 +26,24 @@
            &nbsp; &nbsp;  
        </span>
      </div>
+  </div>
+
+  <div id="actionbar_fastgo"  style="padding:5px;display:none;height:40px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+	  <div class="container" > 
+	         <div class="row">
+	          <div class="span11">
+		          <div class="input-append">
+	                 <input class="span2" id="fast_go_page" placeholder="去第几页" type="text">
+	                 <button class="btn" type="button" onclick="chagePage()">GO</button>
+	              </div>
+              </div>
+              <div class="span1">
+              <a class="pull-right" href="javascript:;" onclick="$('#actionbar_fastgo').hide();">
+                <i class="icon-remove-sign" ></i>
+              </a>
+              </div>
+              </div>
+	  </div>
   </div>
   
   <div id="actionbar_top10"  style="padding:5px;display:none;height:70px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
@@ -55,6 +76,15 @@
   
 </div>
 <script type="text/javascript">
+   function chagePage(){
+	   var fp = $("#fast_go_page").val();
+	   var regu = /^[-]{0,1}[0-9]{1,}$/;
+	   if (regu.test(fp.trim())) {
+		   page = fp;
+		   loadMore();
+	   }
+   }
+
    function showActionBar(actionbarshow){
 	   
 	   if(actionbarshow){

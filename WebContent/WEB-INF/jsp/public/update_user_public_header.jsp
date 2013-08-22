@@ -37,7 +37,7 @@
 	     <small><a href="javascript:;" onclick="showuserTitleModal()">更多头衔</a></small><br />
        <div style="height:3px"></div>
 	   <span><a class="btn btn-mini" href="<%=rootPath%>/showUserCertificate">证书x${uservo.eCret }</a></span>
-	   <span><a class="btn btn-mini">礼物x411</a></span>
+	   <span><a class="btn btn-mini" href="<%=rootPath%>/showUserGift">收到礼物</a></span>
 	  <div style="height:3px"></div>   
 	   <span class="muted">${uservo.info }</span>
 	   	<a class="btn btn-warning btn-mini" href="<%=rootPath%>/updateUserView">编辑</a></span>

@@ -21,7 +21,11 @@ function loadParts(id){
     });  
 }  
 </script>
+
 <div style="position:relative;" >
+<!--   <div id="pubLayer_Msg" class="pub_Pop_Style" style="width: 550px; height: 350px; position: fixed; margin: 0px; left: 399px; top: 10px; z-index:1; opacity: 1;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);"> -->
+<!-- </div> -->
+
  <div id="partsdivshow" style="display:none;height:100%;width:100%;position:absolute;z-index:1;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
       <div id="divheight"></div>
        <div id="londingprts" class="mxkdivmid" style="display:none" >
@@ -199,9 +203,11 @@ function loadParts(id){
      </div>
  </c:if>
  </div>
+ 
  <%@ include file="../public/public_page_footer.jsp"%> 
  <%@ include file="../../../basefootinclude.jsp"%>
  <script type="text/javascript">
+   
    var allpage = '${partShowResponse.allPage}'; //当加载页数超过总页数后不加载
    var page = 2;
    var isrun = false;
@@ -288,7 +294,9 @@ function loadParts(id){
 		   		dataType : "json",
 		   		success : function(item) {
 		   			$('#loaddiv').hide();
-		 			page = page + 1;
+		   		    number = parseInt(page);
+		 			page = number + 1;
+		 			setfooterPage(page-1);
 		 			var list1 = item.list1;
 					var list2 = item.list2;
 					var list3 = item.list3;
@@ -353,6 +361,7 @@ function loadParts(id){
 
 	//绑定事件
 	function bindScroll(){
+		setfooterallpage(allpage);
 	    $(window).bind("scroll", function(){ 
 	       showload();
 	    }); 

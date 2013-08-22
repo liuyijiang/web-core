@@ -8,52 +8,6 @@
 <body class="mxkbody  mxkbackgroud" onload="bindScroll()">
 <%@ include file="../public/user_page_header.jsp"%>
 <%@ include file="../public/update_user_subject_header.jsp"%> 
-<!-- <div class="container"> -->
-<!--   <div class="row"> -->
-<!--      <div class="span1"> -->
-<!--         <img class="img-polaroid border-radius"  style="height:60px;width:60px" -->
-<%--          src="<%=imgurl %>${currentSubjectEntity.faceimage }" > --%>
-<!--      </div> -->
-<!--      <div class="span11"> -->
-<!--         <span> -->
-<%--           <span style="font-size: 20px;"><strong>${currentSubjectEntity.name }</strong></span> --%>
-<%--              &nbsp;/&nbsp;<span class="muted">(<i class="icon-tags"></i>${currentSubjectEntity.tags }) --%>
-<%--                <c:choose> --%>
-<%--                 <c:when test="${currentSubjectEntity.type == 'PUBLIC'}"> --%>
-<!--                   <span class="label label-success"><i class="icon-hdd"></i>公开</span> -->
-<%--                 </c:when> --%>
-<%--                 <c:when test="${currentSubjectEntity.type == 'PRIVATE'}"> --%>
-<!--                    <span class="label label-important"> <i class="icon-lock"></i>私有</span> -->
-<%--                 </c:when> --%>
-<%--              </c:choose> --%>
-<!--            </span> -->
-<!--         </span> -->
-<!--         <span class="pull-right"> -->
-<!--            <a href="javascript:;" class="btn btn-info" onclick="showCreatePart()"><i class="icon-pushpin"></i>添加Part</a> -->
-<!--             <a class="btn btn-inverse" href="javascript:;" onclick="showCreateMaterial()"> -->
-<!--               <i class="icon-calendar "></i>材料列表 -->
-<!--             </a> -->
-<!--          </span> -->
-<!--         <br /> -->
-<%--         <span class="muted"><small>${currentSubjectEntity.info }</small></span><br /> --%>
-<%--         <span><i class="icon-time"></i>Create Time:${currentSubjectEntity.createTime }</span> --%>
-<!--         <span> -->
-<%--            <c:if test="${subjectExtraEntity.pdfUrl != '-' }"> --%>
-<%--               <a class="btn btn-mini" href="<%=pdf %>${subjectExtraEntity.pdfUrl}" target="_blank"><i class='icon-download-alt'></i>下载PDF</a> --%>
-<%--            </c:if> --%>
-<%--            <c:if test="${subjectExtraEntity.gifUrl != '-' }"> --%>
-<!--               <button class="btn btn-mini" onclick="showGifSubject()" ><i class="icon-picture"></i>查看GIF</button> -->
-<%--            </c:if> --%>
-<!--         </span> -->
-<!--              <div class="btn-group pull-right " > -->
-<%-- 			  <a href="<%=rootPath %>/subjectMessage" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a> --%>
-<%-- 			  <a href="<%=rootPath %>/subjectCommentsText"class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-comment-alt"></i>评论${currentSubjectEntity.comments }</a> --%>
-<%-- 			  <a class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-pushpin"></i>Parts${currentSubjectEntity.parts }</a> --%>
-<!-- 	        </div> -->
-<!--         <br /> -->
-<!--      </div> -->
-<!--   </div> -->
-<!--   <br /> -->
 <div class="container ">
 		<div class="navbar">
 			<div class="navbar-inner">
