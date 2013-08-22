@@ -187,6 +187,17 @@ public class MxkCommentsAction extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	public String metooFindUserAllGiftAjax(){
+		if(pageModel != null){
+			giftInfoResponse = new GiftInfoResponse();
+			if(pageModel.getAllPage() == 0){
+				giftInfoResponse.setAllpage(commentsService.findCountOfUserAllGift(pageModel.getTragetId()));
+			}
+			giftInfoResponse.setList(commentsService.findUserGiftEntity(pageModel.getTragetId(), pageModel.getCurrentPage()));
+		}
+		return SUCCESS;	
+	}
+	
 	//查看礼物
 	public String metooFindSendGiftByPageAjax(){
 		if(pageModel != null){

@@ -46,6 +46,15 @@ public class MxkCommentsService {
 	@Autowired
 	private MxkCommentsDao commentsDao;
 	
+	
+	public long findCountOfUserAllGift(String tragetid){
+		return commentsDao.findCountOfUserAllGift(tragetid);
+	}
+	
+	public List<UserGiftEntity> findUserGiftEntity(String tragetid,int page){
+		return commentsDao.findUserGiftEntity(tragetid,page);
+	}
+	
 	public long findCountOfSubjectPriceEntity(String tragetid){
 		return commentsDao.findCountOfSubjectPriceEntity(tragetid);
 	}

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mxk.org.common.domain.constant.MetooPointTypeConstant;
-import com.mxk.org.entity.PartEntity;
 import com.mxk.org.entity.UserCertificateEntity;
 import com.mxk.org.entity.UserTitleEntity;
 import com.mxk.org.web.user.dao.MetooUserCertificateDao;

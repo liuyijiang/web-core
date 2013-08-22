@@ -150,6 +150,12 @@ public class MxkUserAction extends MxkSessionAction {
 	private String target;//
 	private int type;
 	
+	//用户所有礼物
+	public String metooShowUserGiftView(){
+		uservo = super.getCurrentUserVO();
+		return SUCCESS;
+	}
+	
 	//刷新用户积分状态
 	public String metooRefreshUserStatusAjax(){
 		uservo = super.getCurrentUserVO();
@@ -178,7 +184,6 @@ public class MxkUserAction extends MxkSessionAction {
 		}
 		return SUCCESS;
 	}
-	
 	
 	//最新消息
 	public String mxkShowNewRssMessageView(){
@@ -692,7 +697,7 @@ public class MxkUserAction extends MxkSessionAction {
 //	}
 	
 	//查看证书
-	public String metooShowUserCertificateView(){
+	public String metooShowUserCertificateView(){ 
 		uservo = super.getCurrentUserVO();
 		if(uservo != null){
 			certificateRespone = userTitleService.findUserAllCertificate(uservo.getId());

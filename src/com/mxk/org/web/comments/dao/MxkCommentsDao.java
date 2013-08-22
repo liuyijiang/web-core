@@ -136,6 +136,25 @@ public class MxkCommentsDao {
 		}
 	}
 	
+	public long findCountOfUserAllGift(String tragetid){
+		Query q = new Query(Criteria.where("userid").is(tragetid));
+		long count = mog.count(q, UserGiftEntity.class);
+		if(count != 0){
+			return (count + pageSize - 1) / pageSize;
+		}else{
+			return 1;
+		}
+	}
+	
+	public List<UserGiftEntity> findUserGiftEntity(String tragetid,int page){
+		Query q = new Query(Criteria.where("userid").is(tragetid));
+		q.sort().on("sendGiftTime", Order.DESCENDING);//����
+		q.limit(pageSize);
+		q.skip(pageSize*(page - 1));
+		return mog.find(q, UserGiftEntity.class);
+	}
+	
+	
 	public List<UserGiftEntity> findUserGiftEntityByPage(String tragetid,int page){
 		Query q = new Query(Criteria.where("tragetId").is(tragetid));
 		q.sort().on("sendGiftTime", Order.DESCENDING);//����
