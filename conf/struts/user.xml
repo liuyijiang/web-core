@@ -14,6 +14,10 @@
 			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
         
+        <action name="showUserGift" class="com.mxk.org.web.user.action.MxkUserAction"
+            method="metooShowUserGiftView">
+            <result name="success" >/WEB-INF/jsp/user/user_gift.jsp</result>
+         </action>
         
          <action name="showUserCertificate" class="com.mxk.org.web.user.action.MxkUserAction"
             method="metooShowUserCertificateView">

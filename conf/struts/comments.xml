@@ -79,6 +79,13 @@
 			</result>
 		</action>
 		
+		<action name="findUserAllGift" class="com.mxk.org.web.comments.action.MxkCommentsAction"
+			method="metooFindUserAllGiftAjax">
+			<result type="json">
+				<param name="root">giftInfoResponse</param>
+			</result>
+		</action>
+		
 		<action name="findSetPointByPage" class="com.mxk.org.web.comments.action.MxkCommentsAction"
 			method="metooFindSetPointByPageAjax">
 			<result type="json">
