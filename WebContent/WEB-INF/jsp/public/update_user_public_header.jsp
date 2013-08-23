@@ -44,7 +44,13 @@
 	   <br />
 	   <div style="height:3px"></div>
         <span class="muted"><i class="icon-time"></i>Join Time:${uservo.createTime }</span>
-        <span class="pull-right">积分：${uservo.commentPoint+uservo.sharePoint+uservo.subjectPoint }</span>
+        <span class="pull-right muted">
+        <small>
+                             总积分${uservo.commentPoint+uservo.sharePoint+uservo.subjectPoint }
+             <span>|分享${uservo.sharePoint }</span>
+             <span>|评论${uservo.commentPoint }</span>
+             <span>|专题${uservo.subjectPoint }</span></small>
+        </span>
         <br />
 		<div style="height:3px"></div>
         <div class="btn-group" >
@@ -515,6 +521,8 @@ function chooseTags(tag){
     
     
     function upgradeUserTile(type){
+    	$("#upgrade_div").show();
+    	$("#upgrade_start").show();
     	$.ajax({
 	   		url : path + "/metooUpgradeUserTile",
 	   		type : "POST",
@@ -526,8 +534,12 @@ function chooseTags(tag){
 	 			if(item.indexOf(",") != -1){
 	 				var arr = item.split(",");
 	 				$("#upgrade_message").html(arr[1]);
+	 				$("#upgrade_start").hide();
+	 				$("#upgrade_complete").show();
 	 				show_upgrade_ok_div();
 	 			}else{
+	 				$("#upgrade_start").hide();
+	 				$("#upgrade_div").hide();
 	 				alert(item);
 	 			}
 	   		 }

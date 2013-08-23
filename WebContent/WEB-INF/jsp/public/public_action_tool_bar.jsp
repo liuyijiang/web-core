@@ -3,7 +3,11 @@
   <div id="upgrade_div" style="padding:5px;display:none;height:1000px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
      <br /><br /><br /><br /><br /><br /><br /><br />
      <center>
-       <font color="#FFFFFF" style="font-size:40px">恭喜升级为：<span id="upgrade_message"></span></font>
+       <font id="upgrade_complete" color="#FFFFFF" style="display:none;font-size:40px">恭喜升级为：<span id="upgrade_message"></span></font>
+       <div id="upgrade_start" style="display:none;">
+          <img id="" src="<%=domain %>loadingred.gif">
+           <span class="muted"><small>正在升级中...</small></span>
+       </div>
      </center>
   </div>
   <div id="actionbar"  style="padding:5px;display:none;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
