@@ -43,6 +43,7 @@ public class ImageUtil {
 	    int fontStyle, int fontSize, Color color, float alpha) {
 		String dateStr = StringUtil.dateToString(new Date(), "yyyy-MM-dd");//日期
 		File filecopy = new File(SAVE_PATH+userid+POINT_JPG);
+//		File filecopy = new File("D://test3.jpg");
 		try {
 			File file = new File(getResource(type));
 			Image image = ImageIO.read(file);
@@ -52,14 +53,15 @@ public class ImageUtil {
 					BufferedImage.TYPE_INT_RGB);  //TYPE_INT_ARGB  TYPE_INT_RGB
 			Graphics2D g = bufferedImage.createGraphics();
 			g.drawImage(image, 0, 0, width, height, null);
-			g.setFont(new Font("宋体", fontStyle, fontSize));
+			g.setFont(new Font("黑体", fontStyle, fontSize));
 			g.setColor(color);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
 					alpha));
-			g.drawString(username, 110, 240);
-			g.drawString(title, 150, 400);
-			g.setFont(new Font("宋体", fontStyle, 20));
-			g.drawString(dateStr,380,730);
+			g.drawString(username, 40, 160);
+			g.setFont(new Font("黑体", fontStyle, 30));
+			g.drawString(title, 80, 300);
+			g.setFont(new Font("黑体", fontStyle, 16));
+			g.drawString(dateStr,210,470);
 			g.dispose();
 			ImageIO.write(bufferedImage, PICTRUE_FORMATE_JPG, filecopy);
 		} catch (Exception e) {
@@ -69,7 +71,7 @@ public class ImageUtil {
 	}
 	
 	private String getResource(int i){
-		String file = "";
+		String file = null;
 		switch (i) {
 		case 1:
 			file = ImageUtil.class.getResource("/certificatetemple/share.jpg").getPath();
@@ -89,7 +91,7 @@ public class ImageUtil {
 		//pressImage("C://pic//jpg", "C://pic//test.gif", 5000, 5000, 0f);
 		ImageUtil t = new ImageUtil();
 		//String tfilePath = t.getClass().getResource("/certificatetemple/share.jpg").getPath();
-		t.pressCertificateText("ss",1, "寂寞的4角錢","草根级分享家", Font.BOLD, 25,
+		t.pressCertificateText("ss",3, "寂寞的4角錢","草根级分享家", Font.BOLD, 15,
 				Color.BLACK, 1);
 		System.out.println("ok");
 	}

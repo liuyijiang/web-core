@@ -17,9 +17,14 @@ public enum MetooTitleConstant {
 			return "制作家";
 		}
 	},
-	METOO_TITLE_RUMEN_IMAGE(){
+	METOO_TITLE_NO_IMAGE(){
 		public String getString() {
-			return "rumen.png";
+			return "wenhao.png";
+		}
+	},
+	METOO_TITLE_NO(){
+		public String getString() {
+			return "暂无";
 		}
 	},
 	METOO_TITLE_RUMEN(){

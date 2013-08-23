@@ -396,19 +396,19 @@ public class MxkUserAction extends MxkSessionAction {
 				//创建用户头衔
 				UserTitleEntity title = new UserTitleEntity();
 				title.setCommentPoint(0);
-				title.setCommentTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setCommentTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_COMMENT_SUFFIX_NAME.getString());
+				title.setCommentTileCode(MetooTitleConstant.METOO_TITLE_NO.toString());
+			    title.setCommentTitle(MetooTitleConstant.METOO_TITLE_NO.getString());
 			    title.setLevel(1);
 			    title.setLevelPoint(10);//注册加10分
 			    title.setSharePoint(0);
-			    title.setShareTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setShareTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SHARE_SUFFIX_NAME.getString());
+			    title.setShareTileCode(MetooTitleConstant.METOO_TITLE_NO.toString());
+			    title.setShareTitle(MetooTitleConstant.METOO_TITLE_NO.getString());
 			    title.setSubjectPoint(0);
-			    title.setSubjectTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
-			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SUBJECT_SUFFIX_NAME.getString());
-			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
-			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
-			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
+			    title.setSubjectTileCode(MetooTitleConstant.METOO_TITLE_NO.toString());
+			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_NO.getString());
+			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
+			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
+			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
 			    title.setUserid(vo.getId());
 			    userTitleService.saveUserTitle(title);
 			   //缓存头衔
@@ -726,7 +726,7 @@ public class MxkUserAction extends MxkSessionAction {
 				}
 				//生产证书
 				ImageUtil util = new ImageUtil();
-				File file = util.pressCertificateText(uservo.getId(), type,uservo.getName(), uservo.getShareTitle(),Font.BOLD, 25,
+				File file = util.pressCertificateText(uservo.getId(),type,uservo.getName(), uservo.getShareTitle(),Font.BOLD, 25,
 						Color.BLACK, 1);
 				String filename = "";
 				String titleName = "";
