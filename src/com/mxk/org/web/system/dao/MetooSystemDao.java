@@ -59,9 +59,9 @@ public class MetooSystemDao {
 			    title.setSubjectTileCode(MetooTitleConstant.METOO_TITLE_RUMEN.toString());
 			    title.setSubjectTitle(MetooTitleConstant.METOO_TITLE_RUMEN.getString()+MetooTitleConstant.METOO_TITLE_SUBJECT_SUFFIX_NAME.getString());
 			    title.setUserid(en.getId());
-			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
-			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
-			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_RUMEN_IMAGE.getString());
+			    title.setShareTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
+			    title.setSubjectTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
+			    title.setCommentTileImage(MetooTitleConstant.METOO_TITLE_NO_IMAGE.getString());
 			    mog.save(title);
 			}
 		}

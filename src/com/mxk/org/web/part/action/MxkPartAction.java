@@ -80,6 +80,14 @@ public class MxkPartAction extends MxkSessionAction {
 	private PartNewCommentsResponse partNewCommentsResponse;
 	private SubjectNewPartsVO subjectNewPartsVO;
 	private PartsAllResponse partsAllResponse;
+	private String type;
+	
+	//查看part
+	public String metooPartsExtraInfoView(){
+		uservo = super.getCurrentUserVO();
+		partEntity = partService.findPartEntityById(target);
+		return SUCCESS;
+	}
 	
 	//查看
 	public String mxkShowPartSilderView(){
@@ -419,6 +427,14 @@ public class MxkPartAction extends MxkSessionAction {
 
 	public void setPartsAllResponse(PartsAllResponse partsAllResponse) {
 		this.partsAllResponse = partsAllResponse;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	
