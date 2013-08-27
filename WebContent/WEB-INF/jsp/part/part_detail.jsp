@@ -184,6 +184,17 @@
 		</ul>
      </div>
      </c:if>
+     
+     
+      <div class="span3">
+       <ul class="thumbnails">
+          <li class="span3 mxkplan mxkshadow">
+            <div class="thumbnail" >
+              <a class="btn " href="<%=rootPath %>/partsExtraInfo?target=${partEntity.id }&type=1" ><i class="icon-gift"></i>送礼</a>
+              <a class="btn " href="<%=rootPath %>/partsExtraInfo?target=${partEntity.id }&type=2" ><i class="icon-heart"></i>喜欢</a>
+              <a class="btn " href="<%=rootPath %>/partsExtraInfo?target=${partEntity.id }&type=3" ><i class="icon-trophy"></i>评分</a>
+    </div></li></ul></div>
+     
   </div>
 </div>
 <br />
@@ -250,6 +261,11 @@
 	      <a href="javascript:;" class="btn" onclick="closeCreatePart()">关闭</a>
 	    </div>
     </div>
+    
+    
+    
+    
+    
       <script type="text/javascript">
 
 	 function showCreatePart(){
