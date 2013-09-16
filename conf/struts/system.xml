@@ -19,6 +19,16 @@
             <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
          </action>
          
+         <action name="systemLoadTitle" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooSystemLoadTitle">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+         
+         <action name="systemLoadGift" class="com.mxk.org.web.system.MetooSystemAction"
+            method="metooSystemLoadGift">
+            <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
+         </action>
+         
          <action name="createUserTitle" class="com.mxk.org.web.system.MetooSystemAction"
             method="metooCreateUserTitle">
             <result name="success" >/WEB-INF/jsp/system/addgift.jsp</result>
