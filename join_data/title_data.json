@@ -1,125 +1,97 @@
-/* 0 */
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
   "name" : "入门级",
   "code" : "METOO_TITLE_RUMEN",
   "image" : "rumen.png",
-  "point" : NumberLong(10)
+  "point" : 10
 }
-
-/* 1 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
   "name" : "草根级",
   "code" : "METOO_TITLE_CAOGEN",
   "image" : "caogen.png",
-  "point" : NumberLong(30)
+  "point" : 30
 }
-
-/* 2 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
   "name" : "屌丝级",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
-  "point" : NumberLong(50)
+  "code" : "METOO_TITLE_DIAOSI",
+  "image" : "diaosi.png",
+  "point" : 50
 }
-
-/* 3 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_CHUJI",
+  "image" : "chuji.png",
   "name" : "初级",
-  "point" : NumberLong(50)
+  "point" : 100
 }
-
-/* 4 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_ZHONGJI",
+  "image" : "zhongji.png",
   "name" : "中级",
-  "point" : NumberLong(50)
+  "point" : 200
 }
-
-/* 5 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_GAOJI",
+  "image" : "gaoji.png",
   "name" : "高级",
-  "point" : NumberLong(50)
+  "point" : 300
 }
-
-/* 6 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_TONGPAI",
+  "image" : "tongpai.png",
   "name" : "铜牌",
-  "point" : NumberLong(50)
+  "point" : 500
 }
-
-/* 7 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_YINPAI",
+  "image" : "yinpai.png",
   "name" : "银牌",
-  "point" : NumberLong(50)
+  "point" : 700
 }
-
-/* 8 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_JINPAI",
+  "image" : "jinpai.png",
   "name" : "金牌",
-  "point" : NumberLong(50)
+  "point" : 1000
 }
-
-/* 9 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_ZHUANJIA",
+  "image" : "zhuanjia.png",
   "name" : "专家级",
-  "point" : NumberLong(50)
+  "point" : 1500
 }
-
-/* 10 */
+,
 {
-  "_class" : "com.mxk.org.entity.TitleEntity",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
+  "code" : "METOO_TITLE_FASAO",
+  "image" : "fasao.png",
   "name" : "发烧级",
-  "point" : NumberLong(50)
+  "point" : 2200
 }
-
-/* 11 */
+,
 {
-  "_id" : ObjectId("520e34af7f696e1a1c78d628"),
   "name" : "钻石级",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
-  "point" : NumberLong(50)
+  "code" : "METOO_TITLE_ZUANSHI",
+  "image" : "zuanshi.png",
+  "point" : 3000
 }
-
-/* 12 */
+,
 {
-  "_id" : ObjectId("520e34b37f696e1a1c78d629"),
   "name" : "骨灰级",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
-  "point" : NumberLong(50)
+  "code" : "METOO_TITLE_GUHUI",
+  "image" : "guhui.png",
+  "point" : 40000
 }
-
-/* 13 */
+,
 {
-  "_id" : ObjectId("520e34b77f696e1a1c78d62a"),
   "name" : "天使级",
-  "code" : "METOO_TITLE_",
-  "image" : "caogen.png",
-  "point" : NumberLong(50)
+  "code" : "METOO_TITLE_TIANSHI",
+  "image" : "tianshi.png",
+  "point" : 5500
 }
