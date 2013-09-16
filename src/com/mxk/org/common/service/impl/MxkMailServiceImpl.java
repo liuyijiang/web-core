@@ -109,4 +109,27 @@ public class MxkMailServiceImpl implements MxkMailService {
 		return true;
 	}
 
+	@Override
+	public void sendSimpleMail(String toMail, String info ,String title) {
+		try{
+		   String uuid = UUID.randomUUID().toString();
+		   msload.setCachData(uuid,toMail);//uuid is key mail is value
+		   MxkMailSenderInfo mailInfo = new MxkMailSenderInfo();    
+		   mailInfo.setMailServerHost(host);    
+	       mailInfo.setMailServerPort("25");    
+	       mailInfo.setValidate(true);    
+	       mailInfo.setUserName(hostmail);    
+	       mailInfo.setPassword(hostpassword);//�����������    
+	       mailInfo.setFromAddress(hostmail);    
+	       mailInfo.setToAddress(toMail);    
+	      // mailInfo.setSubject(title);    
+	       mailInfo.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));
+	       mailInfo.setContent("<h1>"+ info +"</h1>");
+	       MxkSimpleMailSender m = new MxkSimpleMailSender();
+	       m.sendHtmlMail(mailInfo);
+	    }catch(Exception e){
+	       log.error(e.getMessage(), e);
+	    }		
+	}
+
 }

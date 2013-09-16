@@ -4,6 +4,8 @@ import java.util.Map;
 
 public interface MxkMailService {
   
+	public void sendSimpleMail(String toMail,String info,String title);
+	
 	public void sendMail(String toMail);
 	
 	public boolean checkUuid(String toMail,String uuid,boolean delete);

@@ -50,6 +50,7 @@ public class MxkMailPushListener implements MessageListener {
 			  UserVO vo = redisCacheService.getUserVO(target);
 			  if(vo != null){
 				  pushUserRegistSuccessMail(vo); 
+				  pushMailToMe(vo.getName());//
 			  }
 		  }else if(MxkConstant.MAIL_TYPE_WEEKPUSH.equals(type)){
 			  pushAllUserPartsCollectHigh();
@@ -59,6 +60,10 @@ public class MxkMailPushListener implements MessageListener {
 			log.error(e.getMessage(),e);
 	   }   
 		
+	}
+	
+	private void pushMailToMe(String name){
+		mailService.sendSimpleMail("liuyijiang3430@qq.com",name,"新用户注册");
 	}
 	
 	private void pushUserRegistSuccessMail(UserVO vo){
