@@ -40,7 +40,7 @@
 	   <span><a class="btn btn-mini" href="<%=rootPath%>/showUserGift">收到礼物</a></span>
 	  <div style="height:3px"></div>   
 	   <span class="muted">${uservo.info }</span>
-	   	<a class="btn btn-warning btn-mini" href="<%=rootPath%>/updateUserView">编辑</a></span>
+	   	<a class="btn btn-warning btn-mini" href="<%=rootPath%>/updateUserView">编辑</a>
 	   <br />
 	   <div style="height:3px"></div>
         <span class="muted"><i class="icon-time"></i>Join Time:${uservo.createTime }</span>
@@ -54,7 +54,7 @@
         <br />
 		<div style="height:3px"></div>
         <div class="btn-group" >
-		          <a href="/userIndex" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-hdd"></i>Parts3</a>
+		          <a href="<%=rootPath%>/userIndex" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-hdd"></i>Parts3</a>
 				  <a href="<%=rootPath%>/userIndex" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-hdd"></i>专题${uservo.subject }</a>
 				  <a href="<%=rootPath%>/userFoucsView" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>关注${uservo.focus }</a>
 				  <a href="<%=rootPath%>/userFollowersView" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-group"></i>粉丝${uservo.followors }</a>
