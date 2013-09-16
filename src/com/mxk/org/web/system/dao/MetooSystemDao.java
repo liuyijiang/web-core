@@ -1,6 +1,13 @@
 package com.mxk.org.web.system.dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.List;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -33,6 +40,55 @@ public class MetooSystemDao {
 	
 	public void createGift(GiftEntity entity){
 		mog.save(entity);
+	}
+	
+	public void systemLoadGift(){
+		try{
+		File file = new File("E:\\json\\gift_data.json"); 
+	    BufferedReader reader = null; 
+	     //System.out.println("以行为单位读取文件内容，一次读一整行："); 
+	    reader =new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+	     //reader = new BufferedReader(new FileReader(file),"UTF-8"); 
+	     String tempString = null; 
+	     StringBuffer sb = new StringBuffer();
+	     //一次读入一行，直到读入null为文件结束
+	     while ((tempString = reader.readLine()) != null) { 
+	    	 sb.append(tempString);
+	     } 
+	     System.out.println(sb.toString());
+	     reader.close();  
+	    // JSONObject  jsonObj  = JSONObject.fromObject(sb.toString());
+	    //得到A对象""
+	     JSONArray arrayA =  JSONArray.fromObject("[" + sb.toString() + "]"); 
+	    //JSONArray arrayA= jsonObj.getJSONArray(sb.toString());
+	    for(int i=0;i<arrayA.size();i++){
+	    	GiftEntity a = (GiftEntity) JSONObject.toBean((JSONArray.fromObject(arrayA.toString()).getJSONObject(i)),GiftEntity.class);
+	    	mog.save(a);
+	    }
+	   }catch(Exception e){
+		e.printStackTrace();
+	  }
+	}
+	
+	public void systemLoadTitle(){
+		try{
+			File file = new File("E:\\json\\title_data.json"); 
+		    BufferedReader reader = null; 
+		    reader =new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+		    String tempString = null; 
+		    StringBuffer sb = new StringBuffer();
+		     while ((tempString = reader.readLine()) != null) { 
+		    	 sb.append(tempString);
+		     } 
+		     reader.close();  
+		     JSONArray arrayA =  JSONArray.fromObject("[" + sb.toString() + "]"); 
+		     for(int i=0;i<arrayA.size();i++){
+		     TitleEntity a = (TitleEntity) JSONObject.toBean((JSONArray.fromObject(arrayA.toString()).getJSONObject(i)),TitleEntity.class);
+		     mog.save(a);
+		    }
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	//创建头衔

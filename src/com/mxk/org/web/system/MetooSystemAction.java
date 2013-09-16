@@ -63,7 +63,17 @@ public class MetooSystemAction  extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
+	//加载json数据 更新数据使用
+	public String metooSystemLoadTitle(){
+		dao.systemLoadTitle();
+		return SUCCESS;
+	}
 
+	public String metooSystemLoadGift(){
+		dao.systemLoadGift();
+		return SUCCESS;
+	}
+	
 	//更新所有用户的parts数量1
 	public String metooUpdateUserParts(){
 		dao.updateUserParts();
