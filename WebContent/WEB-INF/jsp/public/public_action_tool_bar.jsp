@@ -10,7 +10,7 @@
        </div>
      </center>
   </div>
-  <div id="actionbar"  style="padding:5px;display:none;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+  <div id="actionbar"  style="padding:5px;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
      <div class="container">
      <a class="btn btn-small" href="<%=rootPath %>/partDashBoard">
 	   <i class="icon-th"></i>Parts面板
@@ -25,11 +25,31 @@
 	   <i class="icon-signal"></i>Top 10
 	 </a>
      <a href="http://weibo.com/u/1841004522" target="_blank" class="btn btn-warning btn-small"><i class="icon-weibo"></i>官方微博</a>
+      <a class="btn btn btn-info btn-small" href="javascript:;" onclick="$('#actionbar_appload').show();">
+	   <i class="icon-mobile-phone"></i>app下载
+	 </a>
       <span class="pull-right">
         <a href="javascript:;" onclick="showActionBar(false)"><i class="icon-remove-sign" ></i></a>
            &nbsp; &nbsp;  
        </span>
      </div>
+  </div>
+
+  <div id="actionbar_appload"  style="padding:2px;display:none;height:40px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+	  <div class="container" > 
+	         <div class="row">
+	          <div class="span11">
+	              <span class="muted"><strong>手机app下载</strong></span>&nbsp; &nbsp; 
+	              <a target="_blank" href="http://www.waileecn.com/metoo/assets/app/metoo_app_ios_0.1.ipa" class="btn  btn-success"><i class="icon-apple"></i>ios</a>
+		          <a target="_blank" href="http://www.waileecn.com/metoo/assets/app/metoo_app_0.1.apk" class="btn  btn-info "><i class="icon-android"></i>android</a>
+              </div>
+              <div class="span1">
+              <a class="pull-right" href="javascript:;" onclick="$('#actionbar_appload').hide();">
+                <i class="icon-remove-sign" ></i>
+              </a>
+              </div>
+              </div>
+	  </div>
   </div>
 
   <div id="actionbar_fastgo"  style="padding:5px;display:none;height:40px;width:100%; background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
