@@ -18,6 +18,7 @@ public class MetooSystemAction  extends MxkSessionAction {
 	private MetooSystemDao dao;
 	
 	private GiftEntity giftEntity;
+	private String key;
 	
 	public String metooAddGiftView(){
 		return SUCCESS;
@@ -63,32 +64,43 @@ public class MetooSystemAction  extends MxkSessionAction {
 		return SUCCESS;
 	}
 	
-	//加载json数据 更新数据使用
+	//加载json数据 更新数据使用 use
 	public String metooSystemLoadTitle(){
-		dao.systemLoadTitle();
+		if("liuan".equals(key)){
+			//dao.systemLoadTitle();
+		}
 		return SUCCESS;
 	}
 
+	//use
 	public String metooSystemLoadGift(){
-		dao.systemLoadGift();
+		if("liuan".equals(key)){
+		//dao.systemLoadGift();
+		}
 		return SUCCESS;
 	}
 	
 	//更新所有用户的parts数量1
 	public String metooUpdateUserParts(){
-		dao.updateUserParts();
+		if("liuan".equals(key)){
+		//dao.updateUserParts();
+		}
 		return SUCCESS;
 	}
 	
 	//2
 	public String metooCreateUserTitle(){
-		dao.systemCreateUserTitle();
+		if("liuan".equals(key)){
+		//dao.systemCreateUserTitle();
+		}
 		return SUCCESS;
 	}
 	
 	//3
 	public String metooUpdateUserTitle(){
-		dao.systemUpdateUserTitle();
+		if("liuan".equals(key)){
+		//dao.systemUpdateUserTitle();
+		}
 		return SUCCESS;
 	}
 	
@@ -110,6 +122,14 @@ public class MetooSystemAction  extends MxkSessionAction {
 
 	public void setGiftEntity(GiftEntity giftEntity) {
 		this.giftEntity = giftEntity;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 	
 	

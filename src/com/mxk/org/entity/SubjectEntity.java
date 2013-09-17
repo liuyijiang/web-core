@@ -41,6 +41,8 @@ public class SubjectEntity implements Serializable {
 	private int likes;
 	private int highPoint;
 	private double highMoney;
+	private int pointtimes;
+	private int moneytimes;
 	
 	public String getId() {
 		return id;
@@ -167,6 +169,18 @@ public class SubjectEntity implements Serializable {
 	}
 	public void setQrcodeImage(String qrcodeImage) {
 		this.qrcodeImage = qrcodeImage;
+	}
+	public int getPointtimes() {
+		return pointtimes;
+	}
+	public void setPointtimes(int pointtimes) {
+		this.pointtimes = pointtimes;
+	}
+	public int getMoneytimes() {
+		return moneytimes;
+	}
+	public void setMoneytimes(int moneytimes) {
+		this.moneytimes = moneytimes;
 	}
 
 }

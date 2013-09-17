@@ -119,7 +119,25 @@ public class MetooUserTitleDao {
 		return success;
 	}
 	
-	
+//	private TitleEntity getUserMatchTitleEntity(List<TitleEntity> list,int point,String type){
+//		if(MetooPointTypeConstant.METOO_POINT_TYPE_PART.equals(type)){
+//			for (TitleEntity t : list) {
+//				if(){
+//					
+//				}else if(){
+//					
+//				}else if(){
+//					
+//				}else if(){
+//					
+//				}else if(){
+//					
+//				}else if(){
+//					
+//				}
+//			}
+//		}
+//	}
 	
 	
 	

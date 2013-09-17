@@ -44,7 +44,7 @@ public class MetooSystemDao {
 	
 	public void systemLoadGift(){
 		try{
-		File file = new File("E:\\json\\gift_data.json"); 
+		File file = new File("/json/gift_data.json"); 
 	    BufferedReader reader = null; 
 	     //System.out.println("以行为单位读取文件内容，一次读一整行："); 
 	    reader =new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
@@ -72,7 +72,7 @@ public class MetooSystemDao {
 	
 	public void systemLoadTitle(){
 		try{
-			File file = new File("E:\\json\\title_data.json"); 
+			File file = new File("/json/title_data.json"); 
 		    BufferedReader reader = null; 
 		    reader =new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 		    String tempString = null; 

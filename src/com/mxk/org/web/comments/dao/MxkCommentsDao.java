@@ -78,6 +78,7 @@ public class MxkCommentsDao {
 				if(su.getHighMoney() < entity.getMoney()){
 					Update u = new Update();
 					u.set("highMoney", entity.getMoney());
+					u.inc("moneytimes", 1);
 					mog.updateMulti(q, u, SubjectEntity.class);
 				}
 			}
@@ -188,6 +189,7 @@ public class MxkCommentsDao {
 				if(entity.getPoint() > pe.getHighPoint()){
 					Update up = new Update();
 					up.set("highPoint", entity.getPoint());
+					up.inc("highPointTime", 1);
 					mog.updateMulti(q, up, PartEntity.class);
 				}
 			}else if(MxkConstant.SUBJECT.equals(entity.getTargetType())){
@@ -195,6 +197,7 @@ public class MxkCommentsDao {
 				if(entity.getPoint() > sub.getHighPoint()){
 					Update up = new Update();
 					up.set("highPoint", entity.getPoint());
+					up.inc("pointtimes", 1);
 					mog.updateMulti(q, up, SubjectEntity.class);
 				}
 			}

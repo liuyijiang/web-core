@@ -40,6 +40,7 @@ public class PartEntity implements Serializable {
 	private int gifts;
 	private int likes;
 	private int highPoint;
+	private int highPointTime;//评分次数
 	
 	public String getId() {
 		return id;
@@ -154,6 +155,12 @@ public class PartEntity implements Serializable {
 	}
 	public void setHighPoint(int highPoint) {
 		this.highPoint = highPoint;
+	}
+	public int getHighPointTime() {
+		return highPointTime;
+	}
+	public void setHighPointTime(int highPointTime) {
+		this.highPointTime = highPointTime;
 	}
 	
 	
