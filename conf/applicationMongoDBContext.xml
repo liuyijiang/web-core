@@ -7,7 +7,10 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
  
 <!-- 	<mongo:mongo host="192.168.1.102" port="27017" /> -->
-	<mongo:db-factory dbname="${mongodb.dbname}"  host="${mongodb.host}" port="${mongodb.port}" />
+<!-- 	<mongo:db-factory dbname="${mongodb.dbname}"  host="${mongodb.host}" port="${mongodb.port}" /> -->
+ 
+    <mongo:db-factory dbname="${mongodb.dbname}"  host="${mongodb.host}" port="${mongodb.port}"
+	 password="${mongodb.password}" username="${mongodb.username}" />
  
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

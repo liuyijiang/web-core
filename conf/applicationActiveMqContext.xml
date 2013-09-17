@@ -15,8 +15,8 @@
                 <property name="brokerURL">
                     <value>${activemq.host}</value>
                 </property>
-<!--                 <property name="userName" value="system" ></property>   -->
-<!--                 <property name="password" value="liuyij" ></property> -->
+                <property name="userName" value="webmxkmq" ></property>  
+                <property name="password" value="webmqxtla" ></property>
 <!--                 <property name="useAsyncSend" value="true"/>  -->
             </bean>
         </property>
