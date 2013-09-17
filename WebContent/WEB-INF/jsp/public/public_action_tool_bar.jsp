@@ -10,7 +10,7 @@
        </div>
      </center>
   </div>
-  <div id="actionbar"  style="padding:5px;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
+  <div id="actionbar"  style="display:none;padding:5px;height:40px;width:100%;background-image: url(http://www.waileecn.com/mxk/assets/mxkimage/probg.png);" >
      <div class="container">
      <a class="btn btn-small" href="<%=rootPath %>/partDashBoard">
 	   <i class="icon-th"></i>Parts面板
