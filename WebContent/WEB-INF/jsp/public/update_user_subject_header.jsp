@@ -61,7 +61,7 @@
         <span class="muted"><i class="icon-time"></i>Join Time:${currentSubjectEntity.createTime }</span><br />
 		<div style="height:3px"></div>
           <div class="btn-group btn-mini" >
-			  <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartSilderView">
+			  <a class="btn btn-mini" href="<%=rootPath %>/visitorShowPartSilderView?target=${currentSubjectEntity.id}">
 				<i class="icon-expand "></i>幻灯播放
 			  </a>
 			 <a href="<%=rootPath %>/subjectMessage" class="btn btn-mini" style="font-family:Microsoft YaHei;"><i class="icon-rss"></i>订阅${currentSubjectEntity.attention }</a>

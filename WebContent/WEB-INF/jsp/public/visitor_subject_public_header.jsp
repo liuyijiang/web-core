@@ -47,7 +47,7 @@
 			<div style="height: 3px"></div>
 			<div class="btn-group btn-mini ">
 				<a class="btn btn-mini"
-					href="<%=rootPath%>/visitorShowPartSilderView"> <i
+					href="<%=rootPath%>/visitorShowPartSilderView?target=${subjectEntity.id}"> <i
 					class="icon-expand "></i>幻灯播放
 				</a>
 				<button class="btn btn-mini" style="font-family: Microsoft YaHei;">
