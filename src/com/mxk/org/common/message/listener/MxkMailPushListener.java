@@ -63,7 +63,7 @@ public class MxkMailPushListener implements MessageListener {
 	}
 	
 	private void pushMailToMe(String name){
-		mailService.sendSimpleMail("liuyijiang3430@qq.com",name,"新用户注册");
+		mailService.sendSimpleMail("liuyijiang3430@qq.com",name,"新用户注册-web");
 	}
 	
 	private void pushUserRegistSuccessMail(UserVO vo){
